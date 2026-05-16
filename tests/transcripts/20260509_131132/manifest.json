@@ -1,0 +1,24 @@
+{
+  "createdAt": "2026-05-09T10:11:32.680Z",
+  "mode": "offline",
+  "data": "synthetic_data\\generated\\nordea_5users_2025.json",
+  "runDir": "C:\\Users\\karip\\projects\\nordea-savings-hackathon\\tests\\transcripts\\20260509_131132",
+  "users": [
+    {
+      "userId": "U004",
+      "firstName": "Pekka",
+      "fullName": "Pekka Leinonen",
+      "markdownTranscript": "C:\\Users\\karip\\projects\\nordea-savings-hackathon\\tests\\transcripts\\20260509_131132\\U004_pekka.md",
+      "jsonTranscript": "C:\\Users\\karip\\projects\\nordea-savings-hackathon\\tests\\transcripts\\20260509_131132\\U004_pekka.json",
+      "evaluation": {
+        "introducedNora": true,
+        "avoidedAgeQuestion": true,
+        "investmentHookEarly": true,
+        "trustLedgerWhenRecommending": true,
+        "approvalGatePresent": true,
+        "memoryUpdatesPresent": true,
+        "oneQuestionStyle": true
+      }
+    }
+  ]
+}

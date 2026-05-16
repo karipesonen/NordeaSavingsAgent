@@ -1,0 +1,98 @@
+{
+  "createdAt": "2026-05-09T10:42:16.060Z",
+  "mode": "offline",
+  "data": "synthetic_data\\generated\\nordea_5users_2025.json",
+  "runDir": "C:\\Users\\karip\\projects\\nordea-savings-hackathon\\tests\\transcripts\\20260509_134216",
+  "users": [
+    {
+      "userId": "U003",
+      "firstName": "Aino",
+      "fullName": "Aino Mäkinen",
+      "markdownTranscript": "C:\\Users\\karip\\projects\\nordea-savings-hackathon\\tests\\transcripts\\20260509_134216\\U003_aino.md",
+      "jsonTranscript": "C:\\Users\\karip\\projects\\nordea-savings-hackathon\\tests\\transcripts\\20260509_134216\\structured\\U003_aino.json",
+      "evaluation": {
+        "introducedNora": true,
+        "avoidedAgeQuestion": true,
+        "investmentHookEarly": true,
+        "trustLedgerWhenRecommending": true,
+        "approvalGatePresent": true,
+        "memoryUpdatesPresent": true,
+        "oneQuestionStyle": true,
+        "noRepeatedNoraResponses": true,
+        "noRepeatedUserResponses": true
+      }
+    },
+    {
+      "userId": "U004",
+      "firstName": "Pekka",
+      "fullName": "Pekka Leinonen",
+      "markdownTranscript": "C:\\Users\\karip\\projects\\nordea-savings-hackathon\\tests\\transcripts\\20260509_134216\\U004_pekka.md",
+      "jsonTranscript": "C:\\Users\\karip\\projects\\nordea-savings-hackathon\\tests\\transcripts\\20260509_134216\\structured\\U004_pekka.json",
+      "evaluation": {
+        "introducedNora": true,
+        "avoidedAgeQuestion": true,
+        "investmentHookEarly": true,
+        "trustLedgerWhenRecommending": true,
+        "approvalGatePresent": true,
+        "memoryUpdatesPresent": true,
+        "oneQuestionStyle": true,
+        "noRepeatedNoraResponses": true,
+        "noRepeatedUserResponses": true
+      }
+    },
+    {
+      "userId": "U001",
+      "firstName": "Emma",
+      "fullName": "Emma Virtanen",
+      "markdownTranscript": "C:\\Users\\karip\\projects\\nordea-savings-hackathon\\tests\\transcripts\\20260509_134216\\U001_emma.md",
+      "jsonTranscript": "C:\\Users\\karip\\projects\\nordea-savings-hackathon\\tests\\transcripts\\20260509_134216\\structured\\U001_emma.json",
+      "evaluation": {
+        "introducedNora": true,
+        "avoidedAgeQuestion": true,
+        "investmentHookEarly": true,
+        "trustLedgerWhenRecommending": true,
+        "approvalGatePresent": true,
+        "memoryUpdatesPresent": true,
+        "oneQuestionStyle": true,
+        "noRepeatedNoraResponses": true,
+        "noRepeatedUserResponses": true
+      }
+    },
+    {
+      "userId": "U002",
+      "firstName": "Mikael",
+      "fullName": "Mikael Korhonen",
+      "markdownTranscript": "C:\\Users\\karip\\projects\\nordea-savings-hackathon\\tests\\transcripts\\20260509_134216\\U002_mikael.md",
+      "jsonTranscript": "C:\\Users\\karip\\projects\\nordea-savings-hackathon\\tests\\transcripts\\20260509_134216\\structured\\U002_mikael.json",
+      "evaluation": {
+        "introducedNora": true,
+        "avoidedAgeQuestion": true,
+        "investmentHookEarly": true,
+        "trustLedgerWhenRecommending": true,
+        "approvalGatePresent": true,
+        "memoryUpdatesPresent": true,
+        "oneQuestionStyle": true,
+        "noRepeatedNoraResponses": true,
+        "noRepeatedUserResponses": true
+      }
+    },
+    {
+      "userId": "U005",
+      "firstName": "Sofia",
+      "fullName": "Sofia Nieminen",
+      "markdownTranscript": "C:\\Users\\karip\\projects\\nordea-savings-hackathon\\tests\\transcripts\\20260509_134216\\U005_sofia.md",
+      "jsonTranscript": "C:\\Users\\karip\\projects\\nordea-savings-hackathon\\tests\\transcripts\\20260509_134216\\structured\\U005_sofia.json",
+      "evaluation": {
+        "introducedNora": true,
+        "avoidedAgeQuestion": true,
+        "investmentHookEarly": true,
+        "trustLedgerWhenRecommending": true,
+        "approvalGatePresent": true,
+        "memoryUpdatesPresent": true,
+        "oneQuestionStyle": true,
+        "noRepeatedNoraResponses": true,
+        "noRepeatedUserResponses": true
+      }
+    }
+  ]
+}

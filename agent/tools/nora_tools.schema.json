@@ -1,0 +1,358 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Nora Tool Contracts",
+  "description": "Tool contracts for the Nora main-agent vertical slice. These can be implemented as deterministic local functions for the demo.",
+  "tools": [
+    {
+      "name": "read_user_memory",
+      "purpose": "Load Nora's compact personalization memory for the current user.",
+      "input_schema": {"type": "object", "required": ["user_id"], "properties": {"user_id": {"type": "string"}}},
+      "output_schema_ref": "../memory_schema.json",
+      "risk": "May contain personal profile notes; do not expose raw memory to other users."
+    },
+    {
+      "name": "update_user_memory",
+      "purpose": "Save explicit or inferred memory updates after a Nora turn.",
+      "input_schema": {
+        "type": "object",
+        "required": ["user_id", "updates"],
+        "properties": {
+          "user_id": {"type": "string"},
+          "updates": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["field", "value", "source", "confidence"],
+              "properties": {
+                "field": {"type": "string"},
+                "value": {},
+                "source": {"type": "string", "enum": ["explicit_user", "bank_context", "financial_snapshot", "inferred_from_conversation"]},
+                "confidence": {"type": "string", "enum": ["low", "medium", "high"]}
+              }
+            }
+          }
+        }
+      },
+      "output_schema": {"type": "object", "properties": {"saved": {"type": "boolean"}, "memory_version": {"type": "string"}}},
+      "risk": "Do not save raw transaction history or shame-based labels."
+    },
+    {
+      "name": "get_financial_snapshot",
+      "purpose": "Summarize synthetic banking data into income, available money, recurring expenses, subscriptions, and upcoming risks.",
+      "input_schema": {"type": "object", "required": ["user_id"], "properties": {"user_id": {"type": "string"}, "period": {"type": "string", "default": "current_month"}}},
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "monthly_income_estimate": {"type": "number"},
+          "available_this_month": {"type": "number"},
+          "safe_to_save_estimate": {"type": "number"},
+          "currency": {"type": "string"},
+          "recurring_expenses_detected": {"type": "array"},
+          "upcoming_risks": {"type": "array"},
+          "confidence": {"type": "string", "enum": ["low", "medium", "high"]}
+        }
+      },
+      "risk": "Snapshot is an estimate; Nora must label assumptions."
+    },
+    {
+      "name": "create_recurring_expense_table",
+      "purpose": "Create a user-readable monthly/recurring expenses table when relevant to a plan or user question.",
+      "input_schema": {"type": "object", "required": ["recurring_expenses"], "properties": {"recurring_expenses": {"type": "array"}, "currency": {"type": "string", "default": "EUR"}}},
+      "output_schema": {"type": "object", "properties": {"markdown_table": {"type": "string"}, "monthly_total": {"type": "number"}}},
+      "risk": "Do not frame subscriptions as shameful; suggest review, not automatic cancellation."
+    },
+    {
+      "name": "create_goal_plan",
+      "purpose": "Legacy wrapper for drafting a savings/investment plan toward a personal financial goal. Prefer goal_savings_plan_agent for feasibility-aware planning.",
+      "input_schema": {
+        "type": "object",
+        "required": ["goal_name", "target_amount", "currency", "financial_snapshot"],
+        "properties": {
+          "goal_name": {"type": "string"},
+          "target_amount": {"type": "number"},
+          "currency": {"type": "string", "default": "EUR"},
+          "target_date": {"type": ["string", "null"]},
+          "financial_snapshot": {"type": "object"},
+          "risk_mode": {"type": "string", "enum": ["savings_only", "education_first", "investment_draft"]}
+        }
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "goal_id": {"type": "string"},
+          "monthly_contribution": {"type": "number"},
+          "timeline_months": {"type": "integer"},
+          "feasibility": {"type": "string", "enum": ["easy", "workable", "tight", "unrealistic", "not_recommended"]},
+          "plan_summary": {"type": "string"}
+        }
+      },
+      "risk": "Must not guarantee outcomes or ignore safety buffer."
+    },
+    {
+      "name": "goal_savings_plan_agent",
+      "purpose": "Feasibility-aware sub-agent/tool that turns a goal and financial snapshot into savings plan options, timeline estimates, adjustment levers, Trust Ledger inputs, and memory updates.",
+      "input_schema": {
+        "type": "object",
+        "required": ["user_id", "goal_name", "financial_snapshot"],
+        "properties": {
+          "user_id": {"type": "string"},
+          "goal_name": {"type": "string"},
+          "target_amount": {"type": ["number", "null"]},
+          "target_date": {"type": ["string", "null"]},
+          "currency": {"type": "string", "default": "EUR"},
+          "risk_comfort": {"type": ["string", "null"], "enum": ["low", "medium", "high", null]},
+          "financial_snapshot": {"type": "object"},
+          "user_memory": {"type": "object"}
+        }
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "agent": {"const": "goal_savings_plan"},
+          "goal_id": {"type": "string"},
+          "goal_name": {"type": "string"},
+          "target_amount": {"type": ["number", "null"]},
+          "recommended_option": {"type": ["object", "null"]},
+          "options": {"type": "array"},
+          "overall_feasibility": {"type": "string", "enum": ["easy", "workable", "tight", "unrealistic", "not_recommended"]},
+          "requires_adjustment": {"type": "boolean"},
+          "levers": {"type": "array"},
+          "recommendation_card": {"type": "object"},
+          "trust_ledger_input": {"type": "object"},
+          "memory_updates": {"type": "array"},
+          "safety_flags": {"type": "array"}
+        }
+      },
+      "risk": "Must flag unrealistic timelines and must not create approval-ready recommendations for goals that require adjustment."
+    },
+    {
+      "name": "expense_review_agent",
+      "purpose": "Recurring-expense review sub-agent/tool that creates a safe review table, chooses one category to inspect, returns Trust Ledger inputs, and prevents automatic cancellation framing.",
+      "input_schema": {
+        "type": "object",
+        "required": ["user_id", "recurring_expenses"],
+        "properties": {
+          "user_id": {"type": "string"},
+          "recurring_expenses": {"type": "array"},
+          "selected_category": {"type": ["string", "null"]},
+          "latest_user_message": {"type": ["string", "null"]},
+          "currency": {"type": "string", "default": "EUR"},
+          "financial_snapshot": {"type": "object"},
+          "goal_plan": {"type": "object"},
+          "user_memory": {"type": "object"}
+        }
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "agent": {"const": "expense_review"},
+          "suggested_category": {"type": ["string", "null"]},
+          "markdown_table": {"type": "string"},
+          "suggested_review_options": {"type": "array"},
+          "possible_savings_opportunity": {"type": "object"},
+          "review_habit": {"type": "object"},
+          "trust_ledger_input": {"type": "object"},
+          "memory_updates": {"type": "array"},
+          "safety_flags": {"type": "array"}
+        }
+      },
+      "risk": "Must never shame spending, imply guaranteed savings, or recommend automatic cancellation; approval is required before any cancellation or money movement."
+    },
+    {
+      "name": "action_approval_agent",
+      "purpose": "Demo-only action lifecycle sub-agent/tool that creates, edits, approves, declines, pauses, resumes, and logs draft actions without executing real transfers, investments, cancellations, or sharing.",
+      "input_schema": {
+        "type": "object",
+        "required": ["user_id", "operation", "action_type"],
+        "properties": {
+          "user_id": {"type": "string"},
+          "operation": {"type": "string", "enum": ["create_draft", "edit_draft", "request_approval", "approve", "decline", "cancel", "pause", "resume"]},
+          "action_type": {"type": "string", "enum": ["savings_transfer_draft", "investment_draft", "expense_review_habit", "subscription_cancellation_request", "shared_goal_draft", "goal_contribution_request"]},
+          "action_id": {"type": ["string", "null"]},
+          "existing_action": {"type": "object"},
+          "amount": {"type": ["number", "null"]},
+          "currency": {"type": "string", "default": "EUR"},
+          "cadence": {"type": "string", "default": "monthly"},
+          "goal_id": {"type": ["string", "null"]},
+          "goal_name": {"type": ["string", "null"]},
+          "category": {"type": ["string", "null"]},
+          "source_agent": {"type": "string"},
+          "allowed_people": {"type": "array"},
+          "education_completed": {"type": "boolean"},
+          "prerequisites": {"type": "object"},
+          "user_memory": {"type": "object"}
+        }
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "agent": {"const": "action_approval"},
+          "operation": {"type": "string"},
+          "action_type": {"type": "string"},
+          "execution_mode": {"const": "demo_memory_only"},
+          "action": {"type": "object"},
+          "approval_request": {"type": ["object", "null"]},
+          "action_log_event": {"type": "object"},
+          "memory_updates": {"type": "array"},
+          "safety_flags": {"type": "array"}
+        }
+      },
+      "risk": "Always demo-memory-only. Must never imply real transfer, investment purchase, subscription cancellation, or sharing execution."
+    },
+    {
+      "name": "draft_monthly_savings_action",
+      "purpose": "Prepare a recurring savings transfer draft that requires user approval.",
+      "input_schema": {"type": "object", "required": ["amount", "currency", "cadence", "goal_id"], "properties": {"amount": {"type": "number"}, "currency": {"type": "string"}, "cadence": {"type": "string"}, "goal_id": {"type": "string"}}},
+      "output_schema": {"type": "object", "properties": {"draft_id": {"type": "string"}, "approval_required": {"type": "boolean"}, "summary": {"type": "string"}}},
+      "risk": "Never execute without explicit confirmation."
+    },
+    {
+      "name": "draft_monthly_investment_action",
+      "purpose": "Prepare a first-investment habit draft after safety checks and education framing.",
+      "input_schema": {"type": "object", "required": ["amount", "currency", "cadence", "readiness_stage"], "properties": {"amount": {"type": "number"}, "currency": {"type": "string"}, "cadence": {"type": "string"}, "readiness_stage": {"type": "string"}}},
+      "output_schema": {"type": "object", "properties": {"draft_id": {"type": "string"}, "approval_required": {"type": "boolean"}, "education_required_first": {"type": "boolean"}, "summary": {"type": "string"}}},
+      "risk": "Education/planning only; no specific fund/security recommendation in MVP."
+    },
+    {
+      "name": "education_risk_lesson_agent",
+      "purpose": "Blocker-aware education sub-agent/tool that turns the user's current investment blocker into one short learning card, one check question, next topic, resource stub, and memory updates.",
+      "input_schema": {
+        "type": "object",
+        "required": ["user_id"],
+        "properties": {
+          "user_id": {"type": "string"},
+          "current_blocker": {"type": ["string", "null"], "enum": ["risk", "confusion", "amount_feels_too_small", "not_getting_around_to_it", null]},
+          "risk_comfort": {"type": ["string", "null"], "enum": ["low", "medium", "high", null]},
+          "preferred_format": {"type": ["string", "null"], "enum": ["article", "podcast", "quiz", "short_card", "video", null]},
+          "goal_plan": {"type": "object"},
+          "user_memory": {"type": "object"}
+        }
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "agent": {"const": "education_risk_lesson"},
+          "topic": {"type": "string"},
+          "format": {"type": "string"},
+          "estimated_duration_seconds": {"type": "integer"},
+          "lesson_card": {"type": "object"},
+          "check_questions": {"type": "array"},
+          "next_topic": {"type": "string"},
+          "resource_stub": {"type": "object"},
+          "memory_updates": {"type": "array"},
+          "safety_flags": {"type": "array"}
+        }
+      },
+      "risk": "Education only; must not recommend products, imply guaranteed returns, or tell the user to invest now."
+    },
+    {
+      "name": "learning_progress_agent",
+      "purpose": "Lightweight confidence-journey sub-agent/tool that tracks what the user has seen, explored, or applied without turning Nora into a course.",
+      "input_schema": {
+        "type": "object",
+        "required": ["user_id", "education_lesson"],
+        "properties": {
+          "user_id": {"type": "string"},
+          "education_lesson": {"type": "object"},
+          "latest_user_message": {"type": ["string", "null"]},
+          "progress_event": {"type": ["string", "null"]},
+          "goal_plan": {"type": "object"},
+          "expense_review": {"type": "object"},
+          "investment_blocker": {"type": ["string", "null"]},
+          "user_memory": {"type": "object"}
+        }
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "agent": {"const": "learning_progress"},
+          "stage": {"type": "string", "enum": ["money_confidence", "investment_paths"]},
+          "domain": {"type": "string"},
+          "topic": {"type": "string"},
+          "internal_status": {"type": "string", "enum": ["unseen", "seen", "explored", "applied"]},
+          "visible_status": {"type": "string"},
+          "progress_delta": {"type": "number"},
+          "next_domain_suggestion": {"type": ["string", "null"]},
+          "user_facing_summary": {"type": "string"},
+          "memory_updates": {"type": "array"},
+          "safety_flags": {"type": "array"}
+        }
+      },
+      "risk": "Do not expose raw internal statuses in Nora visible copy; progress is confidence tracking, not investment advice or school pressure."
+    },
+    {
+      "name": "snapshot_insight_agent",
+      "purpose": "Synthesis sub-agent/tool that turns user memory, financial snapshot, and specialist-agent outputs into a compact snapshot, one next best action, recap, or memory review prompt.",
+      "input_schema": {
+        "type": "object",
+        "required": ["user_id", "mode"],
+        "properties": {
+          "user_id": {"type": "string"},
+          "mode": {"type": "string", "enum": ["current_snapshot", "next_best_action", "memory_review", "monthly_recap"]},
+          "bank_context": {"type": "object"},
+          "user_memory": {"type": "object"},
+          "financial_snapshot": {"type": "object"},
+          "goal_plan": {"type": "object"},
+          "expense_review": {"type": "object"},
+          "education_lesson": {"type": "object"},
+          "learning_progress": {"type": "object"},
+          "recommendation_history": {"type": "array"},
+          "conversation_so_far": {"type": "array"}
+        }
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "agent": {"const": "snapshot_insight"},
+          "mode": {"type": "string"},
+          "snapshot_card": {"type": "object"},
+          "insights": {"type": "array"},
+          "next_best_action": {"type": "object"},
+          "memory_review": {"type": "object"},
+          "trust_ledger_input": {"type": "object"},
+          "memory_updates": {"type": "array"},
+          "safety_flags": {"type": "array"}
+        }
+      },
+      "risk": "Must not silently update memory or replace specialist agents. Nora must confirm uncertain memory with the user before saving corrections."
+    },
+    {
+      "name": "write_trust_ledger",
+      "purpose": "Create the transparent reasoning record attached to any Nora recommendation.",
+      "input_schema": {
+        "type": "object",
+        "required": ["recommendation", "data_used", "assumptions", "confidence", "boundaries"],
+        "properties": {
+          "recommendation": {"type": "string"},
+          "data_used": {"type": "array", "items": {"type": "string"}},
+          "assumptions": {"type": "array", "items": {"type": "string"}},
+          "confidence": {"type": "string", "enum": ["low", "medium", "high"]},
+          "boundaries": {"type": "array", "items": {"type": "string"}}
+        }
+      },
+      "output_schema": {"type": "object", "properties": {"ledger_id": {"type": "string"}, "entry": {"type": "object"}}},
+      "risk": "Ledger should expose limits; never be fake certainty theater."
+    },
+    {
+      "name": "request_user_approval",
+      "purpose": "Ask explicit approval before recurring transfers, investment drafts, cancellations, or sharing.",
+      "input_schema": {"type": "object", "required": ["action_type", "summary", "risk_note"], "properties": {"action_type": {"type": "string"}, "summary": {"type": "string"}, "risk_note": {"type": "string"}}},
+      "output_schema": {"type": "object", "properties": {"approval_request_id": {"type": "string"}, "status": {"type": "string", "enum": ["pending", "approved", "edited", "declined"]}}},
+      "risk": "Approval must be clear and revocable."
+    },
+    {
+      "name": "suggest_education_resource",
+      "purpose": "Stub for the later education system: recommend a learning topic/resource format based on the user's current gap.",
+      "input_schema": {"type": "object", "required": ["topic", "preferred_format"], "properties": {"topic": {"type": "string"}, "preferred_format": {"type": ["string", "null"]}}},
+      "output_schema": {"type": "object", "properties": {"topic": {"type": "string"}, "format": {"type": "string"}, "status": {"type": "string", "enum": ["stub", "available"]}}},
+      "risk": "Do not pretend live retrieval exists if only the stub is implemented."
+    },
+    {
+      "name": "create_shared_goal_draft",
+      "purpose": "Roadmap stub for shared financial goals with selected people and explicit permissions.",
+      "input_schema": {"type": "object", "required": ["goal_id", "allowed_people", "visibility"], "properties": {"goal_id": {"type": "string"}, "allowed_people": {"type": "array", "items": {"type": "string"}}, "visibility": {"type": "string"}}},
+      "output_schema": {"type": "object", "properties": {"draft_id": {"type": "string"}, "approval_required": {"type": "boolean"}, "status": {"type": "string", "enum": ["roadmap_stub", "pending_approval"]}}},
+      "risk": "Never share balances, transactions, or portfolio details by default."
+    }
+  ]
+}

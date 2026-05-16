@@ -1,0 +1,17 @@
+{
+  "name": "nordea-savings-hackathon",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "import:data": "powershell -ExecutionPolicy Bypass -File tests/import_nordea_workbook.ps1 -Workbook synthetic_data/source/nordea_5users_2025.xlsx -OutFile synthetic_data/generated/nordea_5users_2025.json",
+    "test:goal-plan": "node tests/test_goal_savings_plan_agent.mjs",
+    "test:education": "node tests/test_education_risk_lesson_agent.mjs",
+    "test:expense": "node tests/test_expense_review_agent.mjs",
+    "test:learning": "node tests/test_learning_progress_agent.mjs",
+    "test:snapshot": "node tests/test_snapshot_insight_agent.mjs",
+    "test:action": "node tests/test_action_approval_agent.mjs",
+    "test:nora:offline": "node tests/run_nora_simulation.mjs --data synthetic_data/generated/nordea_5users_2025.json --users all --turns 11 --mode offline",
+    "test:nora:openrouter": "node tests/run_nora_simulation.mjs --data synthetic_data/generated/nordea_5users_2025.json --users all --turns 11 --mode openrouter"
+  }
+}

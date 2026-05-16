@@ -1,0 +1,27 @@
+{
+  "name": "nora-main-agent",
+  "description": "User-facing orchestrator for the Nordea Savings hackathon demo. Nora leads first-time savers/investors through goal planning, safe saving habits, first-investment readiness, lightweight memory checks, snapshots, and Trust Ledger explanations.",
+  "system_prompt_path": "system_prompt.md",
+  "provider": "openrouter",
+  "model": "anthropic/claude-opus-4.7",
+  "fallback_models": [
+    "openai/gpt-5",
+    "google/gemini-2.5-pro"
+  ],
+  "parameters": {
+    "temperature": 0.45,
+    "max_tokens": 5000
+  },
+  "runtime": {
+    "output_mode": "structured_json_with_visible_response",
+    "requires_user_approval_for_money_movement": true,
+    "uses_synthetic_data_only": true,
+    "memory_schema_path": "memory_schema.json",
+    "tool_contracts_path": "tools/nora_tools.schema.json"
+  },
+  "notes": [
+    "Use a strong general/reasoning model for the demo because Nora has to balance tone, financial guardrails, memory, and tool orchestration.",
+    "For a cheaper live demo, swap model to a fast general-purpose OpenRouter model after validating the scripted path.",
+    "Nora is the first vertical slice: orchestrator plus deterministic specialist and synthesis tools, not a large multi-agent backend yet."
+  ]
+}

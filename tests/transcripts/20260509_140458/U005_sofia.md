@@ -1,0 +1,682 @@
+# Nora Simulation: Sofia Nieminen (U005)
+
+- Mode: offline
+- Nora model: anthropic/claude-opus-4.7
+- Simulated user model: openai/gpt-5-mini
+- Age: 26
+- Occupation: Nurse
+- Nordea tier: Grower
+- Savings goal: iPhone + travel fund
+- Risk profile: low
+- Safe-to-save estimate: EUR 175/month
+
+## Evaluation
+
+- introducedNora: PASS
+- avoidedAgeQuestion: PASS
+- investmentHookEarly: PASS
+- trustLedgerWhenRecommending: PASS
+- approvalGatePresent: PASS
+- memoryUpdatesPresent: PASS
+- goalPlanAgentUsed: PASS
+- unrealisticGoalFlagged: PASS
+- oneQuestionStyle: PASS
+- noRepeatedNoraResponses: PASS
+- noRepeatedUserResponses: PASS
+
+## Conversation
+
+### Turn 1 - Nora
+
+Hi, I'm Nora. I help you make sense of saving and investing one step at a time. You can ask me anything, anytime - even the questions that feel too basic.
+
+I can already see the basics from your Nordea context, so I won't make you fill out a personality quiz disguised as banking.
+
+I can also see you haven't started investing with us yet. Very normal. Future-you question: what is the main thing holding you back right now - risk, confusion, feeling like the amount is too small, or just not getting around to it yet?
+
+**Memory Updates**
+```json
+[
+  {
+    "field": "investment_journey.has_nordea_investments",
+    "value": false,
+    "source": "bank_context",
+    "confidence": "high"
+  },
+  {
+    "field": "user.age",
+    "value": 26,
+    "source": "bank_context",
+    "confidence": "high"
+  }
+]
+```
+
+### Turn 1 - Simulated User
+
+I think it is a mix of risk and not knowing where to start. I would prefer something simple.
+
+_Internal reason: Sofia is low-risk and practical._
+
+### Turn 2 - Nora
+
+That is a very workable starting point. Also, we are not doing dramatic investing energy today.
+
+Future-you does not need you to become an investing person overnight. They need one tiny habit you understand well enough to keep.
+
+Based on your current snapshot, I would start by checking whether EUR 175/month could be safe without touching essentials. Want me to show the simple monthly table behind that number?
+
+**Memory Updates**
+```json
+[
+  {
+    "field": "investment_journey.first_investment_blockers",
+    "value": [
+      "risk"
+    ],
+    "source": "explicit_user",
+    "confidence": "high"
+  },
+  {
+    "field": "investment_journey.readiness_stage",
+    "value": "curious",
+    "source": "inferred_from_conversation",
+    "confidence": "medium"
+  }
+]
+```
+
+### Turn 2 - Simulated User
+
+Yes, show me the table first. I want to see where the number comes from.
+
+_Internal reason: Persona wants transparency before approval._
+
+### Turn 3 - Nora
+
+Here is the boring-but-powerful version.
+
+Your income and recurring expenses suggest a small monthly habit could fit, but I would keep the first draft intentionally modest: EUR 25/month toward iPhone + travel fund.
+
+Future-you is not asking for heroics. They are asking for a system. I can draft this as a monthly savings habit first, and only connect it to investing after you understand the risk side. Want to approve the starter habit, adjust the target/timeline, or keep it as a learning plan for now?
+
+**Recommendation Card**
+```json
+{
+  "title": "Start a monthly habit for iPhone + travel fund",
+  "summary": "Draft EUR 25/month as a savings-first habit. Investment education comes before any investment action.",
+  "amount": 25,
+  "currency": "EUR",
+  "cadence": "monthly",
+  "status": "draft_requires_approval"
+}
+```
+
+**Goal/Savings Plan Agent**
+```json
+{
+  "agent": "goal_savings_plan",
+  "goal_id": "U005-iphone-travel-fund",
+  "goal_name": "iPhone + travel fund",
+  "target_amount": null,
+  "target_date": null,
+  "currency": "EUR",
+  "safe_to_save_estimate": 175,
+  "recommended_option_id": "gentle",
+  "recommended_option": {
+    "id": "gentle",
+    "label": "Gentle",
+    "monthly_contribution": 25,
+    "timeline_months": null,
+    "timeline_label": null,
+    "feasibility": "easy",
+    "tradeoff": "Lowest friction; best when the user is still building confidence."
+  },
+  "options": [
+    {
+      "id": "gentle",
+      "label": "Gentle",
+      "monthly_contribution": 25,
+      "timeline_months": null,
+      "timeline_label": null,
+      "feasibility": "easy",
+      "tradeoff": "Lowest friction; best when the user is still building confidence."
+    },
+    {
+      "id": "balanced",
+      "label": "Balanced",
+      "monthly_contribution": 55,
+      "timeline_months": null,
+      "timeline_label": null,
+      "feasibility": "workable",
+      "tradeoff": "More visible progress while staying below the safe-to-save estimate."
+    },
+    {
+      "id": "accelerated",
+      "label": "Accelerated",
+      "monthly_contribution": 95,
+      "timeline_months": null,
+      "timeline_label": null,
+      "feasibility": "tight",
+      "tradeoff": "Fastest sustainable draft; should be reviewed before approval."
+    }
+  ],
+  "overall_feasibility": "easy",
+  "requires_adjustment": false,
+  "levers": [],
+  "nora_summary": "EUR 25/month is a reasonable first draft for iPhone + travel fund.",
+  "recommendation_card": {
+    "title": "Start a monthly habit for iPhone + travel fund",
+    "summary": "Draft EUR 25/month as a savings-first habit. Investment education comes before any investment action.",
+    "amount": 25,
+    "currency": "EUR",
+    "cadence": "monthly",
+    "status": "draft_requires_approval"
+  },
+  "trust_ledger_input": {
+    "data_used": [
+      "savings goal",
+      "target amount if available",
+      "safe-to-save estimate",
+      "risk comfort",
+      "financial snapshot"
+    ],
+    "assumptions": [
+      "The 2025 synthetic cashflow pattern is broadly representative.",
+      "No target amount was available, so timeline is not estimated."
+    ],
+    "confidence": "low",
+    "boundaries": [
+      "This is not an investment return forecast.",
+      "This does not execute a transfer.",
+      "Large goals may need timeline changes, milestone splitting, or outside contributions."
+    ],
+    "approval_required": true
+  },
+  "memory_updates": [
+    {
+      "field": "goals",
+      "value": [
+        {
+          "id": "U005-iphone-travel-fund",
+          "name": "iPhone + travel fund",
+          "target_amount": null,
+          "currency": "EUR",
+          "monthly_contribution": 25,
+          "status": "draft",
+          "shared_goal": false
+        }
+      ],
+      "source": "inferred_from_conversation",
+      "confidence": "low"
+    },
+    {
+      "field": "investment_journey.readiness_stage",
+      "value": "draft_created",
+      "source": "inferred_from_conversation",
+      "confidence": "medium"
+    }
+  ],
+  "safety_flags": [
+    "approval_required_before_money_movement"
+  ]
+}
+```
+
+**Trust Ledger**
+```json
+{
+  "data_used": [
+    "savings goal",
+    "target amount if available",
+    "safe-to-save estimate",
+    "risk comfort",
+    "financial snapshot"
+  ],
+  "assumptions": [
+    "The 2025 synthetic cashflow pattern is broadly representative.",
+    "No target amount was available, so timeline is not estimated."
+  ],
+  "confidence": "low",
+  "what_i_am_not_claiming": [
+    "This is not an investment return forecast.",
+    "This does not execute a transfer.",
+    "Large goals may need timeline changes, milestone splitting, or outside contributions."
+  ],
+  "approval_required": true
+}
+```
+
+**Memory Updates**
+```json
+[
+  {
+    "field": "preferences.wants_expense_tables",
+    "value": true,
+    "source": "inferred_from_conversation",
+    "confidence": "medium"
+  },
+  {
+    "field": "goals",
+    "value": [
+      {
+        "id": "U005-iphone-travel-fund",
+        "name": "iPhone + travel fund",
+        "target_amount": null,
+        "currency": "EUR",
+        "monthly_contribution": 25,
+        "status": "draft",
+        "shared_goal": false
+      }
+    ],
+    "source": "inferred_from_conversation",
+    "confidence": "low"
+  },
+  {
+    "field": "investment_journey.readiness_stage",
+    "value": "draft_created",
+    "source": "inferred_from_conversation",
+    "confidence": "medium"
+  }
+]
+```
+
+### Turn 3 - Simulated User
+
+Keep it as a starter habit for now. I want to understand the timeline before approving anything bigger.
+
+_Internal reason: Persona accepts a reversible first step._
+
+### Turn 4 - Nora
+
+That is sensible. Keeping it as a learning plan first is not hesitation; it is good control.
+
+For iPhone + travel fund, future-you has two possible preferences: keep the monthly amount low, or reach the goal faster. Which would feel more realistic for you right now?
+
+**Memory Updates**
+```json
+[
+  {
+    "field": "investment_journey.readiness_stage",
+    "value": "curious",
+    "source": "explicit_user",
+    "confidence": "high"
+  },
+  {
+    "field": "financial_understanding.confusing_topics",
+    "value": [
+      "investment risk"
+    ],
+    "source": "inferred_from_conversation",
+    "confidence": "medium"
+  }
+]
+```
+
+### Turn 4 - Simulated User
+
+Lower monthly amount. I would rather keep it realistic than rush it.
+
+_Internal reason: Persona prefers sustainable plan over speed._
+
+### Turn 5 - Nora
+
+Let's make it concrete.
+
+| Plan | Monthly amount | Use when |
+|---|---:|---|
+| Gentle | EUR 25/month | Lowest friction; best when the user is still building confidence. |
+| Balanced | EUR 55/month | More visible progress while staying below the safe-to-save estimate. |
+| Accelerated | EUR 95/month | Fastest sustainable draft; should be reviewed before approval. |
+
+My bias is still to start with the plan you can keep. Should I keep Gentle as the draft, compare the other options, or adjust the goal?
+
+**Recommendation Card**
+```json
+{
+  "title": "Plan options for iPhone + travel fund",
+  "summary": "Recommended draft: EUR 25/month. No investment action yet.",
+  "amount": 25,
+  "currency": "EUR",
+  "cadence": "monthly",
+  "status": "draft_requires_approval"
+}
+```
+
+**Goal/Savings Plan Agent**
+```json
+{
+  "agent": "goal_savings_plan",
+  "goal_id": "U005-iphone-travel-fund",
+  "goal_name": "iPhone + travel fund",
+  "target_amount": null,
+  "target_date": null,
+  "currency": "EUR",
+  "safe_to_save_estimate": 175,
+  "recommended_option_id": "gentle",
+  "recommended_option": {
+    "id": "gentle",
+    "label": "Gentle",
+    "monthly_contribution": 25,
+    "timeline_months": null,
+    "timeline_label": null,
+    "feasibility": "easy",
+    "tradeoff": "Lowest friction; best when the user is still building confidence."
+  },
+  "options": [
+    {
+      "id": "gentle",
+      "label": "Gentle",
+      "monthly_contribution": 25,
+      "timeline_months": null,
+      "timeline_label": null,
+      "feasibility": "easy",
+      "tradeoff": "Lowest friction; best when the user is still building confidence."
+    },
+    {
+      "id": "balanced",
+      "label": "Balanced",
+      "monthly_contribution": 55,
+      "timeline_months": null,
+      "timeline_label": null,
+      "feasibility": "workable",
+      "tradeoff": "More visible progress while staying below the safe-to-save estimate."
+    },
+    {
+      "id": "accelerated",
+      "label": "Accelerated",
+      "monthly_contribution": 95,
+      "timeline_months": null,
+      "timeline_label": null,
+      "feasibility": "tight",
+      "tradeoff": "Fastest sustainable draft; should be reviewed before approval."
+    }
+  ],
+  "overall_feasibility": "easy",
+  "requires_adjustment": false,
+  "levers": [],
+  "nora_summary": "EUR 25/month is a reasonable first draft for iPhone + travel fund.",
+  "recommendation_card": {
+    "title": "Start a monthly habit for iPhone + travel fund",
+    "summary": "Draft EUR 25/month as a savings-first habit. Investment education comes before any investment action.",
+    "amount": 25,
+    "currency": "EUR",
+    "cadence": "monthly",
+    "status": "draft_requires_approval"
+  },
+  "trust_ledger_input": {
+    "data_used": [
+      "savings goal",
+      "target amount if available",
+      "safe-to-save estimate",
+      "risk comfort",
+      "financial snapshot"
+    ],
+    "assumptions": [
+      "The 2025 synthetic cashflow pattern is broadly representative.",
+      "No target amount was available, so timeline is not estimated."
+    ],
+    "confidence": "low",
+    "boundaries": [
+      "This is not an investment return forecast.",
+      "This does not execute a transfer.",
+      "Large goals may need timeline changes, milestone splitting, or outside contributions."
+    ],
+    "approval_required": true
+  },
+  "memory_updates": [
+    {
+      "field": "goals",
+      "value": [
+        {
+          "id": "U005-iphone-travel-fund",
+          "name": "iPhone + travel fund",
+          "target_amount": null,
+          "currency": "EUR",
+          "monthly_contribution": 25,
+          "status": "draft",
+          "shared_goal": false
+        }
+      ],
+      "source": "inferred_from_conversation",
+      "confidence": "low"
+    },
+    {
+      "field": "investment_journey.readiness_stage",
+      "value": "draft_created",
+      "source": "inferred_from_conversation",
+      "confidence": "medium"
+    }
+  ],
+  "safety_flags": [
+    "approval_required_before_money_movement"
+  ]
+}
+```
+
+**Trust Ledger**
+```json
+{
+  "data_used": [
+    "savings goal",
+    "target amount if available",
+    "safe-to-save estimate",
+    "risk comfort",
+    "financial snapshot"
+  ],
+  "assumptions": [
+    "The 2025 synthetic cashflow pattern is broadly representative.",
+    "No target amount was available, so timeline is not estimated."
+  ],
+  "confidence": "low",
+  "what_i_am_not_claiming": [
+    "This is not an investment return forecast.",
+    "This does not execute a transfer.",
+    "Large goals may need timeline changes, milestone splitting, or outside contributions."
+  ],
+  "approval_required": true
+}
+```
+
+**Memory Updates**
+```json
+[
+  {
+    "field": "goals",
+    "value": [
+      {
+        "id": "U005-iphone-travel-fund",
+        "name": "iPhone + travel fund",
+        "target_amount": null,
+        "currency": "EUR",
+        "monthly_contribution": 25,
+        "status": "draft",
+        "shared_goal": false
+      }
+    ],
+    "source": "inferred_from_conversation",
+    "confidence": "low"
+  },
+  {
+    "field": "investment_journey.readiness_stage",
+    "value": "draft_created",
+    "source": "inferred_from_conversation",
+    "confidence": "medium"
+  }
+]
+```
+
+### Turn 5 - Simulated User
+
+Keep Gentle as the draft. I like that it stays easy to maintain.
+
+_Internal reason: Persona chooses lower commitment._
+
+### Turn 6 - Nora
+
+Gentle it is. I will keep EUR 25/month as the draft plan, not an active transfer.
+
+Next useful step: I can look for one recurring expense category that might make this easier without turning your life into a punishment spreadsheet. Want to review subscriptions, transport, or skip expense review for now?
+
+**Memory Updates**
+```json
+[
+  {
+    "field": "preferences.likes_future_self_framing",
+    "value": true,
+    "source": "inferred_from_conversation",
+    "confidence": "medium"
+  },
+  {
+    "field": "investment_journey.readiness_stage",
+    "value": "ready_to_plan",
+    "source": "inferred_from_conversation",
+    "confidence": "medium"
+  }
+]
+```
+
+### Turn 6 - Simulated User
+
+Let us review subscriptions. I do not want to cut anything automatically, but I can inspect them.
+
+_Internal reason: Sofia is practical and wants control._
+
+### Turn 7 - Nora
+
+Here is the small-table version:
+
+| Category | Estimated amount | Pattern |
+|---|---:|---|
+| Housing | EUR 660/month | monthly |
+| Transport | EUR 70/month | monthly |
+| Subscriptions | EUR 15/month | monthly |
+
+No judgement, no automatic cancelling. The useful question is: is there one category you would be willing to inspect once a month to protect the EUR 25 plan?
+
+**Trust Ledger**
+```json
+{
+  "data_used": [
+    "recurring expense categories",
+    "safe-to-save estimate"
+  ],
+  "assumptions": [
+    "Recurring categories from the 2025 data are still broadly representative"
+  ],
+  "confidence": "medium",
+  "what_i_am_not_claiming": [
+    "This does not mean any category is bad",
+    "This is not an automatic cancellation recommendation"
+  ],
+  "approval_required": false
+}
+```
+
+**Memory Updates**
+```json
+[
+  {
+    "field": "preferences.wants_expense_tables",
+    "value": true,
+    "source": "explicit_user",
+    "confidence": "high"
+  }
+]
+```
+
+### Turn 7 - Simulated User
+
+Subscriptions once a month sounds manageable. I would not want more than that.
+
+_Internal reason: Persona accepts a small review habit._
+
+### Turn 8 - Nora
+
+Good. I will treat that as a review habit, not a cut. Very different energy.
+
+Nora summary so far: you prefer low-risk, simple steps; your draft is EUR 25/month toward iPhone + travel fund; and investing should stay education-first until risk feels less mysterious.
+
+Want the 45-second learning card on investment risk now, or should I stop the demo conversation here?
+
+**Memory Updates**
+```json
+[
+  {
+    "field": "investment_journey.readiness_stage",
+    "value": "ready_to_plan",
+    "source": "inferred_from_conversation",
+    "confidence": "medium"
+  },
+  {
+    "field": "financial_understanding.confusing_topics",
+    "value": [
+      "investment risk"
+    ],
+    "source": "inferred_from_conversation",
+    "confidence": "medium"
+  }
+]
+```
+
+### Turn 8 - Simulated User
+
+Show me the risk card. Short version please.
+
+_Internal reason: Persona wants education before investing._
+
+### Turn 9 - Nora
+
+Tiny learning card: investment risk does not mean "this is secretly gambling." It means the value can move up and down, especially in the short term.
+
+The plain question is: when do you need the money? If it is soon, savings usually comes first. If it is years away, investing can start to make more sense - but only with an amount you can leave alone.
+
+For your next Nora step, I would keep the EUR 25/month savings draft and unlock the beginner risk lesson before any investment draft. Want me to mark that as the next step?
+
+**Memory Updates**
+```json
+[
+  {
+    "field": "financial_understanding.known_topics",
+    "value": [
+      "basic investment risk framing"
+    ],
+    "source": "inferred_from_conversation",
+    "confidence": "medium"
+  }
+]
+```
+
+### Turn 9 - Simulated User
+
+Yes, mark that as the next step. That feels like enough for now.
+
+_Internal reason: Persona accepts the journey endpoint._
+
+### Turn 10 - Nora
+
+Marked. That gives future-you a clear path: keep the draft savings habit, review one recurring category monthly, and learn risk before any investment action.
+
+That is a complete first Nora journey for the demo. You can still ask me anything, anytime - but I am not going to invent a new money task just to look busy.
+
+**Memory Updates**
+```json
+[
+  {
+    "field": "investment_journey.readiness_stage",
+    "value": "ready_to_plan",
+    "source": "inferred_from_conversation",
+    "confidence": "high"
+  }
+]
+```
+
+### Turn 10 - Simulated User
+
+That is enough for now. I would come back to the learning card next.
+
+_Internal reason: Persona accepts the end of the test journey._
+
+### Turn 11 - Nora
+
+We have reached the natural stopping point for this test conversation: one goal draft, one review habit, one education next step. For a longer demo, the next module should be the education system rather than more looping chat.

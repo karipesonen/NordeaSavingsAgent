@@ -1,0 +1,45 @@
+{
+  "name": "learning_progress_agent",
+  "type": "deterministic_subagent_tool",
+  "owner": "Nora Main Agent",
+  "purpose": "Track lightweight investment-confidence progress from Nora learning moments without turning education into a course.",
+  "input_schema": {
+    "type": "object",
+    "required": ["user_id", "education_lesson"],
+    "properties": {
+      "user_id": {"type": "string"},
+      "education_lesson": {"type": "object"},
+      "latest_user_message": {"type": ["string", "null"]},
+      "progress_event": {"type": ["string", "null"]},
+      "goal_plan": {"type": "object"},
+      "expense_review": {"type": "object"},
+      "investment_blocker": {"type": ["string", "null"]},
+      "user_memory": {"type": "object"}
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "agent": {"const": "learning_progress"},
+      "stage": {"type": "string", "enum": ["money_confidence", "investment_paths"]},
+      "domain": {"type": "string"},
+      "domain_key": {"type": "string"},
+      "topic": {"type": "string"},
+      "internal_status": {"type": "string", "enum": ["unseen", "seen", "explored", "applied"]},
+      "visible_status": {"type": "string"},
+      "progress_delta": {"type": "number"},
+      "domain_progress": {"type": "number"},
+      "next_domain_suggestion": {"type": ["string", "null"]},
+      "interested_domains": {"type": "array"},
+      "user_facing_summary": {"type": "string"},
+      "memory_updates": {"type": "array"},
+      "safety_flags": {"type": "array"}
+    }
+  },
+  "risk_controls": [
+    "Do not expose raw internal progress states in Nora visible copy.",
+    "Do not use streaks, XP, homework, leaderboards, or school-like pressure.",
+    "Do not treat learning progress as investment readiness or advice.",
+    "Stage 2 investment-path domains appear only after explicit interest or readiness."
+  ]
+}

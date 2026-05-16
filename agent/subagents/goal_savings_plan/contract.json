@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Goal/Savings Plan Agent Contract",
+  "description": "Structured contract for Nora's goal and savings plan sub-agent.",
+  "input_schema": {
+    "type": "object",
+    "required": ["user_id", "goal_name", "financial_snapshot"],
+    "properties": {
+      "user_id": { "type": "string" },
+      "goal_name": { "type": "string" },
+      "target_amount": { "type": ["number", "null"] },
+      "target_date": { "type": ["string", "null"] },
+      "currency": { "type": "string", "default": "EUR" },
+      "risk_comfort": { "type": ["string", "null"], "enum": ["low", "medium", "high", null] },
+      "financial_snapshot": { "type": "object" },
+      "user_memory": { "type": "object" }
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "required": [
+      "agent",
+      "goal_id",
+      "goal_name",
+      "currency",
+      "recommended_option",
+      "options",
+      "overall_feasibility",
+      "requires_adjustment",
+      "recommendation_card",
+      "trust_ledger_input",
+      "memory_updates",
+      "safety_flags"
+    ],
+    "properties": {
+      "agent": { "const": "goal_savings_plan" },
+      "goal_id": { "type": "string" },
+      "goal_name": { "type": "string" },
+      "target_amount": { "type": ["number", "null"] },
+      "target_date": { "type": ["string", "null"] },
+      "currency": { "type": "string" },
+      "safe_to_save_estimate": { "type": "number" },
+      "recommended_option_id": { "type": ["string", "null"] },
+      "recommended_option": { "type": ["object", "null"] },
+      "options": { "type": "array" },
+      "overall_feasibility": {
+        "type": "string",
+        "enum": ["easy", "workable", "tight", "unrealistic", "not_recommended"]
+      },
+      "requires_adjustment": { "type": "boolean" },
+      "levers": { "type": "array", "items": { "type": "string" } },
+      "nora_summary": { "type": "string" },
+      "recommendation_card": { "type": "object" },
+      "trust_ledger_input": { "type": "object" },
+      "memory_updates": { "type": "array" },
+      "safety_flags": { "type": "array", "items": { "type": "string" } }
+    }
+  }
+}

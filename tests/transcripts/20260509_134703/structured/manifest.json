@@ -1,0 +1,26 @@
+{
+  "createdAt": "2026-05-09T10:47:03.446Z",
+  "mode": "offline",
+  "data": "synthetic_data\\generated\\nordea_5users_2025.json",
+  "runDir": "C:\\Users\\karip\\projects\\nordea-savings-hackathon\\tests\\transcripts\\20260509_134703",
+  "users": [
+    {
+      "userId": "U003",
+      "firstName": "Aino",
+      "fullName": "Aino Mäkinen",
+      "markdownTranscript": "C:\\Users\\karip\\projects\\nordea-savings-hackathon\\tests\\transcripts\\20260509_134703\\U003_aino.md",
+      "jsonTranscript": "C:\\Users\\karip\\projects\\nordea-savings-hackathon\\tests\\transcripts\\20260509_134703\\structured\\U003_aino.json",
+      "evaluation": {
+        "introducedNora": true,
+        "avoidedAgeQuestion": true,
+        "investmentHookEarly": true,
+        "trustLedgerWhenRecommending": true,
+        "approvalGatePresent": true,
+        "memoryUpdatesPresent": true,
+        "oneQuestionStyle": true,
+        "noRepeatedNoraResponses": false,
+        "noRepeatedUserResponses": false
+      }
+    }
+  ]
+}

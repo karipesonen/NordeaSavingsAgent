@@ -1,0 +1,59 @@
+{
+  "session": {
+    "session_id": "demo-session-001",
+    "is_first_conversation": true,
+    "language": "en",
+    "surface": "mobile_demo"
+  },
+  "bank_context": {
+    "user_first_name": "Aino",
+    "age": 23,
+    "known_customer_since": "2021-09-01",
+    "has_nordea_investments": false,
+    "monthly_income_estimate": 1280,
+    "currency": "EUR"
+  },
+  "user_memory": {
+    "investment_journey": {
+      "invested_before": null,
+      "has_nordea_investments": false,
+      "readiness_stage": "unknown",
+      "risk_comfort": null,
+      "first_investment_blockers": []
+    },
+    "financial_understanding": {
+      "self_rating": null,
+      "known_topics": [],
+      "confusing_topics": [],
+      "preferred_content_format": null
+    },
+    "goals": []
+  },
+  "financial_snapshot": {
+    "monthly_income_estimate": 1280,
+    "available_this_month": 120,
+    "safe_to_save_estimate": 45,
+    "currency": "EUR",
+    "recurring_expenses_detected": [
+      {"name": "Streaming", "amount": 12.99, "cadence": "monthly"},
+      {"name": "Gym", "amount": 29.90, "cadence": "monthly"}
+    ],
+    "upcoming_risks": [
+      {"name": "Rent", "amount": 640, "due_in_days": 6}
+    ],
+    "confidence": "medium"
+  },
+  "latest_user_message": "",
+  "available_tools": [
+    "read_user_memory",
+    "update_user_memory",
+    "get_financial_snapshot",
+    "create_recurring_expense_table",
+    "create_goal_plan",
+    "draft_monthly_savings_action",
+    "draft_monthly_investment_action",
+    "write_trust_ledger",
+    "request_user_approval",
+    "suggest_education_resource"
+  ]
+}

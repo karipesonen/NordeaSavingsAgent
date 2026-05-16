@@ -1,0 +1,4561 @@
+{
+  "user": {
+    "userId": "U001",
+    "fullName": "Emma Virtanen",
+    "firstName": "Emma",
+    "age": 22,
+    "city": "Helsinki",
+    "occupation": "University student",
+    "education": "BSc Computer Science (ongoing)",
+    "monthlyIncome": 900,
+    "incomeSource": "Student aid + part-time barista",
+    "nordeaTier": "Starter",
+    "savingsGoal": "Laptop (€1,200)",
+    "familyStatus": "Single, lives with flatmates",
+    "riskProfile": "low",
+    "transactions": [
+      {
+        "date": "2025-01-01",
+        "description": "Home insurance",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -21.5,
+        "runningBalance": -21.5
+      },
+      {
+        "date": "2025-01-01",
+        "description": "Maintenance fee",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -21.26,
+        "runningBalance": -42.76
+      },
+      {
+        "date": "2025-01-01",
+        "description": "Lidl",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -26.42,
+        "runningBalance": -69.18
+      },
+      {
+        "date": "2025-01-01",
+        "description": "Fuel",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -14.98,
+        "runningBalance": -84.16
+      },
+      {
+        "date": "2025-01-01",
+        "description": "Spotify",
+        "category": "Subscriptions",
+        "type": "Expense",
+        "amount": -3.76,
+        "runningBalance": -87.92
+      },
+      {
+        "date": "2025-01-01",
+        "description": "Concert / event",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -14.39,
+        "runningBalance": -102.31
+      },
+      {
+        "date": "2025-01-04",
+        "description": "Rent payment",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -323.93,
+        "runningBalance": -426.24
+      },
+      {
+        "date": "2025-01-04",
+        "description": "Internet subscription",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -20.77,
+        "runningBalance": -447.01
+      },
+      {
+        "date": "2025-01-04",
+        "description": "Birthday gift",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -6.71,
+        "runningBalance": -453.72
+      },
+      {
+        "date": "2025-01-05",
+        "description": "Electricity & water",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -43.96,
+        "runningBalance": -497.68
+      },
+      {
+        "date": "2025-01-05",
+        "description": "Phone bill",
+        "category": "Subscriptions",
+        "type": "Expense",
+        "amount": -9.08,
+        "runningBalance": -506.76
+      },
+      {
+        "date": "2025-01-05",
+        "description": "Cinema",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -9.34,
+        "runningBalance": -516.1
+      },
+      {
+        "date": "2025-01-05",
+        "description": "Birthday gift",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -10.01,
+        "runningBalance": -526.11
+      },
+      {
+        "date": "2025-01-06",
+        "description": "Disney+",
+        "category": "Subscriptions",
+        "type": "Expense",
+        "amount": -3.72,
+        "runningBalance": -529.83
+      },
+      {
+        "date": "2025-01-07",
+        "description": "S-Market",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -22.77,
+        "runningBalance": -552.6
+      },
+      {
+        "date": "2025-01-08",
+        "description": "Prisma",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -17.56,
+        "runningBalance": -570.16
+      },
+      {
+        "date": "2025-01-09",
+        "description": "Hobby supplies",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -10.42,
+        "runningBalance": -580.58
+      },
+      {
+        "date": "2025-01-11",
+        "description": "Cinema",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -37.03,
+        "runningBalance": -617.61
+      },
+      {
+        "date": "2025-01-14",
+        "description": "Textbooks",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -31.96,
+        "runningBalance": -649.57
+      },
+      {
+        "date": "2025-01-18",
+        "description": "Haircut",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -2.03,
+        "runningBalance": -651.6
+      },
+      {
+        "date": "2025-01-18",
+        "description": "Concert / event",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -4.12,
+        "runningBalance": -655.72
+      },
+      {
+        "date": "2025-01-19",
+        "description": "Doctor visit",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -4.15,
+        "runningBalance": -659.87
+      },
+      {
+        "date": "2025-01-19",
+        "description": "Textbooks",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -21.99,
+        "runningBalance": -681.86
+      },
+      {
+        "date": "2025-01-20",
+        "description": "Pharmacy",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -2.67,
+        "runningBalance": -684.53
+      },
+      {
+        "date": "2025-01-20",
+        "description": "Cinema",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -7.37,
+        "runningBalance": -691.9
+      },
+      {
+        "date": "2025-01-21",
+        "description": "Coffee shop",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -40.44,
+        "runningBalance": -732.34
+      },
+      {
+        "date": "2025-01-25",
+        "description": "Income deposit",
+        "category": "Income",
+        "type": "Income",
+        "amount": 900,
+        "runningBalance": 167.66
+      },
+      {
+        "date": "2025-01-25",
+        "description": "Gym membership",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -8.25,
+        "runningBalance": 159.41
+      },
+      {
+        "date": "2025-01-25",
+        "description": "Online shopping",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -15.17,
+        "runningBalance": 144.24
+      },
+      {
+        "date": "2025-01-26",
+        "description": "Gym membership",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -10.35,
+        "runningBalance": 133.89
+      },
+      {
+        "date": "2025-02-02",
+        "description": "Rent payment",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -317.15,
+        "runningBalance": -183.26
+      },
+      {
+        "date": "2025-02-02",
+        "description": "Electricity & water",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -44.23,
+        "runningBalance": -227.49
+      },
+      {
+        "date": "2025-02-02",
+        "description": "Home insurance",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -21.77,
+        "runningBalance": -249.26
+      },
+      {
+        "date": "2025-02-03",
+        "description": "Internet subscription",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -21.84,
+        "runningBalance": -271.1
+      },
+      {
+        "date": "2025-02-03",
+        "description": "Maintenance fee",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -21.83,
+        "runningBalance": -292.93
+      },
+      {
+        "date": "2025-02-03",
+        "description": "Fuel",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -12.01,
+        "runningBalance": -304.94
+      },
+      {
+        "date": "2025-02-03",
+        "description": "Netflix",
+        "category": "Subscriptions",
+        "type": "Expense",
+        "amount": -4.38,
+        "runningBalance": -309.32
+      },
+      {
+        "date": "2025-02-04",
+        "description": "Fuel",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -4.87,
+        "runningBalance": -314.19
+      },
+      {
+        "date": "2025-02-04",
+        "description": "Online shopping",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -16.54,
+        "runningBalance": -330.73
+      },
+      {
+        "date": "2025-02-05",
+        "description": "Lidl",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -51.43,
+        "runningBalance": -382.16
+      },
+      {
+        "date": "2025-02-10",
+        "description": "Phone bill",
+        "category": "Subscriptions",
+        "type": "Expense",
+        "amount": -7.76,
+        "runningBalance": -389.92
+      },
+      {
+        "date": "2025-02-10",
+        "description": "Cloud storage",
+        "category": "Subscriptions",
+        "type": "Expense",
+        "amount": -3.52,
+        "runningBalance": -393.44
+      },
+      {
+        "date": "2025-02-13",
+        "description": "Postage / misc",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -11.64,
+        "runningBalance": -405.08
+      },
+      {
+        "date": "2025-02-15",
+        "description": "Cinema",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -25.49,
+        "runningBalance": -430.57
+      },
+      {
+        "date": "2025-02-15",
+        "description": "Course materials",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -22.54,
+        "runningBalance": -453.11
+      },
+      {
+        "date": "2025-02-17",
+        "description": "K-Market",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -8.29,
+        "runningBalance": -461.4
+      },
+      {
+        "date": "2025-02-19",
+        "description": "Pharmacy",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -4.31,
+        "runningBalance": -465.71
+      },
+      {
+        "date": "2025-02-20",
+        "description": "Fuel",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -9.84,
+        "runningBalance": -475.55
+      },
+      {
+        "date": "2025-02-21",
+        "description": "Prisma",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -20.37,
+        "runningBalance": -495.92
+      },
+      {
+        "date": "2025-02-21",
+        "description": "Pharmacy",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -4.79,
+        "runningBalance": -500.71
+      },
+      {
+        "date": "2025-02-22",
+        "description": "Gym membership",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -6.53,
+        "runningBalance": -507.24
+      },
+      {
+        "date": "2025-02-22",
+        "description": "Hobby supplies",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -28.33,
+        "runningBalance": -535.57
+      },
+      {
+        "date": "2025-02-24",
+        "description": "Car service",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -7.1,
+        "runningBalance": -542.67
+      },
+      {
+        "date": "2025-02-24",
+        "description": "Textbooks",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -37.42,
+        "runningBalance": -580.09
+      },
+      {
+        "date": "2025-02-25",
+        "description": "Income deposit",
+        "category": "Income",
+        "type": "Income",
+        "amount": 900,
+        "runningBalance": 319.91
+      },
+      {
+        "date": "2025-02-25",
+        "description": "S-Market",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -6.36,
+        "runningBalance": 313.55
+      },
+      {
+        "date": "2025-02-26",
+        "description": "Lidl",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -71.99,
+        "runningBalance": 241.56
+      },
+      {
+        "date": "2025-02-26",
+        "description": "Lidl",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -18.84,
+        "runningBalance": 222.72
+      },
+      {
+        "date": "2025-02-28",
+        "description": "Taxi / Bolt",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -6.42,
+        "runningBalance": 216.3
+      },
+      {
+        "date": "2025-02-28",
+        "description": "Car service",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -1.62,
+        "runningBalance": 214.68
+      },
+      {
+        "date": "2025-03-01",
+        "description": "Rent payment",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -349.89,
+        "runningBalance": -135.21
+      },
+      {
+        "date": "2025-03-01",
+        "description": "Internet subscription",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -22.86,
+        "runningBalance": -158.07
+      },
+      {
+        "date": "2025-03-02",
+        "description": "Online course",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -13.52,
+        "runningBalance": -171.59
+      },
+      {
+        "date": "2025-03-03",
+        "description": "Electricity & water",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -47.94,
+        "runningBalance": -219.53
+      },
+      {
+        "date": "2025-03-03",
+        "description": "Online shopping",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -9.18,
+        "runningBalance": -228.71
+      },
+      {
+        "date": "2025-03-04",
+        "description": "Prisma",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -25.49,
+        "runningBalance": -254.2
+      },
+      {
+        "date": "2025-03-05",
+        "description": "Home insurance",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -24.02,
+        "runningBalance": -278.22
+      },
+      {
+        "date": "2025-03-05",
+        "description": "Maintenance fee",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -23.34,
+        "runningBalance": -301.56
+      },
+      {
+        "date": "2025-03-05",
+        "description": "Postage / misc",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -14.17,
+        "runningBalance": -315.73
+      },
+      {
+        "date": "2025-03-07",
+        "description": "Course materials",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -7.07,
+        "runningBalance": -322.8
+      },
+      {
+        "date": "2025-03-10",
+        "description": "Taxi / Bolt",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -18.85,
+        "runningBalance": -341.65
+      },
+      {
+        "date": "2025-03-10",
+        "description": "Public transport pass",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -9.56,
+        "runningBalance": -351.21
+      },
+      {
+        "date": "2025-03-10",
+        "description": "Textbooks",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -5.83,
+        "runningBalance": -357.04
+      },
+      {
+        "date": "2025-03-16",
+        "description": "Doctor visit",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -11.45,
+        "runningBalance": -368.49
+      },
+      {
+        "date": "2025-03-17",
+        "description": "Prisma",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -74.44,
+        "runningBalance": -442.93
+      },
+      {
+        "date": "2025-03-18",
+        "description": "Lidl",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -40.52,
+        "runningBalance": -483.45
+      },
+      {
+        "date": "2025-03-18",
+        "description": "Online shopping",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -3.5,
+        "runningBalance": -486.95
+      },
+      {
+        "date": "2025-03-20",
+        "description": "Skincare",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -3.39,
+        "runningBalance": -490.34
+      },
+      {
+        "date": "2025-03-20",
+        "description": "Birthday gift",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -7.53,
+        "runningBalance": -497.87
+      },
+      {
+        "date": "2025-03-21",
+        "description": "Concert / event",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -13.52,
+        "runningBalance": -511.39
+      },
+      {
+        "date": "2025-03-22",
+        "description": "K-Market",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -7.88,
+        "runningBalance": -519.27
+      },
+      {
+        "date": "2025-03-22",
+        "description": "Fuel",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -5.12,
+        "runningBalance": -524.39
+      },
+      {
+        "date": "2025-03-22",
+        "description": "Haircut",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -2.02,
+        "runningBalance": -526.41
+      },
+      {
+        "date": "2025-03-24",
+        "description": "Doctor visit",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -2.32,
+        "runningBalance": -528.73
+      },
+      {
+        "date": "2025-03-25",
+        "description": "Income deposit",
+        "category": "Income",
+        "type": "Income",
+        "amount": 900,
+        "runningBalance": 371.27
+      },
+      {
+        "date": "2025-03-27",
+        "description": "Cinema",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -14.29,
+        "runningBalance": 356.98
+      },
+      {
+        "date": "2025-03-28",
+        "description": "Taxi / Bolt",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -2.67,
+        "runningBalance": 354.31
+      },
+      {
+        "date": "2025-03-28",
+        "description": "Course materials",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -11.62,
+        "runningBalance": 342.69
+      },
+      {
+        "date": "2025-04-01",
+        "description": "Electricity & water",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -36.72,
+        "runningBalance": 305.97
+      },
+      {
+        "date": "2025-04-01",
+        "description": "Books / games",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -13.71,
+        "runningBalance": 292.26
+      },
+      {
+        "date": "2025-04-02",
+        "description": "Online course",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -12.71,
+        "runningBalance": 279.55
+      },
+      {
+        "date": "2025-04-03",
+        "description": "Internet subscription",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -18.26,
+        "runningBalance": 261.29
+      },
+      {
+        "date": "2025-04-03",
+        "description": "Home insurance",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -18.42,
+        "runningBalance": 242.87
+      },
+      {
+        "date": "2025-04-04",
+        "description": "Textbooks",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -5.58,
+        "runningBalance": 237.29
+      },
+      {
+        "date": "2025-04-05",
+        "description": "Rent payment",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -285.52,
+        "runningBalance": -48.23
+      },
+      {
+        "date": "2025-04-05",
+        "description": "Maintenance fee",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -18.33,
+        "runningBalance": -66.56
+      },
+      {
+        "date": "2025-04-05",
+        "description": "Public transport pass",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -6.26,
+        "runningBalance": -72.82
+      },
+      {
+        "date": "2025-04-05",
+        "description": "Online shopping",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -12.62,
+        "runningBalance": -85.44
+      },
+      {
+        "date": "2025-04-06",
+        "description": "Fuel",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -7.98,
+        "runningBalance": -93.42
+      },
+      {
+        "date": "2025-04-06",
+        "description": "Textbooks",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -3.19,
+        "runningBalance": -96.61
+      },
+      {
+        "date": "2025-04-08",
+        "description": "Dining out",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -39.71,
+        "runningBalance": -136.32
+      },
+      {
+        "date": "2025-04-11",
+        "description": "K-Market",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -32.39,
+        "runningBalance": -168.71
+      },
+      {
+        "date": "2025-04-18",
+        "description": "Online course",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -5.54,
+        "runningBalance": -174.25
+      },
+      {
+        "date": "2025-04-19",
+        "description": "Coffee shop",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -40.53,
+        "runningBalance": -214.78
+      },
+      {
+        "date": "2025-04-19",
+        "description": "Haircut",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -7.4,
+        "runningBalance": -222.18
+      },
+      {
+        "date": "2025-04-21",
+        "description": "Taxi / Bolt",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -18.04,
+        "runningBalance": -240.22
+      },
+      {
+        "date": "2025-04-21",
+        "description": "Gym membership",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -4.74,
+        "runningBalance": -244.96
+      },
+      {
+        "date": "2025-04-21",
+        "description": "Online course",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -15.81,
+        "runningBalance": -260.77
+      },
+      {
+        "date": "2025-04-22",
+        "description": "Hobby supplies",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -39.65,
+        "runningBalance": -300.42
+      },
+      {
+        "date": "2025-04-23",
+        "description": "Textbooks",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -8.91,
+        "runningBalance": -309.33
+      },
+      {
+        "date": "2025-04-25",
+        "description": "Income deposit",
+        "category": "Income",
+        "type": "Income",
+        "amount": 900,
+        "runningBalance": 590.67
+      },
+      {
+        "date": "2025-04-26",
+        "description": "Haircut",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -7.49,
+        "runningBalance": 583.18
+      },
+      {
+        "date": "2025-04-27",
+        "description": "Public transport pass",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -8.95,
+        "runningBalance": 574.23
+      },
+      {
+        "date": "2025-04-28",
+        "description": "Pharmacy",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -1.69,
+        "runningBalance": 572.54
+      },
+      {
+        "date": "2025-04-28",
+        "description": "Birthday gift",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -14.15,
+        "runningBalance": 558.39
+      },
+      {
+        "date": "2025-05-01",
+        "description": "Online shopping",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -7.75,
+        "runningBalance": 550.64
+      },
+      {
+        "date": "2025-05-02",
+        "description": "Rent payment",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -326.63,
+        "runningBalance": 224.01
+      },
+      {
+        "date": "2025-05-02",
+        "description": "Maintenance fee",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -22.51,
+        "runningBalance": 201.5
+      },
+      {
+        "date": "2025-05-02",
+        "description": "Postage / misc",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -9.48,
+        "runningBalance": 192.02
+      },
+      {
+        "date": "2025-05-03",
+        "description": "Home insurance",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -22.14,
+        "runningBalance": 169.88
+      },
+      {
+        "date": "2025-05-03",
+        "description": "Taxi / Bolt",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -14.61,
+        "runningBalance": 155.27
+      },
+      {
+        "date": "2025-05-03",
+        "description": "Pharmacy",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -5.89,
+        "runningBalance": 149.38
+      },
+      {
+        "date": "2025-05-04",
+        "description": "Electricity & water",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -44.97,
+        "runningBalance": 104.41
+      },
+      {
+        "date": "2025-05-04",
+        "description": "Internet subscription",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -22.59,
+        "runningBalance": 81.82
+      },
+      {
+        "date": "2025-05-04",
+        "description": "Lidl",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -35.48,
+        "runningBalance": 46.34
+      },
+      {
+        "date": "2025-05-04",
+        "description": "Netflix",
+        "category": "Subscriptions",
+        "type": "Expense",
+        "amount": -4.88,
+        "runningBalance": 41.46
+      },
+      {
+        "date": "2025-05-05",
+        "description": "Phone bill",
+        "category": "Subscriptions",
+        "type": "Expense",
+        "amount": -7.96,
+        "runningBalance": 33.5
+      },
+      {
+        "date": "2025-05-08",
+        "description": "Fuel",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -7.9,
+        "runningBalance": 25.6
+      },
+      {
+        "date": "2025-05-12",
+        "description": "K-Market",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -9.53,
+        "runningBalance": 16.07
+      },
+      {
+        "date": "2025-05-12",
+        "description": "Concert / event",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -15.44,
+        "runningBalance": 0.63
+      },
+      {
+        "date": "2025-05-12",
+        "description": "Books / games",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -9.65,
+        "runningBalance": -9.02
+      },
+      {
+        "date": "2025-05-13",
+        "description": "Hobby supplies",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -5.3,
+        "runningBalance": -14.32
+      },
+      {
+        "date": "2025-05-13",
+        "description": "Course materials",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -13.97,
+        "runningBalance": -28.29
+      },
+      {
+        "date": "2025-05-14",
+        "description": "Books / games",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -32.61,
+        "runningBalance": -60.9
+      },
+      {
+        "date": "2025-05-15",
+        "description": "Fuel",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -7.92,
+        "runningBalance": -68.82
+      },
+      {
+        "date": "2025-05-17",
+        "description": "Gym membership",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -9.65,
+        "runningBalance": -78.47
+      },
+      {
+        "date": "2025-05-17",
+        "description": "Pharmacy",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -5.92,
+        "runningBalance": -84.39
+      },
+      {
+        "date": "2025-05-19",
+        "description": "Lidl",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -41.34,
+        "runningBalance": -125.73
+      },
+      {
+        "date": "2025-05-20",
+        "description": "Textbooks",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -19.61,
+        "runningBalance": -145.34
+      },
+      {
+        "date": "2025-05-22",
+        "description": "Car service",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -3.56,
+        "runningBalance": -148.9
+      },
+      {
+        "date": "2025-05-22",
+        "description": "Online course",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -5.81,
+        "runningBalance": -154.71
+      },
+      {
+        "date": "2025-05-23",
+        "description": "S-Market",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -56.92,
+        "runningBalance": -211.63
+      },
+      {
+        "date": "2025-05-24",
+        "description": "Postage / misc",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -7.88,
+        "runningBalance": -219.51
+      },
+      {
+        "date": "2025-05-25",
+        "description": "Income deposit",
+        "category": "Income",
+        "type": "Income",
+        "amount": 900,
+        "runningBalance": 680.49
+      },
+      {
+        "date": "2025-05-26",
+        "description": "K-Market",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -20.68,
+        "runningBalance": 659.81
+      },
+      {
+        "date": "2025-05-26",
+        "description": "Parking",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -6.78,
+        "runningBalance": 653.03
+      },
+      {
+        "date": "2025-05-28",
+        "description": "Public transport pass",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -1.54,
+        "runningBalance": 651.49
+      },
+      {
+        "date": "2025-05-28",
+        "description": "Online shopping",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -3.14,
+        "runningBalance": 648.35
+      },
+      {
+        "date": "2025-06-01",
+        "description": "Netflix",
+        "category": "Subscriptions",
+        "type": "Expense",
+        "amount": -5.28,
+        "runningBalance": 643.07
+      },
+      {
+        "date": "2025-06-01",
+        "description": "Disney+",
+        "category": "Subscriptions",
+        "type": "Expense",
+        "amount": -3.93,
+        "runningBalance": 639.14
+      },
+      {
+        "date": "2025-06-01",
+        "description": "Online course",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -1.92,
+        "runningBalance": 637.22
+      },
+      {
+        "date": "2025-06-01",
+        "description": "Cleaning supplies",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -5.75,
+        "runningBalance": 631.47
+      },
+      {
+        "date": "2025-06-02",
+        "description": "Maintenance fee",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -19.95,
+        "runningBalance": 611.52
+      },
+      {
+        "date": "2025-06-02",
+        "description": "Taxi / Bolt",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -9.53,
+        "runningBalance": 601.99
+      },
+      {
+        "date": "2025-06-03",
+        "description": "Rent payment",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -295.96,
+        "runningBalance": 306.03
+      },
+      {
+        "date": "2025-06-03",
+        "description": "Internet subscription",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -19.66,
+        "runningBalance": 286.37
+      },
+      {
+        "date": "2025-06-04",
+        "description": "Electricity & water",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -40.33,
+        "runningBalance": 246.04
+      },
+      {
+        "date": "2025-06-04",
+        "description": "Home insurance",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -20.19,
+        "runningBalance": 225.85
+      },
+      {
+        "date": "2025-06-04",
+        "description": "Textbooks",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -2.87,
+        "runningBalance": 222.98
+      },
+      {
+        "date": "2025-06-05",
+        "description": "Sports",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -43.35,
+        "runningBalance": 179.63
+      },
+      {
+        "date": "2025-06-06",
+        "description": "Bar / nightout",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -11.19,
+        "runningBalance": 168.44
+      },
+      {
+        "date": "2025-06-07",
+        "description": "Course materials",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -7.09,
+        "runningBalance": 161.35
+      },
+      {
+        "date": "2025-06-07",
+        "description": "Online course",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -1.94,
+        "runningBalance": 159.41
+      },
+      {
+        "date": "2025-06-09",
+        "description": "Spotify",
+        "category": "Subscriptions",
+        "type": "Expense",
+        "amount": -3.82,
+        "runningBalance": 155.59
+      },
+      {
+        "date": "2025-06-09",
+        "description": "Phone bill",
+        "category": "Subscriptions",
+        "type": "Expense",
+        "amount": -9.42,
+        "runningBalance": 146.17
+      },
+      {
+        "date": "2025-06-10",
+        "description": "Sports",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -18.12,
+        "runningBalance": 128.05
+      },
+      {
+        "date": "2025-06-12",
+        "description": "Cinema",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -14.47,
+        "runningBalance": 113.58
+      },
+      {
+        "date": "2025-06-12",
+        "description": "Hobby supplies",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -7.45,
+        "runningBalance": 106.13
+      },
+      {
+        "date": "2025-06-12",
+        "description": "Cleaning supplies",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -7.09,
+        "runningBalance": 99.04
+      },
+      {
+        "date": "2025-06-13",
+        "description": "Taxi / Bolt",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -16.75,
+        "runningBalance": 82.29
+      },
+      {
+        "date": "2025-06-14",
+        "description": "Textbooks",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -2.45,
+        "runningBalance": 79.84
+      },
+      {
+        "date": "2025-06-15",
+        "description": "Lidl",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -77.97,
+        "runningBalance": 1.87
+      },
+      {
+        "date": "2025-06-16",
+        "description": "Coffee shop",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -18.88,
+        "runningBalance": -17.01
+      },
+      {
+        "date": "2025-06-16",
+        "description": "Public transport pass",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -8.12,
+        "runningBalance": -25.13
+      },
+      {
+        "date": "2025-06-17",
+        "description": "K-Market",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -17.19,
+        "runningBalance": -42.32
+      },
+      {
+        "date": "2025-06-17",
+        "description": "Textbooks",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -1.83,
+        "runningBalance": -44.15
+      },
+      {
+        "date": "2025-06-18",
+        "description": "Coffee shop",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -26.52,
+        "runningBalance": -70.67
+      },
+      {
+        "date": "2025-06-20",
+        "description": "Pharmacy",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -5.53,
+        "runningBalance": -76.2
+      },
+      {
+        "date": "2025-06-22",
+        "description": "Bar / nightout",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -27.67,
+        "runningBalance": -103.87
+      },
+      {
+        "date": "2025-06-23",
+        "description": "Fuel",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -4.35,
+        "runningBalance": -108.22
+      },
+      {
+        "date": "2025-06-23",
+        "description": "Online course",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -3.19,
+        "runningBalance": -111.41
+      },
+      {
+        "date": "2025-06-25",
+        "description": "Income deposit",
+        "category": "Income",
+        "type": "Income",
+        "amount": 900,
+        "runningBalance": 788.59
+      },
+      {
+        "date": "2025-06-26",
+        "description": "Pharmacy",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -7.09,
+        "runningBalance": 781.5
+      },
+      {
+        "date": "2025-07-01",
+        "description": "Doctor visit",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -8.39,
+        "runningBalance": 773.11
+      },
+      {
+        "date": "2025-07-02",
+        "description": "Online course",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -10.47,
+        "runningBalance": 762.64
+      },
+      {
+        "date": "2025-07-02",
+        "description": "Online course",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -2.47,
+        "runningBalance": 760.17
+      },
+      {
+        "date": "2025-07-03",
+        "description": "Rent payment",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -304.1,
+        "runningBalance": 456.07
+      },
+      {
+        "date": "2025-07-03",
+        "description": "Internet subscription",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -21.06,
+        "runningBalance": 435.01
+      },
+      {
+        "date": "2025-07-03",
+        "description": "Maintenance fee",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -21.35,
+        "runningBalance": 413.66
+      },
+      {
+        "date": "2025-07-03",
+        "description": "Fuel",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -14.55,
+        "runningBalance": 399.11
+      },
+      {
+        "date": "2025-07-05",
+        "description": "Electricity & water",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -40.61,
+        "runningBalance": 358.5
+      },
+      {
+        "date": "2025-07-05",
+        "description": "Home insurance",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -20.83,
+        "runningBalance": 337.67
+      },
+      {
+        "date": "2025-07-05",
+        "description": "Netflix",
+        "category": "Subscriptions",
+        "type": "Expense",
+        "amount": -4.49,
+        "runningBalance": 333.18
+      },
+      {
+        "date": "2025-07-05",
+        "description": "Cleaning supplies",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -7.61,
+        "runningBalance": 325.57
+      },
+      {
+        "date": "2025-07-06",
+        "description": "Cloud storage",
+        "category": "Subscriptions",
+        "type": "Expense",
+        "amount": -3.35,
+        "runningBalance": 322.22
+      },
+      {
+        "date": "2025-07-08",
+        "description": "K-Market",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -37.85,
+        "runningBalance": 284.37
+      },
+      {
+        "date": "2025-07-12",
+        "description": "Books / games",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -30.44,
+        "runningBalance": 253.93
+      },
+      {
+        "date": "2025-07-16",
+        "description": "Taxi / Bolt",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -16.02,
+        "runningBalance": 237.91
+      },
+      {
+        "date": "2025-07-18",
+        "description": "S-Market",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -22.74,
+        "runningBalance": 215.17
+      },
+      {
+        "date": "2025-07-19",
+        "description": "Prisma",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -14.3,
+        "runningBalance": 200.87
+      },
+      {
+        "date": "2025-07-21",
+        "description": "Skincare",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -8.88,
+        "runningBalance": 191.99
+      },
+      {
+        "date": "2025-07-22",
+        "description": "Course materials",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -2.43,
+        "runningBalance": 189.56
+      },
+      {
+        "date": "2025-07-23",
+        "description": "Prisma",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -27.93,
+        "runningBalance": 161.63
+      },
+      {
+        "date": "2025-07-24",
+        "description": "Birthday gift",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -16.52,
+        "runningBalance": 145.11
+      },
+      {
+        "date": "2025-07-25",
+        "description": "Income deposit",
+        "category": "Income",
+        "type": "Income",
+        "amount": 900,
+        "runningBalance": 1045.11
+      },
+      {
+        "date": "2025-07-25",
+        "description": "Concert / event",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -42.18,
+        "runningBalance": 1002.93
+      },
+      {
+        "date": "2025-07-27",
+        "description": "K-Market",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -19.04,
+        "runningBalance": 983.89
+      },
+      {
+        "date": "2025-08-01",
+        "description": "Rent payment",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -306.99,
+        "runningBalance": 676.9
+      },
+      {
+        "date": "2025-08-01",
+        "description": "Home insurance",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -21.6,
+        "runningBalance": 655.3
+      },
+      {
+        "date": "2025-08-02",
+        "description": "Electricity & water",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -41.36,
+        "runningBalance": 613.94
+      },
+      {
+        "date": "2025-08-03",
+        "description": "Concert / event",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -22.54,
+        "runningBalance": 591.4
+      },
+      {
+        "date": "2025-08-04",
+        "description": "Internet subscription",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -20.9,
+        "runningBalance": 570.5
+      },
+      {
+        "date": "2025-08-04",
+        "description": "Maintenance fee",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -20.85,
+        "runningBalance": 549.65
+      },
+      {
+        "date": "2025-08-04",
+        "description": "Doctor visit",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -2.31,
+        "runningBalance": 547.34
+      },
+      {
+        "date": "2025-08-06",
+        "description": "Books / games",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -31.77,
+        "runningBalance": 515.57
+      },
+      {
+        "date": "2025-08-06",
+        "description": "Textbooks",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -4.12,
+        "runningBalance": 511.45
+      },
+      {
+        "date": "2025-08-07",
+        "description": "Textbooks",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -8.68,
+        "runningBalance": 502.77
+      },
+      {
+        "date": "2025-08-08",
+        "description": "Online course",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -5.44,
+        "runningBalance": 497.33
+      },
+      {
+        "date": "2025-08-09",
+        "description": "Gym membership",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -4.82,
+        "runningBalance": 492.51
+      },
+      {
+        "date": "2025-08-11",
+        "description": "Textbooks",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -9.96,
+        "runningBalance": 482.55
+      },
+      {
+        "date": "2025-08-12",
+        "description": "Fuel",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -10.8,
+        "runningBalance": 471.75
+      },
+      {
+        "date": "2025-08-13",
+        "description": "Lidl",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -62.14,
+        "runningBalance": 409.61
+      },
+      {
+        "date": "2025-08-14",
+        "description": "Textbooks",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -17.13,
+        "runningBalance": 392.48
+      },
+      {
+        "date": "2025-08-15",
+        "description": "Online shopping",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -11.59,
+        "runningBalance": 380.89
+      },
+      {
+        "date": "2025-08-16",
+        "description": "Pharmacy",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -12.18,
+        "runningBalance": 368.71
+      },
+      {
+        "date": "2025-08-17",
+        "description": "Birthday gift",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -6.88,
+        "runningBalance": 361.83
+      },
+      {
+        "date": "2025-08-20",
+        "description": "Car service",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -10.87,
+        "runningBalance": 350.96
+      },
+      {
+        "date": "2025-08-20",
+        "description": "Online course",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -16.98,
+        "runningBalance": 333.98
+      },
+      {
+        "date": "2025-08-20",
+        "description": "Textbooks",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -1.13,
+        "runningBalance": 332.85
+      },
+      {
+        "date": "2025-08-24",
+        "description": "Skincare",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -4.96,
+        "runningBalance": 327.89
+      },
+      {
+        "date": "2025-08-24",
+        "description": "Birthday gift",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -16.21,
+        "runningBalance": 311.68
+      },
+      {
+        "date": "2025-08-25",
+        "description": "Income deposit",
+        "category": "Income",
+        "type": "Income",
+        "amount": 900,
+        "runningBalance": 1211.68
+      },
+      {
+        "date": "2025-08-27",
+        "description": "Coffee shop",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -17.94,
+        "runningBalance": 1193.74
+      },
+      {
+        "date": "2025-09-01",
+        "description": "Hobby supplies",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -19.89,
+        "runningBalance": 1173.85
+      },
+      {
+        "date": "2025-09-01",
+        "description": "Textbooks",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -44.39,
+        "runningBalance": 1129.46
+      },
+      {
+        "date": "2025-09-02",
+        "description": "Electricity & water",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -46.61,
+        "runningBalance": 1082.85
+      },
+      {
+        "date": "2025-09-02",
+        "description": "Internet subscription",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -22.74,
+        "runningBalance": 1060.11
+      },
+      {
+        "date": "2025-09-03",
+        "description": "Lidl",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -15.06,
+        "runningBalance": 1045.05
+      },
+      {
+        "date": "2025-09-03",
+        "description": "Books / games",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -35.21,
+        "runningBalance": 1009.84
+      },
+      {
+        "date": "2025-09-04",
+        "description": "Maintenance fee",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -22.39,
+        "runningBalance": 987.45
+      },
+      {
+        "date": "2025-09-04",
+        "description": "Gym membership",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -1.41,
+        "runningBalance": 986.04
+      },
+      {
+        "date": "2025-09-05",
+        "description": "Rent payment",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -335.35,
+        "runningBalance": 650.69
+      },
+      {
+        "date": "2025-09-05",
+        "description": "Home insurance",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -22.8,
+        "runningBalance": 627.89
+      },
+      {
+        "date": "2025-09-05",
+        "description": "Fuel",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -4.02,
+        "runningBalance": 623.87
+      },
+      {
+        "date": "2025-09-05",
+        "description": "Phone bill",
+        "category": "Subscriptions",
+        "type": "Expense",
+        "amount": -9.21,
+        "runningBalance": 614.66
+      },
+      {
+        "date": "2025-09-05",
+        "description": "Gym membership",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -4.36,
+        "runningBalance": 610.3
+      },
+      {
+        "date": "2025-09-06",
+        "description": "Disney+",
+        "category": "Subscriptions",
+        "type": "Expense",
+        "amount": -4,
+        "runningBalance": 606.3
+      },
+      {
+        "date": "2025-09-07",
+        "description": "Cloud storage",
+        "category": "Subscriptions",
+        "type": "Expense",
+        "amount": -3.99,
+        "runningBalance": 602.31
+      },
+      {
+        "date": "2025-09-07",
+        "description": "Online course",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -25.77,
+        "runningBalance": 576.54
+      },
+      {
+        "date": "2025-09-08",
+        "description": "Haircut",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -8.99,
+        "runningBalance": 567.55
+      },
+      {
+        "date": "2025-09-08",
+        "description": "Cleaning supplies",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -7.53,
+        "runningBalance": 560.02
+      },
+      {
+        "date": "2025-09-10",
+        "description": "Fuel",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -20.76,
+        "runningBalance": 539.26
+      },
+      {
+        "date": "2025-09-10",
+        "description": "Online course",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -7.17,
+        "runningBalance": 532.09
+      },
+      {
+        "date": "2025-09-14",
+        "description": "Online shopping",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -3.37,
+        "runningBalance": 528.72
+      },
+      {
+        "date": "2025-09-20",
+        "description": "Taxi / Bolt",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -12.03,
+        "runningBalance": 516.69
+      },
+      {
+        "date": "2025-09-20",
+        "description": "Doctor visit",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -8.19,
+        "runningBalance": 508.5
+      },
+      {
+        "date": "2025-09-22",
+        "description": "S-Market",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -35.93,
+        "runningBalance": 472.57
+      },
+      {
+        "date": "2025-09-25",
+        "description": "Income deposit",
+        "category": "Income",
+        "type": "Income",
+        "amount": 900,
+        "runningBalance": 1372.57
+      },
+      {
+        "date": "2025-09-25",
+        "description": "Taxi / Bolt",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -2.71,
+        "runningBalance": 1369.86
+      },
+      {
+        "date": "2025-09-27",
+        "description": "Prisma",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -64.96,
+        "runningBalance": 1304.9
+      },
+      {
+        "date": "2025-09-27",
+        "description": "Online shopping",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -6.31,
+        "runningBalance": 1298.59
+      },
+      {
+        "date": "2025-09-27",
+        "description": "Online shopping",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -5.37,
+        "runningBalance": 1293.22
+      },
+      {
+        "date": "2025-09-28",
+        "description": "Textbooks",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -13.35,
+        "runningBalance": 1279.87
+      },
+      {
+        "date": "2025-09-28",
+        "description": "Birthday gift",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -20,
+        "runningBalance": 1259.87
+      },
+      {
+        "date": "2025-10-01",
+        "description": "Electricity & water",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -42.86,
+        "runningBalance": 1217.01
+      },
+      {
+        "date": "2025-10-01",
+        "description": "Birthday gift",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -12.56,
+        "runningBalance": 1204.45
+      },
+      {
+        "date": "2025-10-02",
+        "description": "Home insurance",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -21.91,
+        "runningBalance": 1182.54
+      },
+      {
+        "date": "2025-10-02",
+        "description": "Maintenance fee",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -21.3,
+        "runningBalance": 1161.24
+      },
+      {
+        "date": "2025-10-02",
+        "description": "Doctor visit",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -4.85,
+        "runningBalance": 1156.39
+      },
+      {
+        "date": "2025-10-03",
+        "description": "Internet subscription",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -22.15,
+        "runningBalance": 1134.24
+      },
+      {
+        "date": "2025-10-05",
+        "description": "Rent payment",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -331.89,
+        "runningBalance": 802.35
+      },
+      {
+        "date": "2025-10-05",
+        "description": "Phone bill",
+        "category": "Subscriptions",
+        "type": "Expense",
+        "amount": -9.69,
+        "runningBalance": 792.66
+      },
+      {
+        "date": "2025-10-05",
+        "description": "Birthday gift",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -9.4,
+        "runningBalance": 783.26
+      },
+      {
+        "date": "2025-10-07",
+        "description": "Pharmacy",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -4.55,
+        "runningBalance": 778.71
+      },
+      {
+        "date": "2025-10-09",
+        "description": "Disney+",
+        "category": "Subscriptions",
+        "type": "Expense",
+        "amount": -3.88,
+        "runningBalance": 774.83
+      },
+      {
+        "date": "2025-10-10",
+        "description": "K-Market",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -32.15,
+        "runningBalance": 742.68
+      },
+      {
+        "date": "2025-10-11",
+        "description": "Textbooks",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -3.4,
+        "runningBalance": 739.28
+      },
+      {
+        "date": "2025-10-14",
+        "description": "Prisma",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -45.43,
+        "runningBalance": 693.85
+      },
+      {
+        "date": "2025-10-15",
+        "description": "Textbooks",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -7.24,
+        "runningBalance": 686.61
+      },
+      {
+        "date": "2025-10-16",
+        "description": "Pharmacy",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -10.63,
+        "runningBalance": 675.98
+      },
+      {
+        "date": "2025-10-17",
+        "description": "Fuel",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -4.81,
+        "runningBalance": 671.17
+      },
+      {
+        "date": "2025-10-18",
+        "description": "Haircut",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -2.12,
+        "runningBalance": 669.05
+      },
+      {
+        "date": "2025-10-18",
+        "description": "Textbooks",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -12.96,
+        "runningBalance": 656.09
+      },
+      {
+        "date": "2025-10-19",
+        "description": "Sports",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -30.82,
+        "runningBalance": 625.27
+      },
+      {
+        "date": "2025-10-20",
+        "description": "Online course",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -6.86,
+        "runningBalance": 618.41
+      },
+      {
+        "date": "2025-10-22",
+        "description": "Birthday gift",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -8.25,
+        "runningBalance": 610.16
+      },
+      {
+        "date": "2025-10-23",
+        "description": "Online course",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -5.84,
+        "runningBalance": 604.32
+      },
+      {
+        "date": "2025-10-24",
+        "description": "Public transport pass",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -17.84,
+        "runningBalance": 586.48
+      },
+      {
+        "date": "2025-10-24",
+        "description": "Online course",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -23.04,
+        "runningBalance": 563.44
+      },
+      {
+        "date": "2025-10-25",
+        "description": "Income deposit",
+        "category": "Income",
+        "type": "Income",
+        "amount": 900,
+        "runningBalance": 1463.44
+      },
+      {
+        "date": "2025-10-27",
+        "description": "Fuel",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -9.55,
+        "runningBalance": 1453.89
+      },
+      {
+        "date": "2025-11-01",
+        "description": "Prisma",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -32.8,
+        "runningBalance": 1421.09
+      },
+      {
+        "date": "2025-11-02",
+        "description": "Maintenance fee",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -21.78,
+        "runningBalance": 1399.31
+      },
+      {
+        "date": "2025-11-02",
+        "description": "Skincare",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -3.52,
+        "runningBalance": 1395.79
+      },
+      {
+        "date": "2025-11-04",
+        "description": "Internet subscription",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -21.56,
+        "runningBalance": 1374.23
+      },
+      {
+        "date": "2025-11-04",
+        "description": "Online shopping",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -3.68,
+        "runningBalance": 1370.55
+      },
+      {
+        "date": "2025-11-05",
+        "description": "Rent payment",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -320.41,
+        "runningBalance": 1050.14
+      },
+      {
+        "date": "2025-11-05",
+        "description": "Electricity & water",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -43.25,
+        "runningBalance": 1006.89
+      },
+      {
+        "date": "2025-11-05",
+        "description": "Home insurance",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -21.55,
+        "runningBalance": 985.34
+      },
+      {
+        "date": "2025-11-08",
+        "description": "Public transport pass",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -8.95,
+        "runningBalance": 976.39
+      },
+      {
+        "date": "2025-11-08",
+        "description": "Birthday gift",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -7.56,
+        "runningBalance": 968.83
+      },
+      {
+        "date": "2025-11-09",
+        "description": "Online shopping",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -7.11,
+        "runningBalance": 961.72
+      },
+      {
+        "date": "2025-11-12",
+        "description": "S-Market",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -35.59,
+        "runningBalance": 926.13
+      },
+      {
+        "date": "2025-11-12",
+        "description": "Coffee shop",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -12.97,
+        "runningBalance": 913.16
+      },
+      {
+        "date": "2025-11-12",
+        "description": "Cleaning supplies",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -2.62,
+        "runningBalance": 910.54
+      },
+      {
+        "date": "2025-11-13",
+        "description": "Bar / nightout",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -6.21,
+        "runningBalance": 904.33
+      },
+      {
+        "date": "2025-11-16",
+        "description": "Bar / nightout",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -18.91,
+        "runningBalance": 885.42
+      },
+      {
+        "date": "2025-11-17",
+        "description": "Hobby supplies",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -31.13,
+        "runningBalance": 854.29
+      },
+      {
+        "date": "2025-11-18",
+        "description": "Taxi / Bolt",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -5.35,
+        "runningBalance": 848.94
+      },
+      {
+        "date": "2025-11-19",
+        "description": "Bar / nightout",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -10.66,
+        "runningBalance": 838.28
+      },
+      {
+        "date": "2025-11-20",
+        "description": "Fuel",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -6.24,
+        "runningBalance": 832.04
+      },
+      {
+        "date": "2025-11-20",
+        "description": "Gym membership",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -2.93,
+        "runningBalance": 829.11
+      },
+      {
+        "date": "2025-11-21",
+        "description": "Haircut",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -4.6,
+        "runningBalance": 824.51
+      },
+      {
+        "date": "2025-11-21",
+        "description": "Cinema",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -12.1,
+        "runningBalance": 812.41
+      },
+      {
+        "date": "2025-11-21",
+        "description": "Online course",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -15.07,
+        "runningBalance": 797.34
+      },
+      {
+        "date": "2025-11-23",
+        "description": "Haircut",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -9.73,
+        "runningBalance": 787.61
+      },
+      {
+        "date": "2025-11-23",
+        "description": "Course materials",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -6.69,
+        "runningBalance": 780.92
+      },
+      {
+        "date": "2025-11-25",
+        "description": "Income deposit",
+        "category": "Income",
+        "type": "Income",
+        "amount": 900,
+        "runningBalance": 1680.92
+      },
+      {
+        "date": "2025-11-25",
+        "description": "Skincare",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -1.86,
+        "runningBalance": 1679.06
+      },
+      {
+        "date": "2025-11-26",
+        "description": "S-Market",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -29.55,
+        "runningBalance": 1649.51
+      },
+      {
+        "date": "2025-11-28",
+        "description": "Parking",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -8.33,
+        "runningBalance": 1641.18
+      },
+      {
+        "date": "2025-11-28",
+        "description": "Birthday gift",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -9.24,
+        "runningBalance": 1631.94
+      },
+      {
+        "date": "2025-12-01",
+        "description": "Internet subscription",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -23.45,
+        "runningBalance": 1608.49
+      },
+      {
+        "date": "2025-12-02",
+        "description": "Rent payment",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -345.75,
+        "runningBalance": 1262.74
+      },
+      {
+        "date": "2025-12-02",
+        "description": "Spotify",
+        "category": "Subscriptions",
+        "type": "Expense",
+        "amount": -4.08,
+        "runningBalance": 1258.66
+      },
+      {
+        "date": "2025-12-02",
+        "description": "Gym membership",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -3.38,
+        "runningBalance": 1255.28
+      },
+      {
+        "date": "2025-12-03",
+        "description": "Maintenance fee",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -22.57,
+        "runningBalance": 1232.71
+      },
+      {
+        "date": "2025-12-04",
+        "description": "Home insurance",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -22.7,
+        "runningBalance": 1210.01
+      },
+      {
+        "date": "2025-12-05",
+        "description": "Electricity & water",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -46.14,
+        "runningBalance": 1163.87
+      },
+      {
+        "date": "2025-12-09",
+        "description": "Public transport pass",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -19.92,
+        "runningBalance": 1143.95
+      },
+      {
+        "date": "2025-12-10",
+        "description": "Phone bill",
+        "category": "Subscriptions",
+        "type": "Expense",
+        "amount": -9.46,
+        "runningBalance": 1134.49
+      },
+      {
+        "date": "2025-12-12",
+        "description": "Textbooks",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -4.56,
+        "runningBalance": 1129.93
+      },
+      {
+        "date": "2025-12-13",
+        "description": "Concert / event",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -16.03,
+        "runningBalance": 1113.9
+      },
+      {
+        "date": "2025-12-13",
+        "description": "Cleaning supplies",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -15.88,
+        "runningBalance": 1098.02
+      },
+      {
+        "date": "2025-12-14",
+        "description": "Prisma",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -58.34,
+        "runningBalance": 1039.68
+      },
+      {
+        "date": "2025-12-16",
+        "description": "Concert / event",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -24.38,
+        "runningBalance": 1015.3
+      },
+      {
+        "date": "2025-12-18",
+        "description": "Textbooks",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -4.75,
+        "runningBalance": 1010.55
+      },
+      {
+        "date": "2025-12-18",
+        "description": "Online shopping",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -10.72,
+        "runningBalance": 999.83
+      },
+      {
+        "date": "2025-12-20",
+        "description": "Public transport pass",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -11.13,
+        "runningBalance": 988.7
+      },
+      {
+        "date": "2025-12-21",
+        "description": "Cinema",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -17.87,
+        "runningBalance": 970.83
+      },
+      {
+        "date": "2025-12-21",
+        "description": "Online course",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -24.16,
+        "runningBalance": 946.67
+      },
+      {
+        "date": "2025-12-22",
+        "description": "Income deposit",
+        "category": "Income",
+        "type": "Income",
+        "amount": 900,
+        "runningBalance": 1846.67
+      },
+      {
+        "date": "2025-12-22",
+        "description": "Pharmacy",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -9.1,
+        "runningBalance": 1837.57
+      },
+      {
+        "date": "2025-12-22",
+        "description": "Postage / misc",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -3.71,
+        "runningBalance": 1833.86
+      },
+      {
+        "date": "2025-12-22",
+        "description": "Birthday gift",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -2.13,
+        "runningBalance": 1831.73
+      },
+      {
+        "date": "2025-12-24",
+        "description": "Textbooks",
+        "category": "Education",
+        "type": "Expense",
+        "amount": -5.89,
+        "runningBalance": 1825.84
+      },
+      {
+        "date": "2025-12-28",
+        "description": "Pharmacy",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -8.06,
+        "runningBalance": 1817.78
+      },
+      {
+        "date": "2025-12-28",
+        "description": "Concert / event",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -4.33,
+        "runningBalance": 1813.45
+      }
+    ],
+    "annualSummary": {
+      "totalIncome": 10800,
+      "totalExpenses": -8986.55,
+      "netSaved": 1813.45,
+      "savingsRate": 0.1679
+    },
+    "monthlyCategories": [
+      {
+        "category": "Housing",
+        "monthly": {
+          "Jan": 431.42,
+          "Feb": 426.82,
+          "Mar": 468.05,
+          "Apr": 377.25,
+          "May": 438.84,
+          "Jun": 396.09,
+          "Jul": 407.95,
+          "Aug": 411.7,
+          "Sep": 449.89,
+          "Oct": 440.11,
+          "Nov": 428.55,
+          "Dec": 460.61
+        },
+        "total": 5137.28
+      },
+      {
+        "category": "Food & Groceries",
+        "monthly": {
+          "Jan": 107.19,
+          "Feb": 177.28,
+          "Mar": 148.33,
+          "Apr": 112.63,
+          "May": 163.95,
+          "Jun": 140.56,
+          "Jul": 121.86,
+          "Aug": 80.08,
+          "Sep": 115.95,
+          "Oct": 77.58,
+          "Nov": 110.91,
+          "Dec": 58.34
+        },
+        "total": 1414.66
+      },
+      {
+        "category": "Transport",
+        "monthly": {
+          "Jan": 14.98,
+          "Feb": 41.86,
+          "Mar": 36.2,
+          "Apr": 41.23,
+          "May": 42.31,
+          "Jun": 38.75,
+          "Jul": 30.57,
+          "Aug": 21.67,
+          "Sep": 39.52,
+          "Oct": 32.2,
+          "Nov": 28.87,
+          "Dec": 31.05
+        },
+        "total": 399.21
+      },
+      {
+        "category": "Subscriptions",
+        "monthly": {
+          "Jan": 16.56,
+          "Feb": 15.66,
+          "Mar": 0,
+          "Apr": 0,
+          "May": 12.84,
+          "Jun": 22.45,
+          "Jul": 7.84,
+          "Aug": 0,
+          "Sep": 17.2,
+          "Oct": 13.57,
+          "Nov": 0,
+          "Dec": 13.54
+        },
+        "total": 119.66
+      },
+      {
+        "category": "Health & Care",
+        "monthly": {
+          "Jan": 27.45,
+          "Feb": 15.63,
+          "Mar": 19.18,
+          "Apr": 21.32,
+          "May": 21.46,
+          "Jun": 12.62,
+          "Jul": 17.27,
+          "Aug": 24.27,
+          "Sep": 22.95,
+          "Oct": 22.15,
+          "Nov": 22.64,
+          "Dec": 20.54
+        },
+        "total": 247.48
+      },
+      {
+        "category": "Leisure",
+        "monthly": {
+          "Jan": 82.67,
+          "Feb": 53.82,
+          "Mar": 27.81,
+          "Apr": 53.36,
+          "May": 63,
+          "Jun": 122.25,
+          "Jul": 72.62,
+          "Aug": 54.31,
+          "Sep": 55.1,
+          "Oct": 30.82,
+          "Nov": 79.01,
+          "Dec": 62.61
+        },
+        "total": 757.38
+      },
+      {
+        "category": "Education",
+        "monthly": {
+          "Jan": 53.95,
+          "Feb": 59.96,
+          "Mar": 38.04,
+          "Apr": 51.74,
+          "May": 39.39,
+          "Jun": 21.29,
+          "Jul": 15.37,
+          "Aug": 63.44,
+          "Sep": 90.68,
+          "Oct": 59.34,
+          "Nov": 21.76,
+          "Dec": 39.36
+        },
+        "total": 554.32
+      },
+      {
+        "category": "Misc",
+        "monthly": {
+          "Jan": 31.89,
+          "Feb": 28.18,
+          "Mar": 34.38,
+          "Apr": 26.77,
+          "May": 28.25,
+          "Jun": 12.84,
+          "Jul": 24.13,
+          "Aug": 34.68,
+          "Sep": 42.58,
+          "Oct": 30.21,
+          "Nov": 30.21,
+          "Dec": 32.44
+        },
+        "total": 356.56
+      }
+    ],
+    "persona": {
+      "likelyInvestmentBlocker": "confusion, fear of losing money, and concern that the amount is too small",
+      "conversationStyle": "honest, slightly anxious, curious, budget-sensitive",
+      "approvalTendency": "approves small savings drafts, asks for education before investment drafts"
+    }
+  },
+  "snapshot": {
+    "monthly_income_estimate": 900,
+    "available_this_month": 150,
+    "safe_to_save_estimate": 30,
+    "currency": "EUR",
+    "recurring_expenses_detected": [
+      {
+        "name": "Housing",
+        "amount": 430,
+        "cadence": "monthly"
+      },
+      {
+        "name": "Transport",
+        "amount": 35,
+        "cadence": "monthly"
+      },
+      {
+        "name": "Subscriptions",
+        "amount": 10,
+        "cadence": "monthly"
+      }
+    ],
+    "upcoming_risks": [
+      {
+        "name": "Housing costs",
+        "amount": 430,
+        "due_in_days": 7
+      }
+    ],
+    "confidence": "medium"
+  },
+  "finalMemory": {
+    "user": {
+      "first_name": "Emma",
+      "age": 22,
+      "personality_notes": [
+        "honest, slightly anxious, curious, budget-sensitive"
+      ],
+      "tone_preference": "warm_direct_playful"
+    },
+    "financial_understanding": {
+      "self_rating": "beginner",
+      "known_topics": [
+        "Saving versus investing"
+      ],
+      "confusing_topics": [
+        "investment risk"
+      ],
+      "preferred_content_format": "short_card"
+    },
+    "learning_progress": {
+      "stage": "money_confidence",
+      "domains": {
+        "starting_safely": {
+          "name": "Starting Safely",
+          "stage": "money_confidence",
+          "status": "applied",
+          "visible_status": "Applied once",
+          "progress": 75,
+          "last_topic": "Saving versus investing"
+        }
+      },
+      "topic_history": [
+        "Starting Safely:Saving versus investing:seen",
+        "Starting Safely:Saving versus investing:applied"
+      ],
+      "interested_domains": [],
+      "next_suggested_domain": "Funds"
+    },
+    "investment_journey": {
+      "invested_before": null,
+      "has_nordea_investments": false,
+      "readiness_stage": "ready_to_plan",
+      "risk_comfort": "low",
+      "first_investment_blockers": [
+        "confusion"
+      ]
+    },
+    "financial_snapshot_summary": {},
+    "goals": [
+      {
+        "id": "U001-laptop-1-200",
+        "name": "Laptop (€1,200)",
+        "target_amount": 1200,
+        "currency": "EUR",
+        "monthly_contribution": 25,
+        "status": "draft",
+        "shared_goal": false
+      },
+      {
+        "id": "U001-laptop-1-200",
+        "name": "Laptop (€1,200)",
+        "target_amount": 1200,
+        "currency": "EUR",
+        "monthly_contribution": 25,
+        "status": "draft",
+        "shared_goal": false
+      }
+    ],
+    "preferences": {
+      "likes_future_self_framing": true,
+      "wants_expense_tables": true,
+      "sharing_enabled": false,
+      "allowed_people_for_shared_goals": [],
+      "expense_review_category": "Subscriptions"
+    },
+    "recommendation_history": [],
+    "memory_events": [
+      {
+        "field": "investment_journey.has_nordea_investments",
+        "value": false,
+        "source": "bank_context",
+        "confidence": "high",
+        "timestamp": "2026-05-15T16:33:39.257Z"
+      },
+      {
+        "field": "user.age",
+        "value": 22,
+        "source": "bank_context",
+        "confidence": "high",
+        "timestamp": "2026-05-15T16:33:39.257Z"
+      },
+      {
+        "field": "investment_journey.first_investment_blockers",
+        "value": [
+          "confusion"
+        ],
+        "source": "explicit_user",
+        "confidence": "high",
+        "timestamp": "2026-05-15T16:33:39.257Z"
+      },
+      {
+        "field": "investment_journey.readiness_stage",
+        "value": "curious",
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-15T16:33:39.257Z"
+      },
+      {
+        "field": "preferences.wants_expense_tables",
+        "value": true,
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-15T16:33:39.257Z"
+      },
+      {
+        "field": "goals",
+        "value": [
+          {
+            "id": "U001-laptop-1-200",
+            "name": "Laptop (€1,200)",
+            "target_amount": 1200,
+            "currency": "EUR",
+            "monthly_contribution": 25,
+            "status": "draft",
+            "shared_goal": false
+          }
+        ],
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-15T16:33:39.258Z"
+      },
+      {
+        "field": "investment_journey.readiness_stage",
+        "value": "draft_created",
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-15T16:33:39.258Z"
+      },
+      {
+        "field": "investment_journey.readiness_stage",
+        "value": "curious",
+        "source": "explicit_user",
+        "confidence": "high",
+        "timestamp": "2026-05-15T16:33:39.258Z"
+      },
+      {
+        "field": "financial_understanding.confusing_topics",
+        "value": [
+          "investment risk"
+        ],
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-15T16:33:39.258Z"
+      },
+      {
+        "field": "goals",
+        "value": [
+          {
+            "id": "U001-laptop-1-200",
+            "name": "Laptop (€1,200)",
+            "target_amount": 1200,
+            "currency": "EUR",
+            "monthly_contribution": 25,
+            "status": "draft",
+            "shared_goal": false
+          }
+        ],
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-15T16:33:39.258Z"
+      },
+      {
+        "field": "investment_journey.readiness_stage",
+        "value": "draft_created",
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-15T16:33:39.258Z"
+      },
+      {
+        "field": "preferences.likes_future_self_framing",
+        "value": true,
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-15T16:33:39.258Z"
+      },
+      {
+        "field": "investment_journey.readiness_stage",
+        "value": "ready_to_plan",
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-15T16:33:39.258Z"
+      },
+      {
+        "field": "preferences.wants_expense_tables",
+        "value": true,
+        "source": "explicit_user",
+        "confidence": "high",
+        "timestamp": "2026-05-15T16:33:39.258Z"
+      },
+      {
+        "field": "preferences.expense_review_category",
+        "value": "Subscriptions",
+        "source": "explicit_user",
+        "confidence": "medium",
+        "timestamp": "2026-05-15T16:33:39.258Z"
+      },
+      {
+        "field": "investment_journey.readiness_stage",
+        "value": "ready_to_plan",
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-15T16:33:39.258Z"
+      },
+      {
+        "field": "financial_understanding.confusing_topics",
+        "value": [
+          "investment risk"
+        ],
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-15T16:33:39.258Z"
+      },
+      {
+        "field": "preferences.wants_expense_tables",
+        "value": true,
+        "source": "explicit_user",
+        "confidence": "high",
+        "timestamp": "2026-05-15T16:33:39.258Z"
+      },
+      {
+        "field": "preferences.expense_review_category",
+        "value": "Subscriptions",
+        "source": "explicit_user",
+        "confidence": "medium",
+        "timestamp": "2026-05-15T16:33:39.258Z"
+      },
+      {
+        "field": "financial_understanding.known_topics",
+        "value": [
+          "Saving versus investing"
+        ],
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-15T16:33:39.259Z"
+      },
+      {
+        "field": "financial_understanding.preferred_content_format",
+        "value": "short_card",
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-15T16:33:39.259Z"
+      },
+      {
+        "field": "learning_progress.stage",
+        "value": "money_confidence",
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-15T16:33:39.259Z"
+      },
+      {
+        "field": "learning_progress.domains.starting_safely",
+        "value": {
+          "name": "Starting Safely",
+          "stage": "money_confidence",
+          "status": "seen",
+          "visible_status": "Started",
+          "progress": 25,
+          "last_topic": "Saving versus investing"
+        },
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-15T16:33:39.259Z"
+      },
+      {
+        "field": "learning_progress.topic_history",
+        "value": [
+          "Starting Safely:Saving versus investing:seen"
+        ],
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-15T16:33:39.259Z"
+      },
+      {
+        "field": "learning_progress.next_suggested_domain",
+        "value": "Risk Without Panic",
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-15T16:33:39.259Z"
+      },
+      {
+        "field": "investment_journey.readiness_stage",
+        "value": "ready_to_plan",
+        "source": "inferred_from_conversation",
+        "confidence": "high",
+        "timestamp": "2026-05-15T16:33:39.259Z"
+      },
+      {
+        "field": "learning_progress.stage",
+        "value": "money_confidence",
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-15T16:33:39.259Z"
+      },
+      {
+        "field": "learning_progress.domains.starting_safely",
+        "value": {
+          "name": "Starting Safely",
+          "stage": "money_confidence",
+          "status": "applied",
+          "visible_status": "Applied once",
+          "progress": 75,
+          "last_topic": "Saving versus investing"
+        },
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-15T16:33:39.259Z"
+      },
+      {
+        "field": "learning_progress.topic_history",
+        "value": [
+          "Starting Safely:Saving versus investing:applied"
+        ],
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-15T16:33:39.259Z"
+      },
+      {
+        "field": "learning_progress.next_suggested_domain",
+        "value": "Funds",
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-15T16:33:39.259Z"
+      }
+    ]
+  },
+  "conversation": [
+    {
+      "role": "Nora",
+      "text": "Hi, I'm Nora. I help you make sense of saving and investing one step at a time. You can ask me anything, anytime - even the questions that feel too basic.\n\nI can already see the basics from your Nordea context, so I won't make you fill out a personality quiz disguised as banking.\n\nI can also see you haven't started investing with us yet. Very normal. Future-you question: what is the main thing holding you back right now - risk, confusion, feeling like the amount is too small, or just not getting around to it yet?",
+      "structured": {
+        "visible_response": "Hi, I'm Nora. I help you make sense of saving and investing one step at a time. You can ask me anything, anytime - even the questions that feel too basic.\n\nI can already see the basics from your Nordea context, so I won't make you fill out a personality quiz disguised as banking.\n\nI can also see you haven't started investing with us yet. Very normal. Future-you question: what is the main thing holding you back right now - risk, confusion, feeling like the amount is too small, or just not getting around to it yet?",
+        "intent": "first_conversation",
+        "nora_action": "ask_question",
+        "tool_requests": [],
+        "recommendation_card": null,
+        "trust_ledger_entry": null,
+        "memory_updates": [
+          {
+            "field": "investment_journey.has_nordea_investments",
+            "value": false,
+            "source": "bank_context",
+            "confidence": "high"
+          },
+          {
+            "field": "user.age",
+            "value": 22,
+            "source": "bank_context",
+            "confidence": "high"
+          }
+        ],
+        "next_best_question": "What is the main thing holding you back from investing?",
+        "education_hook": null,
+        "safety_flags": []
+      }
+    },
+    {
+      "role": "Simulated User",
+      "text": "Mostly confusion, honestly. I feel like investing is for people who already know what they are doing, and my budget is pretty small.",
+      "internal_reason": "Emma is a low-risk student with limited income."
+    },
+    {
+      "role": "Nora",
+      "text": "That is a very workable starting point. Also, we are not doing dramatic investing energy today.\n\nFuture-you does not need you to become an investing person overnight. They need one tiny habit you understand well enough to keep.\n\nBased on your current snapshot, I would start by checking whether EUR 30/month could be safe without touching essentials. Want me to show the simple monthly table behind that number?",
+      "structured": {
+        "visible_response": "That is a very workable starting point. Also, we are not doing dramatic investing energy today.\n\nFuture-you does not need you to become an investing person overnight. They need one tiny habit you understand well enough to keep.\n\nBased on your current snapshot, I would start by checking whether EUR 30/month could be safe without touching essentials. Want me to show the simple monthly table behind that number?",
+        "intent": "investment_readiness",
+        "nora_action": "ask_question",
+        "tool_requests": [
+          {
+            "name": "create_recurring_expense_table",
+            "reason": "Show basis for safe monthly habit"
+          }
+        ],
+        "recommendation_card": null,
+        "trust_ledger_entry": null,
+        "memory_updates": [
+          {
+            "field": "investment_journey.first_investment_blockers",
+            "value": [
+              "confusion"
+            ],
+            "source": "explicit_user",
+            "confidence": "high"
+          },
+          {
+            "field": "investment_journey.readiness_stage",
+            "value": "curious",
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          }
+        ],
+        "next_best_question": "Want me to show the simple monthly table behind that number?",
+        "education_hook": {
+          "topic": "What investing risk means",
+          "reason": "User showed first-investment uncertainty",
+          "format_suggestion": "short_card"
+        },
+        "safety_flags": []
+      }
+    },
+    {
+      "role": "Simulated User",
+      "text": "Yes, show me the table first. I want to see where the number comes from.",
+      "internal_reason": "Persona wants transparency before approval."
+    },
+    {
+      "role": "Nora",
+      "text": "Here is the boring-but-powerful version.\n\nYour income and recurring expenses suggest a small monthly habit could fit, but I would keep the first draft intentionally modest: EUR 25/month toward Laptop (€1,200).\n\nFuture-you is not asking for heroics. They are asking for a system. I can draft this as a monthly savings habit first, and only connect it to investing after you understand the risk side. Want to approve the starter habit, adjust the target/timeline, or keep it as a learning plan for now?",
+      "structured": {
+        "visible_response": "Here is the boring-but-powerful version.\n\nYour income and recurring expenses suggest a small monthly habit could fit, but I would keep the first draft intentionally modest: EUR 25/month toward Laptop (€1,200).\n\nFuture-you is not asking for heroics. They are asking for a system. I can draft this as a monthly savings habit first, and only connect it to investing after you understand the risk side. Want to approve the starter habit, adjust the target/timeline, or keep it as a learning plan for now?",
+        "intent": "savings_plan",
+        "nora_action": "request_approval",
+        "tool_requests": [
+          {
+            "name": "goal_savings_plan_agent",
+            "reason": "Assess feasibility and create plan for Laptop (€1,200)"
+          },
+          {
+            "name": "draft_monthly_savings_action",
+            "reason": "Prepare reversible monthly savings draft"
+          },
+          {
+            "name": "write_trust_ledger",
+            "reason": "Explain recommendation basis"
+          },
+          {
+            "name": "request_user_approval",
+            "reason": "Money movement requires explicit approval"
+          }
+        ],
+        "goal_plan": {
+          "agent": "goal_savings_plan",
+          "goal_id": "U001-laptop-1-200",
+          "goal_name": "Laptop (€1,200)",
+          "target_amount": 1200,
+          "target_date": null,
+          "currency": "EUR",
+          "safe_to_save_estimate": 30,
+          "recommended_option_id": "gentle",
+          "recommended_option": {
+            "id": "gentle",
+            "label": "Gentle",
+            "monthly_contribution": 25,
+            "timeline_months": 48,
+            "timeline_label": "4 years",
+            "feasibility": "workable",
+            "tradeoff": "Lowest friction; best when the user is still building confidence."
+          },
+          "options": [
+            {
+              "id": "gentle",
+              "label": "Gentle",
+              "monthly_contribution": 25,
+              "timeline_months": 48,
+              "timeline_label": "4 years",
+              "feasibility": "workable",
+              "tradeoff": "Lowest friction; best when the user is still building confidence."
+            },
+            {
+              "id": "balanced",
+              "label": "Balanced",
+              "monthly_contribution": 30,
+              "timeline_months": 40,
+              "timeline_label": "3.3 years",
+              "feasibility": "workable",
+              "tradeoff": "More visible progress while staying below the safe-to-save estimate."
+            }
+          ],
+          "overall_feasibility": "workable",
+          "requires_adjustment": false,
+          "levers": [],
+          "nora_summary": "EUR 25/month is a reasonable first draft for Laptop (€1,200).",
+          "recommendation_card": {
+            "title": "Start a monthly habit for Laptop (€1,200)",
+            "summary": "Draft EUR 25/month as a savings-first habit. Investment education comes before any investment action.",
+            "amount": 25,
+            "currency": "EUR",
+            "cadence": "monthly",
+            "status": "draft_requires_approval"
+          },
+          "trust_ledger_input": {
+            "data_used": [
+              "savings goal",
+              "target amount if available",
+              "safe-to-save estimate",
+              "risk comfort",
+              "financial snapshot"
+            ],
+            "assumptions": [
+              "The 2025 synthetic cashflow pattern is broadly representative.",
+              "The target amount parsed from the goal name is correct."
+            ],
+            "confidence": "medium",
+            "boundaries": [
+              "This is not an investment return forecast.",
+              "This does not execute a transfer.",
+              "Large goals may need timeline changes, milestone splitting, or outside contributions."
+            ],
+            "approval_required": true
+          },
+          "memory_updates": [
+            {
+              "field": "goals",
+              "value": [
+                {
+                  "id": "U001-laptop-1-200",
+                  "name": "Laptop (€1,200)",
+                  "target_amount": 1200,
+                  "currency": "EUR",
+                  "monthly_contribution": 25,
+                  "status": "draft",
+                  "shared_goal": false
+                }
+              ],
+              "source": "inferred_from_conversation",
+              "confidence": "medium"
+            },
+            {
+              "field": "investment_journey.readiness_stage",
+              "value": "draft_created",
+              "source": "inferred_from_conversation",
+              "confidence": "medium"
+            }
+          ],
+          "safety_flags": [
+            "approval_required_before_money_movement"
+          ]
+        },
+        "recommendation_card": {
+          "title": "Start a monthly habit for Laptop (€1,200)",
+          "summary": "Draft EUR 25/month as a savings-first habit. Investment education comes before any investment action.",
+          "amount": 25,
+          "currency": "EUR",
+          "cadence": "monthly",
+          "status": "draft_requires_approval"
+        },
+        "trust_ledger_entry": {
+          "data_used": [
+            "savings goal",
+            "target amount if available",
+            "safe-to-save estimate",
+            "risk comfort",
+            "financial snapshot"
+          ],
+          "assumptions": [
+            "The 2025 synthetic cashflow pattern is broadly representative.",
+            "The target amount parsed from the goal name is correct."
+          ],
+          "confidence": "medium",
+          "what_i_am_not_claiming": [
+            "This is not an investment return forecast.",
+            "This does not execute a transfer.",
+            "Large goals may need timeline changes, milestone splitting, or outside contributions."
+          ],
+          "approval_required": true
+        },
+        "memory_updates": [
+          {
+            "field": "preferences.wants_expense_tables",
+            "value": true,
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          },
+          {
+            "field": "goals",
+            "value": [
+              {
+                "id": "U001-laptop-1-200",
+                "name": "Laptop (€1,200)",
+                "target_amount": 1200,
+                "currency": "EUR",
+                "monthly_contribution": 25,
+                "status": "draft",
+                "shared_goal": false
+              }
+            ],
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          },
+          {
+            "field": "investment_journey.readiness_stage",
+            "value": "draft_created",
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          }
+        ],
+        "next_best_question": "Approve the starter habit, adjust target/timeline, or keep it as a learning plan?",
+        "education_hook": {
+          "topic": "Why savings-first usually comes before investing",
+          "reason": "Nora proposed a first monthly habit",
+          "format_suggestion": "short_card"
+        },
+        "safety_flags": [
+          "approval_required_before_money_movement",
+          "education_before_investment_action"
+        ]
+      }
+    },
+    {
+      "role": "Simulated User",
+      "text": "Keep it as a starter habit for now. I want to understand the timeline before approving anything bigger.",
+      "internal_reason": "Persona accepts a reversible first step."
+    },
+    {
+      "role": "Nora",
+      "text": "That is sensible. Keeping it as a learning plan first is not hesitation; it is good control.\n\nFor Laptop (€1,200), future-you has two possible preferences: keep the monthly amount low, or reach the goal faster. Which would feel more realistic for you right now?",
+      "structured": {
+        "visible_response": "That is sensible. Keeping it as a learning plan first is not hesitation; it is good control.\n\nFor Laptop (€1,200), future-you has two possible preferences: keep the monthly amount low, or reach the goal faster. Which would feel more realistic for you right now?",
+        "intent": "education_bridge",
+        "nora_action": "ask_question",
+        "tool_requests": [
+          {
+            "name": "update_user_memory",
+            "reason": "Persist decision and next education topic"
+          }
+        ],
+        "recommendation_card": null,
+        "trust_ledger_entry": null,
+        "memory_updates": [
+          {
+            "field": "investment_journey.readiness_stage",
+            "value": "curious",
+            "source": "explicit_user",
+            "confidence": "high"
+          },
+          {
+            "field": "financial_understanding.confusing_topics",
+            "value": [
+              "investment risk"
+            ],
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          }
+        ],
+        "next_best_question": "Lower monthly amount or faster timeline?",
+        "education_hook": {
+          "topic": "What investment risk means",
+          "reason": "Next step after savings habit draft",
+          "format_suggestion": "short_card"
+        },
+        "safety_flags": []
+      }
+    },
+    {
+      "role": "Simulated User",
+      "text": "Lower monthly amount. I would rather keep it realistic than rush it.",
+      "internal_reason": "Persona prefers sustainable plan over speed."
+    },
+    {
+      "role": "Nora",
+      "text": "Let's make it concrete.\n\n| Plan | Monthly amount | Estimated time | Feasibility |\n|---|---:|---:|---|\n| Gentle | EUR 25/month | 4 years | workable |\n| Balanced | EUR 30/month | 3.3 years | workable |\n\nMy bias is still to start with the plan you can keep. Should I keep Gentle as the draft, compare the other options, or adjust the goal?",
+      "structured": {
+        "visible_response": "Let's make it concrete.\n\n| Plan | Monthly amount | Estimated time | Feasibility |\n|---|---:|---:|---|\n| Gentle | EUR 25/month | 4 years | workable |\n| Balanced | EUR 30/month | 3.3 years | workable |\n\nMy bias is still to start with the plan you can keep. Should I keep Gentle as the draft, compare the other options, or adjust the goal?",
+        "intent": "goal_planning",
+        "nora_action": "propose_plan",
+        "tool_requests": [
+          {
+            "name": "goal_savings_plan_agent",
+            "reason": "Compare contribution plans and feasibility for Laptop (€1,200)"
+          }
+        ],
+        "goal_plan": {
+          "agent": "goal_savings_plan",
+          "goal_id": "U001-laptop-1-200",
+          "goal_name": "Laptop (€1,200)",
+          "target_amount": 1200,
+          "target_date": null,
+          "currency": "EUR",
+          "safe_to_save_estimate": 30,
+          "recommended_option_id": "gentle",
+          "recommended_option": {
+            "id": "gentle",
+            "label": "Gentle",
+            "monthly_contribution": 25,
+            "timeline_months": 48,
+            "timeline_label": "4 years",
+            "feasibility": "workable",
+            "tradeoff": "Lowest friction; best when the user is still building confidence."
+          },
+          "options": [
+            {
+              "id": "gentle",
+              "label": "Gentle",
+              "monthly_contribution": 25,
+              "timeline_months": 48,
+              "timeline_label": "4 years",
+              "feasibility": "workable",
+              "tradeoff": "Lowest friction; best when the user is still building confidence."
+            },
+            {
+              "id": "balanced",
+              "label": "Balanced",
+              "monthly_contribution": 30,
+              "timeline_months": 40,
+              "timeline_label": "3.3 years",
+              "feasibility": "workable",
+              "tradeoff": "More visible progress while staying below the safe-to-save estimate."
+            }
+          ],
+          "overall_feasibility": "workable",
+          "requires_adjustment": false,
+          "levers": [],
+          "nora_summary": "EUR 25/month is a reasonable first draft for Laptop (€1,200).",
+          "recommendation_card": {
+            "title": "Start a monthly habit for Laptop (€1,200)",
+            "summary": "Draft EUR 25/month as a savings-first habit. Investment education comes before any investment action.",
+            "amount": 25,
+            "currency": "EUR",
+            "cadence": "monthly",
+            "status": "draft_requires_approval"
+          },
+          "trust_ledger_input": {
+            "data_used": [
+              "savings goal",
+              "target amount if available",
+              "safe-to-save estimate",
+              "risk comfort",
+              "financial snapshot"
+            ],
+            "assumptions": [
+              "The 2025 synthetic cashflow pattern is broadly representative.",
+              "The target amount parsed from the goal name is correct."
+            ],
+            "confidence": "medium",
+            "boundaries": [
+              "This is not an investment return forecast.",
+              "This does not execute a transfer.",
+              "Large goals may need timeline changes, milestone splitting, or outside contributions."
+            ],
+            "approval_required": true
+          },
+          "memory_updates": [
+            {
+              "field": "goals",
+              "value": [
+                {
+                  "id": "U001-laptop-1-200",
+                  "name": "Laptop (€1,200)",
+                  "target_amount": 1200,
+                  "currency": "EUR",
+                  "monthly_contribution": 25,
+                  "status": "draft",
+                  "shared_goal": false
+                }
+              ],
+              "source": "inferred_from_conversation",
+              "confidence": "medium"
+            },
+            {
+              "field": "investment_journey.readiness_stage",
+              "value": "draft_created",
+              "source": "inferred_from_conversation",
+              "confidence": "medium"
+            }
+          ],
+          "safety_flags": [
+            "approval_required_before_money_movement"
+          ]
+        },
+        "recommendation_card": {
+          "title": "Plan options for Laptop (€1,200)",
+          "summary": "Recommended draft: EUR 25/month. No investment action yet.",
+          "amount": 25,
+          "currency": "EUR",
+          "cadence": "monthly",
+          "status": "draft_requires_approval"
+        },
+        "trust_ledger_entry": {
+          "data_used": [
+            "savings goal",
+            "target amount if available",
+            "safe-to-save estimate",
+            "risk comfort",
+            "financial snapshot"
+          ],
+          "assumptions": [
+            "The 2025 synthetic cashflow pattern is broadly representative.",
+            "The target amount parsed from the goal name is correct."
+          ],
+          "confidence": "medium",
+          "what_i_am_not_claiming": [
+            "This is not an investment return forecast.",
+            "This does not execute a transfer.",
+            "Large goals may need timeline changes, milestone splitting, or outside contributions."
+          ],
+          "approval_required": true
+        },
+        "memory_updates": [
+          {
+            "field": "goals",
+            "value": [
+              {
+                "id": "U001-laptop-1-200",
+                "name": "Laptop (€1,200)",
+                "target_amount": 1200,
+                "currency": "EUR",
+                "monthly_contribution": 25,
+                "status": "draft",
+                "shared_goal": false
+              }
+            ],
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          },
+          {
+            "field": "investment_journey.readiness_stage",
+            "value": "draft_created",
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          }
+        ],
+        "next_best_question": "Keep Gentle, compare options, or adjust the goal?",
+        "education_hook": null,
+        "safety_flags": [
+          "approval_required_before_money_movement"
+        ]
+      }
+    },
+    {
+      "role": "Simulated User",
+      "text": "Keep Gentle as the draft. I like that it stays easy to maintain.",
+      "internal_reason": "Persona chooses lower commitment."
+    },
+    {
+      "role": "Nora",
+      "text": "Gentle it is. I will keep EUR 25/month as the draft plan, not an active transfer.\n\nNext useful step: the Expense Review Agent can look for one recurring category that might make this easier without turning your life into a punishment spreadsheet. Want to review transport, subscriptions, or skip expense review for now?",
+      "structured": {
+        "visible_response": "Gentle it is. I will keep EUR 25/month as the draft plan, not an active transfer.\n\nNext useful step: the Expense Review Agent can look for one recurring category that might make this easier without turning your life into a punishment spreadsheet. Want to review transport, subscriptions, or skip expense review for now?",
+        "intent": "expense_tracking",
+        "nora_action": "ask_question",
+        "tool_requests": [
+          {
+            "name": "expense_review_agent",
+            "reason": "Find one safe recurring category to inspect before any cuts"
+          }
+        ],
+        "recommendation_card": null,
+        "trust_ledger_entry": null,
+        "memory_updates": [
+          {
+            "field": "preferences.likes_future_self_framing",
+            "value": true,
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          },
+          {
+            "field": "investment_journey.readiness_stage",
+            "value": "ready_to_plan",
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          }
+        ],
+        "next_best_question": "Review transport, subscriptions, or skip expense review?",
+        "education_hook": null,
+        "safety_flags": []
+      }
+    },
+    {
+      "role": "Simulated User",
+      "text": "Subscriptions are probably the easiest place to start. Show me that.",
+      "internal_reason": "Persona picks a low-friction review category."
+    },
+    {
+      "role": "Nora",
+      "text": "Here is the small-table version from the Expense Review Agent:\n\n| Category | Estimated amount | Pattern | Reviewability |\n|---|---:|---|---|\n| Housing | EUR 430/month | monthly | low |\n| Transport | EUR 35/month | monthly | medium |\n| Subscriptions | EUR 10/month | monthly | high |\n\nReview subscriptions monthly as an inspection habit, not a cut. No automatic cancellation.\n\nThe useful question is: would you be willing to make that a once-a-month review habit to protect the EUR 25 plan?",
+      "structured": {
+        "visible_response": "Here is the small-table version from the Expense Review Agent:\n\n| Category | Estimated amount | Pattern | Reviewability |\n|---|---:|---|---|\n| Housing | EUR 430/month | monthly | low |\n| Transport | EUR 35/month | monthly | medium |\n| Subscriptions | EUR 10/month | monthly | high |\n\nReview subscriptions monthly as an inspection habit, not a cut. No automatic cancellation.\n\nThe useful question is: would you be willing to make that a once-a-month review habit to protect the EUR 25 plan?",
+        "intent": "expense_tracking",
+        "nora_action": "ask_question",
+        "tool_requests": [
+          {
+            "name": "expense_review_agent",
+            "reason": "Show recurring categories and create one review habit"
+          }
+        ],
+        "expense_review": {
+          "agent": "expense_review",
+          "currency": "EUR",
+          "selected_category": "Subscriptions",
+          "suggested_category": "Subscriptions",
+          "recurring_expenses": [
+            {
+              "category": "Housing",
+              "amount": 430,
+              "currency": "EUR",
+              "cadence": "monthly",
+              "reviewability": "low"
+            },
+            {
+              "category": "Transport",
+              "amount": 35,
+              "currency": "EUR",
+              "cadence": "monthly",
+              "reviewability": "medium"
+            },
+            {
+              "category": "Subscriptions",
+              "amount": 10,
+              "currency": "EUR",
+              "cadence": "monthly",
+              "reviewability": "high"
+            }
+          ],
+          "markdown_table": "| Category | Estimated amount | Pattern | Reviewability |\n|---|---:|---|---|\n| Housing | EUR 430/month | monthly | low |\n| Transport | EUR 35/month | monthly | medium |\n| Subscriptions | EUR 10/month | monthly | high |",
+          "suggested_review_options": [
+            "Transport",
+            "Subscriptions"
+          ],
+          "possible_savings_opportunity": {
+            "category": "Subscriptions",
+            "inspection_prompt": "Review subscriptions once this month and decide manually whether anything still earns its place.",
+            "possible_monthly_range": [
+              1,
+              2
+            ],
+            "currency": "EUR",
+            "certainty": "medium",
+            "note": "This is an inspection range, not guaranteed savings and not a cancellation recommendation."
+          },
+          "review_habit": {
+            "category": "Subscriptions",
+            "cadence": "monthly",
+            "action": "Inspect subscriptions once a month before changing anything.",
+            "user_control": "Nora only surfaces the category; the user decides whether to keep, edit, or cancel anything."
+          },
+          "nora_summary": "Review subscriptions monthly as an inspection habit, not a cut. No automatic cancellation.",
+          "trust_ledger_input": {
+            "data_used": [
+              "recurring expense categories",
+              "safe-to-save estimate",
+              "user-selected category if provided"
+            ],
+            "assumptions": [
+              "The detected recurring categories are broad monthly estimates.",
+              "A review habit may protect the savings plan, but it may find nothing to change."
+            ],
+            "confidence": "medium",
+            "boundaries": [
+              "This does not mean any category is bad.",
+              "This is not an automatic cancellation recommendation.",
+              "The user must approve any cancellation, transfer, or sharing action."
+            ],
+            "approval_required": false
+          },
+          "memory_updates": [
+            {
+              "field": "preferences.wants_expense_tables",
+              "value": true,
+              "source": "explicit_user",
+              "confidence": "high"
+            },
+            {
+              "field": "preferences.expense_review_category",
+              "value": "Subscriptions",
+              "source": "explicit_user",
+              "confidence": "medium"
+            }
+          ],
+          "safety_flags": [
+            "no_automatic_cancellations",
+            "approval_required_before_cancellation",
+            "review_not_judgement"
+          ]
+        },
+        "recommendation_card": null,
+        "trust_ledger_entry": {
+          "data_used": [
+            "recurring expense categories",
+            "safe-to-save estimate",
+            "user-selected category if provided"
+          ],
+          "assumptions": [
+            "The detected recurring categories are broad monthly estimates.",
+            "A review habit may protect the savings plan, but it may find nothing to change."
+          ],
+          "confidence": "medium",
+          "what_i_am_not_claiming": [
+            "This does not mean any category is bad.",
+            "This is not an automatic cancellation recommendation.",
+            "The user must approve any cancellation, transfer, or sharing action."
+          ],
+          "approval_required": false
+        },
+        "memory_updates": [
+          {
+            "field": "preferences.wants_expense_tables",
+            "value": true,
+            "source": "explicit_user",
+            "confidence": "high"
+          },
+          {
+            "field": "preferences.expense_review_category",
+            "value": "Subscriptions",
+            "source": "explicit_user",
+            "confidence": "medium"
+          }
+        ],
+        "next_best_question": "Inspect Subscriptions monthly?",
+        "education_hook": null,
+        "safety_flags": [
+          "no_automatic_cancellations",
+          "approval_required_before_cancellation",
+          "review_not_judgement"
+        ]
+      }
+    },
+    {
+      "role": "Simulated User",
+      "text": "Subscriptions once a month sounds manageable. I would not want more than that.",
+      "internal_reason": "Persona accepts a small review habit."
+    },
+    {
+      "role": "Nora",
+      "text": "Good. I will treat subscriptions as a review habit, not a cut. Very different energy.\n\nNora summary so far: you prefer low-risk, simple steps; your draft is EUR 25/month toward Laptop (€1,200); inspect subscriptions once a month before changing anything.; and investing should stay education-first until risk feels less mysterious.\n\nWant the 45-second learning card on \"Saving versus investing\" now, or should I stop the demo conversation here?",
+      "structured": {
+        "visible_response": "Good. I will treat subscriptions as a review habit, not a cut. Very different energy.\n\nNora summary so far: you prefer low-risk, simple steps; your draft is EUR 25/month toward Laptop (€1,200); inspect subscriptions once a month before changing anything.; and investing should stay education-first until risk feels less mysterious.\n\nWant the 45-second learning card on \"Saving versus investing\" now, or should I stop the demo conversation here?",
+        "intent": "education_bridge",
+        "nora_action": "ask_question",
+        "tool_requests": [
+          {
+            "name": "update_user_memory",
+            "reason": "Persist selected review habit and plan summary"
+          }
+        ],
+        "recommendation_card": null,
+        "trust_ledger_entry": null,
+        "memory_updates": [
+          {
+            "field": "investment_journey.readiness_stage",
+            "value": "ready_to_plan",
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          },
+          {
+            "field": "financial_understanding.confusing_topics",
+            "value": [
+              "investment risk"
+            ],
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          },
+          {
+            "field": "preferences.wants_expense_tables",
+            "value": true,
+            "source": "explicit_user",
+            "confidence": "high"
+          },
+          {
+            "field": "preferences.expense_review_category",
+            "value": "Subscriptions",
+            "source": "explicit_user",
+            "confidence": "medium"
+          }
+        ],
+        "next_best_question": "Read the 45-second learning card now, or stop here?",
+        "education_hook": {
+          "topic": "Saving versus investing",
+          "reason": "User wants education before investment approval",
+          "format_suggestion": "short_card"
+        },
+        "safety_flags": []
+      }
+    },
+    {
+      "role": "Simulated User",
+      "text": "Show me the risk card. Short version please.",
+      "internal_reason": "Persona wants education before investing."
+    },
+    {
+      "role": "Nora",
+      "text": "Tiny learning card: Saving is storage, investing is growth-with-movement\n\nSaving is for money you need predictable access to. Investing is for money you can leave alone while its value moves up and down. The current draft habit is EUR 25/month.\n\n- Savings are usually calmer and easier to access.\n- Investments can grow, but they can also fall in value.\n- The first question is not product choice; it is when you need the money.\n\nQuick check: Which money usually belongs in savings first?\n\nFor your next Nora step, I would keep the EUR 25/month savings draft and treat \"Saving versus investing\" as the confidence step before any investment draft. Want me to mark that as the next step?",
+      "structured": {
+        "visible_response": "Tiny learning card: Saving is storage, investing is growth-with-movement\n\nSaving is for money you need predictable access to. Investing is for money you can leave alone while its value moves up and down. The current draft habit is EUR 25/month.\n\n- Savings are usually calmer and easier to access.\n- Investments can grow, but they can also fall in value.\n- The first question is not product choice; it is when you need the money.\n\nQuick check: Which money usually belongs in savings first?\n\nFor your next Nora step, I would keep the EUR 25/month savings draft and treat \"Saving versus investing\" as the confidence step before any investment draft. Want me to mark that as the next step?",
+        "intent": "education_bridge",
+        "nora_action": "ask_question",
+        "tool_requests": [
+          {
+            "name": "education_risk_lesson_agent",
+            "reason": "Serve first blocker-specific beginner lesson"
+          },
+          {
+            "name": "learning_progress_agent",
+            "reason": "Mark the topic as started without school-like framing"
+          }
+        ],
+        "education_lesson": {
+          "agent": "education_risk_lesson",
+          "topic": "Saving versus investing",
+          "format": "short_card",
+          "estimated_duration_seconds": 45,
+          "blocker": "confusion",
+          "lesson_card": {
+            "title": "Saving is storage, investing is growth-with-movement",
+            "plain_answer": "Saving is for money you need predictable access to. Investing is for money you can leave alone while its value moves up and down. The current draft habit is EUR 25/month.",
+            "key_points": [
+              "Savings are usually calmer and easier to access.",
+              "Investments can grow, but they can also fall in value.",
+              "The first question is not product choice; it is when you need the money."
+            ],
+            "future_self_prompt": "Future-you does not need perfect confidence today. They need one idea clear enough that the next step feels safe."
+          },
+          "check_questions": [
+            {
+              "type": "single_check",
+              "question": "Which money usually belongs in savings first?",
+              "correct_answer": "Money needed soon or needed as a safety buffer.",
+              "explanation": "This checks the core concept before Nora drafts any investment action."
+            }
+          ],
+          "next_topic": "What investment risk means",
+          "resource_stub": {
+            "title": "Saving versus investing",
+            "format": "short_card",
+            "status": "stub",
+            "note": "Demo stub only; no live article or podcast retrieval yet."
+          },
+          "memory_updates": [
+            {
+              "field": "financial_understanding.known_topics",
+              "value": [
+                "Saving versus investing"
+              ],
+              "source": "inferred_from_conversation",
+              "confidence": "medium"
+            },
+            {
+              "field": "financial_understanding.preferred_content_format",
+              "value": "short_card",
+              "source": "inferred_from_conversation",
+              "confidence": "medium"
+            }
+          ],
+          "safety_flags": [
+            "education_before_investment_action",
+            "not_investment_advice"
+          ]
+        },
+        "learning_progress": {
+          "agent": "learning_progress",
+          "stage": "money_confidence",
+          "domain": "Starting Safely",
+          "domain_key": "starting_safely",
+          "topic": "Saving versus investing",
+          "internal_status": "seen",
+          "visible_status": "Started",
+          "progress_delta": 25,
+          "domain_progress": 25,
+          "next_domain_suggestion": "Risk Without Panic",
+          "interested_domains": [],
+          "user_facing_summary": "Starting Safely is started. Next useful idea later: Risk Without Panic.",
+          "memory_updates": [
+            {
+              "field": "learning_progress.stage",
+              "value": "money_confidence",
+              "source": "inferred_from_conversation",
+              "confidence": "medium"
+            },
+            {
+              "field": "learning_progress.domains.starting_safely",
+              "value": {
+                "name": "Starting Safely",
+                "stage": "money_confidence",
+                "status": "seen",
+                "visible_status": "Started",
+                "progress": 25,
+                "last_topic": "Saving versus investing"
+              },
+              "source": "inferred_from_conversation",
+              "confidence": "medium"
+            },
+            {
+              "field": "learning_progress.topic_history",
+              "value": [
+                "Starting Safely:Saving versus investing:seen"
+              ],
+              "source": "inferred_from_conversation",
+              "confidence": "medium"
+            },
+            {
+              "field": "learning_progress.next_suggested_domain",
+              "value": "Risk Without Panic",
+              "source": "inferred_from_conversation",
+              "confidence": "medium"
+            }
+          ],
+          "safety_flags": [
+            "education_progress_not_advice",
+            "do_not_show_raw_internal_status"
+          ],
+          "available_stage_1_domains": [
+            "Starting Safely",
+            "Risk Without Panic",
+            "Money Habits",
+            "Goal Planning"
+          ],
+          "unlocked_stage_2_domains": []
+        },
+        "recommendation_card": null,
+        "trust_ledger_entry": null,
+        "memory_updates": [
+          {
+            "field": "financial_understanding.known_topics",
+            "value": [
+              "Saving versus investing"
+            ],
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          },
+          {
+            "field": "financial_understanding.preferred_content_format",
+            "value": "short_card",
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          },
+          {
+            "field": "learning_progress.stage",
+            "value": "money_confidence",
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          },
+          {
+            "field": "learning_progress.domains.starting_safely",
+            "value": {
+              "name": "Starting Safely",
+              "stage": "money_confidence",
+              "status": "seen",
+              "visible_status": "Started",
+              "progress": 25,
+              "last_topic": "Saving versus investing"
+            },
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          },
+          {
+            "field": "learning_progress.topic_history",
+            "value": [
+              "Starting Safely:Saving versus investing:seen"
+            ],
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          },
+          {
+            "field": "learning_progress.next_suggested_domain",
+            "value": "Risk Without Panic",
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          }
+        ],
+        "next_best_question": "Mark \"Saving versus investing\" as the next step?",
+        "education_hook": {
+          "topic": "What investment risk means",
+          "reason": "Next lesson after this check",
+          "format_suggestion": "short_card"
+        },
+        "safety_flags": [
+          "education_before_investment_action",
+          "not_investment_advice"
+        ]
+      }
+    },
+    {
+      "role": "Simulated User",
+      "text": "Yes, mark that as the next step. That feels like enough for now.",
+      "internal_reason": "Persona accepts the journey endpoint."
+    },
+    {
+      "role": "Nora",
+      "text": "Marked. That gives future-you a clear path: keep the draft savings habit, review one recurring category monthly, and keep risk education before any investment action.\n\nTiny progress update: You used Saving versus investing once in a real money decision. (Applied once.) No homework. I will just remember that Funds is the next useful thing to explain when you are ready.\n\nSmall snapshot: Laptop (€1,200) has a draft habit of EUR 25/month toward EUR 1200. The current habit stack is EUR 25/month plus one monthly subscriptions review. You used Saving versus investing once in a real money decision.\n\nNext useful move: Explain Funds next. The first confidence step is complete and there is a natural next learning path.\n\nThat is a complete first Nora journey for the demo. You can still ask me anything, anytime - but I am not going to invent a new money task just to look busy.",
+      "structured": {
+        "visible_response": "Marked. That gives future-you a clear path: keep the draft savings habit, review one recurring category monthly, and keep risk education before any investment action.\n\nTiny progress update: You used Saving versus investing once in a real money decision. (Applied once.) No homework. I will just remember that Funds is the next useful thing to explain when you are ready.\n\nSmall snapshot: Laptop (€1,200) has a draft habit of EUR 25/month toward EUR 1200. The current habit stack is EUR 25/month plus one monthly subscriptions review. You used Saving versus investing once in a real money decision.\n\nNext useful move: Explain Funds next. The first confidence step is complete and there is a natural next learning path.\n\nThat is a complete first Nora journey for the demo. You can still ask me anything, anytime - but I am not going to invent a new money task just to look busy.",
+        "intent": "education_bridge",
+        "nora_action": "update_memory",
+        "tool_requests": [
+          {
+            "name": "learning_progress_agent",
+            "reason": "Record concept applied through a savings-first decision"
+          },
+          {
+            "name": "snapshot_insight_agent",
+            "reason": "Summarize the first Nora journey and choose one next useful move"
+          },
+          {
+            "name": "update_user_memory",
+            "reason": "Persist completed first journey"
+          }
+        ],
+        "learning_progress": {
+          "agent": "learning_progress",
+          "stage": "money_confidence",
+          "domain": "Starting Safely",
+          "domain_key": "starting_safely",
+          "topic": "Saving versus investing",
+          "internal_status": "applied",
+          "visible_status": "Applied once",
+          "progress_delta": 50,
+          "domain_progress": 75,
+          "next_domain_suggestion": "Funds",
+          "interested_domains": [],
+          "user_facing_summary": "You used Saving versus investing once in a real money decision.",
+          "memory_updates": [
+            {
+              "field": "learning_progress.stage",
+              "value": "money_confidence",
+              "source": "inferred_from_conversation",
+              "confidence": "medium"
+            },
+            {
+              "field": "learning_progress.domains.starting_safely",
+              "value": {
+                "name": "Starting Safely",
+                "stage": "money_confidence",
+                "status": "applied",
+                "visible_status": "Applied once",
+                "progress": 75,
+                "last_topic": "Saving versus investing"
+              },
+              "source": "inferred_from_conversation",
+              "confidence": "medium"
+            },
+            {
+              "field": "learning_progress.topic_history",
+              "value": [
+                "Starting Safely:Saving versus investing:applied"
+              ],
+              "source": "inferred_from_conversation",
+              "confidence": "medium"
+            },
+            {
+              "field": "learning_progress.next_suggested_domain",
+              "value": "Funds",
+              "source": "inferred_from_conversation",
+              "confidence": "medium"
+            }
+          ],
+          "safety_flags": [
+            "education_progress_not_advice",
+            "do_not_show_raw_internal_status"
+          ],
+          "available_stage_1_domains": [
+            "Starting Safely",
+            "Risk Without Panic",
+            "Money Habits",
+            "Goal Planning"
+          ],
+          "unlocked_stage_2_domains": [
+            "Funds",
+            "Stocks",
+            "Home & Real Estate",
+            "Retirement & Long-Term",
+            "Sustainable Investing"
+          ]
+        },
+        "snapshot_insight": {
+          "agent": "snapshot_insight",
+          "mode": "next_best_action",
+          "snapshot_card": {
+            "title": "Your next useful Nora move",
+            "summary": "Laptop (€1,200) has a draft habit of EUR 25/month toward EUR 1200. The current habit stack is EUR 25/month plus one monthly subscriptions review. You used Saving versus investing once in a real money decision.",
+            "money_state": {
+              "monthly_income_estimate": 900,
+              "available_this_month": 150,
+              "safe_to_save_estimate": 30,
+              "currency": "EUR",
+              "confidence": "medium"
+            },
+            "goal_state": {
+              "active_goal": "Laptop (€1,200)",
+              "target_amount": 1200,
+              "monthly_contribution": 25,
+              "status": "draft",
+              "summary": "Laptop (€1,200) has a draft habit of EUR 25/month toward EUR 1200."
+            },
+            "habit_state": {
+              "savings_habit": "EUR 25/month draft",
+              "expense_review_habit": "Inspect subscriptions monthly before changing anything.",
+              "summary": "The current habit stack is EUR 25/month plus one monthly subscriptions review."
+            },
+            "learning_state": {
+              "current_domain": "Starting Safely",
+              "visible_status": "Applied once",
+              "next_domain_suggestion": "Funds",
+              "summary": "You used Saving versus investing once in a real money decision."
+            },
+            "memory_state": {
+              "tracked_facts_count": 25,
+              "low_confidence_count": 0,
+              "needs_review": true,
+              "summary": "Some remembered preferences or inferred facts should be checked before Nora relies on them."
+            }
+          },
+          "insights": [
+            {
+              "type": "cashflow",
+              "message": "EUR 30/month appears usable as a starter habit before any investment action.",
+              "confidence": "medium"
+            },
+            {
+              "type": "goal",
+              "message": "Laptop (€1,200) has a draftable monthly savings habit.",
+              "confidence": "medium"
+            },
+            {
+              "type": "expense",
+              "message": "Subscriptions is worth reviewing monthly, as inspection rather than automatic cutting.",
+              "confidence": "medium"
+            },
+            {
+              "type": "learning",
+              "message": "You used Saving versus investing once in a real money decision.",
+              "confidence": "medium"
+            }
+          ],
+          "next_best_action": {
+            "action_type": "show_lesson",
+            "label": "Explain Funds next",
+            "reason": "The first confidence step is complete and there is a natural next learning path.",
+            "requires_approval": false
+          },
+          "memory_review": {
+            "confirmation_needed": true,
+            "stable_facts": [
+              "first name: Emma",
+              "age from bank context",
+              "no Nordea investments in bank context",
+              "active goal: Laptop (€1,200)"
+            ],
+            "uncertain_or_stale": [
+              {
+                "field": "preferences.likes_future_self_framing",
+                "remembered_value": true,
+                "reason": "preference may change over time",
+                "confidence": "medium"
+              }
+            ],
+            "suggested_question": "Quick check: I currently have your main investing blocker as confusion, your risk comfort as low, your preferred learning format as short card. Still true?"
+          },
+          "trust_ledger_input": {
+            "data_used": [
+              "user memory",
+              "financial snapshot",
+              "goal plan",
+              "expense review",
+              "education progress"
+            ],
+            "assumptions": [
+              "Snapshot uses synthetic demo data and previously saved Nora memory.",
+              "Memory review candidates are suggestions, not automatic changes."
+            ],
+            "confidence": "medium",
+            "boundaries": [
+              "This is not regulated investment advice.",
+              "This does not execute money movement or sharing.",
+              "Uncertain memory must be confirmed before it is corrected."
+            ],
+            "approval_required": false
+          },
+          "memory_updates": [],
+          "safety_flags": [
+            "snapshot_not_financial_advice",
+            "no_memory_update_without_confirmation"
+          ]
+        },
+        "recommendation_card": null,
+        "trust_ledger_entry": null,
+        "memory_updates": [
+          {
+            "field": "investment_journey.readiness_stage",
+            "value": "ready_to_plan",
+            "source": "inferred_from_conversation",
+            "confidence": "high"
+          },
+          {
+            "field": "learning_progress.stage",
+            "value": "money_confidence",
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          },
+          {
+            "field": "learning_progress.domains.starting_safely",
+            "value": {
+              "name": "Starting Safely",
+              "stage": "money_confidence",
+              "status": "applied",
+              "visible_status": "Applied once",
+              "progress": 75,
+              "last_topic": "Saving versus investing"
+            },
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          },
+          {
+            "field": "learning_progress.topic_history",
+            "value": [
+              "Starting Safely:Saving versus investing:applied"
+            ],
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          },
+          {
+            "field": "learning_progress.next_suggested_domain",
+            "value": "Funds",
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          }
+        ],
+        "next_best_question": null,
+        "education_hook": null,
+        "safety_flags": []
+      }
+    },
+    {
+      "role": "Simulated User",
+      "text": "That is enough for now. I would come back to the learning card next.",
+      "internal_reason": "Persona accepts the end of the test journey."
+    },
+    {
+      "role": "Nora",
+      "text": "We have reached the natural stopping point for this test conversation: one goal draft, one review habit, one education next step. For a longer demo, the next module should be the education system rather than more looping chat.",
+      "structured": {
+        "visible_response": "We have reached the natural stopping point for this test conversation: one goal draft, one review habit, one education next step. For a longer demo, the next module should be the education system rather than more looping chat.",
+        "intent": "education_bridge",
+        "nora_action": "answer",
+        "tool_requests": [],
+        "recommendation_card": null,
+        "trust_ledger_entry": null,
+        "memory_updates": [],
+        "next_best_question": null,
+        "education_hook": {
+          "topic": "Education system handoff",
+          "reason": "Conversation completed the first Nora journey",
+          "format_suggestion": "short_card"
+        },
+        "safety_flags": []
+      }
+    }
+  ],
+  "evaluation": {
+    "introducedNora": true,
+    "avoidedAgeQuestion": true,
+    "investmentHookEarly": true,
+    "trustLedgerWhenRecommending": true,
+    "approvalGatePresent": true,
+    "memoryUpdatesPresent": true,
+    "goalPlanAgentUsed": true,
+    "expenseReviewAgentUsed": true,
+    "expenseReviewNoAutoCancel": true,
+    "educationAgentUsed": true,
+    "educationHasCheckQuestion": true,
+    "learningProgressAgentUsed": true,
+    "learningProgressNoRawStatusInVisible": true,
+    "snapshotInsightAgentUsed": true,
+    "snapshotIncludesNextAction": true,
+    "snapshotMemoryReviewDoesNotAutoUpdate": true,
+    "fundsSuggestedOnlyAfterEducation": true,
+    "unrealisticGoalFlagged": true,
+    "oneQuestionStyle": true,
+    "noRepeatedNoraResponses": true,
+    "noRepeatedUserResponses": true
+  },
+  "mode": "offline"
+}

@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Nora User Memory",
+  "type": "object",
+  "required": ["user", "financial_understanding", "investment_journey", "goals", "preferences", "recommendation_history"],
+  "properties": {
+    "user": {
+      "type": "object",
+      "properties": {
+        "first_name": {"type": ["string", "null"]},
+        "age": {"type": ["integer", "null"]},
+        "personality_notes": {"type": "array", "items": {"type": "string"}},
+        "tone_preference": {"type": "string", "default": "warm_direct_playful"}
+      }
+    },
+    "financial_understanding": {
+      "type": "object",
+      "properties": {
+        "self_rating": {"type": ["string", "null"], "enum": ["none", "beginner", "some", "confident", null]},
+        "known_topics": {"type": "array", "items": {"type": "string"}},
+        "confusing_topics": {"type": "array", "items": {"type": "string"}},
+        "preferred_content_format": {"type": ["string", "null"], "enum": ["article", "podcast", "quiz", "short_card", "video", null]}
+      }
+    },
+    "learning_progress": {
+      "type": "object",
+      "properties": {
+        "stage": {"type": "string", "enum": ["money_confidence", "investment_paths"]},
+        "domains": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "name": {"type": "string"},
+              "stage": {"type": "string", "enum": ["money_confidence", "investment_paths"]},
+              "status": {"type": "string", "enum": ["unseen", "seen", "explored", "applied"]},
+              "visible_status": {"type": "string"},
+              "progress": {"type": "number"},
+              "last_topic": {"type": "string"}
+            }
+          }
+        },
+        "topic_history": {"type": "array", "items": {"type": "string"}},
+        "interested_domains": {"type": "array", "items": {"type": "string"}},
+        "next_suggested_domain": {"type": ["string", "null"]}
+      }
+    },
+    "investment_journey": {
+      "type": "object",
+      "properties": {
+        "invested_before": {"type": ["boolean", "null"]},
+        "has_nordea_investments": {"type": ["boolean", "null"]},
+        "readiness_stage": {
+          "type": "string",
+          "enum": ["unknown", "unaware", "curious", "blocked", "safety_first", "ready_to_plan", "draft_created", "approved_first_habit"]
+        },
+        "risk_comfort": {"type": ["string", "null"], "enum": ["low", "medium", "high", null]},
+        "first_investment_blockers": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "financial_snapshot_summary": {
+      "type": "object",
+      "properties": {
+        "monthly_income_estimate": {"type": ["number", "null"]},
+        "available_this_month": {"type": ["number", "null"]},
+        "safe_to_save_estimate": {"type": ["number", "null"]},
+        "currency": {"type": "string", "default": "EUR"},
+        "last_snapshot_at": {"type": ["string", "null"]}
+      }
+    },
+    "goals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "target_amount", "currency", "status"],
+        "properties": {
+          "id": {"type": "string"},
+          "name": {"type": "string"},
+          "target_amount": {"type": "number"},
+          "currency": {"type": "string", "default": "EUR"},
+          "target_date": {"type": ["string", "null"]},
+          "monthly_contribution": {"type": ["number", "null"]},
+          "status": {"type": "string", "enum": ["draft", "active", "paused", "completed"]},
+          "shared_goal": {"type": "boolean", "default": false}
+        }
+      }
+    },
+    "preferences": {
+      "type": "object",
+      "properties": {
+        "likes_future_self_framing": {"type": ["boolean", "null"]},
+        "wants_expense_tables": {"type": ["boolean", "null"]},
+        "sharing_enabled": {"type": "boolean", "default": false},
+        "allowed_people_for_shared_goals": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "recommendation_history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "string"},
+          "type": {"type": "string"},
+          "summary": {"type": "string"},
+          "amount": {"type": ["number", "null"]},
+          "status": {"type": "string", "enum": ["suggested", "accepted", "edited", "rejected", "expired"]},
+          "created_at": {"type": "string"}
+        }
+      }
+    },
+    "action_state": {
+      "type": "object",
+      "properties": {
+        "active_drafts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "action_id": {"type": "string"},
+              "action_type": {
+                "type": "string",
+                "enum": ["savings_transfer_draft", "investment_draft", "expense_review_habit", "subscription_cancellation_request", "shared_goal_draft", "goal_contribution_request"]
+              },
+              "status": {
+                "type": "string",
+                "enum": ["draft", "pending_approval", "approved_in_demo_memory", "edited", "declined", "cancelled", "paused", "resumed", "blocked"]
+              },
+              "summary": {"type": "string"},
+              "amount": {"type": ["number", "null"]},
+              "currency": {"type": "string", "default": "EUR"},
+              "cadence": {"type": ["string", "null"]},
+              "source_agent": {"type": "string"},
+              "approval_required": {"type": "boolean"},
+              "execution_mode": {"type": "string", "enum": ["demo_memory_only"]},
+              "created_at": {"type": "string"},
+              "last_updated_at": {"type": "string"}
+            }
+          }
+        },
+        "active_habits": {"type": "array", "items": {"type": "object"}},
+        "action_log": {"type": "array", "items": {"type": "object"}}
+      }
+    },
+    "memory_events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["field", "value", "source", "confidence"],
+        "properties": {
+          "field": {"type": "string"},
+          "value": {},
+          "source": {"type": "string", "enum": ["explicit_user", "bank_context", "financial_snapshot", "inferred_from_conversation"]},
+          "confidence": {"type": "string", "enum": ["low", "medium", "high"]},
+          "timestamp": {"type": "string"}
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "name": "action_approval_agent",
+  "type": "deterministic_subagent_tool",
+  "owner": "Nora Main Agent",
+  "purpose": "Own the demo-only lifecycle for drafts, approvals, edits, pauses, resumes, cancellations, and action logs.",
+  "input_schema": {
+    "type": "object",
+    "required": ["user_id", "operation", "action_type"],
+    "properties": {
+      "user_id": {"type": "string"},
+      "operation": {
+        "type": "string",
+        "enum": ["create_draft", "edit_draft", "request_approval", "approve", "decline", "cancel", "pause", "resume"]
+      },
+      "action_type": {
+        "type": "string",
+        "enum": ["savings_transfer_draft", "investment_draft", "expense_review_habit", "subscription_cancellation_request", "shared_goal_draft", "goal_contribution_request"]
+      },
+      "action_id": {"type": ["string", "null"]},
+      "existing_action": {"type": "object"},
+      "amount": {"type": ["number", "null"]},
+      "currency": {"type": "string", "default": "EUR"},
+      "cadence": {"type": "string", "default": "monthly"},
+      "goal_id": {"type": ["string", "null"]},
+      "goal_name": {"type": ["string", "null"]},
+      "category": {"type": ["string", "null"]},
+      "source_agent": {"type": "string"},
+      "allowed_people": {"type": "array"},
+      "education_completed": {"type": "boolean"},
+      "prerequisites": {"type": "object"},
+      "user_memory": {"type": "object"}
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "agent": {"const": "action_approval"},
+      "operation": {"type": "string"},
+      "action_type": {"type": "string"},
+      "execution_mode": {"const": "demo_memory_only"},
+      "action": {"type": "object"},
+      "approval_request": {"type": ["object", "null"]},
+      "action_log_event": {"type": "object"},
+      "memory_updates": {"type": "array"},
+      "safety_flags": {"type": "array"}
+    }
+  },
+  "risk_controls": [
+    "Always return execution_mode=demo_memory_only.",
+    "Never imply real transfer, investment, cancellation, or sharing execution.",
+    "Investment drafts are blocked until education and safety prerequisites are met.",
+    "Subscription cancellation requests remain manual review drafts.",
+    "Shared goal actions must not expose balances, transactions, portfolio details, or learning state.",
+    "Every operation writes an action log event."
+  ]
+}

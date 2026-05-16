@@ -1,0 +1,24 @@
+{
+  "createdAt": "2026-05-09T10:32:25.710Z",
+  "mode": "offline",
+  "data": "synthetic_data\\generated\\nordea_5users_2025.json",
+  "runDir": "C:\\Users\\karip\\projects\\nordea-savings-hackathon\\tests\\transcripts\\20260509_133225",
+  "users": [
+    {
+      "userId": "U005",
+      "firstName": "Sofia",
+      "fullName": "Sofia Nieminen",
+      "markdownTranscript": "C:\\Users\\karip\\projects\\nordea-savings-hackathon\\tests\\transcripts\\20260509_133225\\U005_sofia.md",
+      "jsonTranscript": "C:\\Users\\karip\\projects\\nordea-savings-hackathon\\tests\\transcripts\\20260509_133225\\structured\\U005_sofia.json",
+      "evaluation": {
+        "introducedNora": true,
+        "avoidedAgeQuestion": true,
+        "investmentHookEarly": true,
+        "trustLedgerWhenRecommending": true,
+        "approvalGatePresent": true,
+        "memoryUpdatesPresent": true,
+        "oneQuestionStyle": true
+      }
+    }
+  ]
+}

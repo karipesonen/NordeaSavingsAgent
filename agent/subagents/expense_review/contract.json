@@ -1,0 +1,44 @@
+{
+  "name": "expense_review_agent",
+  "type": "deterministic_subagent_tool",
+  "owner": "Nora Main Agent",
+  "purpose": "Convert recurring expense categories into one safe monthly review habit, a renderable table, Trust Ledger input, and memory updates.",
+  "input_schema": {
+    "type": "object",
+    "required": ["user_id", "recurring_expenses"],
+    "properties": {
+      "user_id": {"type": "string"},
+      "recurring_expenses": {"type": "array"},
+      "selected_category": {"type": ["string", "null"]},
+      "latest_user_message": {"type": ["string", "null"]},
+      "currency": {"type": "string", "default": "EUR"},
+      "financial_snapshot": {"type": "object"},
+      "goal_plan": {"type": "object"},
+      "user_memory": {"type": "object"}
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "agent": {"const": "expense_review"},
+      "currency": {"type": "string"},
+      "selected_category": {"type": ["string", "null"]},
+      "suggested_category": {"type": ["string", "null"]},
+      "recurring_expenses": {"type": "array"},
+      "markdown_table": {"type": "string"},
+      "suggested_review_options": {"type": "array"},
+      "possible_savings_opportunity": {"type": "object"},
+      "review_habit": {"type": "object"},
+      "nora_summary": {"type": "string"},
+      "trust_ledger_input": {"type": "object"},
+      "memory_updates": {"type": "array"},
+      "safety_flags": {"type": "array"}
+    }
+  },
+  "risk_controls": [
+    "No automatic cancellations.",
+    "No judgement labels.",
+    "Possible savings are inspection ranges, not guaranteed outcomes.",
+    "Explicit user approval is required before any cancellation or money movement."
+  ]
+}

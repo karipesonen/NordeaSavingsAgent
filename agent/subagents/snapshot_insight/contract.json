@@ -1,0 +1,71 @@
+{
+  "name": "snapshot_insight_agent",
+  "type": "deterministic_subagent_tool",
+  "owner": "Nora Main Agent",
+  "purpose": "Synthesize Nora's current user context, specialist-agent outputs, and memory state into a compact snapshot, one next best action, recap, or memory review prompt.",
+  "input_schema": {
+    "type": "object",
+    "required": ["user_id", "mode"],
+    "properties": {
+      "user_id": {"type": "string"},
+      "mode": {"type": "string", "enum": ["current_snapshot", "next_best_action", "memory_review", "monthly_recap"]},
+      "bank_context": {"type": "object"},
+      "user_memory": {"type": "object"},
+      "financial_snapshot": {"type": "object"},
+      "goal_plan": {"type": "object"},
+      "expense_review": {"type": "object"},
+      "education_lesson": {"type": "object"},
+      "learning_progress": {"type": "object"},
+      "recommendation_history": {"type": "array"},
+      "conversation_so_far": {"type": "array"}
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "agent": {"const": "snapshot_insight"},
+      "mode": {"type": "string", "enum": ["current_snapshot", "next_best_action", "memory_review", "monthly_recap"]},
+      "snapshot_card": {
+        "type": "object",
+        "properties": {
+          "title": {"type": "string"},
+          "summary": {"type": "string"},
+          "money_state": {"type": "object"},
+          "goal_state": {"type": "object"},
+          "habit_state": {"type": "object"},
+          "learning_state": {"type": "object"},
+          "memory_state": {"type": "object"}
+        }
+      },
+      "insights": {"type": "array"},
+      "next_best_action": {
+        "type": "object",
+        "properties": {
+          "action_type": {"type": "string", "enum": ["ask_question", "propose_plan", "review_expense", "show_lesson", "memory_check", "stop"]},
+          "label": {"type": "string"},
+          "reason": {"type": "string"},
+          "requires_approval": {"type": "boolean"}
+        }
+      },
+      "memory_review": {
+        "type": "object",
+        "properties": {
+          "confirmation_needed": {"type": "boolean"},
+          "stable_facts": {"type": "array"},
+          "uncertain_or_stale": {"type": "array"},
+          "suggested_question": {"type": ["string", "null"]}
+        }
+      },
+      "trust_ledger_input": {"type": "object"},
+      "memory_updates": {"type": "array"},
+      "safety_flags": {"type": "array"}
+    }
+  },
+  "risk_controls": [
+    "Do not silently update memory; return review candidates only.",
+    "Do not ask for bank-known basics such as age or birthday when they exist in bank context.",
+    "Do not replace goal planning, expense review, education, or learning progress specialist agents.",
+    "Do not expose raw transaction history or raw internal learning states.",
+    "Do not turn recap output into investment advice or product recommendation."
+  ]
+}

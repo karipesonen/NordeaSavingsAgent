@@ -1,9 +1,9 @@
 # Nordea Savings — Hackathon Project
 
 **Course:** TU-E5080 AI agents and the real world (Aalto)
+
 **Brief:** Next-generation digital savings/investment experience for Nordea, aimed at younger customers. Move past the "buttons and numbers" mobile-banking paradigm toward something conversational, personal, frictionless, and trustworthy.
-**Nordea contact:** Topi Kärkkäinen (topi.karkkainen@nordea.com)
-**Aalto contact:** Christian Lindholm (cride.lindholm@gmail.com)
+
 **Course-side showcase:** Strongest demos shown to Nordea leadership (feeds into August top-management presentation).
 
 ## Project layout

@@ -105,4 +105,42 @@ const savingsBeforeInvesting = createLearningProgress({
 
 assert.equal(savingsBeforeInvesting.domain, 'Starting Safely');
 
+const loanLesson = {
+  agent: 'education_risk_lesson',
+  topic: 'What loan interest really means',
+  blocker: 'loan_question',
+  lesson_card: { title: 'Interest is rent on borrowed money' }
+};
+
+const loanStarted = createLearningProgress({
+  userId: 'U001',
+  educationLesson: loanLesson,
+  latestUserMessage: 'Can you explain student loan repayment?'
+});
+
+assert.equal(loanStarted.domain, 'Borrowing & Loans');
+assert.equal(loanStarted.domain_key, 'borrowing_loans');
+assert.equal(loanStarted.stage, 'money_confidence');
+assert.equal(loanStarted.visible_status, 'Started');
+assert.deepEqual(loanStarted.unlocked_stage_2_domains, []);
+
+const loanApplied = createLearningProgress({
+  userId: 'U001',
+  educationLesson: loanLesson,
+  latestUserMessage: 'I applied the interest idea to compare repayment and saving.',
+  progressEvent: 'applied_to_borrowing_decision',
+  userMemory: {
+    learning_progress: {
+      domains: {
+        borrowing_loans: { status: 'explored', progress: 50 }
+      }
+    }
+  }
+});
+
+assert.equal(loanApplied.internal_status, 'applied');
+assert.equal(loanApplied.visible_status, 'Applied once');
+assert.equal(loanApplied.next_domain_suggestion, 'Money Habits');
+assert.deepEqual(loanApplied.unlocked_stage_2_domains, []);
+
 console.log('Learning Progress Agent tests passed.');

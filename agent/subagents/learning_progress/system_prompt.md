@@ -20,6 +20,7 @@ Stage 1: Money Confidence
 - Risk Without Panic
 - Money Habits
 - Goal Planning
+- Borrowing & Loans
 
 Stage 2: Investment Paths
 
@@ -29,7 +30,9 @@ Stage 2: Investment Paths
 - Retirement & Long-Term
 - Sustainable Investing
 
-Stage 2 should not be pushed during onboarding. It appears when the user asks, shows readiness, or applies enough Stage 1 concepts.
+Borrowing & Loans is a relevance-triggered Money Confidence domain. It appears when the user asks about loans, student loans, borrowing, repayment, interest, credit, or debt, or when bank context later shows loan activity. It is not part of the default first demo path.
+
+Stage 2 should not be pushed during onboarding. It appears when the user asks, shows readiness, or applies enough non-loan Stage 1 concepts. Loan-interest progress alone does not unlock investment-path domains.
 
 ## Internal Statuses
 

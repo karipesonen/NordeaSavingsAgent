@@ -90,7 +90,7 @@
     },
     {
       "name": "goal_savings_plan_agent",
-      "purpose": "Feasibility-aware sub-agent/tool that turns a goal and financial snapshot into savings plan options, timeline estimates, adjustment levers, Trust Ledger inputs, and memory updates.",
+      "purpose": "Feasibility-aware sub-agent/tool that turns a goal and financial snapshot into savings plan options, timeline estimates, motivation realism, adjustment levers, Trust Ledger inputs, and memory updates.",
       "input_schema": {
         "type": "object",
         "required": ["user_id", "goal_name", "financial_snapshot"],
@@ -116,6 +116,7 @@
           "options": {"type": "array"},
           "overall_feasibility": {"type": "string", "enum": ["easy", "workable", "tight", "unrealistic", "not_recommended"]},
           "requires_adjustment": {"type": "boolean"},
+          "goal_realism": {"type": "object"},
           "levers": {"type": "array"},
           "recommendation_card": {"type": "object"},
           "trust_ledger_input": {"type": "object"},
@@ -123,7 +124,7 @@
           "safety_flags": {"type": "array"}
         }
       },
-      "risk": "Must flag unrealistic timelines and must not create approval-ready recommendations for goals that require adjustment."
+      "risk": "Must flag unrealistic or demotivating timelines and must not create approval-ready recommendations for goals that require adjustment."
     },
     {
       "name": "expense_review_agent",
@@ -215,13 +216,14 @@
     },
     {
       "name": "education_risk_lesson_agent",
-      "purpose": "Blocker-aware education sub-agent/tool that turns the user's current investment blocker into one short learning card, one check question, next topic, resource stub, and memory updates.",
+      "purpose": "Blocker-aware education sub-agent/tool that turns the user's current investment or borrowing blocker into one short learning card, one check question, next topic, resource stub, and memory updates.",
       "input_schema": {
         "type": "object",
         "required": ["user_id"],
         "properties": {
           "user_id": {"type": "string"},
-          "current_blocker": {"type": ["string", "null"], "enum": ["risk", "confusion", "amount_feels_too_small", "not_getting_around_to_it", null]},
+          "current_blocker": {"type": ["string", "null"], "enum": ["risk", "confusion", "amount_feels_too_small", "not_getting_around_to_it", "loan_question", null]},
+          "latest_user_message": {"type": ["string", "null"]},
           "risk_comfort": {"type": ["string", "null"], "enum": ["low", "medium", "high", null]},
           "preferred_format": {"type": ["string", "null"], "enum": ["article", "podcast", "quiz", "short_card", "video", null]},
           "goal_plan": {"type": "object"},
@@ -243,7 +245,7 @@
           "safety_flags": {"type": "array"}
         }
       },
-      "risk": "Education only; must not recommend products, imply guaranteed returns, or tell the user to invest now."
+      "risk": "Education only; must not recommend products, imply guaranteed returns, tell the user to invest now, recommend taking a loan, quote rates, or estimate loan eligibility."
     },
     {
       "name": "learning_progress_agent",

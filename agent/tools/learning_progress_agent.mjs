@@ -34,6 +34,11 @@ const STAGE_1_DOMAINS = {
     name: 'Goal Planning',
     stage: STAGE_MONEY_CONFIDENCE,
     topics: ['milestones', 'timelines', 'tradeoffs', 'shared contribution']
+  },
+  borrowing_loans: {
+    name: 'Borrowing & Loans',
+    stage: STAGE_MONEY_CONFIDENCE,
+    topics: ['student loans', 'interest', 'repayment', 'borrowing vs saving', 'loan stress', 'credit basics']
   }
 };
 
@@ -89,6 +94,8 @@ function inferDomainKey({ topic, blocker, goalPlan, latestUserMessage }) {
   const messageText = String(latestUserMessage || '').toLowerCase();
   const text = `${topicText} ${blocker || ''} ${messageText}`.toLowerCase();
 
+  if (mentionsLoans(text)) return 'borrowing_loans';
+
   if (mentionsFunds(messageText)) return 'funds';
   if (mentionsStocks(messageText)) return 'stocks';
   if (mentionsHome(messageText)) return 'home_real_estate';
@@ -106,6 +113,10 @@ function inferDomainKey({ topic, blocker, goalPlan, latestUserMessage }) {
   if (text.includes('saving') || text.includes('savings') || text.includes('buffer') || text.includes('needed soon')) return 'starting_safely';
 
   return 'starting_safely';
+}
+
+function mentionsLoans(text) {
+  return /\bloans?\b|student loan|\bborrow(?:ing)?\b|\brepay(?:ment)?\b|\binterest\b|\bcredit\b|\bdebt\b/i.test(text);
 }
 
 function mentionsFunds(text) {
@@ -161,6 +172,7 @@ function inferStatus({ progressEvent, latestUserMessage, goalPlan, educationLess
 
 function nextDomainSuggestion({ status, domainKey, interestedDomains }) {
   if (interestedDomains.length) return interestedDomains[0];
+  if (domainKey === 'borrowing_loans') return status === 'applied' ? 'Money Habits' : null;
   if (status !== 'applied') {
     if (domainKey === 'starting_safely') return 'Risk Without Panic';
     if (domainKey === 'risk_without_panic') return 'Money Habits';
@@ -169,6 +181,12 @@ function nextDomainSuggestion({ status, domainKey, interestedDomains }) {
   }
   if (['starting_safely', 'risk_without_panic', 'money_habits', 'goal_planning'].includes(domainKey)) return 'Funds';
   return null;
+}
+
+function shouldUnlockInvestmentPaths({ domainKey, internalStatus, interestedDomains }) {
+  if (interestedDomains.length) return true;
+  return internalStatus === 'applied'
+    && ['starting_safely', 'risk_without_panic', 'money_habits', 'goal_planning'].includes(domainKey);
 }
 
 function userFacingSummary({ status, domainName, topic, goalPlan, nextSuggestion }) {
@@ -277,7 +295,7 @@ export function createLearningProgress(input = {}) {
     }] : []),
     safety_flags: ['education_progress_not_advice', 'do_not_show_raw_internal_status'],
     available_stage_1_domains: Object.values(STAGE_1_DOMAINS).map((item) => item.name),
-    unlocked_stage_2_domains: interestedDomains.length || internalStatus === 'applied'
+    unlocked_stage_2_domains: shouldUnlockInvestmentPaths({ domainKey, internalStatus, interestedDomains })
       ? Object.values(STAGE_2_DOMAINS).map((item) => item.name)
       : []
   };

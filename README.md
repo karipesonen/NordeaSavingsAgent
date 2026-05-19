@@ -48,6 +48,7 @@ No production customer data. Use synthetic transactions and public Nordea info o
 - [x] Learning Progress Agent built and integrated into Nora's workflow
 - [x] Snapshot/Insights Agent built and integrated into Nora's workflow
 - [x] Action/Approval Agent built and integrated into Nora's workflow
+- [x] Action Confirmation transcript card added for approval moments without building a frontend UI
 - [x] Synthetic user + transactions generated/imported from `synthetic_data/source/nordea_5users_2025.xlsx`
 - [ ] Demo harness built
 - [x] Automated Nora simulation loop working in offline mode (`npm run test:nora:offline`)
@@ -67,4 +68,4 @@ The Nora conversation simulator lives under `tests/`.
 - Run deterministic/offline conversations: `npm run test:nora:offline`
 - Run model-backed conversations with OpenRouter: `npm run test:nora:openrouter`
 
-Full transcript files are written to timestamped folders under `tests/transcripts/`.
+Full transcript files are written to timestamped folders under `tests/transcripts/`. Approval moments render both a user-facing `Action Confirmation` card and the debug `Action / Approval Agent` block.

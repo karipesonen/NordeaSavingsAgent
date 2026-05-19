@@ -31,7 +31,7 @@ Run the deterministic Goal/Savings Plan Agent tests:
 npm run test:goal-plan
 ```
 
-These check target parsing, normal goal timelines, and large-goal adjustment behavior such as Aino's down-payment case.
+These check target parsing, normal goal timelines, motivation realism, first milestones, and large-goal adjustment behavior such as Aino's down-payment case.
 
 ## Education unit test
 
@@ -41,7 +41,7 @@ Run the deterministic Education/Risk Lesson Agent tests:
 npm run test:education
 ```
 
-These check blocker-specific lesson routing, short-card output, concept checks, and education-only safety flags.
+These check blocker-specific lesson routing, loan education routing, short-card output, concept checks, and education-only safety flags.
 
 ## Expense review unit test
 
@@ -61,7 +61,7 @@ Run the deterministic Learning Progress Agent tests:
 npm run test:learning
 ```
 
-These check Stage 1 domain routing, warm visible statuses, repeated-topic progress caps, Stage 2 gating, and explicit funds interest.
+These check Stage 1 domain routing, Borrowing & Loans progress, warm visible statuses, repeated-topic progress caps, Stage 2 gating, and explicit funds interest.
 
 ## Snapshot/insights unit test
 
@@ -113,7 +113,7 @@ Or choose specific users:
 node tests/run_nora_simulation.mjs --data synthetic_data/generated/nordea_5users_2025.json --users Emma,Sofia --turns 11 --mode offline
 ```
 
-The offline runner includes smoke checks for repeated Nora and simulated-user responses, Goal/Savings Plan Agent usage, Expense Review Agent usage, Education/Risk Lesson Agent usage, Learning Progress Agent usage, Snapshot/Insights Agent usage, Action/Approval Agent usage, concept-check questions, no raw progress-status wording in visible Nora copy, no real money-movement wording, delayed funds suggestions, and whether unrealistic large goals are flagged.
+The offline runner includes smoke checks for repeated Nora and simulated-user responses, Goal/Savings Plan Agent usage, Expense Review Agent usage, Education/Risk Lesson Agent usage, Learning Progress Agent usage, Snapshot/Insights Agent usage, Action/Approval Agent usage, Action Confirmation cards, concept-check questions, no raw progress-status wording in visible Nora copy, no internal agent names in user-facing Nora copy, no real money-movement wording, delayed funds suggestions, cheerful money friend identity, limited repeated catchphrases, demotivating laptop timelines, and whether unrealistic large goals are flagged.
 
 ## OpenRouter simulation
 
@@ -138,6 +138,8 @@ Each run creates a timestamped folder under:
 For each user, the top-level run folder writes only:
 
 - <userId>_<firstName>.md - readable conversation transcript
+
+Approval turns render a compact user-facing `Action Confirmation` block before the debug `Action / Approval Agent` JSON block.
 
 Machine-readable artifacts are stored separately under:
 

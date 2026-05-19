@@ -193,6 +193,18 @@ function extractVisible(noraOutput) {
   return noraOutput.visible_response || JSON.stringify(noraOutput, null, 2);
 }
 
+function extractVisibleWithCards(noraOutput) {
+  const visible = extractVisible(noraOutput);
+  const card = noraOutput?.action_confirmation_card;
+  if (!card) return visible;
+  return [
+    visible,
+    `Action Confirmation: ${card.draft}`,
+    `Status: ${card.status}`,
+    `Options: ${Array.isArray(card.options) ? card.options.join(' | ') : ''}`
+  ].filter(Boolean).join('\n\n');
+}
+
 function parseJsonLoose(text) {
   try { return JSON.parse(text); } catch {}
   const fenced = text.match(/```(?:json)?\s*([\s\S]*?)```/i);
@@ -269,17 +281,25 @@ function goalPlanOptionTable(goalPlan) {
   return `| Plan | Monthly amount | Use when |\n|---|---:|---|\n${rows}`;
 }
 
+function goalRealismNudge(goalPlan) {
+  const realism = goalPlan.goal_realism;
+  if (!realism?.nora_line) return '';
+  if (realism.motivation_risk === 'high') return `\n\nRealism nudge: ${realism.nora_line}`;
+  if (realism.motivation_risk === 'medium') return `\n\nMotivation note: ${realism.nora_line}`;
+  return '';
+}
+
 function lessonVisibleText(educationLesson, gentleAmount) {
   const points = educationLesson.lesson_card.key_points.map((point) => `- ${point}`).join('\n');
   const check = educationLesson.check_questions[0];
-  return `Tiny learning card: ${educationLesson.lesson_card.title}\n\n${educationLesson.lesson_card.plain_answer}\n\n${points}\n\nQuick check: ${check.question}\n\nFor your next Nora step, I would keep the EUR ${gentleAmount}/month savings draft and treat "${educationLesson.topic}" as the confidence step before any investment draft. Want me to mark that as the next step?`;
+  return `Quick money card: ${educationLesson.lesson_card.title}\n\n${educationLesson.lesson_card.plain_answer}\n\n${points}\n\nOne quick check: ${check.question}\n\nFor your next Nora step, I would keep the EUR ${gentleAmount}/month savings draft and treat "${educationLesson.topic}" as the confidence step before any investment draft. Want me to mark that as the next step?`;
 }
 
 function learningProgressVisibleText(learningProgress) {
   const next = learningProgress.next_domain_suggestion
-    ? ` No homework. I will just remember that ${learningProgress.next_domain_suggestion} is the next useful thing to explain when you are ready.`
-    : ' No homework. I will just remember that this topic is less mysterious now.';
-  return `Tiny progress update: ${learningProgress.user_facing_summary} (${learningProgress.visible_status}.)${next}`;
+    ? ` Progress without homework. I will keep ${learningProgress.next_domain_suggestion} as the next useful thing to explain when you are ready.`
+    : ' Progress without homework. I will remember that this topic is less mysterious now.';
+  return `Small win: ${learningProgress.user_facing_summary} (${learningProgress.visible_status}.)${next}`;
 }
 
 function snapshotInsightVisibleText(snapshotInsight) {
@@ -287,7 +307,7 @@ function snapshotInsightVisibleText(snapshotInsight) {
   const actionText = action?.action_type === 'stop'
     ? `Natural stopping point: ${action.reason}`
     : `Next useful move: ${action.label}. ${action.reason}`;
-  return `Small snapshot: ${snapshotInsight.snapshot_card.summary}\n\n${actionText}`;
+  return `Money picture: ${snapshotInsight.snapshot_card.summary}\n\n${actionText}`;
 }
 
 function latestAction(memory, actionType, statuses = []) {
@@ -302,6 +322,73 @@ function latestAction(memory, actionType, statuses = []) {
 
 function actionApprovalMemoryUpdates(actionApproval) {
   return actionApproval?.memory_updates || [];
+}
+
+function actionTypeLabel(actionType) {
+  return {
+    savings_transfer_draft: 'Savings habit',
+    investment_draft: 'Investment draft',
+    expense_review_habit: 'Review habit',
+    subscription_cancellation_request: 'Cancellation review',
+    shared_goal_draft: 'Shared goal',
+    goal_contribution_request: 'Contribution request'
+  }[actionType] || 'Action draft';
+}
+
+function statusLabel(status) {
+  return {
+    pending_approval: 'Ready for approval',
+    draft: 'Draft',
+    edited: 'Edited',
+    approved_in_demo_memory: 'Approved',
+    declined: 'Not now',
+    cancelled: 'Cancelled',
+    paused: 'Paused',
+    resumed: 'Resumed',
+    blocked: 'Needs review'
+  }[status] || 'Draft';
+}
+
+function cadenceLabel(cadence) {
+  const normalized = String(cadence || 'monthly').toLowerCase();
+  if (normalized === 'monthly') return 'month';
+  if (normalized === 'weekly') return 'week';
+  if (normalized === 'yearly' || normalized === 'annually') return 'year';
+  return normalized;
+}
+
+function moneyLabel(action) {
+  const amount = Number(action?.amount);
+  if (!Number.isFinite(amount)) return null;
+  return `${action.currency || 'EUR'} ${Math.round(amount)}`;
+}
+
+function actionConfirmationCard(actionApproval) {
+  const action = actionApproval?.action;
+  if (!action || action.status !== 'pending_approval') return null;
+  const amount = moneyLabel(action);
+  const cadence = cadenceLabel(action.cadence);
+  const target = action.goal_name || action.category || 'selected goal';
+  const draft = action.action_type === 'expense_review_habit'
+    ? `Review ${String(target).toLowerCase()} ${action.cadence || 'monthly'}`
+    : `${amount || 'Selected amount'}/${cadence} to ${target}`;
+  const details = [
+    action.goal_name ? `Goal: ${action.goal_name}` : null,
+    action.category ? `Category: ${action.category}` : null,
+    amount ? `Amount: ${amount}` : null,
+    action.cadence ? `Cadence: ${action.cadence}` : null
+  ].filter(Boolean);
+
+  return {
+    title: actionTypeLabel(action.action_type),
+    draft,
+    status: statusLabel(action.status),
+    details,
+    options: action.action_type === 'expense_review_habit'
+      ? ['Approve', 'Choose category', 'Not now']
+      : ['Approve', 'Edit amount', 'Not now'],
+    action_id: action.action_id
+  };
 }
 
 function offlineNoraTurn({ user, memory, snapshot, latestUserMessage, noraTurnIndex }) {
@@ -371,10 +458,17 @@ function offlineNoraTurn({ user, memory, snapshot, latestUserMessage, noraTurnIn
     recommendationHistory: memory.recommendation_history,
     conversationSoFar: []
   });
+  const blockerWarmLine = blocker === 'confusion'
+    ? 'Totally fair. Investing can look like a club where everyone else got the glossary at birth.'
+    : blocker === 'risk'
+      ? 'That is a good instinct, not a flaw. Risk should earn your trust before it gets any of your money.'
+      : blocker === 'amount_feels_too_small'
+        ? 'Small-budget starting points are still real starting points. The trick is making the amount repeatable.'
+        : 'That is very human. Good money habits usually need a system more than a burst of motivation.';
 
   if (noraTurnIndex === 0) {
     return {
-      visible_response: `Hi, I'm Nora. I help you make sense of saving and investing one step at a time. You can ask me anything, anytime - even the questions that feel too basic.\n\nI can already see the basics from your Nordea context, so I won't make you fill out a personality quiz disguised as banking.\n\nI can also see you haven't started investing with us yet. Very normal. Future-you question: what is the main thing holding you back right now - risk, confusion, feeling like the amount is too small, or just not getting around to it yet?`,
+      visible_response: `Hi, I'm Nora. I help make money decisions smaller and clearer: saving goals, spending patterns, first investing steps, and all the questions that feel too basic to ask. You can ask me anything anytime.\n\nI can already see the basics from your Nordea context, so I will not make you fill out a personality quiz disguised as banking.\n\nI can also see you have not started investing with us yet. Very normal. Quick investing check: what is the main thing holding you back right now - risk, confusion, feeling like the amount is too small, or just not getting around to it yet?`,
       intent: 'first_conversation',
       nora_action: 'ask_question',
       tool_requests: [],
@@ -392,7 +486,7 @@ function offlineNoraTurn({ user, memory, snapshot, latestUserMessage, noraTurnIn
 
   if (noraTurnIndex === 1) {
     return {
-      visible_response: `That is a very workable starting point. Also, we are not doing dramatic investing energy today.\n\nFuture-you does not need you to become an investing person overnight. They need one tiny habit you understand well enough to keep.\n\nBased on your current snapshot, I would start by checking whether EUR ${snapshot.safe_to_save_estimate}/month could be safe without touching essentials. Want me to show the simple monthly table behind that number?`,
+      visible_response: `${blockerWarmLine}\n\nNo finance-person cosplay required. The first useful move is not picking an investment. It is finding a safe-to-repeat amount that does not make the rest of your month weird.\n\nBased on your current money picture, I would start by checking whether EUR ${snapshot.safe_to_save_estimate}/month could be safe without touching essentials. Want me to show the simple monthly table behind that number?`,
       intent: 'investment_readiness',
       nora_action: 'ask_question',
       tool_requests: [{ name: 'create_recurring_expense_table', reason: 'Show basis for safe monthly habit' }],
@@ -410,8 +504,8 @@ function offlineNoraTurn({ user, memory, snapshot, latestUserMessage, noraTurnIn
 
   if (noraTurnIndex === 2) {
     const adjustmentText = goalPlan.requires_adjustment
-      ? `\n\nImportant caveat: ${goalPlan.nora_summary} That means I would not present this as "goal solved." I would present it as the first safe habit, then choose a timeline, smaller milestone, or shared-contribution lever.`
-      : '';
+      ? `\n\nReal talk on the goal: ${goalPlan.nora_summary} I would not call that solved. I would call it a good starter habit, then pick a lever: smaller first milestone, longer timeline, one-off contributions, or shared contribution.`
+      : goalRealismNudge(goalPlan);
     const actionApproval = createActionApproval({
       userId: user.userId,
       operation: 'create_draft',
@@ -425,7 +519,7 @@ function offlineNoraTurn({ user, memory, snapshot, latestUserMessage, noraTurnIn
       userMemory: memory
     });
     return {
-      visible_response: `Here is the boring-but-powerful version.\n\nYour income and recurring expenses suggest a small monthly habit could fit, but I would keep the first draft intentionally modest: EUR ${starterAmount}/month toward ${goal}.${adjustmentText}\n\nI saved this as a demo draft only - no money moves. Future-you is not asking for heroics. They are asking for a system. Want to approve the starter habit, adjust the target/timeline, or keep it as a learning plan for now?`,
+      visible_response: `Let's put numbers on it.\n\nYour income and recurring expenses suggest a small monthly habit could fit, but I would keep the first draft intentionally modest: EUR ${starterAmount}/month toward ${goal}.${adjustmentText}\n\nI put the next step into a draft so the choice is clean. You can approve it, edit the amount, leave it parked, or use it as the starter habit while we set a first milestone.`,
       intent: 'savings_plan',
       nora_action: 'request_approval',
       tool_requests: [
@@ -435,6 +529,7 @@ function offlineNoraTurn({ user, memory, snapshot, latestUserMessage, noraTurnIn
         { name: 'action_approval_agent', reason: 'Request explicit approval without real execution' }
       ],
       goal_plan: goalPlan,
+      action_confirmation_card: actionConfirmationCard(actionApproval),
       action_approval: actionApproval,
       recommendation_card: goalPlan.recommendation_card,
       trust_ledger_entry: trustLedgerFromGoalPlan(goalPlan),
@@ -450,7 +545,9 @@ function offlineNoraTurn({ user, memory, snapshot, latestUserMessage, noraTurnIn
   }
 
   if (noraTurnIndex === 3) {
-    const approved = text.includes('approve') || text.includes('yes') || text.includes('ok') || text.includes('sounds good');
+    const editRequested = text.includes('edit amount') || text.includes('lower it') || text.includes('adjust');
+    const notNow = text.includes('not now') || text.includes('learning plan first') || text.includes('draft only');
+    const approved = !editRequested && !notNow && (text.includes('approve') || text.includes('yes') || text.includes('ok') || text.includes('sounds good'));
     const savingsDraft = latestAction(memory, 'savings_transfer_draft', ['pending_approval', 'edited', 'draft']);
     const actionApproval = approved && savingsDraft
       ? createActionApproval({
@@ -462,12 +559,12 @@ function offlineNoraTurn({ user, memory, snapshot, latestUserMessage, noraTurnIn
         })
       : null;
     const approvedText = goalPlan.requires_adjustment
-      ? `Good. I will treat EUR ${starterAmount}/month as a starter habit, not as a full solution for ${goal}.\n\nThe planning agent flagged this goal as needing adjustment before it can be called realistic. Future-you gets a useful choice now: keep the monthly amount low, or change the timeline/milestone so the goal has a sane path?`
-      : `Good. Tiny, boring, and repeatable - honestly the underrated trilogy. The Action/Approval Agent marks the EUR ${starterAmount}/month savings draft as approved in demo memory, not executed.\n\nBefore we connect anything to investing, future-you gets one safety step: understand what risk means in normal language. After that, should this goal plan optimize for a lower monthly amount or a faster timeline?`;
+      ? `Good. I will treat EUR ${starterAmount}/month as a starter habit, not as a full solution for ${goal}.\n\nThis goal still needs a realism check before it can be called solved. Useful choice now: keep the monthly amount low, or change the timeline/milestone so the goal has a sane path?`
+      : `Good. Small, repeatable, and not secretly stressful. That is the bar. I marked the EUR ${starterAmount}/month savings draft as approved.\n\nBefore we connect anything to investing, one safety step comes first: understand what risk means in normal language. After that, should this goal plan optimize for a lower monthly amount or a faster timeline?`;
     return {
       visible_response: approved
         ? approvedText
-        : `That is sensible. Keeping it as a learning plan first is not hesitation; it is good control.\n\nFor ${goal}, future-you has two possible preferences: keep the monthly amount low, or reach the goal faster. Which would feel more realistic for you right now?`,
+        : `That is sensible. Keeping it as a learning plan first is not hesitation; it is good control.\n\nFor ${goal}, there are two honest routes: keep the monthly amount low, or reach the goal faster. Which would feel more realistic for you right now?`,
       intent: approved ? 'savings_plan' : 'education_bridge',
       nora_action: approved ? 'update_memory' : 'ask_question',
       tool_requests: approved
@@ -477,6 +574,7 @@ function offlineNoraTurn({ user, memory, snapshot, latestUserMessage, noraTurnIn
           ]
         : [{ name: 'update_user_memory', reason: 'Persist decision and next education topic' }],
       action_approval: actionApproval,
+      action_confirmation_card: null,
       recommendation_card: approved ? {
         title: goalPlan.requires_adjustment ? `Approved starter habit for ${goal}` : `Approved draft for ${goal}`,
         summary: goalPlan.requires_adjustment
@@ -501,10 +599,10 @@ function offlineNoraTurn({ user, memory, snapshot, latestUserMessage, noraTurnIn
 
   if (noraTurnIndex === 4) {
     const adjustmentNote = goalPlan.requires_adjustment
-      ? `\n\nThe planning agent's verdict: this goal needs adjustment. Even the faster safe options are too slow to call the full goal solved. The honest next step is to pick a lever: smaller first milestone, longer timeline, one-off contributions, or shared contribution.`
-      : '';
+      ? `\n\nRealism check: this goal needs adjustment. Even the faster safe options are too slow to call the full goal solved. Mathematically possible is not the same as motivating. The honest next step is to pick a lever: smaller first milestone, longer timeline, one-off contributions, or shared contribution.`
+      : goalRealismNudge(goalPlan);
     return {
-      visible_response: `Let's make it concrete.\n\n${goalPlanOptionTable(goalPlan)}${adjustmentNote}\n\nMy bias is still to start with the plan you can keep. Should I keep Gentle as the draft, compare the other options, or adjust the goal?`,
+      visible_response: `Let's make the choices visible.\n\n${goalPlanOptionTable(goalPlan)}${adjustmentNote}\n\nMy bias is still to start with the plan you can actually keep. Should I keep Gentle as the draft, compare the other options, or adjust the goal?`,
       intent: 'goal_planning',
       nora_action: 'propose_plan',
       tool_requests: [{ name: 'goal_savings_plan_agent', reason: `Compare contribution plans and feasibility for ${goal}` }],
@@ -530,8 +628,8 @@ function offlineNoraTurn({ user, memory, snapshot, latestUserMessage, noraTurnIn
     const optionText = options.length ? `${options.join(', ')}, or skip expense review` : 'skip expense review';
     return {
       visible_response: wantsGoalAdjustment
-        ? `Right. I will not pretend the full ${goal} is solved. I will store EUR ${gentleAmount}/month as the starter habit and mark the goal as needing a smaller first milestone or outside contribution.\n\nNext useful step: the Expense Review Agent can look for one recurring category that might protect this habit without turning your life into a punishment spreadsheet. Want to review ${optionText} for now?`
-        : `Gentle it is. I will keep EUR ${gentleAmount}/month as the draft plan, not an active transfer.\n\nNext useful step: the Expense Review Agent can look for one recurring category that might make this easier without turning your life into a punishment spreadsheet. Want to review ${optionText} for now?`,
+        ? `Right. I will not pretend the full ${goal} is solved. I will store EUR ${gentleAmount}/month as the starter habit and mark the goal as needing a smaller first milestone or outside contribution.\n\nNext useful step: let's look for one recurring category that might protect this habit without turning your life into a punishment spreadsheet. Joy is not on trial. Want to review ${optionText} for now?`
+        : `Gentle it is. I will keep EUR ${gentleAmount}/month as the draft plan.\n\nNext useful step: let's look for one recurring category that might make this easier without turning your life into a punishment spreadsheet. Joy is not on trial. Want to review ${optionText} for now?`,
       intent: 'expense_tracking',
       nora_action: 'ask_question',
       tool_requests: [{ name: 'expense_review_agent', reason: 'Find one safe recurring category to inspect before any cuts' }],
@@ -558,7 +656,7 @@ function offlineNoraTurn({ user, memory, snapshot, latestUserMessage, noraTurnIn
       userMemory: memory
     });
     return {
-      visible_response: `Here is the small-table version from the Expense Review Agent:\n\n${expenseReview.markdown_table}\n\n${expenseReview.nora_summary}\n\nI saved the review habit as a demo draft only. The useful question is: would you be willing to make that a once-a-month review habit to protect the EUR ${gentleAmount} plan?`,
+      visible_response: `Here is the clean table version:\n\n${expenseReview.markdown_table}\n\n${expenseReview.nora_summary}\n\nI put the review habit into a draft. This is a check-in, not a joy audit. Would you be willing to make it a once-a-month habit to protect the EUR ${gentleAmount} plan?`,
       intent: 'expense_tracking',
       nora_action: 'ask_question',
       tool_requests: [
@@ -566,6 +664,7 @@ function offlineNoraTurn({ user, memory, snapshot, latestUserMessage, noraTurnIn
         { name: 'action_approval_agent', reason: 'Create demo-only expense review habit draft' }
       ],
       expense_review: expenseReview,
+      action_confirmation_card: actionConfirmationCard(actionApproval),
       action_approval: actionApproval,
       recommendation_card: null,
       trust_ledger_entry: trustLedgerFromExpenseReview(expenseReview),
@@ -601,7 +700,7 @@ function offlineNoraTurn({ user, memory, snapshot, latestUserMessage, noraTurnIn
       ? `your starter habit is EUR ${gentleAmount}/month toward ${goal}, but the full goal still needs an adjusted milestone or contribution plan`
       : `your draft is EUR ${gentleAmount}/month toward ${goal}`;
     return {
-      visible_response: `Good. The Action/Approval Agent marks ${expenseReview.suggested_category ? expenseReview.suggested_category.toLowerCase() : 'that'} as approved in demo memory as a review habit, not a cut. Very different energy.\n\nNora summary so far: ${personaSummary}; ${planSummary}; ${expenseReview.review_habit.action.toLowerCase()}; and investing should stay education-first until risk feels less mysterious.\n\nWant the 45-second learning card on "${educationLesson.topic}" now, or should I stop the demo conversation here?`,
+      visible_response: `Good. I marked ${expenseReview.suggested_category ? expenseReview.suggested_category.toLowerCase() : 'that'} as a review habit, not a cut. Very different energy.\n\nMoney friend recap: ${personaSummary}; ${planSummary}; ${expenseReview.review_habit.action.toLowerCase()}; and investing should stay education-first until risk feels less mysterious.\n\nWant the quick money card on "${educationLesson.topic}" now, or should I stop the demo conversation here?`,
       intent: 'education_bridge',
       nora_action: 'ask_question',
       tool_requests: [
@@ -609,6 +708,7 @@ function offlineNoraTurn({ user, memory, snapshot, latestUserMessage, noraTurnIn
         { name: 'update_user_memory', reason: 'Persist selected review habit and plan summary' }
       ],
       action_approval: actionApproval,
+      action_confirmation_card: null,
       recommendation_card: null,
       trust_ledger_entry: null,
       memory_updates: [
@@ -617,7 +717,7 @@ function offlineNoraTurn({ user, memory, snapshot, latestUserMessage, noraTurnIn
         ...expenseReview.memory_updates,
         ...actionApprovalMemoryUpdates(actionApproval)
       ],
-      next_best_question: 'Read the 45-second learning card now, or stop here?',
+      next_best_question: 'Read the quick money card now, or stop here?',
       education_hook: { topic: educationLesson.topic, reason: 'User wants education before investment approval', format_suggestion: educationLesson.format },
       safety_flags: []
     };
@@ -648,7 +748,7 @@ function offlineNoraTurn({ user, memory, snapshot, latestUserMessage, noraTurnIn
 
   if (noraTurnIndex === 9) {
     return {
-      visible_response: `Marked. That gives future-you a clear path: keep the draft savings habit, review one recurring category monthly, and keep risk education before any investment action.\n\n${learningProgressVisibleText(learningProgressApplied)}\n\n${snapshotInsightVisibleText(snapshotInsight)}\n\nThat is a complete first Nora journey for the demo. You can still ask me anything, anytime - but I am not going to invent a new money task just to look busy.`,
+      visible_response: `Marked. First journey complete: one draft savings habit, one monthly review habit, and one concept made less mysterious before any investment action.\n\n${learningProgressVisibleText(learningProgressApplied)}\n\n${snapshotInsightVisibleText(snapshotInsight)}\n\nYou can still ask me anything, anytime. I am also happy to stop here instead of inventing a new money task just to look busy.`,
       intent: 'education_bridge',
       nora_action: 'update_memory',
       tool_requests: [
@@ -696,7 +796,10 @@ function offlineUserReply({ user, latestNoraText, conversation = [] }) {
   if (lower.includes('show the simple monthly table') || lower.includes('calculate')) {
     return { user_reply: 'Yes, show me the table first. I want to see where the number comes from.', internal_reason: 'Persona wants transparency before approval.' };
   }
-  if (lower.includes('complete first nora journey') || lower.includes('natural stopping point')) {
+  if (lower.includes('action confirmation') && lower.includes('review habit')) {
+    return { user_reply: 'Approve the monthly review habit. I only want it as a check-in, not an automatic cut.', internal_reason: 'Persona approves the review habit from the confirmation card.' };
+  }
+  if (lower.includes('first journey complete') || lower.includes('complete first nora journey') || lower.includes('natural stopping point')) {
     return { user_reply: 'That is enough for now. I would come back to the learning card next.', internal_reason: 'Persona accepts the end of the test journey.' };
   }
   if (lower.includes('starter habit') && lower.includes('adjust') && !lower.includes('45-second') && !lower.includes('risk card')) {
@@ -722,7 +825,10 @@ function offlineUserReply({ user, latestNoraText, conversation = [] }) {
     if (user.firstName === 'Pekka') return { user_reply: 'Lower it and keep it as a draft. I would want human-advisor context before doing anything retirement-related.', internal_reason: 'Pekka wants control and advisor framing.' };
     return { user_reply: 'That sounds reasonable. Approve the savings draft, but keep the investing part educational for now.', internal_reason: 'Medium-risk persona approves reversible savings action.' };
   }
-  if (lower.includes('45-second') || lower.includes('risk card')) {
+  if (lower.includes('mark that as the next step')) {
+    return { user_reply: 'Yes, mark that as the next step. That feels like enough for now.', internal_reason: 'Persona accepts the journey endpoint.' };
+  }
+  if (lower.includes('quick money card') || lower.includes('45-second') || lower.includes('risk card')) {
     return { user_reply: 'Show me the risk card. Short version please.', internal_reason: 'Persona wants education before investing.' };
   }
   if (lower.includes('one category') || lower.includes('inspect once a month') || lower.includes('inspect monthly') || lower.includes('once-a-month review habit')) {
@@ -732,9 +838,6 @@ function offlineUserReply({ user, latestNoraText, conversation = [] }) {
     if (user.firstName === 'Sofia') return { user_reply: 'Let us review subscriptions. I do not want to cut anything automatically, but I can inspect them.', internal_reason: 'Sofia is practical and wants control.' };
     if (user.firstName === 'Pekka') return { user_reply: 'Review insurance or subscriptions, but only as information. No automatic changes.', internal_reason: 'Pekka wants control over changes.' };
     return { user_reply: 'Subscriptions are probably the easiest place to start. Show me that.', internal_reason: 'Persona picks a low-friction review category.' };
-  }
-  if (lower.includes('mark that as the next step')) {
-    return { user_reply: 'Yes, mark that as the next step. That feels like enough for now.', internal_reason: 'Persona accepts the journey endpoint.' };
   }
   const fallbackOptions = [
     `My main goal is ${user.savingsGoal}. I want a plan that feels realistic, not overly optimistic.`,
@@ -778,7 +881,7 @@ async function runNora({ mode, noraPrompt, args, context, noraTurnIndex, user, m
 }
 
 async function runSimulatedUser({ mode, simulatedUserPrompt, args, user, conversation, latestNoraOutput }) {
-  const latestNoraText = extractVisible(latestNoraOutput);
+  const latestNoraText = extractVisibleWithCards(latestNoraOutput);
   if (mode === 'offline') return offlineUserReply({ user, latestNoraText, conversation });
   const content = await callOpenRouter({
     model: args.userModel,
@@ -791,9 +894,15 @@ async function runSimulatedUser({ mode, simulatedUserPrompt, args, user, convers
   return parsed.user_reply ? parsed : { user_reply: content.trim(), internal_reason: 'Raw model output fallback' };
 }
 
+function countMatches(text, pattern) {
+  return (String(text || '').match(pattern) || []).length;
+}
+
 function evaluateConversation(conversation, finalMemory = {}) {
   const noraText = conversation.filter((t) => t.role === 'Nora').map((t) => t.text).join('\n');
   const structured = conversation.filter((t) => t.role === 'Nora').map((t) => t.structured).filter(Boolean);
+  const confirmationCards = structured.map((s) => s.action_confirmation_card).filter(Boolean);
+  const firstNoraText = conversation.find((t) => t.role === 'Nora')?.text || '';
   const noraTurns = conversation.filter((t) => t.role === 'Nora').map((t) => t.text.trim().replace(/\s+/g, ' '));
   const repeatedNoraTurns = noraTurns.filter((text, index) => index > 0 && text === noraTurns[index - 1]);
   const noraTurnCounts = new Map();
@@ -807,6 +916,7 @@ function evaluateConversation(conversation, finalMemory = {}) {
   const actionLog = finalMemory.action_state?.action_log || [];
   return {
     introducedNora: /i['’]?m nora|i am nora/i.test(noraText),
+    firstNoraWarmIdentity: /money decisions smaller and clearer|saving goals, spending patterns, first investing steps|questions that feel too basic/i.test(firstNoraText),
     avoidedAgeQuestion: !/how old are you|what is your age|your birthday|date of birth/i.test(noraText),
     investmentHookEarly: /holding you back|investing|future-you/i.test(conversation.find((t) => t.role === 'Nora')?.text || ''),
     trustLedgerWhenRecommending: structured.some((s) => s.recommendation_card) ? structured.some((s) => s.trust_ledger_entry) : true,
@@ -823,15 +933,41 @@ function evaluateConversation(conversation, finalMemory = {}) {
     snapshotIncludesNextAction: noraTurns.length >= 10 ? snapshotOutputs.some((s) => s.next_best_action?.action_type) : true,
     snapshotMemoryReviewDoesNotAutoUpdate: snapshotOutputs.length ? snapshotOutputs.every((s) => Array.isArray(s.memory_updates) && s.memory_updates.length === 0) : true,
     actionApprovalAgentUsed: noraTurns.length >= 3 ? actionOutputs.some((s) => s.agent === 'action_approval') : true,
+    actionConfirmationCardPresent: noraTurns.length >= 3 ? confirmationCards.some((card) => card.status === 'Ready for approval') : true,
+    actionConfirmationCardProductWording: confirmationCards.length ? confirmationCards.every((card) => Array.isArray(card.options) && card.options.includes('Approve') && card.options.includes('Not now') && card.options.some((option) => /^Edit|^Choose/.test(option)) && !/demo|not executed|Action\/Approval Agent/i.test(JSON.stringify(card))) : true,
     actionExecutionModeDemoOnly: actionOutputs.length ? actionOutputs.every((s) => s.execution_mode === 'demo_memory_only' && s.action?.execution_mode === 'demo_memory_only') : true,
     actionLogPresent: noraTurns.length >= 3 ? actionLog.length > 0 : true,
     noRealMoneyMovementLanguage: !/transfer completed|investment purchased|subscription cancelled|shared with family/i.test(noraText),
+    noInternalAgentNamesVisible: !/Action\/Approval Agent|Expense Review Agent|planning agent|Goal\/Savings Plan Agent|Learning Progress Agent|Snapshot \/ Insights Agent/i.test(noraText),
+    limitedFutureYouCatchphrase: countMatches(noraText, /future-you/gi) <= 2,
+    limitedTinyLanguage: countMatches(noraText, /\btiny\b/gi) <= 3,
+    limitedBoringLanguage: countMatches(noraText, /\bboring\b/gi) <= 2,
     fundsSuggestedOnlyAfterEducation: /Funds/.test(noraText) ? structured.findIndex((s) => s.learning_progress?.next_domain_suggestion === 'Funds') >= 8 : true,
     unrealisticGoalFlagged: /down payment/i.test(noraText) ? /needs adjustment|too slow|not enough|unrealistic/i.test(noraText) : true,
+    slowLaptopGoalFlagged: /laptop/i.test(noraText) ? /probably too slow|starter habit|first milestone|willing to wait/i.test(noraText) : true,
     oneQuestionStyle: !/\?[^\n]*\?[^\n]*\?/m.test(noraText),
     noRepeatedNoraResponses: repeatedNoraTurns.length === 0 && [...noraTurnCounts.values()].every((count) => count <= 1),
     noRepeatedUserResponses: repeatedUserTurns.length === 0 && [...userTurnCounts.values()].every((count) => count <= 1)
   };
+}
+
+function renderActionConfirmationCard(card) {
+  const lines = [
+    '**Action Confirmation**',
+    '',
+    `Type: ${card.title}`,
+    `Draft: ${card.draft}`,
+    `Status: ${card.status}`
+  ];
+  if (Array.isArray(card.details) && card.details.length) {
+    lines.push('');
+    for (const detail of card.details) lines.push(`- ${detail}`);
+  }
+  if (Array.isArray(card.options) && card.options.length) {
+    lines.push('');
+    lines.push(`Options: ${card.options.join(' | ')}`);
+  }
+  return lines;
 }
 
 function renderMarkdown({ user, mode, modelInfo, snapshot, conversation, evaluation }) {
@@ -903,6 +1039,10 @@ function renderMarkdown({ user, mode, modelInfo, snapshot, conversation, evaluat
         lines.push('```json');
         lines.push(JSON.stringify(turn.structured.snapshot_insight, null, 2));
         lines.push('```');
+      }
+      if (turn.structured?.action_confirmation_card) {
+        lines.push('');
+        lines.push(...renderActionConfirmationCard(turn.structured.action_confirmation_card));
       }
       if (turn.structured?.action_approval) {
         lines.push('');

@@ -27,11 +27,12 @@ Given a goal, target amount if available, risk comfort, and financial snapshot:
 1. Parse or accept the target amount.
 2. Estimate feasible monthly contribution options.
 3. Estimate timeline when target amount is known.
-4. Classify feasibility as `easy`, `workable`, `tight`, `unrealistic`, or `not_recommended`.
+4. Classify financial feasibility as `easy`, `workable`, `tight`, `unrealistic`, or `not_recommended`.
 5. Return plan options and the recommended draft.
 6. If the goal is too large for the available contribution, return adjustment levers instead of pretending the plan is sufficient.
-7. Produce Trust Ledger inputs for Nora.
-8. Produce memory updates Nora can persist.
+7. Judge motivation realism: whether the timeline fits the type of goal well enough to stay motivating.
+8. Produce Trust Ledger inputs for Nora.
+9. Produce memory updates Nora can persist.
 
 ## Input Format
 
@@ -82,6 +83,16 @@ Return JSON only:
   "options": [],
   "overall_feasibility": "unrealistic",
   "requires_adjustment": true,
+  "goal_realism": {
+    "goal_category": "home_down_payment",
+    "timeline_realism": "too_slow",
+    "motivation_risk": "high",
+    "realism_label": "Needs adjustment",
+    "reason": "string",
+    "suggested_first_milestone": {},
+    "suggested_levers": [],
+    "nora_line": "string Nora can reuse"
+  },
   "levers": [],
   "nora_summary": "string Nora can reuse",
   "recommendation_card": {},
@@ -104,6 +115,8 @@ Return JSON only:
 - Never execute transfers.
 - If a known target amount would take more than 96 months even at the fastest safe option, set `requires_adjustment` to true.
 - If `requires_adjustment` is true, explain what would need to change: contribution, timeline, smaller milestone, one-off contributions, shared contribution, or advisor context.
+- If a known target amount is financially possible but the timeline is likely too slow for that goal type, keep the savings draft possible but label it as a starter habit or milestone path.
+- Infer simple goal categories such as tech purchase, travel, emergency buffer, down payment, transport, moving, retirement, education, or general goal. Use the category to judge whether the timeline is motivating.
 - Keep all numbers in the user's currency.
 - Do not shame the user for slow timelines.
 
@@ -114,6 +127,7 @@ A good output:
 - Has at least two plan options when cashflow allows.
 - Includes monthly amount and estimated timeline when target amount is known.
 - Flags unrealistic large goals instead of hiding the math.
+- Flags demotivating timelines instead of calling them simply workable.
 - Separates starter habits from full-goal completion.
 - Gives Nora enough structured material for a Trust Ledger and approval gate.
 

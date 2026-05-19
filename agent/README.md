@@ -42,6 +42,8 @@ Nora Main Agent
 
 That is enough to prove the agentic loop without recreating last year's basic chatbot.
 
+The education tool also covers relevance-triggered loan basics such as student loans, borrowing vs saving, interest, and repayment. Loans are treated as Money Confidence education, not a new loan-sales or loan-approval agent.
+
 ## Required first-session behavior
 
 Nora must:
@@ -65,7 +67,7 @@ Nora
 -> calls Learning Progress Agent to track confidence without course-like UX
 -> calls Snapshot/Insights Agent to summarize state, choose one next move, or draft a memory check
 -> calls Action/Approval Agent to create or update demo-only action records
--> renders plan options, Trust Ledger, approval gate
+-> renders plan options, Trust Ledger, and a user-facing Action Confirmation card
 -> updates memory
 ```
 

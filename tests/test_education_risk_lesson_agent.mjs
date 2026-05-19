@@ -50,4 +50,30 @@ assert.equal(largeGoalLesson.topic, 'When savings should come before investing')
 assert.ok(largeGoalLesson.lesson_card.key_points.some((point) => point.includes('starter habit')));
 assert.ok(largeGoalLesson.next_topic.includes('milestones'));
 
+const studentLoanLesson = createEducationRiskLesson({
+  userId: 'U001',
+  currentBlocker: 'student loan',
+  latestUserMessage: 'Should I take a student loan?',
+  goalPlan: baseGoalPlan
+});
+
+assert.equal(studentLoanLesson.topic, 'Student loans without panic');
+assert.equal(studentLoanLesson.blocker, 'loan_question');
+assert.ok(studentLoanLesson.lesson_card.plain_answer.includes('repayment'));
+assert.ok(studentLoanLesson.safety_flags.includes('not_loan_advice'));
+
+const borrowSaveLesson = createEducationRiskLesson({
+  userId: 'U002',
+  latestUserMessage: 'Should I borrow or save for this goal?',
+  goalPlan: baseGoalPlan
+});
+
+assert.equal(borrowSaveLesson.topic, 'Borrowing vs saving for a goal');
+assert.equal(borrowSaveLesson.check_questions.length, 1);
+assert.ok(borrowSaveLesson.lesson_card.key_points.some((point) => point.includes('tradeoff') || point.includes('freedom')));
+
+const loanText = JSON.stringify(studentLoanLesson) + JSON.stringify(borrowSaveLesson);
+assert.doesNotMatch(loanText, /you should take|eligible|approved for|specific nordea loan|loan product recommendation/i);
+assert.doesNotMatch(loanText, /\b\d+(?:\.\d+)?\s*%/);
+
 console.log('Education/Risk Lesson Agent tests passed.');

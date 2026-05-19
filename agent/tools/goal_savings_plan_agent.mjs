@@ -48,6 +48,158 @@ function feasibilityForSafeShare(amount, safeToSave) {
   return 'tight';
 }
 
+function inferGoalCategory(goalName, targetAmount) {
+  const text = String(goalName || '').toLowerCase();
+  if (/laptop|phone|computer|tablet/.test(text)) return 'tech_purchase';
+  if (/travel|trip|holiday|festival|event/.test(text)) return 'travel_event';
+  if (/emergency|buffer|rainy day/.test(text)) return 'emergency_buffer';
+  if (/down payment|home|house|apartment/.test(text)) return 'home_down_payment';
+  if (/car|vehicle|bike/.test(text)) return 'car_transport';
+  if (/moving|deposit|furniture|rent deposit/.test(text)) return 'moving_housing';
+  if (/retirement|pension|cabin/.test(text)) return 'retirement_long_term';
+  if (/education|studies|student/.test(text)) return 'education';
+  if (!targetAmount) return 'general_goal';
+  if (targetAmount < 500) return 'small_purchase';
+  if (targetAmount <= 2000) return 'medium_purchase';
+  if (targetAmount <= 10000) return 'large_purchase';
+  return 'long_term_goal';
+}
+
+const HORIZON_BANDS = {
+  small_purchase: { motivatingMax: 3, cautionMax: 6 },
+  medium_purchase: { motivatingMax: 12, cautionMax: 24 },
+  large_purchase: { motivatingMax: 36, cautionMax: 48 },
+  tech_purchase: { motivatingMax: 12, cautionMax: 24 },
+  travel_event: { motivatingMax: 18, cautionMax: 30 },
+  emergency_buffer: { motivatingMax: 12, cautionMax: 24 },
+  moving_housing: { motivatingMax: 18, cautionMax: 30 },
+  car_transport: { motivatingMax: 36, cautionMax: 48 },
+  home_down_payment: { motivatingMax: 84, cautionMax: 120 },
+  retirement_long_term: { longTermNormal: true },
+  education: { motivatingMax: 120, cautionMax: 120 },
+  long_term_goal: { motivatingMax: 84, cautionMax: 120 },
+  general_goal: { motivatingMax: 18, cautionMax: 30 }
+};
+
+function milestoneAmount({ category, targetAmount, recommendedAmount }) {
+  if (!targetAmount) return null;
+  if (category === 'emergency_buffer') return Math.min(targetAmount, Math.max(250, roundToNearestFive(recommendedAmount * 12)));
+  if (category === 'home_down_payment' || category === 'long_term_goal') return Math.min(targetAmount, Math.max(1000, roundToNearestFive(recommendedAmount * 12)));
+  if (targetAmount <= 500) return Math.min(targetAmount, roundToNearestFive(targetAmount / 2));
+  return Math.min(targetAmount, Math.max(300, roundToNearestFive(recommendedAmount * 12)));
+}
+
+function categoryLabel(category) {
+  return {
+    tech_purchase: 'tech goal',
+    travel_event: 'travel goal',
+    emergency_buffer: 'buffer goal',
+    home_down_payment: 'down payment',
+    car_transport: 'transport goal',
+    moving_housing: 'moving goal',
+    retirement_long_term: 'long-term goal',
+    education: 'education goal',
+    small_purchase: 'small purchase',
+    medium_purchase: 'medium purchase',
+    large_purchase: 'large purchase',
+    long_term_goal: 'long-term goal',
+    general_goal: 'goal'
+  }[category] || 'goal';
+}
+
+function createGoalRealism({ goalName, targetAmount, recommendedOption, fastestTimeline, currency, requiresAdjustment }) {
+  const goalCategory = inferGoalCategory(goalName, targetAmount);
+  const horizon = HORIZON_BANDS[goalCategory] || HORIZON_BANDS.general_goal;
+  const timelineMonths = recommendedOption?.timeline_months || null;
+  const monthly = recommendedOption?.monthly_contribution || null;
+  const timelineLabel = recommendedOption?.timeline_label || formatMonths(timelineMonths);
+  const suggestedMilestoneAmount = milestoneAmount({
+    category: goalCategory,
+    targetAmount,
+    recommendedAmount: monthly || 0
+  });
+
+  if (!targetAmount || !timelineMonths) {
+    return {
+      goal_category: goalCategory,
+      timeline_realism: horizon.longTermNormal ? 'long_term_normal' : 'unknown',
+      motivation_risk: horizon.longTermNormal ? 'low' : 'medium',
+      realism_label: horizon.longTermNormal ? 'Looks realistic' : 'Needs a target',
+      reason: horizon.longTermNormal
+        ? `${goalName} is naturally long term, so the useful first step is a repeatable habit and periodic review.`
+        : `No target amount was available, so Nora can draft a safe habit but cannot judge the full timeline yet.`,
+      suggested_first_milestone: null,
+      suggested_levers: horizon.longTermNormal
+        ? ['keep the first habit easy to maintain', 'review yearly', 'add target amount later if useful']
+        : ['add a target amount', 'set a first milestone', 'review whether the monthly amount feels worth keeping'],
+      nora_line: horizon.longTermNormal
+        ? `${goalName} is a long-game goal, so the first win is a habit you can keep.`
+        : `I can draft a safe monthly habit for ${goalName}, but I need a target amount before calling the timeline realistic.`
+    };
+  }
+
+  const tooSlow = !horizon.longTermNormal && timelineMonths > horizon.cautionMax;
+  const slow = !tooSlow && !horizon.longTermNormal && timelineMonths > horizon.motivatingMax;
+  const timelineRealism = requiresAdjustment || tooSlow
+    ? 'too_slow'
+    : horizon.longTermNormal
+      ? 'long_term_normal'
+      : slow
+        ? 'slow'
+        : 'realistic';
+  const motivationRisk = requiresAdjustment || tooSlow ? 'high' : slow ? 'medium' : 'low';
+  const realismLabel = requiresAdjustment
+    ? 'Needs adjustment'
+    : tooSlow
+      ? goalCategory === 'emergency_buffer' ? 'Needs a milestone' : 'Starter habit only'
+      : slow
+        ? 'Workable but slow'
+        : 'Looks realistic';
+  const suggestedFirstMilestone = suggestedMilestoneAmount
+    ? {
+        label: 'First milestone',
+        amount: suggestedMilestoneAmount,
+        reason: `Visible progress within about ${Math.max(1, Math.ceil(suggestedMilestoneAmount / monthly))} months.`
+      }
+    : null;
+  const suggestedLevers = motivationRisk === 'high'
+    ? [
+        'set a smaller first milestone',
+        'increase monthly amount if safe',
+        'add one-off contributions',
+        'ask whether the user is willing to wait'
+      ]
+    : motivationRisk === 'medium'
+      ? ['set a visible milestone', 'review progress after three months', 'increase amount later if safe']
+      : ['keep the habit repeatable', 'review when income or costs change'];
+  const category = categoryLabel(goalCategory);
+  const reason = requiresAdjustment
+    ? `${goalName} takes ${timelineLabel} at ${currency} ${monthly}/month, so this is a starter habit for a ${category}, not the full plan.`
+    : tooSlow
+      ? `${currency} ${monthly}/month takes about ${timelineLabel} for ${goalName}, which is likely too slow to stay motivating.`
+      : slow
+        ? `${currency} ${monthly}/month reaches ${goalName} in about ${timelineLabel}; that can work, but it may need a visible milestone.`
+        : `${currency} ${monthly}/month reaches ${goalName} in about ${timelineLabel}, which fits this kind of goal.`;
+  const noraLine = requiresAdjustment
+    ? `This is not a failed plan. It is a long-game ${category}. The first useful step is a milestone, not pretending ${currency} ${monthly}/month solves the whole goal.`
+    : tooSlow
+      ? `${currency} ${monthly}/month is safe, but ${timelineLabel} for ${goalName} is probably too slow to stay motivating. I would treat this as a starter habit and set a first milestone.`
+      : slow
+        ? `${currency} ${monthly}/month can work, but ${timelineLabel} is long enough that I would add a milestone so progress stays visible.`
+        : `This looks realistic: ${currency} ${monthly}/month fits the money picture and the timeline stays visible.`;
+
+  return {
+    goal_category: goalCategory,
+    timeline_realism: timelineRealism,
+    motivation_risk: motivationRisk,
+    realism_label: realismLabel,
+    reason,
+    suggested_first_milestone: suggestedFirstMilestone,
+    suggested_levers: suggestedLevers,
+    nora_line: noraLine
+  };
+}
+
 function worseFeasibility(a, b) {
   const order = ['easy', 'workable', 'tight', 'unrealistic', 'not_recommended'];
   return order.indexOf(a) >= order.indexOf(b) ? a : b;
@@ -147,6 +299,14 @@ export function createGoalSavingsPlan(input) {
   const overallFeasibility = requiresAdjustment
     ? 'unrealistic'
     : recommendedOption?.feasibility || 'not_recommended';
+  const goalRealism = createGoalRealism({
+    goalName,
+    targetAmount,
+    recommendedOption,
+    fastestTimeline,
+    currency,
+    requiresAdjustment
+  });
 
   const levers = [];
   if (requiresAdjustment) {
@@ -159,12 +319,25 @@ export function createGoalSavingsPlan(input) {
   if (requiredMonthlyForTargetDate && requiredMonthlyForTargetDate > safeToSave) {
     levers.push(`target date would need about ${currency} ${requiredMonthlyForTargetDate}/month, above the current safe-to-save estimate`);
   }
+  if (goalRealism.motivation_risk === 'high' && !requiresAdjustment) {
+    levers.push(...goalRealism.suggested_levers);
+  }
+  const uniqueLevers = [...new Set(levers)];
 
   const goalId = `${userId}-${goalName.toLowerCase().replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '') || 'goal'}`;
-  const recommendationStatus = requiresAdjustment ? 'needs_adjustment' : 'draft_requires_approval';
+  const recommendationStatus = requiresAdjustment
+    ? 'needs_adjustment'
+    : goalRealism.motivation_risk === 'high'
+      ? 'starter_habit_only'
+      : 'draft_requires_approval';
   const noraSummary = requiresAdjustment
     ? `${goalName} is too large for the current monthly draft to solve on its own. Treat ${currency} ${recommendedOption.monthly_contribution}/month as a starter habit, then choose a timeline, milestone, or shared contribution lever.`
-    : `${currency} ${recommendedOption.monthly_contribution}/month is a reasonable first draft for ${goalName}.`;
+    : goalRealism.motivation_risk === 'high'
+      ? goalRealism.nora_line
+      : `${currency} ${recommendedOption.monthly_contribution}/month is a reasonable first draft for ${goalName}.`;
+  const recommendationSummary = requiresAdjustment || goalRealism.motivation_risk === 'high'
+    ? goalRealism.nora_line
+    : `Draft ${currency} ${recommendedOption.monthly_contribution}/month as a savings-first habit. Investment education comes before any investment action.`;
 
   return {
     agent: 'goal_savings_plan',
@@ -179,13 +352,12 @@ export function createGoalSavingsPlan(input) {
     options,
     overall_feasibility: overallFeasibility,
     requires_adjustment: requiresAdjustment,
-    levers,
+    goal_realism: goalRealism,
+    levers: uniqueLevers,
     nora_summary: noraSummary,
     recommendation_card: {
-      title: requiresAdjustment ? `Starter habit for ${goalName}` : `Start a monthly habit for ${goalName}`,
-      summary: requiresAdjustment
-        ? `${currency} ${recommendedOption.monthly_contribution}/month is a starter habit, not enough to complete the full goal alone.`
-        : `Draft ${currency} ${recommendedOption.monthly_contribution}/month as a savings-first habit. Investment education comes before any investment action.`,
+      title: requiresAdjustment || goalRealism.motivation_risk === 'high' ? `Starter habit for ${goalName}` : `Start a monthly habit for ${goalName}`,
+      summary: recommendationSummary,
       amount: recommendedOption?.monthly_contribution || null,
       currency,
       cadence: 'monthly',
@@ -195,7 +367,8 @@ export function createGoalSavingsPlan(input) {
       data_used: ['savings goal', 'target amount if available', 'safe-to-save estimate', 'risk comfort', 'financial snapshot'],
       assumptions: [
         'The 2025 synthetic cashflow pattern is broadly representative.',
-        targetAmount ? 'The target amount parsed from the goal name is correct.' : 'No target amount was available, so timeline is not estimated.'
+        targetAmount ? 'The target amount parsed from the goal name is correct.' : 'No target amount was available, so timeline is not estimated.',
+        `Goal realism category inferred as ${goalRealism.goal_category}.`
       ],
       confidence: targetAmount ? 'medium' : 'low',
       boundaries: [
@@ -229,6 +402,8 @@ export function createGoalSavingsPlan(input) {
     ],
     safety_flags: requiresAdjustment
       ? ['goal_requires_adjustment_before_approval', 'approval_required_before_money_movement']
+      : goalRealism.motivation_risk === 'high'
+        ? ['goal_motivation_risk_high', 'approval_required_before_money_movement']
       : ['approval_required_before_money_movement']
   };
 }

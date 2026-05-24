@@ -1,0 +1,6 @@
+contact_id,owner_id,linked_account_id,linked_iban,nickname,relationship,trusted
+con_001,acc_001,acc_002,FI2198765432100145,Mikko,friend,true
+con_002,acc_001,acc_003,FI2155556666777712,Aino,friend,true
+con_003,acc_001,acc_004,FI2100112233445522,Mom,family,true
+con_004,acc_001,acc_005,FI2177778888999901,Landlord Virtanen,landlord,false
+con_005,acc_001,,DE89370400440532013000,Julia (Berlin),friend,true

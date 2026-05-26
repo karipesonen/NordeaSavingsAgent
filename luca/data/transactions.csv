@@ -1,0 +1,621 @@
+transaction_id,account_id,counterpart_account_or_iban,counterpart_name,amount,currency,type,category,goal_id,card_id,recurring,note,status,timestamp
+txn_076,acc_001,FI2112345600078599,,-200.00,EUR,goal_contribution,savings_goals,goal_001,,true,Tokyo Trip – Jun,completed,2023-06-01T08:00:00Z
+txn_077,acc_001,FI2112345600078588,,-150.00,EUR,goal_contribution,savings_goals,goal_002,,true,MacBook – Jun,completed,2023-06-01T08:01:00Z
+txn_078,acc_001,FI2112345600078555,,-100.00,EUR,goal_contribution,savings_goals,goal_005,,true,Investment – Jun,completed,2023-06-01T08:02:00Z
+txn_079,acc_001,FI2112345600078577,,-321.39,EUR,goal_contribution,savings_goals,goal_003,,true,Emergency Fund – Jun,completed,2023-06-01T08:03:00Z
+txn_073,acc_001,FI2112345600079999,Virtanen Kiinteistöt,-980.00,EUR,transfer,rent,,,true,June rent,completed,2023-06-01T09:00:00Z
+txn_074,acc_001,FI2100000000000001,Nordea Mortgage,-650.00,EUR,payment,loan_repayment,,,true,Mortgage – loan_001,completed,2023-06-02T08:00:00Z
+txn_075,acc_001,FI2100000000000002,OP Car Finance,-220.00,EUR,payment,loan_repayment,,,true,Car loan – loan_002,completed,2023-06-02T08:05:00Z
+txn_080,acc_001,,Spotify,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2023-06-05T00:00:00Z
+txn_081,acc_001,,Netflix,-17.99,EUR,payment,subscriptions,,card_002,true,,completed,2023-06-05T00:01:00Z
+txn_082,acc_001,,HBO Max,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2023-06-05T00:02:00Z
+txn_094,acc_001,,Verkkokauppa.com,-51.22,EUR,payment,shopping,,card_001,false,,completed,2023-06-06T12:35:00Z
+txn_087,acc_001,,K-Supermarket Kamppi,-62.07,EUR,payment,groceries,,card_001,false,,completed,2023-06-06T18:05:00Z
+txn_083,acc_001,,NYT Digital,-19.00,EUR,payment,subscriptions,,card_002,true,,completed,2023-06-08T00:00:00Z
+txn_086,acc_001,,HSL Arvo,-40.00,EUR,payment,transport,,card_001,false,Monthly travel card top-up,completed,2023-06-08T08:30:00Z
+txn_088,acc_001,,Prisma Itäkeskus,-36.27,EUR,payment,groceries,,card_001,false,,completed,2023-06-09T14:13:00Z
+txn_085,acc_001,,Elixia Gym,-49.00,EUR,payment,health_beauty,,card_001,true,Monthly gym,completed,2023-06-10T06:00:00Z
+txn_091,acc_001,,Café Tin Tin Tango,-16.48,EUR,payment,dining_out,,card_001,false,,completed,2023-06-10T12:48:00Z
+txn_089,acc_001,,Lidl Sörnäinen,-55.21,EUR,payment,groceries,,card_001,false,,completed,2023-06-10T14:35:00Z
+txn_096,acc_001,,Finnkino,-19.21,EUR,payment,entertainment,,card_001,false,,completed,2023-06-11T18:49:00Z
+txn_097,acc_001,,Apteekki,-39.71,EUR,payment,health_beauty,,card_001,false,,completed,2023-06-12T13:00:00Z
+txn_092,acc_001,,Ravintola Kuu,-71.91,EUR,payment,dining_out,,card_001,false,,completed,2023-06-17T14:13:00Z
+txn_095,acc_001,,Stockmann,-131.23,EUR,payment,shopping,,card_001,false,,completed,2023-06-19T16:36:00Z
+txn_084,acc_001,,Elisa,-19.90,EUR,payment,subscriptions,,card_002,true,Phone plan,completed,2023-06-20T00:00:00Z
+txn_093,acc_001,,Café Espresso House,-8.61,EUR,payment,dining_out,,card_001,false,,completed,2023-06-21T18:06:00Z
+txn_090,acc_001,,Lidl Sörnäinen,-63.64,EUR,payment,groceries,,card_001,false,,completed,2023-06-25T19:34:00Z
+txn_072,acc_001,EMPLOYER,Reaktor Oy,3213.94,EUR,salary,income,,,true,June salary,completed,2023-06-30T09:00:00Z
+txn_102,acc_001,FI2112345600078599,,-200.00,EUR,goal_contribution,savings_goals,goal_001,,true,Tokyo Trip – Jul,completed,2023-07-01T08:00:00Z
+txn_103,acc_001,FI2112345600078588,,-150.00,EUR,goal_contribution,savings_goals,goal_002,,true,MacBook – Jul,completed,2023-07-01T08:01:00Z
+txn_104,acc_001,FI2112345600078555,,-100.00,EUR,goal_contribution,savings_goals,goal_005,,true,Investment – Jul,completed,2023-07-01T08:02:00Z
+txn_105,acc_001,FI2112345600078577,,-323.34,EUR,goal_contribution,savings_goals,goal_003,,true,Emergency Fund – Jul,completed,2023-07-01T08:03:00Z
+txn_099,acc_001,FI2112345600079999,Virtanen Kiinteistöt,-980.00,EUR,transfer,rent,,,true,July rent,completed,2023-07-01T09:00:00Z
+txn_100,acc_001,FI2100000000000001,Nordea Mortgage,-650.00,EUR,payment,loan_repayment,,,true,Mortgage – loan_001,completed,2023-07-02T08:00:00Z
+txn_101,acc_001,FI2100000000000002,OP Car Finance,-220.00,EUR,payment,loan_repayment,,,true,Car loan – loan_002,completed,2023-07-02T08:05:00Z
+txn_121,acc_001,,Finnair,-263.42,EUR,payment,travel,,card_002,false,Summer holiday flights,completed,2023-07-03T10:00:00Z
+txn_122,acc_001,,Booking.com,-440.41,EUR,payment,travel,,card_002,false,Summer holiday hotel,completed,2023-07-04T11:00:00Z
+txn_106,acc_001,,Spotify,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2023-07-05T00:00:00Z
+txn_107,acc_001,,Netflix,-17.99,EUR,payment,subscriptions,,card_002,true,,completed,2023-07-05T00:01:00Z
+txn_108,acc_001,,HBO Max,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2023-07-05T00:02:00Z
+txn_109,acc_001,,NYT Digital,-19.00,EUR,payment,subscriptions,,card_002,true,,completed,2023-07-08T00:00:00Z
+txn_113,acc_001,,K-Supermarket Kamppi,-59.37,EUR,payment,groceries,,card_001,false,,completed,2023-07-08T15:34:00Z
+txn_112,acc_001,,HSL Arvo,-40.00,EUR,payment,transport,,card_001,false,Monthly travel card top-up,completed,2023-07-09T08:30:00Z
+txn_117,acc_001,,Café Espresso House,-9.28,EUR,payment,dining_out,,card_001,false,,completed,2023-07-09T19:25:00Z
+txn_111,acc_001,,Elixia Gym,-49.00,EUR,payment,health_beauty,,card_001,true,Monthly gym,completed,2023-07-10T06:00:00Z
+txn_114,acc_001,,Lidl Sörnäinen,-41.54,EUR,payment,groceries,,card_001,false,,completed,2023-07-10T17:17:00Z
+txn_115,acc_001,,Lidl Sörnäinen,-62.38,EUR,payment,groceries,,card_001,false,,completed,2023-07-13T14:14:00Z
+txn_119,acc_001,,Stockmann,-64.13,EUR,payment,shopping,,card_001,false,,completed,2023-07-17T18:05:00Z
+txn_110,acc_001,,Elisa,-19.90,EUR,payment,subscriptions,,card_002,true,Phone plan,completed,2023-07-20T00:00:00Z
+txn_118,acc_001,,Sandro,-43.57,EUR,payment,dining_out,,card_001,false,,completed,2023-07-21T14:15:00Z
+txn_120,acc_001,,Prisma,-21.88,EUR,payment,shopping,,card_002,false,,completed,2023-07-23T13:50:00Z
+txn_116,acc_001,,K-Supermarket Kamppi,-67.20,EUR,payment,groceries,,card_001,false,,completed,2023-07-23T17:17:00Z
+txn_098,acc_001,EMPLOYER,Reaktor Oy,3233.41,EUR,salary,income,,,true,July salary,completed,2023-07-31T09:00:00Z
+txn_127,acc_001,FI2112345600078599,,-200.00,EUR,goal_contribution,savings_goals,goal_001,,true,Tokyo Trip – Aug,completed,2023-08-01T08:00:00Z
+txn_128,acc_001,FI2112345600078588,,-150.00,EUR,goal_contribution,savings_goals,goal_002,,true,MacBook – Aug,completed,2023-08-01T08:01:00Z
+txn_129,acc_001,FI2112345600078555,,-100.00,EUR,goal_contribution,savings_goals,goal_005,,true,Investment – Aug,completed,2023-08-01T08:02:00Z
+txn_130,acc_001,FI2112345600078577,,-317.51,EUR,goal_contribution,savings_goals,goal_003,,true,Emergency Fund – Aug,completed,2023-08-01T08:03:00Z
+txn_124,acc_001,FI2112345600079999,Virtanen Kiinteistöt,-980.00,EUR,transfer,rent,,,true,August rent,completed,2023-08-01T09:00:00Z
+txn_125,acc_001,FI2100000000000001,Nordea Mortgage,-650.00,EUR,payment,loan_repayment,,,true,Mortgage – loan_001,completed,2023-08-02T08:00:00Z
+txn_126,acc_001,FI2100000000000002,OP Car Finance,-220.00,EUR,payment,loan_repayment,,,true,Car loan – loan_002,completed,2023-08-02T08:05:00Z
+txn_138,acc_001,,S-Market Kallio,-65.74,EUR,payment,groceries,,card_001,false,,completed,2023-08-02T16:07:00Z
+txn_131,acc_001,,Spotify,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2023-08-05T00:00:00Z
+txn_132,acc_001,,Netflix,-17.99,EUR,payment,subscriptions,,card_002,true,,completed,2023-08-05T00:01:00Z
+txn_133,acc_001,,HBO Max,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2023-08-05T00:02:00Z
+txn_139,acc_001,,S-Market Kallio,-52.39,EUR,payment,groceries,,card_001,false,,completed,2023-08-05T17:00:00Z
+txn_142,acc_001,,Café Espresso House,-12.58,EUR,payment,dining_out,,card_001,false,,completed,2023-08-07T20:49:00Z
+txn_134,acc_001,,NYT Digital,-19.00,EUR,payment,subscriptions,,card_002,true,,completed,2023-08-08T00:00:00Z
+txn_143,acc_001,,Ravintola Nokka,-72.97,EUR,payment,dining_out,,card_001,false,,completed,2023-08-09T19:01:00Z
+txn_136,acc_001,,Elixia Gym,-49.00,EUR,payment,health_beauty,,card_001,true,Monthly gym,completed,2023-08-10T06:00:00Z
+txn_144,acc_001,acc_003,Aino,36.48,EUR,transfer,friends,,,false,Aino split Ravintola Nokka,completed,2023-08-10T10:00:00Z
+txn_148,acc_001,,Stockmann,-98.04,EUR,payment,shopping,,card_001,false,,completed,2023-08-10T14:59:00Z
+txn_137,acc_001,,HSL Arvo,-40.00,EUR,payment,transport,,card_001,false,Monthly travel card top-up,completed,2023-08-12T08:30:00Z
+txn_145,acc_001,,Café Tin Tin Tango,-11.92,EUR,payment,dining_out,,card_001,false,,completed,2023-08-19T15:56:00Z
+txn_135,acc_001,,Elisa,-19.90,EUR,payment,subscriptions,,card_002,true,Phone plan,completed,2023-08-20T00:00:00Z
+txn_149,acc_001,,Verkkokauppa.com,-158.40,EUR,payment,shopping,,card_001,false,,completed,2023-08-22T15:25:00Z
+txn_146,acc_001,,Ravintola Savotta,-67.14,EUR,payment,dining_out,,card_001,false,,completed,2023-08-22T19:52:00Z
+txn_147,acc_001,acc_002,Mikko,33.57,EUR,transfer,friends,,,false,Mikko split Ravintola Savotta,completed,2023-08-23T10:00:00Z
+txn_140,acc_001,,S-Market Kallio,-73.88,EUR,payment,groceries,,card_001,false,,completed,2023-08-23T15:32:00Z
+txn_141,acc_001,,K-Supermarket Kamppi,-69.82,EUR,payment,groceries,,card_001,false,,completed,2023-08-25T16:53:00Z
+txn_123,acc_001,EMPLOYER,Reaktor Oy,3175.14,EUR,salary,income,,,true,August salary,completed,2023-08-31T09:00:00Z
+txn_154,acc_001,FI2112345600078599,,-200.00,EUR,goal_contribution,savings_goals,goal_001,,true,Tokyo Trip – Sep,completed,2023-09-01T08:00:00Z
+txn_155,acc_001,FI2112345600078588,,-150.00,EUR,goal_contribution,savings_goals,goal_002,,true,MacBook – Sep,completed,2023-09-01T08:01:00Z
+txn_156,acc_001,FI2112345600078555,,-100.00,EUR,goal_contribution,savings_goals,goal_005,,true,Investment – Sep,completed,2023-09-01T08:02:00Z
+txn_157,acc_001,FI2112345600078577,,-320.18,EUR,goal_contribution,savings_goals,goal_003,,true,Emergency Fund – Sep,completed,2023-09-01T08:03:00Z
+txn_151,acc_001,FI2112345600079999,Virtanen Kiinteistöt,-980.00,EUR,transfer,rent,,,true,September rent,completed,2023-09-01T09:00:00Z
+txn_152,acc_001,FI2100000000000001,Nordea Mortgage,-650.00,EUR,payment,loan_repayment,,,true,Mortgage – loan_001,completed,2023-09-02T08:00:00Z
+txn_153,acc_001,FI2100000000000002,OP Car Finance,-220.00,EUR,payment,loan_repayment,,,true,Car loan – loan_002,completed,2023-09-02T08:05:00Z
+txn_165,acc_001,,Lidl Sörnäinen,-58.54,EUR,payment,groceries,,card_001,false,,completed,2023-09-02T14:04:00Z
+txn_166,acc_001,,K-Supermarket Kamppi,-44.16,EUR,payment,groceries,,card_001,false,,completed,2023-09-04T14:55:00Z
+txn_158,acc_001,,Spotify,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2023-09-05T00:00:00Z
+txn_159,acc_001,,Netflix,-17.99,EUR,payment,subscriptions,,card_002,true,,completed,2023-09-05T00:01:00Z
+txn_160,acc_001,,HBO Max,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2023-09-05T00:02:00Z
+txn_174,acc_001,,Amazon.de,-67.52,EUR,payment,shopping,,card_001,false,,completed,2023-09-07T12:03:00Z
+txn_161,acc_001,,NYT Digital,-19.00,EUR,payment,subscriptions,,card_002,true,,completed,2023-09-08T00:00:00Z
+txn_164,acc_001,,HSL Arvo,-40.00,EUR,payment,transport,,card_001,false,Monthly travel card top-up,completed,2023-09-08T08:30:00Z
+txn_167,acc_001,,S-Market Kallio,-37.83,EUR,payment,groceries,,card_001,false,,completed,2023-09-09T15:17:00Z
+txn_163,acc_001,,Elixia Gym,-49.00,EUR,payment,health_beauty,,card_001,true,Monthly gym,completed,2023-09-10T06:00:00Z
+txn_169,acc_001,,Café Regatta,-7.75,EUR,payment,dining_out,,card_001,false,,completed,2023-09-10T18:22:00Z
+txn_175,acc_001,acc_004,Mom,-142.64,EUR,transfer,family,,,false,Help with expenses,completed,2023-09-12T11:00:00Z
+txn_168,acc_001,,Prisma Itäkeskus,-43.57,EUR,payment,groceries,,card_001,false,,completed,2023-09-12T15:46:00Z
+txn_170,acc_001,,Sandro,-61.60,EUR,payment,dining_out,,card_001,false,,completed,2023-09-16T12:43:00Z
+txn_171,acc_001,,Ravintola Savotta,-66.52,EUR,payment,dining_out,,card_001,false,,completed,2023-09-18T17:51:00Z
+txn_162,acc_001,,Elisa,-19.90,EUR,payment,subscriptions,,card_002,true,Phone plan,completed,2023-09-20T00:00:00Z
+txn_172,acc_001,,Café Regatta,-8.53,EUR,payment,dining_out,,card_001,false,,completed,2023-09-21T20:28:00Z
+txn_173,acc_001,acc_002,Mikko,4.26,EUR,transfer,friends,,,false,Mikko split Café Regatta,completed,2023-09-22T10:00:00Z
+txn_150,acc_001,EMPLOYER,Reaktor Oy,3201.76,EUR,salary,income,,,true,September salary,completed,2023-09-30T09:00:00Z
+txn_180,acc_001,FI2112345600078599,,-200.00,EUR,goal_contribution,savings_goals,goal_001,,true,Tokyo Trip – Oct,completed,2023-10-01T08:00:00Z
+txn_181,acc_001,FI2112345600078588,,-150.00,EUR,goal_contribution,savings_goals,goal_002,,true,MacBook – Oct,completed,2023-10-01T08:01:00Z
+txn_182,acc_001,FI2112345600078555,,-100.00,EUR,goal_contribution,savings_goals,goal_005,,true,Investment – Oct,completed,2023-10-01T08:02:00Z
+txn_183,acc_001,FI2112345600078577,,-323.49,EUR,goal_contribution,savings_goals,goal_003,,true,Emergency Fund – Oct,completed,2023-10-01T08:03:00Z
+txn_177,acc_001,FI2112345600079999,Virtanen Kiinteistöt,-980.00,EUR,transfer,rent,,,true,October rent,completed,2023-10-01T09:00:00Z
+txn_178,acc_001,FI2100000000000001,Nordea Mortgage,-650.00,EUR,payment,loan_repayment,,,true,Mortgage – loan_001,completed,2023-10-02T08:00:00Z
+txn_179,acc_001,FI2100000000000002,OP Car Finance,-220.00,EUR,payment,loan_repayment,,,true,Car loan – loan_002,completed,2023-10-02T08:05:00Z
+txn_184,acc_001,,Spotify,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2023-10-05T00:00:00Z
+txn_185,acc_001,,Netflix,-17.99,EUR,payment,subscriptions,,card_002,true,,completed,2023-10-05T00:01:00Z
+txn_186,acc_001,,HBO Max,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2023-10-05T00:02:00Z
+txn_187,acc_001,,NYT Digital,-19.00,EUR,payment,subscriptions,,card_002,true,,completed,2023-10-08T00:00:00Z
+txn_191,acc_001,,K-Supermarket Kamppi,-41.59,EUR,payment,groceries,,card_001,false,,completed,2023-10-08T14:24:00Z
+txn_190,acc_001,,HSL Arvo,-40.00,EUR,payment,transport,,card_001,false,Monthly travel card top-up,completed,2023-10-09T08:30:00Z
+txn_189,acc_001,,Elixia Gym,-49.00,EUR,payment,health_beauty,,card_001,true,Monthly gym,completed,2023-10-10T06:00:00Z
+txn_192,acc_001,,S-Market Kallio,-72.06,EUR,payment,groceries,,card_001,false,,completed,2023-10-14T17:18:00Z
+txn_193,acc_001,,Prisma Itäkeskus,-62.86,EUR,payment,groceries,,card_001,false,,completed,2023-10-15T19:50:00Z
+txn_194,acc_001,,Prisma Itäkeskus,-41.19,EUR,payment,groceries,,card_001,false,,completed,2023-10-17T16:13:00Z
+txn_199,acc_001,,Finnkino,-30.95,EUR,payment,entertainment,,card_001,false,,completed,2023-10-17T20:07:00Z
+txn_188,acc_001,,Elisa,-19.90,EUR,payment,subscriptions,,card_002,true,Phone plan,completed,2023-10-20T00:00:00Z
+txn_195,acc_001,,Gaijin,-51.52,EUR,payment,dining_out,,card_001,false,,completed,2023-10-21T17:03:00Z
+txn_196,acc_001,acc_003,Aino,25.76,EUR,transfer,friends,,,false,Aino split Gaijin,completed,2023-10-22T10:00:00Z
+txn_197,acc_001,,Gaijin,-72.98,EUR,payment,dining_out,,card_001,false,,completed,2023-10-26T20:10:00Z
+txn_198,acc_001,acc_002,Mikko,36.49,EUR,transfer,friends,,,false,Mikko split Gaijin,completed,2023-10-27T10:00:00Z
+txn_176,acc_001,EMPLOYER,Reaktor Oy,3234.87,EUR,salary,income,,,true,October salary,completed,2023-10-31T09:00:00Z
+txn_204,acc_001,FI2112345600078599,,-200.00,EUR,goal_contribution,savings_goals,goal_001,,true,Tokyo Trip – Nov,completed,2023-11-01T08:00:00Z
+txn_205,acc_001,FI2112345600078588,,-150.00,EUR,goal_contribution,savings_goals,goal_002,,true,MacBook – Nov,completed,2023-11-01T08:01:00Z
+txn_206,acc_001,FI2112345600078555,,-100.00,EUR,goal_contribution,savings_goals,goal_005,,true,Investment – Nov,completed,2023-11-01T08:02:00Z
+txn_207,acc_001,FI2112345600078577,,-315.40,EUR,goal_contribution,savings_goals,goal_003,,true,Emergency Fund – Nov,completed,2023-11-01T08:03:00Z
+txn_201,acc_001,FI2112345600079999,Virtanen Kiinteistöt,-980.00,EUR,transfer,rent,,,true,November rent,completed,2023-11-01T09:00:00Z
+txn_202,acc_001,FI2100000000000001,Nordea Mortgage,-650.00,EUR,payment,loan_repayment,,,true,Mortgage – loan_001,completed,2023-11-02T08:00:00Z
+txn_203,acc_001,FI2100000000000002,OP Car Finance,-220.00,EUR,payment,loan_repayment,,,true,Car loan – loan_002,completed,2023-11-02T08:05:00Z
+txn_208,acc_001,,Spotify,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2023-11-05T00:00:00Z
+txn_209,acc_001,,Netflix,-17.99,EUR,payment,subscriptions,,card_002,true,,completed,2023-11-05T00:01:00Z
+txn_210,acc_001,,HBO Max,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2023-11-05T00:02:00Z
+txn_211,acc_001,,NYT Digital,-19.00,EUR,payment,subscriptions,,card_002,true,,completed,2023-11-08T00:00:00Z
+txn_214,acc_001,,HSL Arvo,-40.00,EUR,payment,transport,,card_001,false,Monthly travel card top-up,completed,2023-11-08T08:30:00Z
+txn_219,acc_001,,Gaijin,-56.63,EUR,payment,dining_out,,card_001,false,,completed,2023-11-09T17:56:00Z
+txn_213,acc_001,,Elixia Gym,-49.00,EUR,payment,health_beauty,,card_001,true,Monthly gym,completed,2023-11-10T06:00:00Z
+txn_220,acc_001,acc_002,Mikko,28.32,EUR,transfer,friends,,,false,Mikko split Gaijin,completed,2023-11-10T10:00:00Z
+txn_223,acc_001,,Finnkino,-18.90,EUR,payment,entertainment,,card_001,false,,completed,2023-11-13T21:09:00Z
+txn_215,acc_001,,S-Market Kallio,-72.39,EUR,payment,groceries,,card_001,false,,completed,2023-11-15T15:42:00Z
+txn_216,acc_001,,S-Market Kallio,-44.55,EUR,payment,groceries,,card_001,false,,completed,2023-11-18T17:08:00Z
+txn_212,acc_001,,Elisa,-19.90,EUR,payment,subscriptions,,card_002,true,Phone plan,completed,2023-11-20T00:00:00Z
+txn_217,acc_001,,S-Market Kallio,-53.29,EUR,payment,groceries,,card_001,false,,completed,2023-11-20T14:00:00Z
+txn_221,acc_001,,Café Espresso House,-9.71,EUR,payment,dining_out,,card_001,false,,completed,2023-11-20T19:53:00Z
+txn_218,acc_001,,Prisma Itäkeskus,-59.85,EUR,payment,groceries,,card_001,false,,completed,2023-11-23T18:06:00Z
+txn_222,acc_001,,Prisma,-42.18,EUR,payment,shopping,,card_001,false,,completed,2023-11-26T12:56:00Z
+txn_200,acc_001,EMPLOYER,Reaktor Oy,3153.97,EUR,salary,income,,,true,November salary,completed,2023-11-30T09:00:00Z
+txn_228,acc_001,FI2112345600078599,,-200.00,EUR,goal_contribution,savings_goals,goal_001,,true,Tokyo Trip – Dec,completed,2023-12-01T08:00:00Z
+txn_229,acc_001,FI2112345600078588,,-150.00,EUR,goal_contribution,savings_goals,goal_002,,true,MacBook – Dec,completed,2023-12-01T08:01:00Z
+txn_230,acc_001,FI2112345600078555,,-100.00,EUR,goal_contribution,savings_goals,goal_005,,true,Investment – Dec,completed,2023-12-01T08:02:00Z
+txn_231,acc_001,FI2112345600078577,,-317.04,EUR,goal_contribution,savings_goals,goal_003,,true,Emergency Fund – Dec,completed,2023-12-01T08:03:00Z
+txn_225,acc_001,FI2112345600079999,Virtanen Kiinteistöt,-980.00,EUR,transfer,rent,,,true,December rent,completed,2023-12-01T09:00:00Z
+txn_226,acc_001,FI2100000000000001,Nordea Mortgage,-650.00,EUR,payment,loan_repayment,,,true,Mortgage – loan_001,completed,2023-12-02T08:00:00Z
+txn_227,acc_001,FI2100000000000002,OP Car Finance,-220.00,EUR,payment,loan_repayment,,,true,Car loan – loan_002,completed,2023-12-02T08:05:00Z
+txn_239,acc_001,,K-Supermarket Kamppi,-60.37,EUR,payment,groceries,,card_001,false,,completed,2023-12-03T16:02:00Z
+txn_243,acc_001,,Juuri,-68.81,EUR,payment,dining_out,,card_001,false,,completed,2023-12-04T18:08:00Z
+txn_232,acc_001,,Spotify,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2023-12-05T00:00:00Z
+txn_233,acc_001,,Netflix,-17.99,EUR,payment,subscriptions,,card_002,true,,completed,2023-12-05T00:01:00Z
+txn_234,acc_001,,HBO Max,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2023-12-05T00:02:00Z
+txn_244,acc_001,acc_003,Aino,34.41,EUR,transfer,friends,,,false,Aino split Juuri,completed,2023-12-05T10:00:00Z
+txn_252,acc_001,,Terveystalo,-27.55,EUR,payment,health_beauty,,card_001,false,,completed,2023-12-05T13:00:00Z
+txn_245,acc_001,,Ravintola Nokka,-81.97,EUR,payment,dining_out,,card_001,false,,completed,2023-12-07T15:43:00Z
+txn_235,acc_001,,NYT Digital,-19.00,EUR,payment,subscriptions,,card_002,true,,completed,2023-12-08T00:00:00Z
+txn_246,acc_001,acc_002,Mikko,40.98,EUR,transfer,friends,,,false,Mikko split Ravintola Nokka,completed,2023-12-08T10:00:00Z
+txn_237,acc_001,,Elixia Gym,-49.00,EUR,payment,health_beauty,,card_001,true,Monthly gym,completed,2023-12-10T06:00:00Z
+txn_238,acc_001,,HSL Arvo,-40.00,EUR,payment,transport,,card_001,false,Monthly travel card top-up,completed,2023-12-10T08:30:00Z
+txn_253,acc_001,,Stockmann,-166.44,EUR,payment,shopping,,card_001,false,Christmas gifts,completed,2023-12-10T14:00:00Z
+txn_240,acc_001,,K-Supermarket Kamppi,-48.34,EUR,payment,groceries,,card_001,false,,completed,2023-12-10T15:40:00Z
+txn_247,acc_001,,Café Espresso House,-12.68,EUR,payment,dining_out,,card_001,false,,completed,2023-12-14T18:39:00Z
+txn_241,acc_001,,S-Market Kallio,-41.46,EUR,payment,groceries,,card_001,false,,completed,2023-12-17T17:35:00Z
+txn_249,acc_001,,Prisma,-49.40,EUR,payment,shopping,,card_002,false,,completed,2023-12-18T13:50:00Z
+txn_242,acc_001,,Prisma Itäkeskus,-57.44,EUR,payment,groceries,,card_001,false,,completed,2023-12-18T14:04:00Z
+txn_236,acc_001,,Elisa,-19.90,EUR,payment,subscriptions,,card_002,true,Phone plan,completed,2023-12-20T00:00:00Z
+txn_248,acc_001,,Café Regatta,-13.92,EUR,payment,dining_out,,card_001,false,,completed,2023-12-20T14:56:00Z
+txn_254,acc_001,,Prisma,-118.01,EUR,payment,groceries,,card_001,false,Christmas groceries,completed,2023-12-20T15:00:00Z
+txn_251,acc_001,,Ticketmaster,-69.77,EUR,payment,entertainment,,card_001,false,,completed,2023-12-21T19:52:00Z
+txn_250,acc_001,,IKEA Helsinki,-71.62,EUR,payment,shopping,,card_001,false,,completed,2023-12-26T18:14:00Z
+txn_224,acc_001,EMPLOYER,Reaktor Oy,3170.36,EUR,salary,income,,,true,December salary,completed,2023-12-31T09:00:00Z
+txn_259,acc_001,FI2112345600078599,,-200.00,EUR,goal_contribution,savings_goals,goal_001,,true,Tokyo Trip – Jan,completed,2024-01-01T08:00:00Z
+txn_260,acc_001,FI2112345600078588,,-150.00,EUR,goal_contribution,savings_goals,goal_002,,true,MacBook – Jan,completed,2024-01-01T08:01:00Z
+txn_261,acc_001,FI2112345600078555,,-100.00,EUR,goal_contribution,savings_goals,goal_005,,true,Investment – Jan,completed,2024-01-01T08:02:00Z
+txn_262,acc_001,FI2112345600078577,,-317.79,EUR,goal_contribution,savings_goals,goal_003,,true,Emergency Fund – Jan,completed,2024-01-01T08:03:00Z
+txn_256,acc_001,FI2112345600079999,Virtanen Kiinteistöt,-980.00,EUR,transfer,rent,,,true,January rent,completed,2024-01-01T09:00:00Z
+txn_257,acc_001,FI2100000000000001,Nordea Mortgage,-650.00,EUR,payment,loan_repayment,,,true,Mortgage – loan_001,completed,2024-01-02T08:00:00Z
+txn_258,acc_001,FI2100000000000002,OP Car Finance,-220.00,EUR,payment,loan_repayment,,,true,Car loan – loan_002,completed,2024-01-02T08:05:00Z
+txn_263,acc_001,,Spotify,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2024-01-05T00:00:00Z
+txn_264,acc_001,,Netflix,-17.99,EUR,payment,subscriptions,,card_002,true,,completed,2024-01-05T00:01:00Z
+txn_265,acc_001,,HBO Max,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2024-01-05T00:02:00Z
+txn_266,acc_001,,NYT Digital,-19.00,EUR,payment,subscriptions,,card_002,true,,completed,2024-01-08T00:00:00Z
+txn_274,acc_001,,Ravintola Nokka,-76.26,EUR,payment,dining_out,,card_001,false,,completed,2024-01-09T12:33:00Z
+txn_268,acc_001,,Elixia Gym,-49.00,EUR,payment,health_beauty,,card_001,true,Monthly gym,completed,2024-01-10T06:00:00Z
+txn_275,acc_001,,Gaijin,-67.17,EUR,payment,dining_out,,card_001,false,,completed,2024-01-11T15:23:00Z
+txn_269,acc_001,,HSL Arvo,-40.00,EUR,payment,transport,,card_001,false,Monthly travel card top-up,completed,2024-01-12T08:30:00Z
+txn_270,acc_001,,S-Market Kallio,-72.57,EUR,payment,groceries,,card_001,false,,completed,2024-01-14T14:56:00Z
+txn_277,acc_001,,IKEA Helsinki,-109.13,EUR,payment,shopping,,card_002,false,,completed,2024-01-15T17:42:00Z
+txn_278,acc_001,,Amazon.de,-59.03,EUR,payment,shopping,,card_001,false,,completed,2024-01-17T15:25:00Z
+txn_271,acc_001,,S-Market Kallio,-42.14,EUR,payment,groceries,,card_001,false,,completed,2024-01-19T16:02:00Z
+txn_279,acc_001,,Finnkino,-21.74,EUR,payment,entertainment,,card_001,false,,completed,2024-01-19T19:13:00Z
+txn_267,acc_001,,Elisa,-19.90,EUR,payment,subscriptions,,card_002,true,Phone plan,completed,2024-01-20T00:00:00Z
+txn_276,acc_001,,Café Espresso House,-11.74,EUR,payment,dining_out,,card_001,false,,completed,2024-01-21T13:46:00Z
+txn_272,acc_001,,K-Supermarket Kamppi,-58.86,EUR,payment,groceries,,card_001,false,,completed,2024-01-23T16:46:00Z
+txn_273,acc_001,,S-Market Kallio,-52.46,EUR,payment,groceries,,card_001,false,,completed,2024-01-28T18:07:00Z
+txn_255,acc_001,EMPLOYER,Reaktor Oy,3177.91,EUR,salary,income,,,true,January salary,completed,2024-01-31T09:00:00Z
+txn_284,acc_001,FI2112345600078599,,-200.00,EUR,goal_contribution,savings_goals,goal_001,,true,Tokyo Trip – Feb,completed,2024-02-01T08:00:00Z
+txn_285,acc_001,FI2112345600078588,,-150.00,EUR,goal_contribution,savings_goals,goal_002,,true,MacBook – Feb,completed,2024-02-01T08:01:00Z
+txn_286,acc_001,FI2112345600078555,,-100.00,EUR,goal_contribution,savings_goals,goal_005,,true,Investment – Feb,completed,2024-02-01T08:02:00Z
+txn_287,acc_001,FI2112345600078577,,-319.65,EUR,goal_contribution,savings_goals,goal_003,,true,Emergency Fund – Feb,completed,2024-02-01T08:03:00Z
+txn_281,acc_001,FI2112345600079999,Virtanen Kiinteistöt,-980.00,EUR,transfer,rent,,,true,February rent,completed,2024-02-01T09:00:00Z
+txn_282,acc_001,FI2100000000000001,Nordea Mortgage,-650.00,EUR,payment,loan_repayment,,,true,Mortgage – loan_001,completed,2024-02-02T08:00:00Z
+txn_283,acc_001,FI2100000000000002,OP Car Finance,-220.00,EUR,payment,loan_repayment,,,true,Car loan – loan_002,completed,2024-02-02T08:05:00Z
+txn_288,acc_001,,Spotify,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2024-02-05T00:00:00Z
+txn_289,acc_001,,Netflix,-17.99,EUR,payment,subscriptions,,card_002,true,,completed,2024-02-05T00:01:00Z
+txn_290,acc_001,,HBO Max,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2024-02-05T00:02:00Z
+txn_291,acc_001,,NYT Digital,-19.00,EUR,payment,subscriptions,,card_002,true,,completed,2024-02-08T00:00:00Z
+txn_295,acc_001,,Lidl Sörnäinen,-61.35,EUR,payment,groceries,,card_001,false,,completed,2024-02-08T16:32:00Z
+txn_293,acc_001,,Elixia Gym,-49.00,EUR,payment,health_beauty,,card_001,true,Monthly gym,completed,2024-02-10T06:00:00Z
+txn_294,acc_001,,HSL Arvo,-40.00,EUR,payment,transport,,card_001,false,Monthly travel card top-up,completed,2024-02-11T08:30:00Z
+txn_303,acc_001,VERO,Verohallinto,253.34,EUR,refund,income,,,false,Tax refund,completed,2024-02-14T09:00:00Z
+txn_299,acc_001,,Juuri,-59.86,EUR,payment,dining_out,,card_001,false,,completed,2024-02-16T18:31:00Z
+txn_302,acc_001,acc_004,Mom,-141.75,EUR,transfer,family,,,false,Help with expenses,completed,2024-02-17T11:00:00Z
+txn_300,acc_001,,Ravintola Löyly,-61.40,EUR,payment,dining_out,,card_001,false,,completed,2024-02-17T12:57:00Z
+txn_296,acc_001,,S-Market Kallio,-38.74,EUR,payment,groceries,,card_001,false,,completed,2024-02-17T15:43:00Z
+txn_301,acc_001,,Ticketmaster,-77.90,EUR,payment,entertainment,,card_001,false,,completed,2024-02-17T18:51:00Z
+txn_297,acc_001,,S-Market Kallio,-43.99,EUR,payment,groceries,,card_001,false,,completed,2024-02-18T15:09:00Z
+txn_292,acc_001,,Elisa,-19.90,EUR,payment,subscriptions,,card_002,true,Phone plan,completed,2024-02-20T00:00:00Z
+txn_298,acc_001,,K-Supermarket Kamppi,-36.85,EUR,payment,groceries,,card_001,false,,completed,2024-02-23T17:39:00Z
+txn_280,acc_001,EMPLOYER,Reaktor Oy,3196.50,EUR,salary,income,,,true,February salary,completed,2024-02-29T09:00:00Z
+txn_308,acc_001,FI2112345600078599,,-200.00,EUR,goal_contribution,savings_goals,goal_001,,true,Tokyo Trip – Mar,completed,2024-03-01T08:00:00Z
+txn_309,acc_001,FI2112345600078588,,-150.00,EUR,goal_contribution,savings_goals,goal_002,,true,MacBook – Mar,completed,2024-03-01T08:01:00Z
+txn_310,acc_001,FI2112345600078555,,-100.00,EUR,goal_contribution,savings_goals,goal_005,,true,Investment – Mar,completed,2024-03-01T08:02:00Z
+txn_311,acc_001,FI2112345600078577,,-319.65,EUR,goal_contribution,savings_goals,goal_003,,true,Emergency Fund – Mar,completed,2024-03-01T08:03:00Z
+txn_305,acc_001,FI2112345600079999,Virtanen Kiinteistöt,-980.00,EUR,transfer,rent,,,true,March rent,completed,2024-03-01T09:00:00Z
+txn_306,acc_001,FI2100000000000001,Nordea Mortgage,-650.00,EUR,payment,loan_repayment,,,true,Mortgage – loan_001,completed,2024-03-02T08:00:00Z
+txn_307,acc_001,FI2100000000000002,OP Car Finance,-220.00,EUR,payment,loan_repayment,,,true,Car loan – loan_002,completed,2024-03-02T08:05:00Z
+txn_312,acc_001,,Spotify,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2024-03-05T00:00:00Z
+txn_313,acc_001,,Netflix,-17.99,EUR,payment,subscriptions,,card_002,true,,completed,2024-03-05T00:01:00Z
+txn_314,acc_001,,HBO Max,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2024-03-05T00:02:00Z
+txn_315,acc_001,,NYT Digital,-19.00,EUR,payment,subscriptions,,card_002,true,,completed,2024-03-08T00:00:00Z
+txn_317,acc_001,,Elixia Gym,-49.00,EUR,payment,health_beauty,,card_001,true,Monthly gym,completed,2024-03-10T06:00:00Z
+txn_323,acc_001,,Sandro,-41.94,EUR,payment,dining_out,,card_001,false,,completed,2024-03-10T16:15:00Z
+txn_324,acc_001,acc_003,Aino,20.97,EUR,transfer,friends,,,false,Aino split Sandro,completed,2024-03-11T10:00:00Z
+txn_325,acc_001,,Gaijin,-52.01,EUR,payment,dining_out,,card_001,false,,completed,2024-03-11T14:14:00Z
+txn_318,acc_001,,HSL Arvo,-40.00,EUR,payment,transport,,card_001,false,Monthly travel card top-up,completed,2024-03-12T08:30:00Z
+txn_319,acc_001,,Prisma Itäkeskus,-59.51,EUR,payment,groceries,,card_001,false,,completed,2024-03-12T19:57:00Z
+txn_330,acc_001,EMPLOYER,Reaktor Oy,1067.55,EUR,salary,income,,,false,Annual bonus,completed,2024-03-15T09:00:00Z
+txn_329,acc_001,,Ticketmaster,-43.65,EUR,payment,entertainment,,card_001,false,,completed,2024-03-17T20:14:00Z
+txn_326,acc_001,,Ravintola Löyly,-62.66,EUR,payment,dining_out,,card_001,false,,completed,2024-03-18T13:26:00Z
+txn_320,acc_001,,Prisma Itäkeskus,-68.22,EUR,payment,groceries,,card_001,false,,completed,2024-03-19T18:28:00Z
+txn_316,acc_001,,Elisa,-19.90,EUR,payment,subscriptions,,card_002,true,Phone plan,completed,2024-03-20T00:00:00Z
+txn_321,acc_001,,Lidl Sörnäinen,-64.75,EUR,payment,groceries,,card_001,false,,completed,2024-03-21T17:28:00Z
+txn_327,acc_001,,Gaijin,-61.65,EUR,payment,dining_out,,card_001,false,,completed,2024-03-23T12:13:00Z
+txn_328,acc_001,,Amazon.de,-46.00,EUR,payment,shopping,,card_001,false,,completed,2024-03-23T15:48:00Z
+txn_322,acc_001,,S-Market Kallio,-65.07,EUR,payment,groceries,,card_001,false,,completed,2024-03-26T19:17:00Z
+txn_304,acc_001,EMPLOYER,Reaktor Oy,3196.46,EUR,salary,income,,,true,March salary,completed,2024-03-31T09:00:00Z
+txn_335,acc_001,FI2112345600078599,,-200.00,EUR,goal_contribution,savings_goals,goal_001,,true,Tokyo Trip – Apr,completed,2024-04-01T08:00:00Z
+txn_336,acc_001,FI2112345600078588,,-150.00,EUR,goal_contribution,savings_goals,goal_002,,true,MacBook – Apr,completed,2024-04-01T08:01:00Z
+txn_337,acc_001,FI2112345600078555,,-100.00,EUR,goal_contribution,savings_goals,goal_005,,true,Investment – Apr,completed,2024-04-01T08:02:00Z
+txn_338,acc_001,FI2112345600078577,,-322.98,EUR,goal_contribution,savings_goals,goal_003,,true,Emergency Fund – Apr,completed,2024-04-01T08:03:00Z
+txn_332,acc_001,FI2112345600079999,Virtanen Kiinteistöt,-980.00,EUR,transfer,rent,,,true,April rent,completed,2024-04-01T09:00:00Z
+txn_333,acc_001,FI2100000000000001,Nordea Mortgage,-650.00,EUR,payment,loan_repayment,,,true,Mortgage – loan_001,completed,2024-04-02T08:00:00Z
+txn_334,acc_001,FI2100000000000002,OP Car Finance,-220.00,EUR,payment,loan_repayment,,,true,Car loan – loan_002,completed,2024-04-02T08:05:00Z
+txn_339,acc_001,,Spotify,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2024-04-05T00:00:00Z
+txn_340,acc_001,,Netflix,-17.99,EUR,payment,subscriptions,,card_002,true,,completed,2024-04-05T00:01:00Z
+txn_341,acc_001,,HBO Max,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2024-04-05T00:02:00Z
+txn_346,acc_001,,K-Supermarket Kamppi,-71.28,EUR,payment,groceries,,card_001,false,,completed,2024-04-06T18:36:00Z
+txn_342,acc_001,,NYT Digital,-19.00,EUR,payment,subscriptions,,card_002,true,,completed,2024-04-08T00:00:00Z
+txn_345,acc_001,,HSL Arvo,-40.00,EUR,payment,transport,,card_001,false,Monthly travel card top-up,completed,2024-04-09T08:30:00Z
+txn_353,acc_001,,Amazon.de,-58.51,EUR,payment,shopping,,card_001,false,,completed,2024-04-09T14:29:00Z
+txn_344,acc_001,,Elixia Gym,-49.00,EUR,payment,health_beauty,,card_001,true,Monthly gym,completed,2024-04-10T06:00:00Z
+txn_350,acc_001,,Café Tin Tin Tango,-16.68,EUR,payment,dining_out,,card_001,false,,completed,2024-04-11T19:01:00Z
+txn_354,acc_001,acc_004,Mom,-127.78,EUR,transfer,family,,,false,Help with expenses,completed,2024-04-13T11:00:00Z
+txn_347,acc_001,,K-Supermarket Kamppi,-38.36,EUR,payment,groceries,,card_001,false,,completed,2024-04-16T17:08:00Z
+txn_351,acc_001,,Ravintola Nokka,-85.00,EUR,payment,dining_out,,card_001,false,,completed,2024-04-16T17:14:00Z
+txn_343,acc_001,,Elisa,-19.90,EUR,payment,subscriptions,,card_002,true,Phone plan,completed,2024-04-20T00:00:00Z
+txn_348,acc_001,,Prisma Itäkeskus,-42.27,EUR,payment,groceries,,card_001,false,,completed,2024-04-21T16:24:00Z
+txn_352,acc_001,,Ravintola Nokka,-77.63,EUR,payment,dining_out,,card_001,false,,completed,2024-04-27T15:12:00Z
+txn_349,acc_001,,S-Market Kallio,-43.47,EUR,payment,groceries,,card_001,false,,completed,2024-04-28T16:21:00Z
+txn_331,acc_001,EMPLOYER,Reaktor Oy,3229.81,EUR,salary,income,,,true,April salary,completed,2024-04-30T09:00:00Z
+txn_359,acc_001,FI2112345600078599,,-200.00,EUR,goal_contribution,savings_goals,goal_001,,true,Tokyo Trip – May,completed,2024-05-01T08:00:00Z
+txn_360,acc_001,FI2112345600078588,,-150.00,EUR,goal_contribution,savings_goals,goal_002,,true,MacBook – May,completed,2024-05-01T08:01:00Z
+txn_361,acc_001,FI2112345600078555,,-100.00,EUR,goal_contribution,savings_goals,goal_005,,true,Investment – May,completed,2024-05-01T08:02:00Z
+txn_362,acc_001,FI2112345600078577,,-316.64,EUR,goal_contribution,savings_goals,goal_003,,true,Emergency Fund – May,completed,2024-05-01T08:03:00Z
+txn_356,acc_001,FI2112345600079999,Virtanen Kiinteistöt,-980.00,EUR,transfer,rent,,,true,May rent,completed,2024-05-01T09:00:00Z
+txn_357,acc_001,FI2100000000000001,Nordea Mortgage,-650.00,EUR,payment,loan_repayment,,,true,Mortgage – loan_001,completed,2024-05-02T08:00:00Z
+txn_358,acc_001,FI2100000000000002,OP Car Finance,-220.00,EUR,payment,loan_repayment,,,true,Car loan – loan_002,completed,2024-05-02T08:05:00Z
+txn_370,acc_001,,Prisma Itäkeskus,-50.87,EUR,payment,groceries,,card_001,false,,completed,2024-05-02T19:12:00Z
+txn_363,acc_001,,Spotify,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2024-05-05T00:00:00Z
+txn_364,acc_001,,Netflix,-17.99,EUR,payment,subscriptions,,card_002,true,,completed,2024-05-05T00:01:00Z
+txn_365,acc_001,,HBO Max,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2024-05-05T00:02:00Z
+txn_371,acc_001,,K-Supermarket Kamppi,-58.68,EUR,payment,groceries,,card_001,false,,completed,2024-05-05T19:15:00Z
+txn_366,acc_001,,NYT Digital,-19.00,EUR,payment,subscriptions,,card_002,true,,completed,2024-05-08T00:00:00Z
+txn_376,acc_001,,Amazon.de,-26.45,EUR,payment,shopping,,card_001,false,,completed,2024-05-09T15:39:00Z
+txn_368,acc_001,,Elixia Gym,-49.00,EUR,payment,health_beauty,,card_001,true,Monthly gym,completed,2024-05-10T06:00:00Z
+txn_369,acc_001,,HSL Arvo,-40.00,EUR,payment,transport,,card_001,false,Monthly travel card top-up,completed,2024-05-10T08:30:00Z
+txn_372,acc_001,,K-Supermarket Kamppi,-62.89,EUR,payment,groceries,,card_001,false,,completed,2024-05-11T16:54:00Z
+txn_374,acc_001,,Ravintola Kuu,-83.15,EUR,payment,dining_out,,card_001,false,,completed,2024-05-14T13:32:00Z
+txn_367,acc_001,,Elisa,-19.90,EUR,payment,subscriptions,,card_002,true,Phone plan,completed,2024-05-20T00:00:00Z
+txn_373,acc_001,,K-Supermarket Kamppi,-66.85,EUR,payment,groceries,,card_001,false,,completed,2024-05-20T18:50:00Z
+txn_375,acc_001,,Ravintola Nokka,-80.49,EUR,payment,dining_out,,card_001,false,,completed,2024-05-20T19:06:00Z
+txn_377,acc_001,,Prisma,-56.78,EUR,payment,shopping,,card_001,false,,completed,2024-05-27T18:27:00Z
+txn_355,acc_001,EMPLOYER,Reaktor Oy,3166.38,EUR,salary,income,,,true,May salary,completed,2024-05-31T09:00:00Z
+txn_382,acc_001,FI2112345600078599,,-200.00,EUR,goal_contribution,savings_goals,goal_001,,true,Tokyo Trip – Jun,completed,2024-06-01T08:00:00Z
+txn_383,acc_001,FI2112345600078588,,-150.00,EUR,goal_contribution,savings_goals,goal_002,,true,MacBook – Jun,completed,2024-06-01T08:01:00Z
+txn_384,acc_001,FI2112345600078555,,-100.00,EUR,goal_contribution,savings_goals,goal_005,,true,Investment – Jun,completed,2024-06-01T08:02:00Z
+txn_385,acc_001,FI2112345600078577,,-317.46,EUR,goal_contribution,savings_goals,goal_003,,true,Emergency Fund – Jun,completed,2024-06-01T08:03:00Z
+txn_379,acc_001,FI2112345600079999,Virtanen Kiinteistöt,-980.00,EUR,transfer,rent,,,true,June rent,completed,2024-06-01T09:00:00Z
+txn_380,acc_001,FI2100000000000001,Nordea Mortgage,-650.00,EUR,payment,loan_repayment,,,true,Mortgage – loan_001,completed,2024-06-02T08:00:00Z
+txn_381,acc_001,FI2100000000000002,OP Car Finance,-220.00,EUR,payment,loan_repayment,,,true,Car loan – loan_002,completed,2024-06-02T08:05:00Z
+txn_397,acc_001,,Café Regatta,-7.68,EUR,payment,dining_out,,card_001,false,,completed,2024-06-03T18:31:00Z
+txn_386,acc_001,,Spotify,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2024-06-05T00:00:00Z
+txn_387,acc_001,,Netflix,-17.99,EUR,payment,subscriptions,,card_002,true,,completed,2024-06-05T00:01:00Z
+txn_388,acc_001,,HBO Max,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2024-06-05T00:02:00Z
+txn_389,acc_001,,NYT Digital,-19.00,EUR,payment,subscriptions,,card_002,true,,completed,2024-06-08T00:00:00Z
+txn_392,acc_001,,HSL Arvo,-40.00,EUR,payment,transport,,card_001,false,Monthly travel card top-up,completed,2024-06-08T08:30:00Z
+txn_393,acc_001,,Prisma Itäkeskus,-57.79,EUR,payment,groceries,,card_001,false,,completed,2024-06-09T19:24:00Z
+txn_391,acc_001,,Elixia Gym,-49.00,EUR,payment,health_beauty,,card_001,true,Monthly gym,completed,2024-06-10T06:00:00Z
+txn_394,acc_001,,S-Market Kallio,-36.15,EUR,payment,groceries,,card_001,false,,completed,2024-06-10T16:11:00Z
+txn_395,acc_001,,Prisma Itäkeskus,-43.48,EUR,payment,groceries,,card_001,false,,completed,2024-06-16T16:21:00Z
+txn_403,acc_001,,IMAX Helsinki,-24.84,EUR,payment,entertainment,,card_001,false,,completed,2024-06-16T18:47:00Z
+txn_401,acc_001,,Stockmann,-78.70,EUR,payment,shopping,,card_002,false,,completed,2024-06-18T15:16:00Z
+txn_398,acc_001,,Café Regatta,-12.52,EUR,payment,dining_out,,card_001,false,,completed,2024-06-19T19:28:00Z
+txn_390,acc_001,,Elisa,-19.90,EUR,payment,subscriptions,,card_002,true,Phone plan,completed,2024-06-20T00:00:00Z
+txn_399,acc_001,,Ravintola Savotta,-72.36,EUR,payment,dining_out,,card_001,false,,completed,2024-06-20T18:44:00Z
+txn_400,acc_001,acc_003,Aino,36.18,EUR,transfer,friends,,,false,Aino split Ravintola Savotta,completed,2024-06-21T10:00:00Z
+txn_402,acc_001,,H&M,-37.24,EUR,payment,shopping,,card_002,false,,completed,2024-06-22T12:47:00Z
+txn_396,acc_001,,S-Market Kallio,-70.21,EUR,payment,groceries,,card_001,false,,completed,2024-06-26T19:56:00Z
+txn_378,acc_001,EMPLOYER,Reaktor Oy,3174.55,EUR,salary,income,,,true,June salary,completed,2024-06-30T09:00:00Z
+txn_408,acc_001,FI2112345600078599,,-200.00,EUR,goal_contribution,savings_goals,goal_001,,true,Tokyo Trip – Jul,completed,2024-07-01T08:00:00Z
+txn_409,acc_001,FI2112345600078588,,-150.00,EUR,goal_contribution,savings_goals,goal_002,,true,MacBook – Jul,completed,2024-07-01T08:01:00Z
+txn_410,acc_001,FI2112345600078555,,-100.00,EUR,goal_contribution,savings_goals,goal_005,,true,Investment – Jul,completed,2024-07-01T08:02:00Z
+txn_411,acc_001,FI2112345600078577,,-320.25,EUR,goal_contribution,savings_goals,goal_003,,true,Emergency Fund – Jul,completed,2024-07-01T08:03:00Z
+txn_405,acc_001,FI2112345600079999,Virtanen Kiinteistöt,-980.00,EUR,transfer,rent,,,true,July rent,completed,2024-07-01T09:00:00Z
+txn_406,acc_001,FI2100000000000001,Nordea Mortgage,-650.00,EUR,payment,loan_repayment,,,true,Mortgage – loan_001,completed,2024-07-02T08:00:00Z
+txn_407,acc_001,FI2100000000000002,OP Car Finance,-220.00,EUR,payment,loan_repayment,,,true,Car loan – loan_002,completed,2024-07-02T08:05:00Z
+txn_430,acc_001,,Finnair,-201.99,EUR,payment,travel,,card_002,false,Summer holiday flights,completed,2024-07-03T10:00:00Z
+txn_431,acc_001,,Booking.com,-352.14,EUR,payment,travel,,card_002,false,Summer holiday hotel,completed,2024-07-04T11:00:00Z
+txn_412,acc_001,,Spotify,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2024-07-05T00:00:00Z
+txn_413,acc_001,,Netflix,-17.99,EUR,payment,subscriptions,,card_002,true,,completed,2024-07-05T00:01:00Z
+txn_414,acc_001,,HBO Max,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2024-07-05T00:02:00Z
+txn_419,acc_001,,Lidl Sörnäinen,-49.44,EUR,payment,groceries,,card_001,false,,completed,2024-07-05T16:00:00Z
+txn_415,acc_001,,NYT Digital,-19.00,EUR,payment,subscriptions,,card_002,true,,completed,2024-07-08T00:00:00Z
+txn_420,acc_001,,Lidl Sörnäinen,-45.97,EUR,payment,groceries,,card_001,false,,completed,2024-07-08T14:35:00Z
+txn_417,acc_001,,Elixia Gym,-49.00,EUR,payment,health_beauty,,card_001,true,Monthly gym,completed,2024-07-10T06:00:00Z
+txn_418,acc_001,,HSL Arvo,-40.00,EUR,payment,transport,,card_001,false,Monthly travel card top-up,completed,2024-07-10T08:30:00Z
+txn_429,acc_001,,Terveystalo,-28.72,EUR,payment,health_beauty,,card_001,false,,completed,2024-07-11T13:00:00Z
+txn_421,acc_001,,S-Market Kallio,-62.90,EUR,payment,groceries,,card_001,false,,completed,2024-07-11T15:40:00Z
+txn_427,acc_001,,Prisma,-40.90,EUR,payment,shopping,,card_002,false,,completed,2024-07-12T18:19:00Z
+txn_423,acc_001,,Ravintola Löyly,-69.14,EUR,payment,dining_out,,card_001,false,,completed,2024-07-13T16:55:00Z
+txn_424,acc_001,,Ravintola Savotta,-75.02,EUR,payment,dining_out,,card_001,false,,completed,2024-07-17T13:36:00Z
+txn_425,acc_001,,Ravintola Nokka,-59.55,EUR,payment,dining_out,,card_001,false,,completed,2024-07-18T21:19:00Z
+txn_426,acc_001,acc_002,Mikko,29.77,EUR,transfer,friends,,,false,Mikko split Ravintola Nokka,completed,2024-07-19T10:00:00Z
+txn_416,acc_001,,Elisa,-19.90,EUR,payment,subscriptions,,card_002,true,Phone plan,completed,2024-07-20T00:00:00Z
+txn_428,acc_001,,Prisma,-43.54,EUR,payment,shopping,,card_002,false,,completed,2024-07-24T11:39:00Z
+txn_422,acc_001,,Prisma Itäkeskus,-39.10,EUR,payment,groceries,,card_001,false,,completed,2024-07-28T14:36:00Z
+txn_404,acc_001,EMPLOYER,Reaktor Oy,3202.46,EUR,salary,income,,,true,July salary,completed,2024-07-31T09:00:00Z
+txn_436,acc_001,FI2112345600078599,,-200.00,EUR,goal_contribution,savings_goals,goal_001,,true,Tokyo Trip – Aug,completed,2024-08-01T08:00:00Z
+txn_437,acc_001,FI2112345600078588,,-150.00,EUR,goal_contribution,savings_goals,goal_002,,true,MacBook – Aug,completed,2024-08-01T08:01:00Z
+txn_438,acc_001,FI2112345600078555,,-100.00,EUR,goal_contribution,savings_goals,goal_005,,true,Investment – Aug,completed,2024-08-01T08:02:00Z
+txn_439,acc_001,FI2112345600078577,,-315.75,EUR,goal_contribution,savings_goals,goal_003,,true,Emergency Fund – Aug,completed,2024-08-01T08:03:00Z
+txn_433,acc_001,FI2112345600079999,Virtanen Kiinteistöt,-980.00,EUR,transfer,rent,,,true,August rent,completed,2024-08-01T09:00:00Z
+txn_434,acc_001,FI2100000000000001,Nordea Mortgage,-650.00,EUR,payment,loan_repayment,,,true,Mortgage – loan_001,completed,2024-08-02T08:00:00Z
+txn_435,acc_001,FI2100000000000002,OP Car Finance,-220.00,EUR,payment,loan_repayment,,,true,Car loan – loan_002,completed,2024-08-02T08:05:00Z
+txn_451,acc_001,,Ravintola Löyly,-64.82,EUR,payment,dining_out,,card_001,false,,completed,2024-08-04T21:47:00Z
+txn_440,acc_001,,Spotify,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2024-08-05T00:00:00Z
+txn_441,acc_001,,Netflix,-17.99,EUR,payment,subscriptions,,card_002,true,,completed,2024-08-05T00:01:00Z
+txn_442,acc_001,,HBO Max,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2024-08-05T00:02:00Z
+txn_452,acc_001,,Café Tin Tin Tango,-13.51,EUR,payment,dining_out,,card_001,false,,completed,2024-08-05T19:44:00Z
+txn_453,acc_001,acc_003,Aino,6.75,EUR,transfer,friends,,,false,Aino split Café Tin Tin Tango,completed,2024-08-06T10:00:00Z
+txn_454,acc_001,,Café Tin Tin Tango,-14.00,EUR,payment,dining_out,,card_001,false,,completed,2024-08-07T19:28:00Z
+txn_443,acc_001,,NYT Digital,-19.00,EUR,payment,subscriptions,,card_002,true,,completed,2024-08-08T00:00:00Z
+txn_446,acc_001,,HSL Arvo,-40.00,EUR,payment,transport,,card_001,false,Monthly travel card top-up,completed,2024-08-08T08:30:00Z
+txn_455,acc_001,acc_002,Mikko,7.00,EUR,transfer,friends,,,false,Mikko split Café Tin Tin Tango,completed,2024-08-08T10:00:00Z
+txn_445,acc_001,,Elixia Gym,-49.00,EUR,payment,health_beauty,,card_001,true,Monthly gym,completed,2024-08-10T06:00:00Z
+txn_456,acc_001,,Ravintola Kuu,-85.71,EUR,payment,dining_out,,card_001,false,,completed,2024-08-11T21:16:00Z
+txn_457,acc_001,acc_002,Mikko,42.85,EUR,transfer,friends,,,false,Mikko split Ravintola Kuu,completed,2024-08-12T10:00:00Z
+txn_447,acc_001,,Prisma Itäkeskus,-46.65,EUR,payment,groceries,,card_001,false,,completed,2024-08-15T15:18:00Z
+txn_448,acc_001,,S-Market Kallio,-63.12,EUR,payment,groceries,,card_001,false,,completed,2024-08-16T17:04:00Z
+txn_444,acc_001,,Elisa,-19.90,EUR,payment,subscriptions,,card_002,true,Phone plan,completed,2024-08-20T00:00:00Z
+txn_449,acc_001,,Lidl Sörnäinen,-71.96,EUR,payment,groceries,,card_001,false,,completed,2024-08-21T19:37:00Z
+txn_450,acc_001,,Lidl Sörnäinen,-52.01,EUR,payment,groceries,,card_001,false,,completed,2024-08-24T18:14:00Z
+txn_432,acc_001,EMPLOYER,Reaktor Oy,3157.51,EUR,salary,income,,,true,August salary,completed,2024-08-31T09:00:00Z
+txn_462,acc_001,FI2112345600078599,,-200.00,EUR,goal_contribution,savings_goals,goal_001,,true,Tokyo Trip – Sep,completed,2024-09-01T08:00:00Z
+txn_463,acc_001,FI2112345600078588,,-150.00,EUR,goal_contribution,savings_goals,goal_002,,true,MacBook – Sep,completed,2024-09-01T08:01:00Z
+txn_464,acc_001,FI2112345600078555,,-100.00,EUR,goal_contribution,savings_goals,goal_005,,true,Investment – Sep,completed,2024-09-01T08:02:00Z
+txn_465,acc_001,FI2112345600078577,,-325.00,EUR,goal_contribution,savings_goals,goal_003,,true,Emergency Fund – Sep,completed,2024-09-01T08:03:00Z
+txn_459,acc_001,FI2112345600079999,Virtanen Kiinteistöt,-980.00,EUR,transfer,rent,,,true,September rent,completed,2024-09-01T09:00:00Z
+txn_460,acc_001,FI2100000000000001,Nordea Mortgage,-650.00,EUR,payment,loan_repayment,,,true,Mortgage – loan_001,completed,2024-09-02T08:00:00Z
+txn_461,acc_001,FI2100000000000002,OP Car Finance,-220.00,EUR,payment,loan_repayment,,,true,Car loan – loan_002,completed,2024-09-02T08:05:00Z
+txn_473,acc_001,,Prisma Itäkeskus,-55.76,EUR,payment,groceries,,card_001,false,,completed,2024-09-03T17:58:00Z
+txn_466,acc_001,,Spotify,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2024-09-05T00:00:00Z
+txn_467,acc_001,,Netflix,-17.99,EUR,payment,subscriptions,,card_002,true,,completed,2024-09-05T00:01:00Z
+txn_468,acc_001,,HBO Max,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2024-09-05T00:02:00Z
+txn_474,acc_001,,S-Market Kallio,-42.26,EUR,payment,groceries,,card_001,false,,completed,2024-09-07T18:27:00Z
+txn_469,acc_001,,NYT Digital,-19.00,EUR,payment,subscriptions,,card_002,true,,completed,2024-09-08T00:00:00Z
+txn_471,acc_001,,Elixia Gym,-49.00,EUR,payment,health_beauty,,card_001,true,Monthly gym,completed,2024-09-10T06:00:00Z
+txn_472,acc_001,,HSL Arvo,-40.00,EUR,payment,transport,,card_001,false,Monthly travel card top-up,completed,2024-09-10T08:30:00Z
+txn_477,acc_001,,Sandro,-47.21,EUR,payment,dining_out,,card_001,false,,completed,2024-09-13T18:52:00Z
+txn_478,acc_001,,Ravintola Nokka,-68.64,EUR,payment,dining_out,,card_001,false,,completed,2024-09-16T17:16:00Z
+txn_479,acc_001,acc_003,Aino,34.32,EUR,transfer,friends,,,false,Aino split Ravintola Nokka,completed,2024-09-17T10:00:00Z
+txn_470,acc_001,,Elisa,-19.90,EUR,payment,subscriptions,,card_002,true,Phone plan,completed,2024-09-20T00:00:00Z
+txn_475,acc_001,,Prisma Itäkeskus,-73.76,EUR,payment,groceries,,card_001,false,,completed,2024-09-20T17:22:00Z
+txn_481,acc_001,acc_004,Mom,-112.26,EUR,transfer,family,,,false,Help with expenses,completed,2024-09-21T11:00:00Z
+txn_480,acc_001,,Mehiläinen,-41.86,EUR,payment,health_beauty,,card_001,false,,completed,2024-09-22T13:00:00Z
+txn_476,acc_001,,Prisma Itäkeskus,-48.33,EUR,payment,groceries,,card_001,false,,completed,2024-09-26T19:06:00Z
+txn_458,acc_001,EMPLOYER,Reaktor Oy,3249.96,EUR,salary,income,,,true,September salary,completed,2024-09-30T09:00:00Z
+txn_486,acc_001,FI2112345600078599,,-200.00,EUR,goal_contribution,savings_goals,goal_001,,true,Tokyo Trip – Oct,completed,2024-10-01T08:00:00Z
+txn_487,acc_001,FI2112345600078588,,-150.00,EUR,goal_contribution,savings_goals,goal_002,,true,MacBook – Oct,completed,2024-10-01T08:01:00Z
+txn_488,acc_001,FI2112345600078555,,-100.00,EUR,goal_contribution,savings_goals,goal_005,,true,Investment – Oct,completed,2024-10-01T08:02:00Z
+txn_489,acc_001,FI2112345600078577,,-319.99,EUR,goal_contribution,savings_goals,goal_003,,true,Emergency Fund – Oct,completed,2024-10-01T08:03:00Z
+txn_483,acc_001,FI2112345600079999,Virtanen Kiinteistöt,-980.00,EUR,transfer,rent,,,true,October rent,completed,2024-10-01T09:00:00Z
+txn_484,acc_001,FI2100000000000001,Nordea Mortgage,-650.00,EUR,payment,loan_repayment,,,true,Mortgage – loan_001,completed,2024-10-02T08:00:00Z
+txn_485,acc_001,FI2100000000000002,OP Car Finance,-220.00,EUR,payment,loan_repayment,,,true,Car loan – loan_002,completed,2024-10-02T08:05:00Z
+txn_497,acc_001,,Lidl Sörnäinen,-72.11,EUR,payment,groceries,,card_001,false,,completed,2024-10-03T17:56:00Z
+txn_490,acc_001,,Spotify,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2024-10-05T00:00:00Z
+txn_491,acc_001,,Netflix,-17.99,EUR,payment,subscriptions,,card_002,true,,completed,2024-10-05T00:01:00Z
+txn_492,acc_001,,HBO Max,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2024-10-05T00:02:00Z
+txn_501,acc_001,,Ravintola Löyly,-57.46,EUR,payment,dining_out,,card_001,false,,completed,2024-10-06T16:32:00Z
+txn_493,acc_001,,NYT Digital,-19.00,EUR,payment,subscriptions,,card_002,true,,completed,2024-10-08T00:00:00Z
+txn_498,acc_001,,Prisma Itäkeskus,-39.86,EUR,payment,groceries,,card_001,false,,completed,2024-10-08T19:38:00Z
+txn_495,acc_001,,Elixia Gym,-49.00,EUR,payment,health_beauty,,card_001,true,Monthly gym,completed,2024-10-10T06:00:00Z
+txn_499,acc_001,,Lidl Sörnäinen,-63.39,EUR,payment,groceries,,card_001,false,,completed,2024-10-10T16:35:00Z
+txn_496,acc_001,,HSL Arvo,-40.00,EUR,payment,transport,,card_001,false,Monthly travel card top-up,completed,2024-10-11T08:30:00Z
+txn_502,acc_001,,Ravintola Kuu,-89.22,EUR,payment,dining_out,,card_001,false,,completed,2024-10-17T19:15:00Z
+txn_494,acc_001,,Elisa,-19.90,EUR,payment,subscriptions,,card_002,true,Phone plan,completed,2024-10-20T00:00:00Z
+txn_503,acc_001,,Verkkokauppa.com,-156.87,EUR,payment,shopping,,card_002,false,,completed,2024-10-24T12:17:00Z
+txn_500,acc_001,,K-Supermarket Kamppi,-57.09,EUR,payment,groceries,,card_001,false,,completed,2024-10-26T14:14:00Z
+txn_482,acc_001,EMPLOYER,Reaktor Oy,3199.85,EUR,salary,income,,,true,October salary,completed,2024-10-31T09:00:00Z
+txn_508,acc_001,FI2112345600078599,,-200.00,EUR,goal_contribution,savings_goals,goal_001,,true,Tokyo Trip – Nov,completed,2024-11-01T08:00:00Z
+txn_509,acc_001,FI2112345600078588,,-150.00,EUR,goal_contribution,savings_goals,goal_002,,true,MacBook – Nov,completed,2024-11-01T08:01:00Z
+txn_510,acc_001,FI2112345600078555,,-100.00,EUR,goal_contribution,savings_goals,goal_005,,true,Investment – Nov,completed,2024-11-01T08:02:00Z
+txn_511,acc_001,FI2112345600078577,,-322.88,EUR,goal_contribution,savings_goals,goal_003,,true,Emergency Fund – Nov,completed,2024-11-01T08:03:00Z
+txn_505,acc_001,FI2112345600079999,Virtanen Kiinteistöt,-980.00,EUR,transfer,rent,,,true,November rent,completed,2024-11-01T09:00:00Z
+txn_506,acc_001,FI2100000000000001,Nordea Mortgage,-650.00,EUR,payment,loan_repayment,,,true,Mortgage – loan_001,completed,2024-11-02T08:00:00Z
+txn_507,acc_001,FI2100000000000002,OP Car Finance,-220.00,EUR,payment,loan_repayment,,,true,Car loan – loan_002,completed,2024-11-02T08:05:00Z
+txn_519,acc_001,,S-Market Kallio,-68.50,EUR,payment,groceries,,card_001,false,,completed,2024-11-02T18:42:00Z
+txn_512,acc_001,,Spotify,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2024-11-05T00:00:00Z
+txn_513,acc_001,,Netflix,-17.99,EUR,payment,subscriptions,,card_002,true,,completed,2024-11-05T00:01:00Z
+txn_514,acc_001,,HBO Max,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2024-11-05T00:02:00Z
+txn_515,acc_001,,NYT Digital,-19.00,EUR,payment,subscriptions,,card_002,true,,completed,2024-11-08T00:00:00Z
+txn_526,acc_001,,Zara,-82.08,EUR,payment,shopping,,card_002,false,,completed,2024-11-08T13:26:00Z
+txn_517,acc_001,,Elixia Gym,-49.00,EUR,payment,health_beauty,,card_001,true,Monthly gym,completed,2024-11-10T06:00:00Z
+txn_518,acc_001,,HSL Arvo,-40.00,EUR,payment,transport,,card_001,false,Monthly travel card top-up,completed,2024-11-10T08:30:00Z
+txn_523,acc_001,,Juuri,-64.57,EUR,payment,dining_out,,card_001,false,,completed,2024-11-10T18:02:00Z
+txn_524,acc_001,acc_003,Aino,32.28,EUR,transfer,friends,,,false,Aino split Juuri,completed,2024-11-11T10:00:00Z
+txn_520,acc_001,,Prisma Itäkeskus,-69.61,EUR,payment,groceries,,card_001,false,,completed,2024-11-11T17:34:00Z
+txn_528,acc_001,,Terveystalo,-20.22,EUR,payment,health_beauty,,card_001,false,,completed,2024-11-17T13:00:00Z
+txn_527,acc_001,,Prisma,-46.19,EUR,payment,shopping,,card_002,false,,completed,2024-11-19T18:50:00Z
+txn_516,acc_001,,Elisa,-19.90,EUR,payment,subscriptions,,card_002,true,Phone plan,completed,2024-11-20T00:00:00Z
+txn_525,acc_001,,Ravintola Kuu,-73.51,EUR,payment,dining_out,,card_001,false,,completed,2024-11-25T14:31:00Z
+txn_521,acc_001,,Prisma Itäkeskus,-48.80,EUR,payment,groceries,,card_001,false,,completed,2024-11-25T18:48:00Z
+txn_522,acc_001,,Prisma Itäkeskus,-53.21,EUR,payment,groceries,,card_001,false,,completed,2024-11-28T16:55:00Z
+txn_504,acc_001,EMPLOYER,Reaktor Oy,3228.77,EUR,salary,income,,,true,November salary,completed,2024-11-30T09:00:00Z
+txn_533,acc_001,FI2112345600078599,,-200.00,EUR,goal_contribution,savings_goals,goal_001,,true,Tokyo Trip – Dec,completed,2024-12-01T08:00:00Z
+txn_534,acc_001,FI2112345600078588,,-150.00,EUR,goal_contribution,savings_goals,goal_002,,true,MacBook – Dec,completed,2024-12-01T08:01:00Z
+txn_535,acc_001,FI2112345600078555,,-100.00,EUR,goal_contribution,savings_goals,goal_005,,true,Investment – Dec,completed,2024-12-01T08:02:00Z
+txn_536,acc_001,FI2112345600078577,,-321.74,EUR,goal_contribution,savings_goals,goal_003,,true,Emergency Fund – Dec,completed,2024-12-01T08:03:00Z
+txn_530,acc_001,FI2112345600079999,Virtanen Kiinteistöt,-980.00,EUR,transfer,rent,,,true,December rent,completed,2024-12-01T09:00:00Z
+txn_531,acc_001,FI2100000000000001,Nordea Mortgage,-650.00,EUR,payment,loan_repayment,,,true,Mortgage – loan_001,completed,2024-12-02T08:00:00Z
+txn_532,acc_001,FI2100000000000002,OP Car Finance,-220.00,EUR,payment,loan_repayment,,,true,Car loan – loan_002,completed,2024-12-02T08:05:00Z
+txn_537,acc_001,,Spotify,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2024-12-05T00:00:00Z
+txn_538,acc_001,,Netflix,-17.99,EUR,payment,subscriptions,,card_002,true,,completed,2024-12-05T00:01:00Z
+txn_539,acc_001,,HBO Max,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2024-12-05T00:02:00Z
+txn_540,acc_001,,NYT Digital,-19.00,EUR,payment,subscriptions,,card_002,true,,completed,2024-12-08T00:00:00Z
+txn_548,acc_001,,Café Tin Tin Tango,-17.23,EUR,payment,dining_out,,card_001,false,,completed,2024-12-08T12:20:00Z
+txn_542,acc_001,,Elixia Gym,-49.00,EUR,payment,health_beauty,,card_001,true,Monthly gym,completed,2024-12-10T06:00:00Z
+txn_553,acc_001,,Stockmann,-80.94,EUR,payment,shopping,,card_001,false,Christmas gifts,completed,2024-12-10T14:00:00Z
+txn_551,acc_001,,H&M,-34.74,EUR,payment,shopping,,card_001,false,,completed,2024-12-10T14:31:00Z
+txn_543,acc_001,,HSL Arvo,-40.00,EUR,payment,transport,,card_001,false,Monthly travel card top-up,completed,2024-12-12T08:30:00Z
+txn_544,acc_001,,Prisma Itäkeskus,-69.90,EUR,payment,groceries,,card_001,false,,completed,2024-12-12T14:39:00Z
+txn_545,acc_001,,K-Supermarket Kamppi,-44.39,EUR,payment,groceries,,card_001,false,,completed,2024-12-14T19:58:00Z
+txn_549,acc_001,,Café Tin Tin Tango,-12.87,EUR,payment,dining_out,,card_001,false,,completed,2024-12-17T18:09:00Z
+txn_550,acc_001,acc_003,Aino,6.43,EUR,transfer,friends,,,false,Aino split Café Tin Tin Tango,completed,2024-12-18T10:00:00Z
+txn_552,acc_001,,Terveystalo,-31.51,EUR,payment,health_beauty,,card_001,false,,completed,2024-12-19T13:00:00Z
+txn_541,acc_001,,Elisa,-19.90,EUR,payment,subscriptions,,card_002,true,Phone plan,completed,2024-12-20T00:00:00Z
+txn_554,acc_001,,Prisma,-108.28,EUR,payment,groceries,,card_001,false,Christmas groceries,completed,2024-12-20T15:00:00Z
+txn_546,acc_001,,S-Market Kallio,-74.90,EUR,payment,groceries,,card_001,false,,completed,2024-12-22T19:05:00Z
+txn_547,acc_001,,Prisma Itäkeskus,-74.13,EUR,payment,groceries,,card_001,false,,completed,2024-12-24T19:45:00Z
+txn_529,acc_001,EMPLOYER,Reaktor Oy,3217.44,EUR,salary,income,,,true,December salary,completed,2024-12-31T09:00:00Z
+txn_559,acc_001,FI2112345600078599,,-200.00,EUR,goal_contribution,savings_goals,goal_001,,true,Tokyo Trip – Jan,completed,2025-01-01T08:00:00Z
+txn_560,acc_001,FI2112345600078588,,-150.00,EUR,goal_contribution,savings_goals,goal_002,,true,MacBook – Jan,completed,2025-01-01T08:01:00Z
+txn_561,acc_001,FI2112345600078555,,-100.00,EUR,goal_contribution,savings_goals,goal_005,,true,Investment – Jan,completed,2025-01-01T08:02:00Z
+txn_562,acc_001,FI2112345600078577,,-329.01,EUR,goal_contribution,savings_goals,goal_003,,true,Emergency Fund – Jan,completed,2025-01-01T08:03:00Z
+txn_556,acc_001,FI2112345600079999,Virtanen Kiinteistöt,-980.00,EUR,transfer,rent,,,true,January rent,completed,2025-01-01T09:00:00Z
+txn_557,acc_001,FI2100000000000001,Nordea Mortgage,-650.00,EUR,payment,loan_repayment,,,true,Mortgage – loan_001,completed,2025-01-02T08:00:00Z
+txn_558,acc_001,FI2100000000000002,OP Car Finance,-220.00,EUR,payment,loan_repayment,,,true,Car loan – loan_002,completed,2025-01-02T08:05:00Z
+txn_574,acc_001,,Café Tin Tin Tango,-10.06,EUR,payment,dining_out,,card_001,false,,completed,2025-01-03T12:58:00Z
+txn_570,acc_001,,S-Market Kallio,-60.56,EUR,payment,groceries,,card_001,false,,completed,2025-01-04T17:44:00Z
+txn_563,acc_001,,Spotify,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2025-01-05T00:00:00Z
+txn_564,acc_001,,Netflix,-17.99,EUR,payment,subscriptions,,card_002,true,,completed,2025-01-05T00:01:00Z
+txn_565,acc_001,,HBO Max,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2025-01-05T00:02:00Z
+txn_579,acc_001,,Stockmann,-75.94,EUR,payment,shopping,,card_002,false,,completed,2025-01-07T14:08:00Z
+txn_571,acc_001,,S-Market Kallio,-53.27,EUR,payment,groceries,,card_001,false,,completed,2025-01-07T16:12:00Z
+txn_566,acc_001,,NYT Digital,-19.00,EUR,payment,subscriptions,,card_002,true,,completed,2025-01-08T00:00:00Z
+txn_580,acc_001,,Prisma,-41.58,EUR,payment,shopping,,card_001,false,,completed,2025-01-09T15:53:00Z
+txn_568,acc_001,,Elixia Gym,-49.00,EUR,payment,health_beauty,,card_001,true,Monthly gym,completed,2025-01-10T06:00:00Z
+txn_569,acc_001,,HSL Arvo,-40.00,EUR,payment,transport,,card_001,false,Monthly travel card top-up,completed,2025-01-12T08:30:00Z
+txn_575,acc_001,,Sandro,-60.82,EUR,payment,dining_out,,card_001,false,,completed,2025-01-12T16:49:00Z
+txn_572,acc_001,,Prisma Itäkeskus,-69.13,EUR,payment,groceries,,card_001,false,,completed,2025-01-13T14:15:00Z
+txn_576,acc_001,,Juuri,-75.05,EUR,payment,dining_out,,card_001,false,,completed,2025-01-15T15:40:00Z
+txn_577,acc_001,acc_003,Aino,37.52,EUR,transfer,friends,,,false,Aino split Juuri,completed,2025-01-16T10:00:00Z
+txn_573,acc_001,,Prisma Itäkeskus,-57.88,EUR,payment,groceries,,card_001,false,,completed,2025-01-16T18:18:00Z
+txn_582,acc_001,acc_004,Mom,-136.01,EUR,transfer,family,,,false,Help with expenses,completed,2025-01-17T11:00:00Z
+txn_581,acc_001,,Ticketmaster,-35.76,EUR,payment,entertainment,,card_001,false,,completed,2025-01-19T19:51:00Z
+txn_567,acc_001,,Elisa,-19.90,EUR,payment,subscriptions,,card_002,true,Phone plan,completed,2025-01-20T00:00:00Z
+txn_578,acc_001,,Ravintola Löyly,-60.71,EUR,payment,dining_out,,card_001,false,,completed,2025-01-24T12:19:00Z
+txn_555,acc_001,EMPLOYER,Reaktor Oy,3290.12,EUR,salary,income,,,true,January salary,completed,2025-01-31T09:00:00Z
+txn_587,acc_001,FI2112345600078599,,-200.00,EUR,goal_contribution,savings_goals,goal_001,,true,Tokyo Trip – Feb,completed,2025-02-01T08:00:00Z
+txn_588,acc_001,FI2112345600078588,,-150.00,EUR,goal_contribution,savings_goals,goal_002,,true,MacBook – Feb,completed,2025-02-01T08:01:00Z
+txn_589,acc_001,FI2112345600078555,,-100.00,EUR,goal_contribution,savings_goals,goal_005,,true,Investment – Feb,completed,2025-02-01T08:02:00Z
+txn_590,acc_001,FI2112345600078577,,-327.24,EUR,goal_contribution,savings_goals,goal_003,,true,Emergency Fund – Feb,completed,2025-02-01T08:03:00Z
+txn_584,acc_001,FI2112345600079999,Virtanen Kiinteistöt,-980.00,EUR,transfer,rent,,,true,February rent,completed,2025-02-01T09:00:00Z
+txn_585,acc_001,FI2100000000000001,Nordea Mortgage,-650.00,EUR,payment,loan_repayment,,,true,Mortgage – loan_001,completed,2025-02-02T08:00:00Z
+txn_586,acc_001,FI2100000000000002,OP Car Finance,-220.00,EUR,payment,loan_repayment,,,true,Car loan – loan_002,completed,2025-02-02T08:05:00Z
+txn_598,acc_001,,Prisma Itäkeskus,-35.56,EUR,payment,groceries,,card_001,false,,completed,2025-02-04T18:07:00Z
+txn_591,acc_001,,Spotify,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2025-02-05T00:00:00Z
+txn_592,acc_001,,Netflix,-17.99,EUR,payment,subscriptions,,card_002,true,,completed,2025-02-05T00:01:00Z
+txn_593,acc_001,,HBO Max,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2025-02-05T00:02:00Z
+txn_594,acc_001,,NYT Digital,-19.00,EUR,payment,subscriptions,,card_002,true,,completed,2025-02-08T00:00:00Z
+txn_607,acc_001,,Prisma,-39.57,EUR,payment,shopping,,card_002,false,,completed,2025-02-08T15:02:00Z
+txn_596,acc_001,,Elixia Gym,-49.00,EUR,payment,health_beauty,,card_001,true,Monthly gym,completed,2025-02-10T06:00:00Z
+txn_602,acc_001,,Ravintola Savotta,-80.89,EUR,payment,dining_out,,card_001,false,,completed,2025-02-10T19:58:00Z
+txn_597,acc_001,,HSL Arvo,-40.00,EUR,payment,transport,,card_001,false,Monthly travel card top-up,completed,2025-02-11T08:30:00Z
+txn_603,acc_001,,Ravintola Kuu,-64.08,EUR,payment,dining_out,,card_001,false,,completed,2025-02-13T12:02:00Z
+txn_599,acc_001,,Prisma Itäkeskus,-49.74,EUR,payment,groceries,,card_001,false,,completed,2025-02-13T19:43:00Z
+txn_604,acc_001,acc_003,Aino,32.04,EUR,transfer,friends,,,false,Aino split Ravintola Kuu,completed,2025-02-14T10:00:00Z
+txn_600,acc_001,,S-Market Kallio,-58.38,EUR,payment,groceries,,card_001,false,,completed,2025-02-19T19:23:00Z
+txn_595,acc_001,,Elisa,-19.90,EUR,payment,subscriptions,,card_002,true,Phone plan,completed,2025-02-20T00:00:00Z
+txn_605,acc_001,,Ravintola Savotta,-67.43,EUR,payment,dining_out,,card_001,false,,completed,2025-02-20T20:08:00Z
+txn_609,acc_001,,Steam,-21.04,EUR,payment,entertainment,,card_001,false,,completed,2025-02-21T17:25:00Z
+txn_606,acc_001,,Café Espresso House,-12.02,EUR,payment,dining_out,,card_001,false,,completed,2025-02-22T20:26:00Z
+txn_608,acc_001,,IKEA Helsinki,-124.11,EUR,payment,shopping,,card_002,false,,completed,2025-02-25T14:54:00Z
+txn_601,acc_001,,K-Supermarket Kamppi,-61.99,EUR,payment,groceries,,card_001,false,,completed,2025-02-27T17:01:00Z
+txn_583,acc_001,EMPLOYER,Reaktor Oy,3272.42,EUR,salary,income,,,true,February salary,completed,2025-02-28T09:00:00Z
+txn_614,acc_001,FI2112345600078599,,-200.00,EUR,goal_contribution,savings_goals,goal_001,,true,Tokyo Trip – Mar,completed,2025-03-01T08:00:00Z
+txn_615,acc_001,FI2112345600078588,,-150.00,EUR,goal_contribution,savings_goals,goal_002,,true,MacBook – Mar,completed,2025-03-01T08:01:00Z
+txn_616,acc_001,FI2112345600078555,,-100.00,EUR,goal_contribution,savings_goals,goal_005,,true,Investment – Mar,completed,2025-03-01T08:02:00Z
+txn_617,acc_001,FI2112345600078577,,-320.92,EUR,goal_contribution,savings_goals,goal_003,,true,Emergency Fund – Mar,completed,2025-03-01T08:03:00Z
+txn_611,acc_001,FI2112345600079999,Virtanen Kiinteistöt,-980.00,EUR,transfer,rent,,,true,March rent,completed,2025-03-01T09:00:00Z
+txn_612,acc_001,FI2100000000000001,Nordea Mortgage,-650.00,EUR,payment,loan_repayment,,,true,Mortgage – loan_001,completed,2025-03-02T08:00:00Z
+txn_613,acc_001,FI2100000000000002,OP Car Finance,-220.00,EUR,payment,loan_repayment,,,true,Car loan – loan_002,completed,2025-03-02T08:05:00Z
+txn_625,acc_001,,S-Market Kallio,-44.74,EUR,payment,groceries,,card_001,false,,completed,2025-03-02T15:50:00Z
+txn_626,acc_001,,Lidl Sörnäinen,-37.74,EUR,payment,groceries,,card_001,false,,completed,2025-03-03T18:13:00Z
+txn_618,acc_001,,Spotify,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2025-03-05T00:00:00Z
+txn_619,acc_001,,Netflix,-17.99,EUR,payment,subscriptions,,card_002,true,,completed,2025-03-05T00:01:00Z
+txn_620,acc_001,,HBO Max,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2025-03-05T00:02:00Z
+txn_629,acc_001,,Ravintola Löyly,-47.75,EUR,payment,dining_out,,card_001,false,,completed,2025-03-07T12:08:00Z
+txn_621,acc_001,,NYT Digital,-19.00,EUR,payment,subscriptions,,card_002,true,,completed,2025-03-08T00:00:00Z
+txn_630,acc_001,acc_002,Mikko,23.88,EUR,transfer,friends,,,false,Mikko split Ravintola Löyly,completed,2025-03-08T10:00:00Z
+txn_624,acc_001,,HSL Arvo,-40.00,EUR,payment,transport,,card_001,false,Monthly travel card top-up,completed,2025-03-09T08:30:00Z
+txn_623,acc_001,,Elixia Gym,-49.00,EUR,payment,health_beauty,,card_001,true,Monthly gym,completed,2025-03-10T06:00:00Z
+txn_631,acc_001,,Juuri,-63.09,EUR,payment,dining_out,,card_001,false,,completed,2025-03-11T14:16:00Z
+txn_632,acc_001,acc_003,Aino,31.55,EUR,transfer,friends,,,false,Aino split Juuri,completed,2025-03-12T10:00:00Z
+txn_634,acc_001,,Verkkokauppa.com,-67.66,EUR,payment,shopping,,card_001,false,,completed,2025-03-19T15:29:00Z
+txn_622,acc_001,,Elisa,-19.90,EUR,payment,subscriptions,,card_002,true,Phone plan,completed,2025-03-20T00:00:00Z
+txn_635,acc_001,,Mehiläinen,-42.71,EUR,payment,health_beauty,,card_001,false,,completed,2025-03-20T13:00:00Z
+txn_633,acc_001,,Gaijin,-52.84,EUR,payment,dining_out,,card_001,false,,completed,2025-03-20T13:30:00Z
+txn_627,acc_001,,Lidl Sörnäinen,-67.52,EUR,payment,groceries,,card_001,false,,completed,2025-03-21T15:21:00Z
+txn_628,acc_001,,Lidl Sörnäinen,-66.55,EUR,payment,groceries,,card_001,false,,completed,2025-03-22T18:00:00Z
+txn_636,acc_001,acc_004,Mom,-57.35,EUR,transfer,family,,,false,Help with expenses,completed,2025-03-24T11:00:00Z
+txn_610,acc_001,EMPLOYER,Reaktor Oy,3209.17,EUR,salary,income,,,true,March salary,completed,2025-03-31T09:00:00Z
+txn_641,acc_001,FI2112345600078599,,-200.00,EUR,goal_contribution,savings_goals,goal_001,,true,Tokyo Trip – Apr,completed,2025-04-01T08:00:00Z
+txn_642,acc_001,FI2112345600078588,,-150.00,EUR,goal_contribution,savings_goals,goal_002,,true,MacBook – Apr,completed,2025-04-01T08:01:00Z
+txn_643,acc_001,FI2112345600078555,,-100.00,EUR,goal_contribution,savings_goals,goal_005,,true,Investment – Apr,completed,2025-04-01T08:02:00Z
+txn_644,acc_001,FI2112345600078577,,-320.81,EUR,goal_contribution,savings_goals,goal_003,,true,Emergency Fund – Apr,completed,2025-04-01T08:03:00Z
+txn_638,acc_001,FI2112345600079999,Virtanen Kiinteistöt,-980.00,EUR,transfer,rent,,,true,April rent,completed,2025-04-01T09:00:00Z
+txn_639,acc_001,FI2100000000000001,Nordea Mortgage,-650.00,EUR,payment,loan_repayment,,,true,Mortgage – loan_001,completed,2025-04-02T08:00:00Z
+txn_640,acc_001,FI2100000000000002,OP Car Finance,-220.00,EUR,payment,loan_repayment,,,true,Car loan – loan_002,completed,2025-04-02T08:05:00Z
+txn_652,acc_001,,S-Market Kallio,-50.24,EUR,payment,groceries,,card_001,false,,completed,2025-04-04T18:33:00Z
+txn_645,acc_001,,Spotify,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2025-04-05T00:00:00Z
+txn_646,acc_001,,Netflix,-17.99,EUR,payment,subscriptions,,card_002,true,,completed,2025-04-05T00:01:00Z
+txn_647,acc_001,,HBO Max,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2025-04-05T00:02:00Z
+txn_653,acc_001,,S-Market Kallio,-53.15,EUR,payment,groceries,,card_001,false,,completed,2025-04-06T18:27:00Z
+txn_648,acc_001,,NYT Digital,-19.00,EUR,payment,subscriptions,,card_002,true,,completed,2025-04-08T00:00:00Z
+txn_660,acc_001,,Amazon.de,-37.98,EUR,payment,shopping,,card_001,false,,completed,2025-04-08T17:55:00Z
+txn_650,acc_001,,Elixia Gym,-49.00,EUR,payment,health_beauty,,card_001,true,Monthly gym,completed,2025-04-10T06:00:00Z
+txn_654,acc_001,,K-Supermarket Kamppi,-66.72,EUR,payment,groceries,,card_001,false,,completed,2025-04-10T14:54:00Z
+txn_651,acc_001,,HSL Arvo,-40.00,EUR,payment,transport,,card_001,false,Monthly travel card top-up,completed,2025-04-12T08:30:00Z
+txn_662,acc_001,,IMAX Helsinki,-28.47,EUR,payment,entertainment,,card_001,false,,completed,2025-04-14T20:14:00Z
+txn_656,acc_001,,Ravintola Savotta,-72.81,EUR,payment,dining_out,,card_001,false,,completed,2025-04-15T17:42:00Z
+txn_657,acc_001,acc_002,Mikko,36.41,EUR,transfer,friends,,,false,Mikko split Ravintola Savotta,completed,2025-04-16T10:00:00Z
+txn_658,acc_001,,Sandro,-41.68,EUR,payment,dining_out,,card_001,false,,completed,2025-04-16T13:05:00Z
+txn_659,acc_001,,Café Espresso House,-12.87,EUR,payment,dining_out,,card_001,false,,completed,2025-04-17T20:03:00Z
+txn_649,acc_001,,Elisa,-19.90,EUR,payment,subscriptions,,card_002,true,Phone plan,completed,2025-04-20T00:00:00Z
+txn_655,acc_001,,Lidl Sörnäinen,-52.20,EUR,payment,groceries,,card_001,false,,completed,2025-04-21T15:26:00Z
+txn_663,acc_001,,Mehiläinen,-22.47,EUR,payment,health_beauty,,card_001,false,,completed,2025-04-22T13:00:00Z
+txn_661,acc_001,,IKEA Helsinki,-60.29,EUR,payment,shopping,,card_002,false,,completed,2025-04-26T15:22:00Z
+txn_637,acc_001,EMPLOYER,Reaktor Oy,3208.08,EUR,salary,income,,,true,April salary,completed,2025-04-30T09:00:00Z
+txn_668,acc_001,FI2112345600078599,,-200.00,EUR,goal_contribution,savings_goals,goal_001,,true,Tokyo Trip – May,completed,2025-05-01T08:00:00Z
+txn_669,acc_001,FI2112345600078588,,-150.00,EUR,goal_contribution,savings_goals,goal_002,,true,MacBook – May,completed,2025-05-01T08:01:00Z
+txn_670,acc_001,FI2112345600078555,,-100.00,EUR,goal_contribution,savings_goals,goal_005,,true,Investment – May,completed,2025-05-01T08:02:00Z
+txn_671,acc_001,FI2112345600078577,,-322.26,EUR,goal_contribution,savings_goals,goal_003,,true,Emergency Fund – May,completed,2025-05-01T08:03:00Z
+txn_665,acc_001,FI2112345600079999,Virtanen Kiinteistöt,-980.00,EUR,transfer,rent,,,true,May rent,completed,2025-05-01T09:00:00Z
+txn_666,acc_001,FI2100000000000001,Nordea Mortgage,-650.00,EUR,payment,loan_repayment,,,true,Mortgage – loan_001,completed,2025-05-02T08:00:00Z
+txn_667,acc_001,FI2100000000000002,OP Car Finance,-220.00,EUR,payment,loan_repayment,,,true,Car loan – loan_002,completed,2025-05-02T08:05:00Z
+txn_672,acc_001,,Spotify,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2025-05-05T00:00:00Z
+txn_673,acc_001,,Netflix,-17.99,EUR,payment,subscriptions,,card_002,true,,completed,2025-05-05T00:01:00Z
+txn_674,acc_001,,HBO Max,-9.99,EUR,payment,subscriptions,,card_002,true,,completed,2025-05-05T00:02:00Z
+txn_683,acc_001,,Ravintola Nokka,-57.75,EUR,payment,dining_out,,card_001,false,,completed,2025-05-05T20:13:00Z
+txn_684,acc_001,,Sandro,-48.52,EUR,payment,dining_out,,card_001,false,,completed,2025-05-07T17:19:00Z
+txn_675,acc_001,,NYT Digital,-19.00,EUR,payment,subscriptions,,card_002,true,,completed,2025-05-08T00:00:00Z
+txn_677,acc_001,,Elixia Gym,-49.00,EUR,payment,health_beauty,,card_001,true,Monthly gym,completed,2025-05-10T06:00:00Z
+txn_678,acc_001,,HSL Arvo,-40.00,EUR,payment,transport,,card_001,false,Monthly travel card top-up,completed,2025-05-11T08:30:00Z
+txn_687,acc_001,,Amazon.de,-46.57,EUR,payment,shopping,,card_002,false,,completed,2025-05-19T15:13:00Z
+txn_679,acc_001,,K-Supermarket Kamppi,-59.36,EUR,payment,groceries,,card_001,false,,completed,2025-05-19T19:53:00Z
+txn_676,acc_001,,Elisa,-19.90,EUR,payment,subscriptions,,card_002,true,Phone plan,completed,2025-05-20T00:00:00Z
+txn_680,acc_001,,S-Market Kallio,-36.16,EUR,payment,groceries,,card_001,false,,completed,2025-05-21T16:44:00Z
+txn_685,acc_001,,Juuri,-69.91,EUR,payment,dining_out,,card_001,false,,completed,2025-05-26T12:09:00Z
+txn_688,acc_001,,Prisma,-40.49,EUR,payment,shopping,,card_002,false,,completed,2025-05-26T12:18:00Z
+txn_681,acc_001,,S-Market Kallio,-71.86,EUR,payment,groceries,,card_001,false,,completed,2025-05-26T16:00:00Z
+txn_686,acc_001,acc_002,Mikko,34.95,EUR,transfer,friends,,,false,Mikko split Juuri,completed,2025-05-27T10:00:00Z
+txn_682,acc_001,,Lidl Sörnäinen,-69.79,EUR,payment,groceries,,card_001,false,,completed,2025-05-28T18:42:00Z
+txn_664,acc_001,EMPLOYER,Reaktor Oy,3222.62,EUR,salary,income,,,true,May salary,completed,2025-05-31T09:00:00Z
+txn_689,acc_001,FI2198765432100145,Mikko,-50.00,EUR,payment,other,,,false,,completed,2026-05-24T17:42:25Z
+txn_690,acc_001,FI2112345600078573,Lisa,-10.00,EUR,payment,other,,,false,"Coffe, Thank you!",completed,2026-05-24T17:52:13Z
+txn_691,acc_001,FI2100112233445522,Mom,-4.99,EUR,payment,other,,,false,,completed,2026-05-24T19:00:53Z

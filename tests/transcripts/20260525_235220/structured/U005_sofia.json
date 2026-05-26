@@ -1,0 +1,5494 @@
+{
+  "user": {
+    "userId": "U005",
+    "fullName": "Sofia Nieminen",
+    "firstName": "Sofia",
+    "age": 26,
+    "city": "Turku",
+    "occupation": "Nurse",
+    "education": "BSc Nursing",
+    "monthlyIncome": 2200,
+    "incomeSource": "Salary + shift bonuses",
+    "nordeaTier": "Grower",
+    "savingsGoal": "iPhone + travel fund",
+    "familyStatus": "Single, rents with partner",
+    "riskProfile": "low",
+    "transactions": [
+      {
+        "date": "2025-01-01",
+        "description": "Rent payment",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -458.36,
+        "runningBalance": -458.36
+      },
+      {
+        "date": "2025-01-01",
+        "description": "Public transport pass",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -48.47,
+        "runningBalance": -506.83
+      },
+      {
+        "date": "2025-01-01",
+        "description": "Travel insurance",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -28.68,
+        "runningBalance": -535.51
+      },
+      {
+        "date": "2025-01-03",
+        "description": "Home insurance",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -30.04,
+        "runningBalance": -565.55
+      },
+      {
+        "date": "2025-01-04",
+        "description": "Internet subscription",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -29.21,
+        "runningBalance": -594.76
+      },
+      {
+        "date": "2025-01-04",
+        "description": "Airbnb",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -36.13,
+        "runningBalance": -630.89
+      },
+      {
+        "date": "2025-01-05",
+        "description": "Electricity & water",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -60.61,
+        "runningBalance": -691.5
+      },
+      {
+        "date": "2025-01-05",
+        "description": "Maintenance fee",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -29.6,
+        "runningBalance": -721.1
+      },
+      {
+        "date": "2025-01-08",
+        "description": "Postage / misc",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -16.2,
+        "runningBalance": -737.3
+      },
+      {
+        "date": "2025-01-09",
+        "description": "Coffee shop",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -74.24,
+        "runningBalance": -811.54
+      },
+      {
+        "date": "2025-01-16",
+        "description": "Books / games",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -35.15,
+        "runningBalance": -846.69
+      },
+      {
+        "date": "2025-01-22",
+        "description": "Car service",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -18.96,
+        "runningBalance": -865.65
+      },
+      {
+        "date": "2025-01-22",
+        "description": "Hotel",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -15.17,
+        "runningBalance": -880.82
+      },
+      {
+        "date": "2025-01-23",
+        "description": "Gym membership",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -8.38,
+        "runningBalance": -889.2
+      },
+      {
+        "date": "2025-01-25",
+        "description": "Salary deposit",
+        "category": "Income",
+        "type": "Income",
+        "amount": 2200,
+        "runningBalance": 1310.8
+      },
+      {
+        "date": "2025-01-25",
+        "description": "Gym membership",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -12.25,
+        "runningBalance": 1298.55
+      },
+      {
+        "date": "2025-01-26",
+        "description": "Hobby supplies",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -41,
+        "runningBalance": 1257.55
+      },
+      {
+        "date": "2025-01-27",
+        "description": "Concert / event",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -19.1,
+        "runningBalance": 1238.45
+      },
+      {
+        "date": "2025-01-28",
+        "description": "K-Market",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -113.27,
+        "runningBalance": 1125.18
+      },
+      {
+        "date": "2025-02-01",
+        "description": "Finnair flight",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -22.35,
+        "runningBalance": 1102.83
+      },
+      {
+        "date": "2025-02-02",
+        "description": "Home insurance",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -34.21,
+        "runningBalance": 1068.62
+      },
+      {
+        "date": "2025-02-03",
+        "description": "Maintenance fee",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -33.07,
+        "runningBalance": 1035.55
+      },
+      {
+        "date": "2025-02-04",
+        "description": "Electricity & water",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -69.07,
+        "runningBalance": 966.48
+      },
+      {
+        "date": "2025-02-05",
+        "description": "Rent payment",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -497.52,
+        "runningBalance": 468.96
+      },
+      {
+        "date": "2025-02-05",
+        "description": "Internet subscription",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -34.52,
+        "runningBalance": 434.44
+      },
+      {
+        "date": "2025-02-07",
+        "description": "Airbnb",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -22.1,
+        "runningBalance": 412.34
+      },
+      {
+        "date": "2025-02-09",
+        "description": "Netflix",
+        "category": "Subscriptions",
+        "type": "Expense",
+        "amount": -7.65,
+        "runningBalance": 404.69
+      },
+      {
+        "date": "2025-02-09",
+        "description": "Phone bill",
+        "category": "Subscriptions",
+        "type": "Expense",
+        "amount": -14.38,
+        "runningBalance": 390.31
+      },
+      {
+        "date": "2025-02-10",
+        "description": "Hotel",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -3.65,
+        "runningBalance": 386.66
+      },
+      {
+        "date": "2025-02-11",
+        "description": "Airbnb",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -7.01,
+        "runningBalance": 379.65
+      },
+      {
+        "date": "2025-02-12",
+        "description": "Sports",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -29.5,
+        "runningBalance": 350.15
+      },
+      {
+        "date": "2025-02-13",
+        "description": "Pharmacy",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -8.43,
+        "runningBalance": 341.72
+      },
+      {
+        "date": "2025-02-14",
+        "description": "Hotel",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -3.63,
+        "runningBalance": 338.09
+      },
+      {
+        "date": "2025-02-16",
+        "description": "Finnair flight",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -7.04,
+        "runningBalance": 331.05
+      },
+      {
+        "date": "2025-02-19",
+        "description": "K-Market",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -68.09,
+        "runningBalance": 262.96
+      },
+      {
+        "date": "2025-02-19",
+        "description": "Pharmacy",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -5.87,
+        "runningBalance": 257.09
+      },
+      {
+        "date": "2025-02-21",
+        "description": "Public transport pass",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -9.45,
+        "runningBalance": 247.64
+      },
+      {
+        "date": "2025-02-21",
+        "description": "Postage / misc",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -33.65,
+        "runningBalance": 213.99
+      },
+      {
+        "date": "2025-02-21",
+        "description": "Online shopping",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -20.6,
+        "runningBalance": 193.39
+      },
+      {
+        "date": "2025-02-21",
+        "description": "Online shopping",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -4.42,
+        "runningBalance": 188.97
+      },
+      {
+        "date": "2025-02-24",
+        "description": "Pharmacy",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -23.17,
+        "runningBalance": 165.8
+      },
+      {
+        "date": "2025-02-24",
+        "description": "Sports",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -24.43,
+        "runningBalance": 141.37
+      },
+      {
+        "date": "2025-02-24",
+        "description": "Airbnb",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -4.89,
+        "runningBalance": 136.48
+      },
+      {
+        "date": "2025-02-25",
+        "description": "Salary deposit",
+        "category": "Income",
+        "type": "Income",
+        "amount": 2200,
+        "runningBalance": 2336.48
+      },
+      {
+        "date": "2025-02-27",
+        "description": "Cleaning supplies",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -11.2,
+        "runningBalance": 2325.28
+      },
+      {
+        "date": "2025-02-28",
+        "description": "Public transport pass",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -34.49,
+        "runningBalance": 2290.79
+      },
+      {
+        "date": "2025-03-01",
+        "description": "Internet subscription",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -31.04,
+        "runningBalance": 2259.75
+      },
+      {
+        "date": "2025-03-01",
+        "description": "Dining out",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -9.62,
+        "runningBalance": 2250.13
+      },
+      {
+        "date": "2025-03-01",
+        "description": "Finnair flight",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -19.29,
+        "runningBalance": 2230.84
+      },
+      {
+        "date": "2025-03-02",
+        "description": "Electricity & water",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -59.4,
+        "runningBalance": 2171.44
+      },
+      {
+        "date": "2025-03-02",
+        "description": "Maintenance fee",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -30.94,
+        "runningBalance": 2140.5
+      },
+      {
+        "date": "2025-03-02",
+        "description": "Fuel",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -32.73,
+        "runningBalance": 2107.77
+      },
+      {
+        "date": "2025-03-03",
+        "description": "Phone bill",
+        "category": "Subscriptions",
+        "type": "Expense",
+        "amount": -15.81,
+        "runningBalance": 2091.96
+      },
+      {
+        "date": "2025-03-04",
+        "description": "Home insurance",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -30.45,
+        "runningBalance": 2061.51
+      },
+      {
+        "date": "2025-03-05",
+        "description": "Rent payment",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -469.63,
+        "runningBalance": 1591.88
+      },
+      {
+        "date": "2025-03-05",
+        "description": "Finnair flight",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -18.62,
+        "runningBalance": 1573.26
+      },
+      {
+        "date": "2025-03-06",
+        "description": "Lidl",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -28.87,
+        "runningBalance": 1544.39
+      },
+      {
+        "date": "2025-03-06",
+        "description": "Bar / nightout",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -43.09,
+        "runningBalance": 1501.3
+      },
+      {
+        "date": "2025-03-07",
+        "description": "Disney+",
+        "category": "Subscriptions",
+        "type": "Expense",
+        "amount": -6.83,
+        "runningBalance": 1494.47
+      },
+      {
+        "date": "2025-03-08",
+        "description": "Haircut",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -13.81,
+        "runningBalance": 1480.66
+      },
+      {
+        "date": "2025-03-10",
+        "description": "K-Market",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -31.97,
+        "runningBalance": 1448.69
+      },
+      {
+        "date": "2025-03-10",
+        "description": "Online shopping",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -32.98,
+        "runningBalance": 1415.71
+      },
+      {
+        "date": "2025-03-10",
+        "description": "Birthday gift",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -8.41,
+        "runningBalance": 1407.3
+      },
+      {
+        "date": "2025-03-12",
+        "description": "S-Market",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -107.33,
+        "runningBalance": 1299.97
+      },
+      {
+        "date": "2025-03-12",
+        "description": "Car service",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -12.73,
+        "runningBalance": 1287.24
+      },
+      {
+        "date": "2025-03-15",
+        "description": "Finnair flight",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -18.34,
+        "runningBalance": 1268.9
+      },
+      {
+        "date": "2025-03-18",
+        "description": "Public transport pass",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -24.82,
+        "runningBalance": 1244.08
+      },
+      {
+        "date": "2025-03-18",
+        "description": "Hobby supplies",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -7.77,
+        "runningBalance": 1236.31
+      },
+      {
+        "date": "2025-03-20",
+        "description": "Books / games",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -10.18,
+        "runningBalance": 1226.13
+      },
+      {
+        "date": "2025-03-23",
+        "description": "Postage / misc",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -16.29,
+        "runningBalance": 1209.84
+      },
+      {
+        "date": "2025-03-24",
+        "description": "K-Market",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -25.11,
+        "runningBalance": 1184.73
+      },
+      {
+        "date": "2025-03-24",
+        "description": "Public transport pass",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -29.08,
+        "runningBalance": 1155.65
+      },
+      {
+        "date": "2025-03-24",
+        "description": "Gym membership",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -17.65,
+        "runningBalance": 1138
+      },
+      {
+        "date": "2025-03-24",
+        "description": "Concert / event",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -39.85,
+        "runningBalance": 1098.15
+      },
+      {
+        "date": "2025-03-25",
+        "description": "Salary deposit",
+        "category": "Income",
+        "type": "Income",
+        "amount": 2200,
+        "runningBalance": 3298.15
+      },
+      {
+        "date": "2025-03-26",
+        "description": "K-Market",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -66.22,
+        "runningBalance": 3231.93
+      },
+      {
+        "date": "2025-04-01",
+        "description": "Internet subscription",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -32.85,
+        "runningBalance": 3199.08
+      },
+      {
+        "date": "2025-04-01",
+        "description": "Home insurance",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -34.32,
+        "runningBalance": 3164.76
+      },
+      {
+        "date": "2025-04-03",
+        "description": "Electricity & water",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -68.38,
+        "runningBalance": 3096.38
+      },
+      {
+        "date": "2025-04-03",
+        "description": "Maintenance fee",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -33.5,
+        "runningBalance": 3062.88
+      },
+      {
+        "date": "2025-04-03",
+        "description": "Gym membership",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -13.88,
+        "runningBalance": 3049
+      },
+      {
+        "date": "2025-04-04",
+        "description": "Rent payment",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -518.94,
+        "runningBalance": 2530.06
+      },
+      {
+        "date": "2025-04-04",
+        "description": "Finnair flight",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -21.9,
+        "runningBalance": 2508.16
+      },
+      {
+        "date": "2025-04-05",
+        "description": "Disney+",
+        "category": "Subscriptions",
+        "type": "Expense",
+        "amount": -6.79,
+        "runningBalance": 2501.37
+      },
+      {
+        "date": "2025-04-05",
+        "description": "Gym membership",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -17.41,
+        "runningBalance": 2483.96
+      },
+      {
+        "date": "2025-04-05",
+        "description": "Doctor visit",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -4.92,
+        "runningBalance": 2479.04
+      },
+      {
+        "date": "2025-04-10",
+        "description": "Finnair flight",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -22.06,
+        "runningBalance": 2456.98
+      },
+      {
+        "date": "2025-04-13",
+        "description": "Fuel",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -46.65,
+        "runningBalance": 2410.33
+      },
+      {
+        "date": "2025-04-13",
+        "description": "Gym membership",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -9.96,
+        "runningBalance": 2400.37
+      },
+      {
+        "date": "2025-04-13",
+        "description": "Cleaning supplies",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -16.75,
+        "runningBalance": 2383.62
+      },
+      {
+        "date": "2025-04-14",
+        "description": "Car service",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -30.48,
+        "runningBalance": 2353.14
+      },
+      {
+        "date": "2025-04-14",
+        "description": "Birthday gift",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -10.56,
+        "runningBalance": 2342.58
+      },
+      {
+        "date": "2025-04-15",
+        "description": "Cinema",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -38.55,
+        "runningBalance": 2304.03
+      },
+      {
+        "date": "2025-04-18",
+        "description": "S-Market",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -77.54,
+        "runningBalance": 2226.49
+      },
+      {
+        "date": "2025-04-20",
+        "description": "Cinema",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -30.33,
+        "runningBalance": 2196.16
+      },
+      {
+        "date": "2025-04-21",
+        "description": "Car service",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -11.73,
+        "runningBalance": 2184.43
+      },
+      {
+        "date": "2025-04-23",
+        "description": "Hobby supplies",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -19.18,
+        "runningBalance": 2165.25
+      },
+      {
+        "date": "2025-04-23",
+        "description": "Cleaning supplies",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -22.64,
+        "runningBalance": 2142.61
+      },
+      {
+        "date": "2025-04-25",
+        "description": "Salary deposit",
+        "category": "Income",
+        "type": "Income",
+        "amount": 2200,
+        "runningBalance": 4342.61
+      },
+      {
+        "date": "2025-04-26",
+        "description": "Hobby supplies",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -34.83,
+        "runningBalance": 4307.78
+      },
+      {
+        "date": "2025-04-27",
+        "description": "Online shopping",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -10.74,
+        "runningBalance": 4297.04
+      },
+      {
+        "date": "2025-05-01",
+        "description": "Rent payment",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -521.9,
+        "runningBalance": 3775.14
+      },
+      {
+        "date": "2025-05-01",
+        "description": "Internet subscription",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -33.59,
+        "runningBalance": 3741.55
+      },
+      {
+        "date": "2025-05-01",
+        "description": "Home insurance",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -33.3,
+        "runningBalance": 3708.25
+      },
+      {
+        "date": "2025-05-03",
+        "description": "Electricity & water",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -67.29,
+        "runningBalance": 3640.96
+      },
+      {
+        "date": "2025-05-03",
+        "description": "Public transport pass",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -11.87,
+        "runningBalance": 3629.09
+      },
+      {
+        "date": "2025-05-04",
+        "description": "Maintenance fee",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -34.44,
+        "runningBalance": 3594.65
+      },
+      {
+        "date": "2025-05-05",
+        "description": "Concert / event",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -52.91,
+        "runningBalance": 3541.74
+      },
+      {
+        "date": "2025-05-06",
+        "description": "Postage / misc",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -18.8,
+        "runningBalance": 3522.94
+      },
+      {
+        "date": "2025-05-07",
+        "description": "Finnair flight",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -10.35,
+        "runningBalance": 3512.59
+      },
+      {
+        "date": "2025-05-08",
+        "description": "Dining out",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -84.82,
+        "runningBalance": 3427.77
+      },
+      {
+        "date": "2025-05-09",
+        "description": "Public transport pass",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -8.58,
+        "runningBalance": 3419.19
+      },
+      {
+        "date": "2025-05-09",
+        "description": "Hotel",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -21.27,
+        "runningBalance": 3397.92
+      },
+      {
+        "date": "2025-05-09",
+        "description": "Birthday gift",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -12.73,
+        "runningBalance": 3385.19
+      },
+      {
+        "date": "2025-05-11",
+        "description": "Cinema",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -8.73,
+        "runningBalance": 3376.46
+      },
+      {
+        "date": "2025-05-13",
+        "description": "Doctor visit",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -14.67,
+        "runningBalance": 3361.79
+      },
+      {
+        "date": "2025-05-18",
+        "description": "Concert / event",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -10.48,
+        "runningBalance": 3351.31
+      },
+      {
+        "date": "2025-05-19",
+        "description": "Concert / event",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -26.94,
+        "runningBalance": 3324.37
+      },
+      {
+        "date": "2025-05-22",
+        "description": "Prisma",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -43.39,
+        "runningBalance": 3280.98
+      },
+      {
+        "date": "2025-05-24",
+        "description": "Fuel",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -4.88,
+        "runningBalance": 3276.1
+      },
+      {
+        "date": "2025-05-24",
+        "description": "Airbnb",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -7.17,
+        "runningBalance": 3268.93
+      },
+      {
+        "date": "2025-05-25",
+        "description": "Salary deposit",
+        "category": "Income",
+        "type": "Income",
+        "amount": 2200,
+        "runningBalance": 5468.93
+      },
+      {
+        "date": "2025-05-25",
+        "description": "Birthday gift",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -12.12,
+        "runningBalance": 5456.81
+      },
+      {
+        "date": "2025-05-26",
+        "description": "Fuel",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -39.71,
+        "runningBalance": 5417.1
+      },
+      {
+        "date": "2025-05-26",
+        "description": "Gym membership",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -15.47,
+        "runningBalance": 5401.63
+      },
+      {
+        "date": "2025-05-26",
+        "description": "Concert / event",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -27.71,
+        "runningBalance": 5373.92
+      },
+      {
+        "date": "2025-05-27",
+        "description": "Travel insurance",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -26.16,
+        "runningBalance": 5347.76
+      },
+      {
+        "date": "2025-05-28",
+        "description": "Taxi / Bolt",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -19.85,
+        "runningBalance": 5327.91
+      },
+      {
+        "date": "2025-06-01",
+        "description": "Electricity & water",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -68.92,
+        "runningBalance": 5258.99
+      },
+      {
+        "date": "2025-06-01",
+        "description": "Prisma",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -65.13,
+        "runningBalance": 5193.86
+      },
+      {
+        "date": "2025-06-01",
+        "description": "Public transport pass",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -27.54,
+        "runningBalance": 5166.32
+      },
+      {
+        "date": "2025-06-02",
+        "description": "Rent payment",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -494.57,
+        "runningBalance": 4671.75
+      },
+      {
+        "date": "2025-06-02",
+        "description": "Internet subscription",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -33.67,
+        "runningBalance": 4638.08
+      },
+      {
+        "date": "2025-06-02",
+        "description": "Home insurance",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -34.42,
+        "runningBalance": 4603.66
+      },
+      {
+        "date": "2025-06-02",
+        "description": "Phone bill",
+        "category": "Subscriptions",
+        "type": "Expense",
+        "amount": -16.48,
+        "runningBalance": 4587.18
+      },
+      {
+        "date": "2025-06-03",
+        "description": "Maintenance fee",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -33.58,
+        "runningBalance": 4553.6
+      },
+      {
+        "date": "2025-06-04",
+        "description": "Gym membership",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -10.21,
+        "runningBalance": 4543.39
+      },
+      {
+        "date": "2025-06-06",
+        "description": "Books / games",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -47.9,
+        "runningBalance": 4495.49
+      },
+      {
+        "date": "2025-06-08",
+        "description": "Cinema",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -38.57,
+        "runningBalance": 4456.92
+      },
+      {
+        "date": "2025-06-09",
+        "description": "Airbnb",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -19.3,
+        "runningBalance": 4437.62
+      },
+      {
+        "date": "2025-06-10",
+        "description": "S-Market",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -17.71,
+        "runningBalance": 4419.91
+      },
+      {
+        "date": "2025-06-10",
+        "description": "Public transport pass",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -12.86,
+        "runningBalance": 4407.05
+      },
+      {
+        "date": "2025-06-10",
+        "description": "Airbnb",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -63.12,
+        "runningBalance": 4343.93
+      },
+      {
+        "date": "2025-06-11",
+        "description": "Parking",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -13.28,
+        "runningBalance": 4330.65
+      },
+      {
+        "date": "2025-06-12",
+        "description": "Dining out",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -10.05,
+        "runningBalance": 4320.6
+      },
+      {
+        "date": "2025-06-12",
+        "description": "Car service",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -19.79,
+        "runningBalance": 4300.81
+      },
+      {
+        "date": "2025-06-13",
+        "description": "S-Market",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -54.82,
+        "runningBalance": 4245.99
+      },
+      {
+        "date": "2025-06-13",
+        "description": "Finnair flight",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -26.78,
+        "runningBalance": 4219.21
+      },
+      {
+        "date": "2025-06-13",
+        "description": "Birthday gift",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -12.53,
+        "runningBalance": 4206.68
+      },
+      {
+        "date": "2025-06-17",
+        "description": "Lidl",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -44.04,
+        "runningBalance": 4162.64
+      },
+      {
+        "date": "2025-06-19",
+        "description": "Prisma",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -41.27,
+        "runningBalance": 4121.37
+      },
+      {
+        "date": "2025-06-19",
+        "description": "Pharmacy",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -15.37,
+        "runningBalance": 4106
+      },
+      {
+        "date": "2025-06-20",
+        "description": "Dining out",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -35.06,
+        "runningBalance": 4070.94
+      },
+      {
+        "date": "2025-06-20",
+        "description": "Gym membership",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -13.33,
+        "runningBalance": 4057.61
+      },
+      {
+        "date": "2025-06-22",
+        "description": "Postage / misc",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -25.05,
+        "runningBalance": 4032.56
+      },
+      {
+        "date": "2025-06-22",
+        "description": "Postage / misc",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -5.46,
+        "runningBalance": 4027.1
+      },
+      {
+        "date": "2025-06-25",
+        "description": "Salary deposit",
+        "category": "Income",
+        "type": "Income",
+        "amount": 2200,
+        "runningBalance": 6227.1
+      },
+      {
+        "date": "2025-06-25",
+        "description": "Birthday gift",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -2.92,
+        "runningBalance": 6224.18
+      },
+      {
+        "date": "2025-06-27",
+        "description": "Sports",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -33.55,
+        "runningBalance": 6190.63
+      },
+      {
+        "date": "2025-06-28",
+        "description": "Birthday gift",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -10.12,
+        "runningBalance": 6180.51
+      },
+      {
+        "date": "2025-07-01",
+        "description": "Electricity & water",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -64.13,
+        "runningBalance": 6116.38
+      },
+      {
+        "date": "2025-07-01",
+        "description": "Home insurance",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -31.99,
+        "runningBalance": 6084.39
+      },
+      {
+        "date": "2025-07-01",
+        "description": "Birthday gift",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -13.52,
+        "runningBalance": 6070.87
+      },
+      {
+        "date": "2025-07-02",
+        "description": "Maintenance fee",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -33.74,
+        "runningBalance": 6037.13
+      },
+      {
+        "date": "2025-07-02",
+        "description": "Airbnb",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -10.81,
+        "runningBalance": 6026.32
+      },
+      {
+        "date": "2025-07-03",
+        "description": "Internet subscription",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -32.14,
+        "runningBalance": 5994.18
+      },
+      {
+        "date": "2025-07-04",
+        "description": "Phone bill",
+        "category": "Subscriptions",
+        "type": "Expense",
+        "amount": -15.95,
+        "runningBalance": 5978.23
+      },
+      {
+        "date": "2025-07-05",
+        "description": "Rent payment",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -498.24,
+        "runningBalance": 5479.99
+      },
+      {
+        "date": "2025-07-08",
+        "description": "Doctor visit",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -22.33,
+        "runningBalance": 5457.66
+      },
+      {
+        "date": "2025-07-09",
+        "description": "Finnair flight",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -65.66,
+        "runningBalance": 5392
+      },
+      {
+        "date": "2025-07-09",
+        "description": "Finnair flight",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -24.21,
+        "runningBalance": 5367.79
+      },
+      {
+        "date": "2025-07-10",
+        "description": "Fuel",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -14.51,
+        "runningBalance": 5353.28
+      },
+      {
+        "date": "2025-07-10",
+        "description": "Books / games",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -65.93,
+        "runningBalance": 5287.35
+      },
+      {
+        "date": "2025-07-16",
+        "description": "Lidl",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -68.72,
+        "runningBalance": 5218.63
+      },
+      {
+        "date": "2025-07-20",
+        "description": "Taxi / Bolt",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -17.75,
+        "runningBalance": 5200.88
+      },
+      {
+        "date": "2025-07-21",
+        "description": "Pharmacy",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -13.52,
+        "runningBalance": 5187.36
+      },
+      {
+        "date": "2025-07-21",
+        "description": "Postage / misc",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -4.97,
+        "runningBalance": 5182.39
+      },
+      {
+        "date": "2025-07-23",
+        "description": "K-Market",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -54,
+        "runningBalance": 5128.39
+      },
+      {
+        "date": "2025-07-23",
+        "description": "Postage / misc",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -6.71,
+        "runningBalance": 5121.68
+      },
+      {
+        "date": "2025-07-24",
+        "description": "Postage / misc",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -10.46,
+        "runningBalance": 5111.22
+      },
+      {
+        "date": "2025-07-25",
+        "description": "Salary deposit",
+        "category": "Income",
+        "type": "Income",
+        "amount": 2200,
+        "runningBalance": 7311.22
+      },
+      {
+        "date": "2025-07-27",
+        "description": "Fuel",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -31.17,
+        "runningBalance": 7280.05
+      },
+      {
+        "date": "2025-07-27",
+        "description": "Taxi / Bolt",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -19.11,
+        "runningBalance": 7260.94
+      },
+      {
+        "date": "2025-07-27",
+        "description": "Online shopping",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -34.75,
+        "runningBalance": 7226.19
+      },
+      {
+        "date": "2025-07-28",
+        "description": "Dining out",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -61.71,
+        "runningBalance": 7164.48
+      },
+      {
+        "date": "2025-07-28",
+        "description": "Hotel",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -21.88,
+        "runningBalance": 7142.6
+      },
+      {
+        "date": "2025-08-01",
+        "description": "Maintenance fee",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -34.18,
+        "runningBalance": 7108.42
+      },
+      {
+        "date": "2025-08-01",
+        "description": "Public transport pass",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -18.56,
+        "runningBalance": 7089.86
+      },
+      {
+        "date": "2025-08-02",
+        "description": "K-Market",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -35.75,
+        "runningBalance": 7054.11
+      },
+      {
+        "date": "2025-08-02",
+        "description": "Finnair flight",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -42.99,
+        "runningBalance": 7011.12
+      },
+      {
+        "date": "2025-08-02",
+        "description": "Finnair flight",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -8.25,
+        "runningBalance": 7002.87
+      },
+      {
+        "date": "2025-08-03",
+        "description": "Rent payment",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -490.63,
+        "runningBalance": 6512.24
+      },
+      {
+        "date": "2025-08-03",
+        "description": "Internet subscription",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -33.6,
+        "runningBalance": 6478.64
+      },
+      {
+        "date": "2025-08-03",
+        "description": "Pharmacy",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -9.32,
+        "runningBalance": 6469.32
+      },
+      {
+        "date": "2025-08-03",
+        "description": "Bar / nightout",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -84.61,
+        "runningBalance": 6384.71
+      },
+      {
+        "date": "2025-08-04",
+        "description": "Gym membership",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -26.96,
+        "runningBalance": 6357.75
+      },
+      {
+        "date": "2025-08-05",
+        "description": "Electricity & water",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -65.42,
+        "runningBalance": 6292.33
+      },
+      {
+        "date": "2025-08-05",
+        "description": "Home insurance",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -33.08,
+        "runningBalance": 6259.25
+      },
+      {
+        "date": "2025-08-05",
+        "description": "Finnair flight",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -25.22,
+        "runningBalance": 6234.03
+      },
+      {
+        "date": "2025-08-06",
+        "description": "Finnair flight",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -21.53,
+        "runningBalance": 6212.5
+      },
+      {
+        "date": "2025-08-07",
+        "description": "Bar / nightout",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -34.35,
+        "runningBalance": 6178.15
+      },
+      {
+        "date": "2025-08-08",
+        "description": "Netflix",
+        "category": "Subscriptions",
+        "type": "Expense",
+        "amount": -8.43,
+        "runningBalance": 6169.72
+      },
+      {
+        "date": "2025-08-08",
+        "description": "Spotify",
+        "category": "Subscriptions",
+        "type": "Expense",
+        "amount": -5.87,
+        "runningBalance": 6163.85
+      },
+      {
+        "date": "2025-08-09",
+        "description": "Phone bill",
+        "category": "Subscriptions",
+        "type": "Expense",
+        "amount": -14.13,
+        "runningBalance": 6149.72
+      },
+      {
+        "date": "2025-08-09",
+        "description": "Finnair flight",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -16.78,
+        "runningBalance": 6132.94
+      },
+      {
+        "date": "2025-08-12",
+        "description": "Haircut",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -5.78,
+        "runningBalance": 6127.16
+      },
+      {
+        "date": "2025-08-14",
+        "description": "Birthday gift",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -12.94,
+        "runningBalance": 6114.22
+      },
+      {
+        "date": "2025-08-17",
+        "description": "Lidl",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -82.66,
+        "runningBalance": 6031.56
+      },
+      {
+        "date": "2025-08-17",
+        "description": "Skincare",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -8.13,
+        "runningBalance": 6023.43
+      },
+      {
+        "date": "2025-08-17",
+        "description": "Bar / nightout",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -26.68,
+        "runningBalance": 5996.75
+      },
+      {
+        "date": "2025-08-19",
+        "description": "S-Market",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -49.26,
+        "runningBalance": 5947.49
+      },
+      {
+        "date": "2025-08-20",
+        "description": "Dining out",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -54.04,
+        "runningBalance": 5893.45
+      },
+      {
+        "date": "2025-08-23",
+        "description": "Cleaning supplies",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -15.62,
+        "runningBalance": 5877.83
+      },
+      {
+        "date": "2025-08-25",
+        "description": "Salary deposit",
+        "category": "Income",
+        "type": "Income",
+        "amount": 2200,
+        "runningBalance": 8077.83
+      },
+      {
+        "date": "2025-08-27",
+        "description": "Online shopping",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -14.17,
+        "runningBalance": 8063.66
+      },
+      {
+        "date": "2025-08-28",
+        "description": "Public transport pass",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -20.48,
+        "runningBalance": 8043.18
+      },
+      {
+        "date": "2025-09-02",
+        "description": "Home insurance",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -35.3,
+        "runningBalance": 8007.88
+      },
+      {
+        "date": "2025-09-02",
+        "description": "Taxi / Bolt",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -17.02,
+        "runningBalance": 7990.86
+      },
+      {
+        "date": "2025-09-03",
+        "description": "Rent payment",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -537.52,
+        "runningBalance": 7453.34
+      },
+      {
+        "date": "2025-09-03",
+        "description": "Internet subscription",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -35.82,
+        "runningBalance": 7417.52
+      },
+      {
+        "date": "2025-09-03",
+        "description": "Bar / nightout",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -26.23,
+        "runningBalance": 7391.29
+      },
+      {
+        "date": "2025-09-04",
+        "description": "Electricity & water",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -71.15,
+        "runningBalance": 7320.14
+      },
+      {
+        "date": "2025-09-04",
+        "description": "Maintenance fee",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -35.47,
+        "runningBalance": 7284.67
+      },
+      {
+        "date": "2025-09-04",
+        "description": "Dining out",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -99.46,
+        "runningBalance": 7185.21
+      },
+      {
+        "date": "2025-09-04",
+        "description": "Phone bill",
+        "category": "Subscriptions",
+        "type": "Expense",
+        "amount": -16.79,
+        "runningBalance": 7168.42
+      },
+      {
+        "date": "2025-09-05",
+        "description": "Lidl",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -31.02,
+        "runningBalance": 7137.4
+      },
+      {
+        "date": "2025-09-05",
+        "description": "Prisma",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -27.46,
+        "runningBalance": 7109.94
+      },
+      {
+        "date": "2025-09-05",
+        "description": "Hobby supplies",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -64.61,
+        "runningBalance": 7045.33
+      },
+      {
+        "date": "2025-09-05",
+        "description": "Cinema",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -17.89,
+        "runningBalance": 7027.44
+      },
+      {
+        "date": "2025-09-05",
+        "description": "Postage / misc",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -4.22,
+        "runningBalance": 7023.22
+      },
+      {
+        "date": "2025-09-06",
+        "description": "Online shopping",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -22.93,
+        "runningBalance": 7000.29
+      },
+      {
+        "date": "2025-09-08",
+        "description": "Concert / event",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -11.09,
+        "runningBalance": 6989.2
+      },
+      {
+        "date": "2025-09-10",
+        "description": "Hotel",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -21.39,
+        "runningBalance": 6967.81
+      },
+      {
+        "date": "2025-09-11",
+        "description": "Public transport pass",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -37.02,
+        "runningBalance": 6930.79
+      },
+      {
+        "date": "2025-09-11",
+        "description": "Airbnb",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -6.06,
+        "runningBalance": 6924.73
+      },
+      {
+        "date": "2025-09-13",
+        "description": "Bar / nightout",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -9.65,
+        "runningBalance": 6915.08
+      },
+      {
+        "date": "2025-09-14",
+        "description": "Cleaning supplies",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -6.21,
+        "runningBalance": 6908.87
+      },
+      {
+        "date": "2025-09-16",
+        "description": "Pharmacy",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -8.93,
+        "runningBalance": 6899.94
+      },
+      {
+        "date": "2025-09-18",
+        "description": "K-Market",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -29.89,
+        "runningBalance": 6870.05
+      },
+      {
+        "date": "2025-09-20",
+        "description": "Haircut",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -4.12,
+        "runningBalance": 6865.93
+      },
+      {
+        "date": "2025-09-20",
+        "description": "Cleaning supplies",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -4.94,
+        "runningBalance": 6860.99
+      },
+      {
+        "date": "2025-09-21",
+        "description": "Pharmacy",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -12.02,
+        "runningBalance": 6848.97
+      },
+      {
+        "date": "2025-09-21",
+        "description": "Birthday gift",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -15.85,
+        "runningBalance": 6833.12
+      },
+      {
+        "date": "2025-09-22",
+        "description": "Finnair flight",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -28.52,
+        "runningBalance": 6804.6
+      },
+      {
+        "date": "2025-09-22",
+        "description": "Online shopping",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -4.56,
+        "runningBalance": 6800.04
+      },
+      {
+        "date": "2025-09-25",
+        "description": "Salary deposit",
+        "category": "Income",
+        "type": "Income",
+        "amount": 2200,
+        "runningBalance": 9000.04
+      },
+      {
+        "date": "2025-09-25",
+        "description": "Pharmacy",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -13.49,
+        "runningBalance": 8986.55
+      },
+      {
+        "date": "2025-09-26",
+        "description": "K-Market",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -26.94,
+        "runningBalance": 8959.61
+      },
+      {
+        "date": "2025-10-01",
+        "description": "Electricity & water",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -66.69,
+        "runningBalance": 8892.92
+      },
+      {
+        "date": "2025-10-02",
+        "description": "Public transport pass",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -45.35,
+        "runningBalance": 8847.57
+      },
+      {
+        "date": "2025-10-02",
+        "description": "Car service",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -13.91,
+        "runningBalance": 8833.66
+      },
+      {
+        "date": "2025-10-02",
+        "description": "Cloud storage",
+        "category": "Subscriptions",
+        "type": "Expense",
+        "amount": -7.02,
+        "runningBalance": 8826.64
+      },
+      {
+        "date": "2025-10-03",
+        "description": "Home insurance",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -32.99,
+        "runningBalance": 8793.65
+      },
+      {
+        "date": "2025-10-03",
+        "description": "Maintenance fee",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -34.39,
+        "runningBalance": 8759.26
+      },
+      {
+        "date": "2025-10-03",
+        "description": "Cinema",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -15.88,
+        "runningBalance": 8743.38
+      },
+      {
+        "date": "2025-10-04",
+        "description": "Rent payment",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -513.46,
+        "runningBalance": 8229.92
+      },
+      {
+        "date": "2025-10-05",
+        "description": "Internet subscription",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -33.83,
+        "runningBalance": 8196.09
+      },
+      {
+        "date": "2025-10-05",
+        "description": "Dining out",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -36.65,
+        "runningBalance": 8159.44
+      },
+      {
+        "date": "2025-10-05",
+        "description": "Public transport pass",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -11.63,
+        "runningBalance": 8147.81
+      },
+      {
+        "date": "2025-10-05",
+        "description": "Cleaning supplies",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -13.58,
+        "runningBalance": 8134.23
+      },
+      {
+        "date": "2025-10-06",
+        "description": "Hotel",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -14.26,
+        "runningBalance": 8119.97
+      },
+      {
+        "date": "2025-10-06",
+        "description": "Travel insurance",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -16.93,
+        "runningBalance": 8103.04
+      },
+      {
+        "date": "2025-10-07",
+        "description": "Hotel",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -6.42,
+        "runningBalance": 8096.62
+      },
+      {
+        "date": "2025-10-08",
+        "description": "Disney+",
+        "category": "Subscriptions",
+        "type": "Expense",
+        "amount": -7.15,
+        "runningBalance": 8089.47
+      },
+      {
+        "date": "2025-10-09",
+        "description": "Sports",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -16.11,
+        "runningBalance": 8073.36
+      },
+      {
+        "date": "2025-10-09",
+        "description": "Finnair flight",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -16.81,
+        "runningBalance": 8056.55
+      },
+      {
+        "date": "2025-10-12",
+        "description": "Hobby supplies",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -25.72,
+        "runningBalance": 8030.83
+      },
+      {
+        "date": "2025-10-14",
+        "description": "Prisma",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -53.62,
+        "runningBalance": 7977.21
+      },
+      {
+        "date": "2025-10-14",
+        "description": "Hobby supplies",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -61.15,
+        "runningBalance": 7916.06
+      },
+      {
+        "date": "2025-10-19",
+        "description": "Gym membership",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -16.63,
+        "runningBalance": 7899.43
+      },
+      {
+        "date": "2025-10-20",
+        "description": "Lidl",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -59.25,
+        "runningBalance": 7840.18
+      },
+      {
+        "date": "2025-10-22",
+        "description": "Coffee shop",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -31.46,
+        "runningBalance": 7808.72
+      },
+      {
+        "date": "2025-10-23",
+        "description": "K-Market",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -52.18,
+        "runningBalance": 7756.54
+      },
+      {
+        "date": "2025-10-24",
+        "description": "Online shopping",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -6.43,
+        "runningBalance": 7750.11
+      },
+      {
+        "date": "2025-10-25",
+        "description": "Salary deposit",
+        "category": "Income",
+        "type": "Income",
+        "amount": 2200,
+        "runningBalance": 9950.11
+      },
+      {
+        "date": "2025-10-25",
+        "description": "Hobby supplies",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -15.18,
+        "runningBalance": 9934.93
+      },
+      {
+        "date": "2025-10-27",
+        "description": "Pharmacy",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -9.83,
+        "runningBalance": 9925.1
+      },
+      {
+        "date": "2025-10-27",
+        "description": "Online shopping",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -12.06,
+        "runningBalance": 9913.04
+      },
+      {
+        "date": "2025-11-01",
+        "description": "Electricity & water",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -65.84,
+        "runningBalance": 9847.2
+      },
+      {
+        "date": "2025-11-01",
+        "description": "Internet subscription",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -34.21,
+        "runningBalance": 9812.99
+      },
+      {
+        "date": "2025-11-03",
+        "description": "Home insurance",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -34.54,
+        "runningBalance": 9778.45
+      },
+      {
+        "date": "2025-11-03",
+        "description": "Maintenance fee",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -34.49,
+        "runningBalance": 9743.96
+      },
+      {
+        "date": "2025-11-03",
+        "description": "K-Market",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -70,
+        "runningBalance": 9673.96
+      },
+      {
+        "date": "2025-11-03",
+        "description": "Dining out",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -10.41,
+        "runningBalance": 9663.55
+      },
+      {
+        "date": "2025-11-04",
+        "description": "Rent payment",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -518.45,
+        "runningBalance": 9145.1
+      },
+      {
+        "date": "2025-11-04",
+        "description": "Fuel",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -18.8,
+        "runningBalance": 9126.3
+      },
+      {
+        "date": "2025-11-05",
+        "description": "Public transport pass",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -41.37,
+        "runningBalance": 9084.93
+      },
+      {
+        "date": "2025-11-06",
+        "description": "Coffee shop",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -36.64,
+        "runningBalance": 9048.29
+      },
+      {
+        "date": "2025-11-08",
+        "description": "Books / games",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -58.87,
+        "runningBalance": 8989.42
+      },
+      {
+        "date": "2025-11-10",
+        "description": "Online shopping",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -7.56,
+        "runningBalance": 8981.86
+      },
+      {
+        "date": "2025-11-11",
+        "description": "Haircut",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -3.84,
+        "runningBalance": 8978.02
+      },
+      {
+        "date": "2025-11-12",
+        "description": "Finnair flight",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -18.55,
+        "runningBalance": 8959.47
+      },
+      {
+        "date": "2025-11-12",
+        "description": "Birthday gift",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -19.92,
+        "runningBalance": 8939.55
+      },
+      {
+        "date": "2025-11-13",
+        "description": "Lidl",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -9.21,
+        "runningBalance": 8930.34
+      },
+      {
+        "date": "2025-11-17",
+        "description": "K-Market",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -11.9,
+        "runningBalance": 8918.44
+      },
+      {
+        "date": "2025-11-17",
+        "description": "Pharmacy",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -3.56,
+        "runningBalance": 8914.88
+      },
+      {
+        "date": "2025-11-18",
+        "description": "Coffee shop",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -44.4,
+        "runningBalance": 8870.48
+      },
+      {
+        "date": "2025-11-18",
+        "description": "Gym membership",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -27.01,
+        "runningBalance": 8843.47
+      },
+      {
+        "date": "2025-11-18",
+        "description": "Pharmacy",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -8.78,
+        "runningBalance": 8834.69
+      },
+      {
+        "date": "2025-11-18",
+        "description": "Finnair flight",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -18.15,
+        "runningBalance": 8816.54
+      },
+      {
+        "date": "2025-11-18",
+        "description": "Cleaning supplies",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -33.74,
+        "runningBalance": 8782.8
+      },
+      {
+        "date": "2025-11-22",
+        "description": "Fuel",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -13.29,
+        "runningBalance": 8769.51
+      },
+      {
+        "date": "2025-11-23",
+        "description": "Hotel",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -21.86,
+        "runningBalance": 8747.65
+      },
+      {
+        "date": "2025-11-24",
+        "description": "Lidl",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -54.27,
+        "runningBalance": 8693.38
+      },
+      {
+        "date": "2025-11-25",
+        "description": "Salary deposit",
+        "category": "Income",
+        "type": "Income",
+        "amount": 2200,
+        "runningBalance": 10893.38
+      },
+      {
+        "date": "2025-11-27",
+        "description": "Travel insurance",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -9.53,
+        "runningBalance": 10883.85
+      },
+      {
+        "date": "2025-11-28",
+        "description": "Haircut",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -11.01,
+        "runningBalance": 10872.84
+      },
+      {
+        "date": "2025-12-01",
+        "description": "Rent payment",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -435.6,
+        "runningBalance": 10437.24
+      },
+      {
+        "date": "2025-12-01",
+        "description": "Internet subscription",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -29.48,
+        "runningBalance": 10407.76
+      },
+      {
+        "date": "2025-12-01",
+        "description": "Home insurance",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -28.77,
+        "runningBalance": 10378.99
+      },
+      {
+        "date": "2025-12-01",
+        "description": "Fuel",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -17.28,
+        "runningBalance": 10361.71
+      },
+      {
+        "date": "2025-12-02",
+        "description": "Public transport pass",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -29.62,
+        "runningBalance": 10332.09
+      },
+      {
+        "date": "2025-12-02",
+        "description": "Disney+",
+        "category": "Subscriptions",
+        "type": "Expense",
+        "amount": -6.16,
+        "runningBalance": 10325.93
+      },
+      {
+        "date": "2025-12-03",
+        "description": "Cinema",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -29.95,
+        "runningBalance": 10295.98
+      },
+      {
+        "date": "2025-12-03",
+        "description": "Books / games",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -25.37,
+        "runningBalance": 10270.61
+      },
+      {
+        "date": "2025-12-05",
+        "description": "Electricity & water",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -57.55,
+        "runningBalance": 10213.06
+      },
+      {
+        "date": "2025-12-05",
+        "description": "Maintenance fee",
+        "category": "Housing",
+        "type": "Expense",
+        "amount": -28.6,
+        "runningBalance": 10184.46
+      },
+      {
+        "date": "2025-12-06",
+        "description": "Public transport pass",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -11.1,
+        "runningBalance": 10173.36
+      },
+      {
+        "date": "2025-12-06",
+        "description": "Travel insurance",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -41.19,
+        "runningBalance": 10132.17
+      },
+      {
+        "date": "2025-12-07",
+        "description": "Gym membership",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -5.67,
+        "runningBalance": 10126.5
+      },
+      {
+        "date": "2025-12-07",
+        "description": "Doctor visit",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -2.52,
+        "runningBalance": 10123.98
+      },
+      {
+        "date": "2025-12-07",
+        "description": "Hotel",
+        "category": "Travel",
+        "type": "Expense",
+        "amount": -34.43,
+        "runningBalance": 10089.55
+      },
+      {
+        "date": "2025-12-08",
+        "description": "Spotify",
+        "category": "Subscriptions",
+        "type": "Expense",
+        "amount": -5.97,
+        "runningBalance": 10083.58
+      },
+      {
+        "date": "2025-12-09",
+        "description": "Phone bill",
+        "category": "Subscriptions",
+        "type": "Expense",
+        "amount": -14.75,
+        "runningBalance": 10068.83
+      },
+      {
+        "date": "2025-12-10",
+        "description": "Gym membership",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -21.91,
+        "runningBalance": 10046.92
+      },
+      {
+        "date": "2025-12-12",
+        "description": "Bar / nightout",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -7.34,
+        "runningBalance": 10039.58
+      },
+      {
+        "date": "2025-12-13",
+        "description": "Cinema",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -21.82,
+        "runningBalance": 10017.76
+      },
+      {
+        "date": "2025-12-16",
+        "description": "S-Market",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -72.37,
+        "runningBalance": 9945.39
+      },
+      {
+        "date": "2025-12-19",
+        "description": "Gym membership",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -7.38,
+        "runningBalance": 9938.01
+      },
+      {
+        "date": "2025-12-20",
+        "description": "Bar / nightout",
+        "category": "Leisure",
+        "type": "Expense",
+        "amount": -45.23,
+        "runningBalance": 9892.78
+      },
+      {
+        "date": "2025-12-21",
+        "description": "Lidl",
+        "category": "Food & Groceries",
+        "type": "Expense",
+        "amount": -110.19,
+        "runningBalance": 9782.59
+      },
+      {
+        "date": "2025-12-22",
+        "description": "Salary deposit",
+        "category": "Income",
+        "type": "Income",
+        "amount": 2200,
+        "runningBalance": 11982.59
+      },
+      {
+        "date": "2025-12-25",
+        "description": "Gym membership",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -11.4,
+        "runningBalance": 11971.19
+      },
+      {
+        "date": "2025-12-26",
+        "description": "Fuel",
+        "category": "Transport",
+        "type": "Expense",
+        "amount": -23.38,
+        "runningBalance": 11947.81
+      },
+      {
+        "date": "2025-12-26",
+        "description": "Pharmacy",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -6.03,
+        "runningBalance": 11941.78
+      },
+      {
+        "date": "2025-12-27",
+        "description": "Online shopping",
+        "category": "Misc",
+        "type": "Expense",
+        "amount": -27.56,
+        "runningBalance": 11914.22
+      },
+      {
+        "date": "2025-12-28",
+        "description": "Gym membership",
+        "category": "Health & Care",
+        "type": "Expense",
+        "amount": -2.85,
+        "runningBalance": 11911.37
+      }
+    ],
+    "annualSummary": {
+      "totalIncome": 26400,
+      "totalExpenses": -14488.63,
+      "netSaved": 11911.37,
+      "savingsRate": 0.4512
+    },
+    "monthlyCategories": [
+      {
+        "category": "Housing",
+        "monthly": {
+          "Jan": 607.82,
+          "Feb": 668.39,
+          "Mar": 621.46,
+          "Apr": 687.99,
+          "May": 690.52,
+          "Jun": 665.16,
+          "Jul": 660.24,
+          "Aug": 656.91,
+          "Sep": 715.26,
+          "Oct": 681.36,
+          "Nov": 687.53,
+          "Dec": 580
+        },
+        "total": 7922.64
+      },
+      {
+        "category": "Food & Groceries",
+        "monthly": {
+          "Jan": 187.51,
+          "Feb": 68.09,
+          "Mar": 269.12,
+          "Apr": 77.54,
+          "May": 128.21,
+          "Jun": 268.08,
+          "Jul": 184.43,
+          "Aug": 221.71,
+          "Sep": 214.77,
+          "Oct": 233.16,
+          "Nov": 236.83,
+          "Dec": 182.56
+        },
+        "total": 2272.01
+      },
+      {
+        "category": "Transport",
+        "monthly": {
+          "Jan": 67.43,
+          "Feb": 43.94,
+          "Mar": 99.36,
+          "Apr": 88.86,
+          "May": 84.89,
+          "Jun": 73.47,
+          "Jul": 82.54,
+          "Aug": 39.04,
+          "Sep": 54.04,
+          "Oct": 70.89,
+          "Nov": 73.46,
+          "Dec": 81.38
+        },
+        "total": 859.3
+      },
+      {
+        "category": "Subscriptions",
+        "monthly": {
+          "Jan": 0,
+          "Feb": 22.03,
+          "Mar": 22.64,
+          "Apr": 6.79,
+          "May": 0,
+          "Jun": 16.48,
+          "Jul": 15.95,
+          "Aug": 28.43,
+          "Sep": 16.79,
+          "Oct": 14.17,
+          "Nov": 0,
+          "Dec": 26.88
+        },
+        "total": 170.16
+      },
+      {
+        "category": "Health & Care",
+        "monthly": {
+          "Jan": 20.63,
+          "Feb": 37.47,
+          "Mar": 31.46,
+          "Apr": 46.17,
+          "May": 30.14,
+          "Jun": 38.91,
+          "Jul": 35.85,
+          "Aug": 50.19,
+          "Sep": 38.56,
+          "Oct": 26.46,
+          "Nov": 54.2,
+          "Dec": 57.76
+        },
+        "total": 467.8
+      },
+      {
+        "category": "Leisure",
+        "monthly": {
+          "Jan": 95.25,
+          "Feb": 53.93,
+          "Mar": 100.89,
+          "Apr": 122.89,
+          "May": 126.77,
+          "Jun": 120.02,
+          "Jul": 65.93,
+          "Aug": 145.64,
+          "Sep": 129.47,
+          "Oct": 134.04,
+          "Nov": 58.87,
+          "Dec": 129.71
+        },
+        "total": 1283.41
+      },
+      {
+        "category": "Travel",
+        "monthly": {
+          "Jan": 79.98,
+          "Feb": 70.67,
+          "Mar": 56.25,
+          "Apr": 43.96,
+          "May": 64.95,
+          "Jun": 109.2,
+          "Jul": 122.56,
+          "Aug": 114.77,
+          "Sep": 55.97,
+          "Oct": 54.42,
+          "Nov": 68.09,
+          "Dec": 75.62
+        },
+        "total": 916.44
+      },
+      {
+        "category": "Misc",
+        "monthly": {
+          "Jan": 16.2,
+          "Feb": 69.87,
+          "Mar": 57.68,
+          "Apr": 60.69,
+          "May": 43.65,
+          "Jun": 56.08,
+          "Jul": 70.41,
+          "Aug": 42.73,
+          "Sep": 58.71,
+          "Oct": 32.07,
+          "Nov": 61.22,
+          "Dec": 27.56
+        },
+        "total": 596.87
+      }
+    ],
+    "persona": {
+      "likelyInvestmentBlocker": "confusion, fear of losing money, and concern that the amount is too small",
+      "conversationStyle": "warm, practical, low-risk, wants simple steps",
+      "approvalTendency": "approves small savings drafts, asks for education before investment drafts"
+    }
+  },
+  "snapshot": {
+    "monthly_income_estimate": 2200,
+    "available_this_month": 995,
+    "safe_to_save_estimate": 175,
+    "currency": "EUR",
+    "recurring_expenses_detected": [
+      {
+        "name": "Housing",
+        "amount": 660,
+        "cadence": "monthly"
+      },
+      {
+        "name": "Transport",
+        "amount": 70,
+        "cadence": "monthly"
+      },
+      {
+        "name": "Subscriptions",
+        "amount": 15,
+        "cadence": "monthly"
+      }
+    ],
+    "upcoming_risks": [
+      {
+        "name": "Housing costs",
+        "amount": 660,
+        "due_in_days": 7
+      }
+    ],
+    "confidence": "medium"
+  },
+  "finalMemory": {
+    "user": {
+      "first_name": "Sofia",
+      "age": 26,
+      "personality_notes": [
+        "warm, practical, low-risk, wants simple steps"
+      ],
+      "tone_preference": "warm_direct_playful"
+    },
+    "financial_understanding": {
+      "self_rating": "beginner",
+      "known_topics": [
+        "What investment risk means"
+      ],
+      "confusing_topics": [
+        "investment risk"
+      ],
+      "preferred_content_format": "short_card"
+    },
+    "learning_progress": {
+      "stage": "money_confidence",
+      "domains": {
+        "risk_without_panic": {
+          "name": "Risk Without Panic",
+          "stage": "money_confidence",
+          "status": "applied",
+          "visible_status": "Applied once",
+          "progress": 75,
+          "last_topic": "What investment risk means"
+        }
+      },
+      "topic_history": [
+        "Risk Without Panic:What investment risk means:seen",
+        "Risk Without Panic:What investment risk means:applied"
+      ],
+      "interested_domains": [],
+      "next_suggested_domain": "Funds"
+    },
+    "investment_journey": {
+      "invested_before": null,
+      "has_nordea_investments": false,
+      "readiness_stage": "ready_to_plan",
+      "risk_comfort": "low",
+      "first_investment_blockers": [
+        "risk"
+      ]
+    },
+    "financial_snapshot_summary": {},
+    "goals": [
+      {
+        "id": "U005-iphone-travel-fund",
+        "name": "iPhone + travel fund",
+        "target_amount": null,
+        "currency": "EUR",
+        "monthly_contribution": 25,
+        "status": "draft",
+        "shared_goal": false
+      },
+      {
+        "id": "U005-iphone-travel-fund",
+        "name": "iPhone + travel fund",
+        "target_amount": null,
+        "currency": "EUR",
+        "monthly_contribution": 25,
+        "status": "draft",
+        "shared_goal": false
+      }
+    ],
+    "preferences": {
+      "likes_future_self_framing": true,
+      "wants_expense_tables": true,
+      "sharing_enabled": false,
+      "allowed_people_for_shared_goals": [],
+      "expense_review_category": "Subscriptions"
+    },
+    "recommendation_history": [
+      {
+        "id": "rec_U005_risk_article_market_volatility_morgan_stanley_001",
+        "type": "education_resource",
+        "resource_id": "risk_article_market_volatility_morgan_stanley_001",
+        "summary": "5 Strategies to Navigate Market Volatility",
+        "domain": "Risk Without Panic",
+        "format": "article",
+        "status": "suggested",
+        "created_at": "2026-05-25T20:52:20.437Z"
+      }
+    ],
+    "action_state": {
+      "active_drafts": [
+        {
+          "action_id": "act_u005_savings_transfer_draft_001",
+          "action_type": "savings_transfer_draft",
+          "status": "pending_approval",
+          "summary": "Draft EUR 25/month to iPhone + travel fund. Not executed.",
+          "amount": 25,
+          "currency": "EUR",
+          "cadence": "monthly",
+          "goal_id": "U005-iphone-travel-fund",
+          "goal_name": "iPhone + travel fund",
+          "category": null,
+          "source_agent": "goal_savings_plan",
+          "approval_required": true,
+          "execution_mode": "demo_memory_only",
+          "created_at": "2026-05-25T20:52:20.436Z",
+          "last_updated_at": "2026-05-25T20:52:20.436Z"
+        }
+      ],
+      "active_habits": [
+        {
+          "action_id": "act_u005_expense_review_habit_001",
+          "action_type": "expense_review_habit",
+          "status": "approved_in_demo_memory",
+          "summary": "Approved in demo memory: review subscriptions monthly. No cancellation happened.",
+          "amount": null,
+          "currency": "EUR",
+          "cadence": "monthly",
+          "goal_id": null,
+          "goal_name": null,
+          "category": "Subscriptions",
+          "source_agent": "expense_review",
+          "approval_required": false,
+          "execution_mode": "demo_memory_only",
+          "created_at": "2026-05-25T20:52:20.437Z",
+          "last_updated_at": "2026-05-25T20:52:20.437Z"
+        }
+      ],
+      "action_log": [
+        {
+          "event_id": "act_u005_savings_transfer_draft_001_create_draft_1779742340436",
+          "action_id": "act_u005_savings_transfer_draft_001",
+          "action_type": "savings_transfer_draft",
+          "operation": "create_draft",
+          "from_status": null,
+          "to_status": "pending_approval",
+          "actor": "nora",
+          "summary": "Draft EUR 25/month to iPhone + travel fund. Not executed.",
+          "execution_mode": "demo_memory_only",
+          "timestamp": "2026-05-25T20:52:20.436Z"
+        },
+        {
+          "event_id": "act_u005_expense_review_habit_001_create_draft_1779742340437",
+          "action_id": "act_u005_expense_review_habit_001",
+          "action_type": "expense_review_habit",
+          "operation": "create_draft",
+          "from_status": null,
+          "to_status": "pending_approval",
+          "actor": "nora",
+          "summary": "Draft a monthly review habit for subscriptions. No cancellation happened.",
+          "execution_mode": "demo_memory_only",
+          "timestamp": "2026-05-25T20:52:20.437Z"
+        },
+        {
+          "event_id": "act_u005_expense_review_habit_001_approve_1779742340437",
+          "action_id": "act_u005_expense_review_habit_001",
+          "action_type": "expense_review_habit",
+          "operation": "approve",
+          "from_status": "pending_approval",
+          "to_status": "approved_in_demo_memory",
+          "actor": "user",
+          "summary": "Approved in demo memory: review subscriptions monthly. No cancellation happened.",
+          "execution_mode": "demo_memory_only",
+          "timestamp": "2026-05-25T20:52:20.437Z"
+        }
+      ]
+    },
+    "memory_events": [
+      {
+        "field": "investment_journey.has_nordea_investments",
+        "value": false,
+        "source": "bank_context",
+        "confidence": "high",
+        "timestamp": "2026-05-25T20:52:20.436Z"
+      },
+      {
+        "field": "user.age",
+        "value": 26,
+        "source": "bank_context",
+        "confidence": "high",
+        "timestamp": "2026-05-25T20:52:20.436Z"
+      },
+      {
+        "field": "investment_journey.first_investment_blockers",
+        "value": [
+          "risk"
+        ],
+        "source": "explicit_user",
+        "confidence": "high",
+        "timestamp": "2026-05-25T20:52:20.436Z"
+      },
+      {
+        "field": "investment_journey.readiness_stage",
+        "value": "curious",
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-25T20:52:20.436Z"
+      },
+      {
+        "field": "preferences.wants_expense_tables",
+        "value": true,
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-25T20:52:20.436Z"
+      },
+      {
+        "field": "goals",
+        "value": [
+          {
+            "id": "U005-iphone-travel-fund",
+            "name": "iPhone + travel fund",
+            "target_amount": null,
+            "currency": "EUR",
+            "monthly_contribution": 25,
+            "status": "draft",
+            "shared_goal": false
+          }
+        ],
+        "source": "inferred_from_conversation",
+        "confidence": "low",
+        "timestamp": "2026-05-25T20:52:20.436Z"
+      },
+      {
+        "field": "investment_journey.readiness_stage",
+        "value": "draft_created",
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-25T20:52:20.436Z"
+      },
+      {
+        "field": "action_state",
+        "value": {
+          "active_drafts": [
+            {
+              "action_id": "act_u005_savings_transfer_draft_001",
+              "action_type": "savings_transfer_draft",
+              "status": "pending_approval",
+              "summary": "Draft EUR 25/month to iPhone + travel fund. Not executed.",
+              "amount": 25,
+              "currency": "EUR",
+              "cadence": "monthly",
+              "goal_id": "U005-iphone-travel-fund",
+              "goal_name": "iPhone + travel fund",
+              "category": null,
+              "source_agent": "goal_savings_plan",
+              "approval_required": true,
+              "execution_mode": "demo_memory_only",
+              "created_at": "2026-05-25T20:52:20.436Z",
+              "last_updated_at": "2026-05-25T20:52:20.436Z"
+            }
+          ],
+          "active_habits": [],
+          "action_log": [
+            {
+              "event_id": "act_u005_savings_transfer_draft_001_create_draft_1779742340436",
+              "action_id": "act_u005_savings_transfer_draft_001",
+              "action_type": "savings_transfer_draft",
+              "operation": "create_draft",
+              "from_status": null,
+              "to_status": "pending_approval",
+              "actor": "nora",
+              "summary": "Draft EUR 25/month to iPhone + travel fund. Not executed.",
+              "execution_mode": "demo_memory_only",
+              "timestamp": "2026-05-25T20:52:20.436Z"
+            }
+          ]
+        },
+        "source": "inferred_from_conversation",
+        "confidence": "high",
+        "timestamp": "2026-05-25T20:52:20.436Z"
+      },
+      {
+        "field": "investment_journey.readiness_stage",
+        "value": "curious",
+        "source": "explicit_user",
+        "confidence": "high",
+        "timestamp": "2026-05-25T20:52:20.436Z"
+      },
+      {
+        "field": "financial_understanding.confusing_topics",
+        "value": [
+          "investment risk"
+        ],
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-25T20:52:20.436Z"
+      },
+      {
+        "field": "goals",
+        "value": [
+          {
+            "id": "U005-iphone-travel-fund",
+            "name": "iPhone + travel fund",
+            "target_amount": null,
+            "currency": "EUR",
+            "monthly_contribution": 25,
+            "status": "draft",
+            "shared_goal": false
+          }
+        ],
+        "source": "inferred_from_conversation",
+        "confidence": "low",
+        "timestamp": "2026-05-25T20:52:20.437Z"
+      },
+      {
+        "field": "investment_journey.readiness_stage",
+        "value": "draft_created",
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-25T20:52:20.437Z"
+      },
+      {
+        "field": "preferences.likes_future_self_framing",
+        "value": true,
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-25T20:52:20.437Z"
+      },
+      {
+        "field": "investment_journey.readiness_stage",
+        "value": "ready_to_plan",
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-25T20:52:20.437Z"
+      },
+      {
+        "field": "preferences.wants_expense_tables",
+        "value": true,
+        "source": "explicit_user",
+        "confidence": "high",
+        "timestamp": "2026-05-25T20:52:20.437Z"
+      },
+      {
+        "field": "preferences.expense_review_category",
+        "value": "Subscriptions",
+        "source": "explicit_user",
+        "confidence": "medium",
+        "timestamp": "2026-05-25T20:52:20.437Z"
+      },
+      {
+        "field": "action_state",
+        "value": {
+          "active_drafts": [
+            {
+              "action_id": "act_u005_savings_transfer_draft_001",
+              "action_type": "savings_transfer_draft",
+              "status": "pending_approval",
+              "summary": "Draft EUR 25/month to iPhone + travel fund. Not executed.",
+              "amount": 25,
+              "currency": "EUR",
+              "cadence": "monthly",
+              "goal_id": "U005-iphone-travel-fund",
+              "goal_name": "iPhone + travel fund",
+              "category": null,
+              "source_agent": "goal_savings_plan",
+              "approval_required": true,
+              "execution_mode": "demo_memory_only",
+              "created_at": "2026-05-25T20:52:20.436Z",
+              "last_updated_at": "2026-05-25T20:52:20.436Z"
+            },
+            {
+              "action_id": "act_u005_expense_review_habit_001",
+              "action_type": "expense_review_habit",
+              "status": "pending_approval",
+              "summary": "Draft a monthly review habit for subscriptions. No cancellation happened.",
+              "amount": null,
+              "currency": "EUR",
+              "cadence": "monthly",
+              "goal_id": null,
+              "goal_name": null,
+              "category": "Subscriptions",
+              "source_agent": "expense_review",
+              "approval_required": false,
+              "execution_mode": "demo_memory_only",
+              "created_at": "2026-05-25T20:52:20.437Z",
+              "last_updated_at": "2026-05-25T20:52:20.437Z"
+            }
+          ],
+          "active_habits": [],
+          "action_log": [
+            {
+              "event_id": "act_u005_savings_transfer_draft_001_create_draft_1779742340436",
+              "action_id": "act_u005_savings_transfer_draft_001",
+              "action_type": "savings_transfer_draft",
+              "operation": "create_draft",
+              "from_status": null,
+              "to_status": "pending_approval",
+              "actor": "nora",
+              "summary": "Draft EUR 25/month to iPhone + travel fund. Not executed.",
+              "execution_mode": "demo_memory_only",
+              "timestamp": "2026-05-25T20:52:20.436Z"
+            },
+            {
+              "event_id": "act_u005_expense_review_habit_001_create_draft_1779742340437",
+              "action_id": "act_u005_expense_review_habit_001",
+              "action_type": "expense_review_habit",
+              "operation": "create_draft",
+              "from_status": null,
+              "to_status": "pending_approval",
+              "actor": "nora",
+              "summary": "Draft a monthly review habit for subscriptions. No cancellation happened.",
+              "execution_mode": "demo_memory_only",
+              "timestamp": "2026-05-25T20:52:20.437Z"
+            }
+          ]
+        },
+        "source": "inferred_from_conversation",
+        "confidence": "high",
+        "timestamp": "2026-05-25T20:52:20.437Z"
+      },
+      {
+        "field": "investment_journey.readiness_stage",
+        "value": "ready_to_plan",
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-25T20:52:20.437Z"
+      },
+      {
+        "field": "financial_understanding.confusing_topics",
+        "value": [
+          "investment risk"
+        ],
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-25T20:52:20.437Z"
+      },
+      {
+        "field": "preferences.wants_expense_tables",
+        "value": true,
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-25T20:52:20.437Z"
+      },
+      {
+        "field": "preferences.expense_review_category",
+        "value": "Subscriptions",
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-25T20:52:20.437Z"
+      },
+      {
+        "field": "action_state",
+        "value": {
+          "active_drafts": [
+            {
+              "action_id": "act_u005_savings_transfer_draft_001",
+              "action_type": "savings_transfer_draft",
+              "status": "pending_approval",
+              "summary": "Draft EUR 25/month to iPhone + travel fund. Not executed.",
+              "amount": 25,
+              "currency": "EUR",
+              "cadence": "monthly",
+              "goal_id": "U005-iphone-travel-fund",
+              "goal_name": "iPhone + travel fund",
+              "category": null,
+              "source_agent": "goal_savings_plan",
+              "approval_required": true,
+              "execution_mode": "demo_memory_only",
+              "created_at": "2026-05-25T20:52:20.436Z",
+              "last_updated_at": "2026-05-25T20:52:20.436Z"
+            }
+          ],
+          "active_habits": [
+            {
+              "action_id": "act_u005_expense_review_habit_001",
+              "action_type": "expense_review_habit",
+              "status": "approved_in_demo_memory",
+              "summary": "Approved in demo memory: review subscriptions monthly. No cancellation happened.",
+              "amount": null,
+              "currency": "EUR",
+              "cadence": "monthly",
+              "goal_id": null,
+              "goal_name": null,
+              "category": "Subscriptions",
+              "source_agent": "expense_review",
+              "approval_required": false,
+              "execution_mode": "demo_memory_only",
+              "created_at": "2026-05-25T20:52:20.437Z",
+              "last_updated_at": "2026-05-25T20:52:20.437Z"
+            }
+          ],
+          "action_log": [
+            {
+              "event_id": "act_u005_savings_transfer_draft_001_create_draft_1779742340436",
+              "action_id": "act_u005_savings_transfer_draft_001",
+              "action_type": "savings_transfer_draft",
+              "operation": "create_draft",
+              "from_status": null,
+              "to_status": "pending_approval",
+              "actor": "nora",
+              "summary": "Draft EUR 25/month to iPhone + travel fund. Not executed.",
+              "execution_mode": "demo_memory_only",
+              "timestamp": "2026-05-25T20:52:20.436Z"
+            },
+            {
+              "event_id": "act_u005_expense_review_habit_001_create_draft_1779742340437",
+              "action_id": "act_u005_expense_review_habit_001",
+              "action_type": "expense_review_habit",
+              "operation": "create_draft",
+              "from_status": null,
+              "to_status": "pending_approval",
+              "actor": "nora",
+              "summary": "Draft a monthly review habit for subscriptions. No cancellation happened.",
+              "execution_mode": "demo_memory_only",
+              "timestamp": "2026-05-25T20:52:20.437Z"
+            },
+            {
+              "event_id": "act_u005_expense_review_habit_001_approve_1779742340437",
+              "action_id": "act_u005_expense_review_habit_001",
+              "action_type": "expense_review_habit",
+              "operation": "approve",
+              "from_status": "pending_approval",
+              "to_status": "approved_in_demo_memory",
+              "actor": "user",
+              "summary": "Approved in demo memory: review subscriptions monthly. No cancellation happened.",
+              "execution_mode": "demo_memory_only",
+              "timestamp": "2026-05-25T20:52:20.437Z"
+            }
+          ]
+        },
+        "source": "explicit_user",
+        "confidence": "high",
+        "timestamp": "2026-05-25T20:52:20.437Z"
+      },
+      {
+        "field": "financial_understanding.known_topics",
+        "value": [
+          "What investment risk means"
+        ],
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-25T20:52:20.437Z"
+      },
+      {
+        "field": "financial_understanding.preferred_content_format",
+        "value": "short_card",
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-25T20:52:20.437Z"
+      },
+      {
+        "field": "learning_progress.stage",
+        "value": "money_confidence",
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-25T20:52:20.437Z"
+      },
+      {
+        "field": "learning_progress.domains.risk_without_panic",
+        "value": {
+          "name": "Risk Without Panic",
+          "stage": "money_confidence",
+          "status": "seen",
+          "visible_status": "Started",
+          "progress": 25,
+          "last_topic": "What investment risk means"
+        },
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-25T20:52:20.437Z"
+      },
+      {
+        "field": "learning_progress.topic_history",
+        "value": [
+          "Risk Without Panic:What investment risk means:seen"
+        ],
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-25T20:52:20.437Z"
+      },
+      {
+        "field": "learning_progress.next_suggested_domain",
+        "value": "Money Habits",
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-25T20:52:20.437Z"
+      },
+      {
+        "field": "investment_journey.readiness_stage",
+        "value": "ready_to_plan",
+        "source": "inferred_from_conversation",
+        "confidence": "high",
+        "timestamp": "2026-05-25T20:52:20.437Z"
+      },
+      {
+        "field": "learning_progress.stage",
+        "value": "money_confidence",
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-25T20:52:20.437Z"
+      },
+      {
+        "field": "learning_progress.domains.risk_without_panic",
+        "value": {
+          "name": "Risk Without Panic",
+          "stage": "money_confidence",
+          "status": "applied",
+          "visible_status": "Applied once",
+          "progress": 75,
+          "last_topic": "What investment risk means"
+        },
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-25T20:52:20.437Z"
+      },
+      {
+        "field": "learning_progress.topic_history",
+        "value": [
+          "Risk Without Panic:What investment risk means:applied"
+        ],
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-25T20:52:20.437Z"
+      },
+      {
+        "field": "learning_progress.next_suggested_domain",
+        "value": "Funds",
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-25T20:52:20.437Z"
+      },
+      {
+        "field": "recommendation_history",
+        "value": {
+          "id": "rec_U005_risk_article_market_volatility_morgan_stanley_001",
+          "type": "education_resource",
+          "resource_id": "risk_article_market_volatility_morgan_stanley_001",
+          "summary": "5 Strategies to Navigate Market Volatility",
+          "domain": "Risk Without Panic",
+          "format": "article",
+          "status": "suggested",
+          "created_at": "2026-05-25T20:52:20.437Z"
+        },
+        "source": "inferred_from_conversation",
+        "confidence": "medium",
+        "timestamp": "2026-05-25T20:52:20.437Z"
+      }
+    ]
+  },
+  "conversation": [
+    {
+      "role": "Nora",
+      "text": "Hi, I'm Nora. I help make money decisions smaller and clearer: saving goals, spending patterns, first investing steps, and all the questions that feel too basic to ask. You can ask me anything anytime.\n\nI can already see the basics from your Nordea context, so I will not make you fill out a personality quiz disguised as banking.\n\nI can also see you have not started investing with us yet. Very normal. Quick investing check: what is the main thing holding you back right now - risk, confusion, feeling like the amount is too small, or just not getting around to it yet?",
+      "structured": {
+        "visible_response": "Hi, I'm Nora. I help make money decisions smaller and clearer: saving goals, spending patterns, first investing steps, and all the questions that feel too basic to ask. You can ask me anything anytime.\n\nI can already see the basics from your Nordea context, so I will not make you fill out a personality quiz disguised as banking.\n\nI can also see you have not started investing with us yet. Very normal. Quick investing check: what is the main thing holding you back right now - risk, confusion, feeling like the amount is too small, or just not getting around to it yet?",
+        "intent": "first_conversation",
+        "nora_action": "ask_question",
+        "tool_requests": [],
+        "recommendation_card": null,
+        "trust_ledger_entry": null,
+        "memory_updates": [
+          {
+            "field": "investment_journey.has_nordea_investments",
+            "value": false,
+            "source": "bank_context",
+            "confidence": "high"
+          },
+          {
+            "field": "user.age",
+            "value": 26,
+            "source": "bank_context",
+            "confidence": "high"
+          }
+        ],
+        "next_best_question": "What is the main thing holding you back from investing?",
+        "education_hook": null,
+        "safety_flags": []
+      }
+    },
+    {
+      "role": "Simulated User",
+      "text": "I think it is a mix of risk and not knowing where to start. I would prefer something simple.",
+      "internal_reason": "Sofia is low-risk and practical."
+    },
+    {
+      "role": "Nora",
+      "text": "That is a good instinct, not a flaw. Risk should earn your trust before it gets any of your money.\n\nNo finance-person cosplay required. The first useful move is not picking an investment. It is finding a safe-to-repeat amount that does not make the rest of your month weird.\n\nBased on your current money picture, I would start by checking whether EUR 175/month could be safe without touching essentials. Want me to show the simple monthly table behind that number?",
+      "structured": {
+        "visible_response": "That is a good instinct, not a flaw. Risk should earn your trust before it gets any of your money.\n\nNo finance-person cosplay required. The first useful move is not picking an investment. It is finding a safe-to-repeat amount that does not make the rest of your month weird.\n\nBased on your current money picture, I would start by checking whether EUR 175/month could be safe without touching essentials. Want me to show the simple monthly table behind that number?",
+        "intent": "investment_readiness",
+        "nora_action": "ask_question",
+        "tool_requests": [
+          {
+            "name": "create_recurring_expense_table",
+            "reason": "Show basis for safe monthly habit"
+          }
+        ],
+        "recommendation_card": null,
+        "trust_ledger_entry": null,
+        "memory_updates": [
+          {
+            "field": "investment_journey.first_investment_blockers",
+            "value": [
+              "risk"
+            ],
+            "source": "explicit_user",
+            "confidence": "high"
+          },
+          {
+            "field": "investment_journey.readiness_stage",
+            "value": "curious",
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          }
+        ],
+        "next_best_question": "Want me to show the simple monthly table behind that number?",
+        "education_hook": {
+          "topic": "What investing risk means",
+          "reason": "User showed first-investment uncertainty",
+          "format_suggestion": "short_card"
+        },
+        "safety_flags": []
+      }
+    },
+    {
+      "role": "Simulated User",
+      "text": "Yes, show me the table first. I want to see where the number comes from.",
+      "internal_reason": "Persona wants transparency before approval."
+    },
+    {
+      "role": "Nora",
+      "text": "Let's put numbers on it.\n\nYour income and recurring expenses suggest a small monthly habit could fit, but I would keep the first draft intentionally modest: EUR 25/month toward iPhone + travel fund.\n\nMotivation note: I can draft a safe monthly habit for iPhone + travel fund, but I need a target amount before calling the timeline realistic.\n\nI put the next step into a draft so the choice is clean. You can approve it, edit the amount, leave it parked, or use it as the starter habit while we set a first milestone.",
+      "structured": {
+        "visible_response": "Let's put numbers on it.\n\nYour income and recurring expenses suggest a small monthly habit could fit, but I would keep the first draft intentionally modest: EUR 25/month toward iPhone + travel fund.\n\nMotivation note: I can draft a safe monthly habit for iPhone + travel fund, but I need a target amount before calling the timeline realistic.\n\nI put the next step into a draft so the choice is clean. You can approve it, edit the amount, leave it parked, or use it as the starter habit while we set a first milestone.",
+        "intent": "savings_plan",
+        "nora_action": "request_approval",
+        "tool_requests": [
+          {
+            "name": "goal_savings_plan_agent",
+            "reason": "Assess feasibility and create plan for iPhone + travel fund"
+          },
+          {
+            "name": "action_approval_agent",
+            "reason": "Create demo-only savings draft and approval state"
+          },
+          {
+            "name": "write_trust_ledger",
+            "reason": "Explain recommendation basis"
+          },
+          {
+            "name": "action_approval_agent",
+            "reason": "Request explicit approval without real execution"
+          }
+        ],
+        "goal_plan": {
+          "agent": "goal_savings_plan",
+          "goal_id": "U005-iphone-travel-fund",
+          "goal_name": "iPhone + travel fund",
+          "target_amount": null,
+          "target_date": null,
+          "currency": "EUR",
+          "safe_to_save_estimate": 175,
+          "recommended_option_id": "gentle",
+          "recommended_option": {
+            "id": "gentle",
+            "label": "Gentle",
+            "monthly_contribution": 25,
+            "timeline_months": null,
+            "timeline_label": null,
+            "feasibility": "easy",
+            "tradeoff": "Lowest friction; best when the user is still building confidence."
+          },
+          "options": [
+            {
+              "id": "gentle",
+              "label": "Gentle",
+              "monthly_contribution": 25,
+              "timeline_months": null,
+              "timeline_label": null,
+              "feasibility": "easy",
+              "tradeoff": "Lowest friction; best when the user is still building confidence."
+            },
+            {
+              "id": "balanced",
+              "label": "Balanced",
+              "monthly_contribution": 55,
+              "timeline_months": null,
+              "timeline_label": null,
+              "feasibility": "workable",
+              "tradeoff": "More visible progress while staying below the safe-to-save estimate."
+            },
+            {
+              "id": "accelerated",
+              "label": "Accelerated",
+              "monthly_contribution": 95,
+              "timeline_months": null,
+              "timeline_label": null,
+              "feasibility": "tight",
+              "tradeoff": "Fastest sustainable draft; should be reviewed before approval."
+            }
+          ],
+          "overall_feasibility": "easy",
+          "requires_adjustment": false,
+          "goal_realism": {
+            "goal_category": "tech_purchase",
+            "timeline_realism": "unknown",
+            "motivation_risk": "medium",
+            "realism_label": "Needs a target",
+            "reason": "No target amount was available, so Nora can draft a safe habit but cannot judge the full timeline yet.",
+            "suggested_first_milestone": null,
+            "suggested_levers": [
+              "add a target amount",
+              "set a first milestone",
+              "review whether the monthly amount feels worth keeping"
+            ],
+            "nora_line": "I can draft a safe monthly habit for iPhone + travel fund, but I need a target amount before calling the timeline realistic."
+          },
+          "levers": [],
+          "nora_summary": "EUR 25/month is a reasonable first draft for iPhone + travel fund.",
+          "recommendation_card": {
+            "title": "Start a monthly habit for iPhone + travel fund",
+            "summary": "Draft EUR 25/month as a savings-first habit. Investment education comes before any investment action.",
+            "amount": 25,
+            "currency": "EUR",
+            "cadence": "monthly",
+            "status": "draft_requires_approval"
+          },
+          "trust_ledger_input": {
+            "data_used": [
+              "savings goal",
+              "target amount if available",
+              "safe-to-save estimate",
+              "risk comfort",
+              "financial snapshot"
+            ],
+            "assumptions": [
+              "The 2025 synthetic cashflow pattern is broadly representative.",
+              "No target amount was available, so timeline is not estimated.",
+              "Goal realism category inferred as tech_purchase."
+            ],
+            "confidence": "low",
+            "boundaries": [
+              "This is not an investment return forecast.",
+              "This does not execute a transfer.",
+              "Large goals may need timeline changes, milestone splitting, or outside contributions."
+            ],
+            "approval_required": true
+          },
+          "memory_updates": [
+            {
+              "field": "goals",
+              "value": [
+                {
+                  "id": "U005-iphone-travel-fund",
+                  "name": "iPhone + travel fund",
+                  "target_amount": null,
+                  "currency": "EUR",
+                  "monthly_contribution": 25,
+                  "status": "draft",
+                  "shared_goal": false
+                }
+              ],
+              "source": "inferred_from_conversation",
+              "confidence": "low"
+            },
+            {
+              "field": "investment_journey.readiness_stage",
+              "value": "draft_created",
+              "source": "inferred_from_conversation",
+              "confidence": "medium"
+            }
+          ],
+          "safety_flags": [
+            "approval_required_before_money_movement"
+          ]
+        },
+        "action_confirmation_card": {
+          "title": "Savings habit",
+          "draft": "EUR 25/month to iPhone + travel fund",
+          "status": "Ready for approval",
+          "details": [
+            "Goal: iPhone + travel fund",
+            "Amount: EUR 25",
+            "Cadence: monthly"
+          ],
+          "options": [
+            "Approve",
+            "Edit amount",
+            "Not now"
+          ],
+          "action_id": "act_u005_savings_transfer_draft_001"
+        },
+        "action_approval": {
+          "agent": "action_approval",
+          "operation": "create_draft",
+          "action_type": "savings_transfer_draft",
+          "execution_mode": "demo_memory_only",
+          "action": {
+            "action_id": "act_u005_savings_transfer_draft_001",
+            "action_type": "savings_transfer_draft",
+            "status": "pending_approval",
+            "summary": "Draft EUR 25/month to iPhone + travel fund. Not executed.",
+            "amount": 25,
+            "currency": "EUR",
+            "cadence": "monthly",
+            "goal_id": "U005-iphone-travel-fund",
+            "goal_name": "iPhone + travel fund",
+            "category": null,
+            "source_agent": "goal_savings_plan",
+            "approval_required": true,
+            "execution_mode": "demo_memory_only",
+            "created_at": "2026-05-25T20:52:20.436Z",
+            "last_updated_at": "2026-05-25T20:52:20.436Z"
+          },
+          "approval_request": {
+            "approval_request_id": "act_u005_savings_transfer_draft_001_approval",
+            "status": "pending",
+            "summary": "Draft EUR 25/month to iPhone + travel fund. Not executed.",
+            "risk_note": "Demo only. No real money movement, cancellation, investment, or sharing occurs."
+          },
+          "action_log_event": {
+            "event_id": "act_u005_savings_transfer_draft_001_create_draft_1779742340436",
+            "action_id": "act_u005_savings_transfer_draft_001",
+            "action_type": "savings_transfer_draft",
+            "operation": "create_draft",
+            "from_status": null,
+            "to_status": "pending_approval",
+            "actor": "nora",
+            "summary": "Draft EUR 25/month to iPhone + travel fund. Not executed.",
+            "execution_mode": "demo_memory_only",
+            "timestamp": "2026-05-25T20:52:20.436Z"
+          },
+          "memory_updates": [
+            {
+              "field": "action_state",
+              "value": {
+                "active_drafts": [
+                  {
+                    "action_id": "act_u005_savings_transfer_draft_001",
+                    "action_type": "savings_transfer_draft",
+                    "status": "pending_approval",
+                    "summary": "Draft EUR 25/month to iPhone + travel fund. Not executed.",
+                    "amount": 25,
+                    "currency": "EUR",
+                    "cadence": "monthly",
+                    "goal_id": "U005-iphone-travel-fund",
+                    "goal_name": "iPhone + travel fund",
+                    "category": null,
+                    "source_agent": "goal_savings_plan",
+                    "approval_required": true,
+                    "execution_mode": "demo_memory_only",
+                    "created_at": "2026-05-25T20:52:20.436Z",
+                    "last_updated_at": "2026-05-25T20:52:20.436Z"
+                  }
+                ],
+                "active_habits": [],
+                "action_log": [
+                  {
+                    "event_id": "act_u005_savings_transfer_draft_001_create_draft_1779742340436",
+                    "action_id": "act_u005_savings_transfer_draft_001",
+                    "action_type": "savings_transfer_draft",
+                    "operation": "create_draft",
+                    "from_status": null,
+                    "to_status": "pending_approval",
+                    "actor": "nora",
+                    "summary": "Draft EUR 25/month to iPhone + travel fund. Not executed.",
+                    "execution_mode": "demo_memory_only",
+                    "timestamp": "2026-05-25T20:52:20.436Z"
+                  }
+                ]
+              },
+              "source": "inferred_from_conversation",
+              "confidence": "high"
+            }
+          ],
+          "safety_flags": [
+            "demo_memory_only",
+            "not_executed",
+            "approval_required_before_real_execution",
+            "approval_required_before_money_movement"
+          ]
+        },
+        "recommendation_card": {
+          "title": "Start a monthly habit for iPhone + travel fund",
+          "summary": "Draft EUR 25/month as a savings-first habit. Investment education comes before any investment action.",
+          "amount": 25,
+          "currency": "EUR",
+          "cadence": "monthly",
+          "status": "draft_requires_approval"
+        },
+        "trust_ledger_entry": {
+          "data_used": [
+            "savings goal",
+            "target amount if available",
+            "safe-to-save estimate",
+            "risk comfort",
+            "financial snapshot"
+          ],
+          "assumptions": [
+            "The 2025 synthetic cashflow pattern is broadly representative.",
+            "No target amount was available, so timeline is not estimated.",
+            "Goal realism category inferred as tech_purchase."
+          ],
+          "confidence": "low",
+          "what_i_am_not_claiming": [
+            "This is not an investment return forecast.",
+            "This does not execute a transfer.",
+            "Large goals may need timeline changes, milestone splitting, or outside contributions."
+          ],
+          "approval_required": true
+        },
+        "memory_updates": [
+          {
+            "field": "preferences.wants_expense_tables",
+            "value": true,
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          },
+          {
+            "field": "goals",
+            "value": [
+              {
+                "id": "U005-iphone-travel-fund",
+                "name": "iPhone + travel fund",
+                "target_amount": null,
+                "currency": "EUR",
+                "monthly_contribution": 25,
+                "status": "draft",
+                "shared_goal": false
+              }
+            ],
+            "source": "inferred_from_conversation",
+            "confidence": "low"
+          },
+          {
+            "field": "investment_journey.readiness_stage",
+            "value": "draft_created",
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          },
+          {
+            "field": "action_state",
+            "value": {
+              "active_drafts": [
+                {
+                  "action_id": "act_u005_savings_transfer_draft_001",
+                  "action_type": "savings_transfer_draft",
+                  "status": "pending_approval",
+                  "summary": "Draft EUR 25/month to iPhone + travel fund. Not executed.",
+                  "amount": 25,
+                  "currency": "EUR",
+                  "cadence": "monthly",
+                  "goal_id": "U005-iphone-travel-fund",
+                  "goal_name": "iPhone + travel fund",
+                  "category": null,
+                  "source_agent": "goal_savings_plan",
+                  "approval_required": true,
+                  "execution_mode": "demo_memory_only",
+                  "created_at": "2026-05-25T20:52:20.436Z",
+                  "last_updated_at": "2026-05-25T20:52:20.436Z"
+                }
+              ],
+              "active_habits": [],
+              "action_log": [
+                {
+                  "event_id": "act_u005_savings_transfer_draft_001_create_draft_1779742340436",
+                  "action_id": "act_u005_savings_transfer_draft_001",
+                  "action_type": "savings_transfer_draft",
+                  "operation": "create_draft",
+                  "from_status": null,
+                  "to_status": "pending_approval",
+                  "actor": "nora",
+                  "summary": "Draft EUR 25/month to iPhone + travel fund. Not executed.",
+                  "execution_mode": "demo_memory_only",
+                  "timestamp": "2026-05-25T20:52:20.436Z"
+                }
+              ]
+            },
+            "source": "inferred_from_conversation",
+            "confidence": "high"
+          }
+        ],
+        "next_best_question": "Approve the starter habit, adjust target/timeline, or keep it as a learning plan?",
+        "education_hook": {
+          "topic": "Why savings-first usually comes before investing",
+          "reason": "Nora proposed a first monthly habit",
+          "format_suggestion": "short_card"
+        },
+        "safety_flags": [
+          "approval_required_before_money_movement",
+          "education_before_investment_action"
+        ]
+      }
+    },
+    {
+      "role": "Simulated User",
+      "text": "Let us keep it as a learning plan first. I like the amount, but I want to understand the risk part before approving anything.",
+      "internal_reason": "Low-risk persona delays investment approval."
+    },
+    {
+      "role": "Nora",
+      "text": "That is sensible. Keeping it as a learning plan first is not hesitation; it is good control.\n\nFor iPhone + travel fund, there are two honest routes: keep the monthly amount low, or reach the goal faster. Which would feel more realistic for you right now?",
+      "structured": {
+        "visible_response": "That is sensible. Keeping it as a learning plan first is not hesitation; it is good control.\n\nFor iPhone + travel fund, there are two honest routes: keep the monthly amount low, or reach the goal faster. Which would feel more realistic for you right now?",
+        "intent": "education_bridge",
+        "nora_action": "ask_question",
+        "tool_requests": [
+          {
+            "name": "update_user_memory",
+            "reason": "Persist decision and next education topic"
+          }
+        ],
+        "action_approval": null,
+        "action_confirmation_card": null,
+        "recommendation_card": null,
+        "trust_ledger_entry": null,
+        "memory_updates": [
+          {
+            "field": "investment_journey.readiness_stage",
+            "value": "curious",
+            "source": "explicit_user",
+            "confidence": "high"
+          },
+          {
+            "field": "financial_understanding.confusing_topics",
+            "value": [
+              "investment risk"
+            ],
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          }
+        ],
+        "next_best_question": "Lower monthly amount or faster timeline?",
+        "education_hook": {
+          "topic": "What investment risk means",
+          "reason": "Next step after savings habit draft",
+          "format_suggestion": "short_card"
+        },
+        "safety_flags": []
+      }
+    },
+    {
+      "role": "Simulated User",
+      "text": "Lower monthly amount. I would rather keep it realistic than rush it.",
+      "internal_reason": "Persona prefers sustainable plan over speed."
+    },
+    {
+      "role": "Nora",
+      "text": "Let's make the choices visible.\n\n| Plan | Monthly amount | Use when |\n|---|---:|---|\n| Gentle | EUR 25/month | Lowest friction; best when the user is still building confidence. |\n| Balanced | EUR 55/month | More visible progress while staying below the safe-to-save estimate. |\n| Accelerated | EUR 95/month | Fastest sustainable draft; should be reviewed before approval. |\n\nMotivation note: I can draft a safe monthly habit for iPhone + travel fund, but I need a target amount before calling the timeline realistic.\n\nMy bias is still to start with the plan you can actually keep. Should I keep Gentle as the draft, compare the other options, or adjust the goal?",
+      "structured": {
+        "visible_response": "Let's make the choices visible.\n\n| Plan | Monthly amount | Use when |\n|---|---:|---|\n| Gentle | EUR 25/month | Lowest friction; best when the user is still building confidence. |\n| Balanced | EUR 55/month | More visible progress while staying below the safe-to-save estimate. |\n| Accelerated | EUR 95/month | Fastest sustainable draft; should be reviewed before approval. |\n\nMotivation note: I can draft a safe monthly habit for iPhone + travel fund, but I need a target amount before calling the timeline realistic.\n\nMy bias is still to start with the plan you can actually keep. Should I keep Gentle as the draft, compare the other options, or adjust the goal?",
+        "intent": "goal_planning",
+        "nora_action": "propose_plan",
+        "tool_requests": [
+          {
+            "name": "goal_savings_plan_agent",
+            "reason": "Compare contribution plans and feasibility for iPhone + travel fund"
+          }
+        ],
+        "goal_plan": {
+          "agent": "goal_savings_plan",
+          "goal_id": "U005-iphone-travel-fund",
+          "goal_name": "iPhone + travel fund",
+          "target_amount": null,
+          "target_date": null,
+          "currency": "EUR",
+          "safe_to_save_estimate": 175,
+          "recommended_option_id": "gentle",
+          "recommended_option": {
+            "id": "gentle",
+            "label": "Gentle",
+            "monthly_contribution": 25,
+            "timeline_months": null,
+            "timeline_label": null,
+            "feasibility": "easy",
+            "tradeoff": "Lowest friction; best when the user is still building confidence."
+          },
+          "options": [
+            {
+              "id": "gentle",
+              "label": "Gentle",
+              "monthly_contribution": 25,
+              "timeline_months": null,
+              "timeline_label": null,
+              "feasibility": "easy",
+              "tradeoff": "Lowest friction; best when the user is still building confidence."
+            },
+            {
+              "id": "balanced",
+              "label": "Balanced",
+              "monthly_contribution": 55,
+              "timeline_months": null,
+              "timeline_label": null,
+              "feasibility": "workable",
+              "tradeoff": "More visible progress while staying below the safe-to-save estimate."
+            },
+            {
+              "id": "accelerated",
+              "label": "Accelerated",
+              "monthly_contribution": 95,
+              "timeline_months": null,
+              "timeline_label": null,
+              "feasibility": "tight",
+              "tradeoff": "Fastest sustainable draft; should be reviewed before approval."
+            }
+          ],
+          "overall_feasibility": "easy",
+          "requires_adjustment": false,
+          "goal_realism": {
+            "goal_category": "tech_purchase",
+            "timeline_realism": "unknown",
+            "motivation_risk": "medium",
+            "realism_label": "Needs a target",
+            "reason": "No target amount was available, so Nora can draft a safe habit but cannot judge the full timeline yet.",
+            "suggested_first_milestone": null,
+            "suggested_levers": [
+              "add a target amount",
+              "set a first milestone",
+              "review whether the monthly amount feels worth keeping"
+            ],
+            "nora_line": "I can draft a safe monthly habit for iPhone + travel fund, but I need a target amount before calling the timeline realistic."
+          },
+          "levers": [],
+          "nora_summary": "EUR 25/month is a reasonable first draft for iPhone + travel fund.",
+          "recommendation_card": {
+            "title": "Start a monthly habit for iPhone + travel fund",
+            "summary": "Draft EUR 25/month as a savings-first habit. Investment education comes before any investment action.",
+            "amount": 25,
+            "currency": "EUR",
+            "cadence": "monthly",
+            "status": "draft_requires_approval"
+          },
+          "trust_ledger_input": {
+            "data_used": [
+              "savings goal",
+              "target amount if available",
+              "safe-to-save estimate",
+              "risk comfort",
+              "financial snapshot"
+            ],
+            "assumptions": [
+              "The 2025 synthetic cashflow pattern is broadly representative.",
+              "No target amount was available, so timeline is not estimated.",
+              "Goal realism category inferred as tech_purchase."
+            ],
+            "confidence": "low",
+            "boundaries": [
+              "This is not an investment return forecast.",
+              "This does not execute a transfer.",
+              "Large goals may need timeline changes, milestone splitting, or outside contributions."
+            ],
+            "approval_required": true
+          },
+          "memory_updates": [
+            {
+              "field": "goals",
+              "value": [
+                {
+                  "id": "U005-iphone-travel-fund",
+                  "name": "iPhone + travel fund",
+                  "target_amount": null,
+                  "currency": "EUR",
+                  "monthly_contribution": 25,
+                  "status": "draft",
+                  "shared_goal": false
+                }
+              ],
+              "source": "inferred_from_conversation",
+              "confidence": "low"
+            },
+            {
+              "field": "investment_journey.readiness_stage",
+              "value": "draft_created",
+              "source": "inferred_from_conversation",
+              "confidence": "medium"
+            }
+          ],
+          "safety_flags": [
+            "approval_required_before_money_movement"
+          ]
+        },
+        "recommendation_card": {
+          "title": "Plan options for iPhone + travel fund",
+          "summary": "Recommended draft: EUR 25/month. No investment action yet.",
+          "amount": 25,
+          "currency": "EUR",
+          "cadence": "monthly",
+          "status": "draft_requires_approval"
+        },
+        "trust_ledger_entry": {
+          "data_used": [
+            "savings goal",
+            "target amount if available",
+            "safe-to-save estimate",
+            "risk comfort",
+            "financial snapshot"
+          ],
+          "assumptions": [
+            "The 2025 synthetic cashflow pattern is broadly representative.",
+            "No target amount was available, so timeline is not estimated.",
+            "Goal realism category inferred as tech_purchase."
+          ],
+          "confidence": "low",
+          "what_i_am_not_claiming": [
+            "This is not an investment return forecast.",
+            "This does not execute a transfer.",
+            "Large goals may need timeline changes, milestone splitting, or outside contributions."
+          ],
+          "approval_required": true
+        },
+        "memory_updates": [
+          {
+            "field": "goals",
+            "value": [
+              {
+                "id": "U005-iphone-travel-fund",
+                "name": "iPhone + travel fund",
+                "target_amount": null,
+                "currency": "EUR",
+                "monthly_contribution": 25,
+                "status": "draft",
+                "shared_goal": false
+              }
+            ],
+            "source": "inferred_from_conversation",
+            "confidence": "low"
+          },
+          {
+            "field": "investment_journey.readiness_stage",
+            "value": "draft_created",
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          }
+        ],
+        "next_best_question": "Keep Gentle, compare options, or adjust the goal?",
+        "education_hook": null,
+        "safety_flags": [
+          "approval_required_before_money_movement"
+        ]
+      }
+    },
+    {
+      "role": "Simulated User",
+      "text": "Keep Gentle as the draft. I like that it stays easy to maintain.",
+      "internal_reason": "Persona chooses lower commitment."
+    },
+    {
+      "role": "Nora",
+      "text": "Gentle it is. I will keep EUR 25/month as the draft plan.\n\nNext useful step: let's look for one recurring category that might make this easier without turning your life into a punishment spreadsheet. Joy is not on trial. Want to review transport, subscriptions, or skip expense review for now?",
+      "structured": {
+        "visible_response": "Gentle it is. I will keep EUR 25/month as the draft plan.\n\nNext useful step: let's look for one recurring category that might make this easier without turning your life into a punishment spreadsheet. Joy is not on trial. Want to review transport, subscriptions, or skip expense review for now?",
+        "intent": "expense_tracking",
+        "nora_action": "ask_question",
+        "tool_requests": [
+          {
+            "name": "expense_review_agent",
+            "reason": "Find one safe recurring category to inspect before any cuts"
+          }
+        ],
+        "recommendation_card": null,
+        "trust_ledger_entry": null,
+        "memory_updates": [
+          {
+            "field": "preferences.likes_future_self_framing",
+            "value": true,
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          },
+          {
+            "field": "investment_journey.readiness_stage",
+            "value": "ready_to_plan",
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          }
+        ],
+        "next_best_question": "Review transport, subscriptions, or skip expense review?",
+        "education_hook": null,
+        "safety_flags": []
+      }
+    },
+    {
+      "role": "Simulated User",
+      "text": "Let us review subscriptions. I do not want to cut anything automatically, but I can inspect them.",
+      "internal_reason": "Sofia is practical and wants control."
+    },
+    {
+      "role": "Nora",
+      "text": "Here is the clean table version:\n\n| Category | Estimated amount | Pattern | Reviewability |\n|---|---:|---|---|\n| Housing | EUR 660/month | monthly | low |\n| Transport | EUR 70/month | monthly | medium |\n| Subscriptions | EUR 15/month | monthly | high |\n\nReview subscriptions monthly as an inspection habit, not a cut. No automatic cancellation.\n\nI put the review habit into a draft. This is a check-in, not a joy audit. Would you be willing to make it a once-a-month habit to protect the EUR 25 plan?",
+      "structured": {
+        "visible_response": "Here is the clean table version:\n\n| Category | Estimated amount | Pattern | Reviewability |\n|---|---:|---|---|\n| Housing | EUR 660/month | monthly | low |\n| Transport | EUR 70/month | monthly | medium |\n| Subscriptions | EUR 15/month | monthly | high |\n\nReview subscriptions monthly as an inspection habit, not a cut. No automatic cancellation.\n\nI put the review habit into a draft. This is a check-in, not a joy audit. Would you be willing to make it a once-a-month habit to protect the EUR 25 plan?",
+        "intent": "expense_tracking",
+        "nora_action": "ask_question",
+        "tool_requests": [
+          {
+            "name": "expense_review_agent",
+            "reason": "Show recurring categories and create one review habit"
+          },
+          {
+            "name": "action_approval_agent",
+            "reason": "Create demo-only expense review habit draft"
+          }
+        ],
+        "expense_review": {
+          "agent": "expense_review",
+          "currency": "EUR",
+          "selected_category": "Subscriptions",
+          "suggested_category": "Subscriptions",
+          "recurring_expenses": [
+            {
+              "category": "Housing",
+              "amount": 660,
+              "currency": "EUR",
+              "cadence": "monthly",
+              "reviewability": "low"
+            },
+            {
+              "category": "Transport",
+              "amount": 70,
+              "currency": "EUR",
+              "cadence": "monthly",
+              "reviewability": "medium"
+            },
+            {
+              "category": "Subscriptions",
+              "amount": 15,
+              "currency": "EUR",
+              "cadence": "monthly",
+              "reviewability": "high"
+            }
+          ],
+          "markdown_table": "| Category | Estimated amount | Pattern | Reviewability |\n|---|---:|---|---|\n| Housing | EUR 660/month | monthly | low |\n| Transport | EUR 70/month | monthly | medium |\n| Subscriptions | EUR 15/month | monthly | high |",
+          "suggested_review_options": [
+            "Transport",
+            "Subscriptions"
+          ],
+          "possible_savings_opportunity": {
+            "category": "Subscriptions",
+            "inspection_prompt": "Review subscriptions once this month and decide manually whether anything still earns its place.",
+            "possible_monthly_range": [
+              1,
+              2
+            ],
+            "currency": "EUR",
+            "certainty": "medium",
+            "note": "This is an inspection range, not guaranteed savings and not a cancellation recommendation."
+          },
+          "review_habit": {
+            "category": "Subscriptions",
+            "cadence": "monthly",
+            "action": "Inspect subscriptions once a month before changing anything.",
+            "user_control": "Nora only surfaces the category; the user decides whether to keep, edit, or cancel anything."
+          },
+          "nora_summary": "Review subscriptions monthly as an inspection habit, not a cut. No automatic cancellation.",
+          "trust_ledger_input": {
+            "data_used": [
+              "recurring expense categories",
+              "safe-to-save estimate",
+              "user-selected category if provided"
+            ],
+            "assumptions": [
+              "The detected recurring categories are broad monthly estimates.",
+              "A review habit may protect the savings plan, but it may find nothing to change."
+            ],
+            "confidence": "medium",
+            "boundaries": [
+              "This does not mean any category is bad.",
+              "This is not an automatic cancellation recommendation.",
+              "The user must approve any cancellation, transfer, or sharing action."
+            ],
+            "approval_required": false
+          },
+          "memory_updates": [
+            {
+              "field": "preferences.wants_expense_tables",
+              "value": true,
+              "source": "explicit_user",
+              "confidence": "high"
+            },
+            {
+              "field": "preferences.expense_review_category",
+              "value": "Subscriptions",
+              "source": "explicit_user",
+              "confidence": "medium"
+            }
+          ],
+          "safety_flags": [
+            "no_automatic_cancellations",
+            "approval_required_before_cancellation",
+            "review_not_judgement"
+          ]
+        },
+        "action_confirmation_card": {
+          "title": "Review habit",
+          "draft": "Review subscriptions monthly",
+          "status": "Ready for approval",
+          "details": [
+            "Category: Subscriptions",
+            "Amount: EUR 0",
+            "Cadence: monthly"
+          ],
+          "options": [
+            "Approve",
+            "Choose category",
+            "Not now"
+          ],
+          "action_id": "act_u005_expense_review_habit_001"
+        },
+        "action_approval": {
+          "agent": "action_approval",
+          "operation": "create_draft",
+          "action_type": "expense_review_habit",
+          "execution_mode": "demo_memory_only",
+          "action": {
+            "action_id": "act_u005_expense_review_habit_001",
+            "action_type": "expense_review_habit",
+            "status": "pending_approval",
+            "summary": "Draft a monthly review habit for subscriptions. No cancellation happened.",
+            "amount": null,
+            "currency": "EUR",
+            "cadence": "monthly",
+            "goal_id": null,
+            "goal_name": null,
+            "category": "Subscriptions",
+            "source_agent": "expense_review",
+            "approval_required": false,
+            "execution_mode": "demo_memory_only",
+            "created_at": "2026-05-25T20:52:20.437Z",
+            "last_updated_at": "2026-05-25T20:52:20.437Z"
+          },
+          "approval_request": {
+            "approval_request_id": "act_u005_expense_review_habit_001_approval",
+            "status": "pending",
+            "summary": "Draft a monthly review habit for subscriptions. No cancellation happened.",
+            "risk_note": "Demo only. No real money movement, cancellation, investment, or sharing occurs."
+          },
+          "action_log_event": {
+            "event_id": "act_u005_expense_review_habit_001_create_draft_1779742340437",
+            "action_id": "act_u005_expense_review_habit_001",
+            "action_type": "expense_review_habit",
+            "operation": "create_draft",
+            "from_status": null,
+            "to_status": "pending_approval",
+            "actor": "nora",
+            "summary": "Draft a monthly review habit for subscriptions. No cancellation happened.",
+            "execution_mode": "demo_memory_only",
+            "timestamp": "2026-05-25T20:52:20.437Z"
+          },
+          "memory_updates": [
+            {
+              "field": "action_state",
+              "value": {
+                "active_drafts": [
+                  {
+                    "action_id": "act_u005_savings_transfer_draft_001",
+                    "action_type": "savings_transfer_draft",
+                    "status": "pending_approval",
+                    "summary": "Draft EUR 25/month to iPhone + travel fund. Not executed.",
+                    "amount": 25,
+                    "currency": "EUR",
+                    "cadence": "monthly",
+                    "goal_id": "U005-iphone-travel-fund",
+                    "goal_name": "iPhone + travel fund",
+                    "category": null,
+                    "source_agent": "goal_savings_plan",
+                    "approval_required": true,
+                    "execution_mode": "demo_memory_only",
+                    "created_at": "2026-05-25T20:52:20.436Z",
+                    "last_updated_at": "2026-05-25T20:52:20.436Z"
+                  },
+                  {
+                    "action_id": "act_u005_expense_review_habit_001",
+                    "action_type": "expense_review_habit",
+                    "status": "pending_approval",
+                    "summary": "Draft a monthly review habit for subscriptions. No cancellation happened.",
+                    "amount": null,
+                    "currency": "EUR",
+                    "cadence": "monthly",
+                    "goal_id": null,
+                    "goal_name": null,
+                    "category": "Subscriptions",
+                    "source_agent": "expense_review",
+                    "approval_required": false,
+                    "execution_mode": "demo_memory_only",
+                    "created_at": "2026-05-25T20:52:20.437Z",
+                    "last_updated_at": "2026-05-25T20:52:20.437Z"
+                  }
+                ],
+                "active_habits": [],
+                "action_log": [
+                  {
+                    "event_id": "act_u005_savings_transfer_draft_001_create_draft_1779742340436",
+                    "action_id": "act_u005_savings_transfer_draft_001",
+                    "action_type": "savings_transfer_draft",
+                    "operation": "create_draft",
+                    "from_status": null,
+                    "to_status": "pending_approval",
+                    "actor": "nora",
+                    "summary": "Draft EUR 25/month to iPhone + travel fund. Not executed.",
+                    "execution_mode": "demo_memory_only",
+                    "timestamp": "2026-05-25T20:52:20.436Z"
+                  },
+                  {
+                    "event_id": "act_u005_expense_review_habit_001_create_draft_1779742340437",
+                    "action_id": "act_u005_expense_review_habit_001",
+                    "action_type": "expense_review_habit",
+                    "operation": "create_draft",
+                    "from_status": null,
+                    "to_status": "pending_approval",
+                    "actor": "nora",
+                    "summary": "Draft a monthly review habit for subscriptions. No cancellation happened.",
+                    "execution_mode": "demo_memory_only",
+                    "timestamp": "2026-05-25T20:52:20.437Z"
+                  }
+                ]
+              },
+              "source": "inferred_from_conversation",
+              "confidence": "high"
+            }
+          ],
+          "safety_flags": [
+            "demo_memory_only",
+            "not_executed",
+            "approval_required_before_real_execution",
+            "no_automatic_cancellations"
+          ]
+        },
+        "recommendation_card": null,
+        "trust_ledger_entry": {
+          "data_used": [
+            "recurring expense categories",
+            "safe-to-save estimate",
+            "user-selected category if provided"
+          ],
+          "assumptions": [
+            "The detected recurring categories are broad monthly estimates.",
+            "A review habit may protect the savings plan, but it may find nothing to change."
+          ],
+          "confidence": "medium",
+          "what_i_am_not_claiming": [
+            "This does not mean any category is bad.",
+            "This is not an automatic cancellation recommendation.",
+            "The user must approve any cancellation, transfer, or sharing action."
+          ],
+          "approval_required": false
+        },
+        "memory_updates": [
+          {
+            "field": "preferences.wants_expense_tables",
+            "value": true,
+            "source": "explicit_user",
+            "confidence": "high"
+          },
+          {
+            "field": "preferences.expense_review_category",
+            "value": "Subscriptions",
+            "source": "explicit_user",
+            "confidence": "medium"
+          },
+          {
+            "field": "action_state",
+            "value": {
+              "active_drafts": [
+                {
+                  "action_id": "act_u005_savings_transfer_draft_001",
+                  "action_type": "savings_transfer_draft",
+                  "status": "pending_approval",
+                  "summary": "Draft EUR 25/month to iPhone + travel fund. Not executed.",
+                  "amount": 25,
+                  "currency": "EUR",
+                  "cadence": "monthly",
+                  "goal_id": "U005-iphone-travel-fund",
+                  "goal_name": "iPhone + travel fund",
+                  "category": null,
+                  "source_agent": "goal_savings_plan",
+                  "approval_required": true,
+                  "execution_mode": "demo_memory_only",
+                  "created_at": "2026-05-25T20:52:20.436Z",
+                  "last_updated_at": "2026-05-25T20:52:20.436Z"
+                },
+                {
+                  "action_id": "act_u005_expense_review_habit_001",
+                  "action_type": "expense_review_habit",
+                  "status": "pending_approval",
+                  "summary": "Draft a monthly review habit for subscriptions. No cancellation happened.",
+                  "amount": null,
+                  "currency": "EUR",
+                  "cadence": "monthly",
+                  "goal_id": null,
+                  "goal_name": null,
+                  "category": "Subscriptions",
+                  "source_agent": "expense_review",
+                  "approval_required": false,
+                  "execution_mode": "demo_memory_only",
+                  "created_at": "2026-05-25T20:52:20.437Z",
+                  "last_updated_at": "2026-05-25T20:52:20.437Z"
+                }
+              ],
+              "active_habits": [],
+              "action_log": [
+                {
+                  "event_id": "act_u005_savings_transfer_draft_001_create_draft_1779742340436",
+                  "action_id": "act_u005_savings_transfer_draft_001",
+                  "action_type": "savings_transfer_draft",
+                  "operation": "create_draft",
+                  "from_status": null,
+                  "to_status": "pending_approval",
+                  "actor": "nora",
+                  "summary": "Draft EUR 25/month to iPhone + travel fund. Not executed.",
+                  "execution_mode": "demo_memory_only",
+                  "timestamp": "2026-05-25T20:52:20.436Z"
+                },
+                {
+                  "event_id": "act_u005_expense_review_habit_001_create_draft_1779742340437",
+                  "action_id": "act_u005_expense_review_habit_001",
+                  "action_type": "expense_review_habit",
+                  "operation": "create_draft",
+                  "from_status": null,
+                  "to_status": "pending_approval",
+                  "actor": "nora",
+                  "summary": "Draft a monthly review habit for subscriptions. No cancellation happened.",
+                  "execution_mode": "demo_memory_only",
+                  "timestamp": "2026-05-25T20:52:20.437Z"
+                }
+              ]
+            },
+            "source": "inferred_from_conversation",
+            "confidence": "high"
+          }
+        ],
+        "next_best_question": "Inspect Subscriptions monthly?",
+        "education_hook": null,
+        "safety_flags": [
+          "no_automatic_cancellations",
+          "approval_required_before_cancellation",
+          "review_not_judgement"
+        ]
+      }
+    },
+    {
+      "role": "Simulated User",
+      "text": "Approve the monthly review habit. I only want it as a check-in, not an automatic cut.",
+      "internal_reason": "Persona approves the review habit from the confirmation card."
+    },
+    {
+      "role": "Nora",
+      "text": "Good. I marked subscriptions as a review habit, not a cut. Very different energy.\n\nMoney friend recap: you prefer low-risk, simple steps; your draft is EUR 25/month toward iPhone + travel fund; inspect subscriptions once a month before changing anything.; and investing should stay education-first until risk feels less mysterious.\n\nWant the quick money card on \"What investment risk means\" now, or should I stop the demo conversation here?",
+      "structured": {
+        "visible_response": "Good. I marked subscriptions as a review habit, not a cut. Very different energy.\n\nMoney friend recap: you prefer low-risk, simple steps; your draft is EUR 25/month toward iPhone + travel fund; inspect subscriptions once a month before changing anything.; and investing should stay education-first until risk feels less mysterious.\n\nWant the quick money card on \"What investment risk means\" now, or should I stop the demo conversation here?",
+        "intent": "education_bridge",
+        "nora_action": "ask_question",
+        "tool_requests": [
+          {
+            "name": "action_approval_agent",
+            "reason": "Approve expense review habit in demo memory only"
+          },
+          {
+            "name": "update_user_memory",
+            "reason": "Persist selected review habit and plan summary"
+          }
+        ],
+        "action_approval": {
+          "agent": "action_approval",
+          "operation": "approve",
+          "action_type": "expense_review_habit",
+          "execution_mode": "demo_memory_only",
+          "action": {
+            "action_id": "act_u005_expense_review_habit_001",
+            "action_type": "expense_review_habit",
+            "status": "approved_in_demo_memory",
+            "summary": "Approved in demo memory: review subscriptions monthly. No cancellation happened.",
+            "amount": null,
+            "currency": "EUR",
+            "cadence": "monthly",
+            "goal_id": null,
+            "goal_name": null,
+            "category": "Subscriptions",
+            "source_agent": "expense_review",
+            "approval_required": false,
+            "execution_mode": "demo_memory_only",
+            "created_at": "2026-05-25T20:52:20.437Z",
+            "last_updated_at": "2026-05-25T20:52:20.437Z"
+          },
+          "approval_request": null,
+          "action_log_event": {
+            "event_id": "act_u005_expense_review_habit_001_approve_1779742340437",
+            "action_id": "act_u005_expense_review_habit_001",
+            "action_type": "expense_review_habit",
+            "operation": "approve",
+            "from_status": "pending_approval",
+            "to_status": "approved_in_demo_memory",
+            "actor": "user",
+            "summary": "Approved in demo memory: review subscriptions monthly. No cancellation happened.",
+            "execution_mode": "demo_memory_only",
+            "timestamp": "2026-05-25T20:52:20.437Z"
+          },
+          "memory_updates": [
+            {
+              "field": "action_state",
+              "value": {
+                "active_drafts": [
+                  {
+                    "action_id": "act_u005_savings_transfer_draft_001",
+                    "action_type": "savings_transfer_draft",
+                    "status": "pending_approval",
+                    "summary": "Draft EUR 25/month to iPhone + travel fund. Not executed.",
+                    "amount": 25,
+                    "currency": "EUR",
+                    "cadence": "monthly",
+                    "goal_id": "U005-iphone-travel-fund",
+                    "goal_name": "iPhone + travel fund",
+                    "category": null,
+                    "source_agent": "goal_savings_plan",
+                    "approval_required": true,
+                    "execution_mode": "demo_memory_only",
+                    "created_at": "2026-05-25T20:52:20.436Z",
+                    "last_updated_at": "2026-05-25T20:52:20.436Z"
+                  }
+                ],
+                "active_habits": [
+                  {
+                    "action_id": "act_u005_expense_review_habit_001",
+                    "action_type": "expense_review_habit",
+                    "status": "approved_in_demo_memory",
+                    "summary": "Approved in demo memory: review subscriptions monthly. No cancellation happened.",
+                    "amount": null,
+                    "currency": "EUR",
+                    "cadence": "monthly",
+                    "goal_id": null,
+                    "goal_name": null,
+                    "category": "Subscriptions",
+                    "source_agent": "expense_review",
+                    "approval_required": false,
+                    "execution_mode": "demo_memory_only",
+                    "created_at": "2026-05-25T20:52:20.437Z",
+                    "last_updated_at": "2026-05-25T20:52:20.437Z"
+                  }
+                ],
+                "action_log": [
+                  {
+                    "event_id": "act_u005_savings_transfer_draft_001_create_draft_1779742340436",
+                    "action_id": "act_u005_savings_transfer_draft_001",
+                    "action_type": "savings_transfer_draft",
+                    "operation": "create_draft",
+                    "from_status": null,
+                    "to_status": "pending_approval",
+                    "actor": "nora",
+                    "summary": "Draft EUR 25/month to iPhone + travel fund. Not executed.",
+                    "execution_mode": "demo_memory_only",
+                    "timestamp": "2026-05-25T20:52:20.436Z"
+                  },
+                  {
+                    "event_id": "act_u005_expense_review_habit_001_create_draft_1779742340437",
+                    "action_id": "act_u005_expense_review_habit_001",
+                    "action_type": "expense_review_habit",
+                    "operation": "create_draft",
+                    "from_status": null,
+                    "to_status": "pending_approval",
+                    "actor": "nora",
+                    "summary": "Draft a monthly review habit for subscriptions. No cancellation happened.",
+                    "execution_mode": "demo_memory_only",
+                    "timestamp": "2026-05-25T20:52:20.437Z"
+                  },
+                  {
+                    "event_id": "act_u005_expense_review_habit_001_approve_1779742340437",
+                    "action_id": "act_u005_expense_review_habit_001",
+                    "action_type": "expense_review_habit",
+                    "operation": "approve",
+                    "from_status": "pending_approval",
+                    "to_status": "approved_in_demo_memory",
+                    "actor": "user",
+                    "summary": "Approved in demo memory: review subscriptions monthly. No cancellation happened.",
+                    "execution_mode": "demo_memory_only",
+                    "timestamp": "2026-05-25T20:52:20.437Z"
+                  }
+                ]
+              },
+              "source": "explicit_user",
+              "confidence": "high"
+            }
+          ],
+          "safety_flags": [
+            "demo_memory_only",
+            "not_executed",
+            "approval_required_before_real_execution",
+            "no_automatic_cancellations"
+          ]
+        },
+        "action_confirmation_card": null,
+        "recommendation_card": null,
+        "trust_ledger_entry": null,
+        "memory_updates": [
+          {
+            "field": "investment_journey.readiness_stage",
+            "value": "ready_to_plan",
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          },
+          {
+            "field": "financial_understanding.confusing_topics",
+            "value": [
+              "investment risk"
+            ],
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          },
+          {
+            "field": "preferences.wants_expense_tables",
+            "value": true,
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          },
+          {
+            "field": "preferences.expense_review_category",
+            "value": "Subscriptions",
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          },
+          {
+            "field": "action_state",
+            "value": {
+              "active_drafts": [
+                {
+                  "action_id": "act_u005_savings_transfer_draft_001",
+                  "action_type": "savings_transfer_draft",
+                  "status": "pending_approval",
+                  "summary": "Draft EUR 25/month to iPhone + travel fund. Not executed.",
+                  "amount": 25,
+                  "currency": "EUR",
+                  "cadence": "monthly",
+                  "goal_id": "U005-iphone-travel-fund",
+                  "goal_name": "iPhone + travel fund",
+                  "category": null,
+                  "source_agent": "goal_savings_plan",
+                  "approval_required": true,
+                  "execution_mode": "demo_memory_only",
+                  "created_at": "2026-05-25T20:52:20.436Z",
+                  "last_updated_at": "2026-05-25T20:52:20.436Z"
+                }
+              ],
+              "active_habits": [
+                {
+                  "action_id": "act_u005_expense_review_habit_001",
+                  "action_type": "expense_review_habit",
+                  "status": "approved_in_demo_memory",
+                  "summary": "Approved in demo memory: review subscriptions monthly. No cancellation happened.",
+                  "amount": null,
+                  "currency": "EUR",
+                  "cadence": "monthly",
+                  "goal_id": null,
+                  "goal_name": null,
+                  "category": "Subscriptions",
+                  "source_agent": "expense_review",
+                  "approval_required": false,
+                  "execution_mode": "demo_memory_only",
+                  "created_at": "2026-05-25T20:52:20.437Z",
+                  "last_updated_at": "2026-05-25T20:52:20.437Z"
+                }
+              ],
+              "action_log": [
+                {
+                  "event_id": "act_u005_savings_transfer_draft_001_create_draft_1779742340436",
+                  "action_id": "act_u005_savings_transfer_draft_001",
+                  "action_type": "savings_transfer_draft",
+                  "operation": "create_draft",
+                  "from_status": null,
+                  "to_status": "pending_approval",
+                  "actor": "nora",
+                  "summary": "Draft EUR 25/month to iPhone + travel fund. Not executed.",
+                  "execution_mode": "demo_memory_only",
+                  "timestamp": "2026-05-25T20:52:20.436Z"
+                },
+                {
+                  "event_id": "act_u005_expense_review_habit_001_create_draft_1779742340437",
+                  "action_id": "act_u005_expense_review_habit_001",
+                  "action_type": "expense_review_habit",
+                  "operation": "create_draft",
+                  "from_status": null,
+                  "to_status": "pending_approval",
+                  "actor": "nora",
+                  "summary": "Draft a monthly review habit for subscriptions. No cancellation happened.",
+                  "execution_mode": "demo_memory_only",
+                  "timestamp": "2026-05-25T20:52:20.437Z"
+                },
+                {
+                  "event_id": "act_u005_expense_review_habit_001_approve_1779742340437",
+                  "action_id": "act_u005_expense_review_habit_001",
+                  "action_type": "expense_review_habit",
+                  "operation": "approve",
+                  "from_status": "pending_approval",
+                  "to_status": "approved_in_demo_memory",
+                  "actor": "user",
+                  "summary": "Approved in demo memory: review subscriptions monthly. No cancellation happened.",
+                  "execution_mode": "demo_memory_only",
+                  "timestamp": "2026-05-25T20:52:20.437Z"
+                }
+              ]
+            },
+            "source": "explicit_user",
+            "confidence": "high"
+          }
+        ],
+        "next_best_question": "Read the quick money card now, or stop here?",
+        "education_hook": {
+          "topic": "What investment risk means",
+          "reason": "User wants education before investment approval",
+          "format_suggestion": "short_card"
+        },
+        "safety_flags": []
+      }
+    },
+    {
+      "role": "Simulated User",
+      "text": "Show me the risk card. Short version please.",
+      "internal_reason": "Persona wants education before investing."
+    },
+    {
+      "role": "Nora",
+      "text": "Quick money card: Risk means movement, not chaos\n\nInvestment risk means the value can move up and down, especially in the short term. It does not mean every investment is gambling. The current draft habit is EUR 25/month.\n\n- Short timelines usually favor savings first.\n- Longer timelines can make investing more reasonable.\n- The amount should be money the user can leave alone.\n\nOne quick check: What is the first practical question before investing goal money?\n\nFor your next Nora step, I would keep the EUR 25/month savings draft and treat \"What investment risk means\" as the confidence step before any investment draft. Want me to mark that as the next step?",
+      "structured": {
+        "visible_response": "Quick money card: Risk means movement, not chaos\n\nInvestment risk means the value can move up and down, especially in the short term. It does not mean every investment is gambling. The current draft habit is EUR 25/month.\n\n- Short timelines usually favor savings first.\n- Longer timelines can make investing more reasonable.\n- The amount should be money the user can leave alone.\n\nOne quick check: What is the first practical question before investing goal money?\n\nFor your next Nora step, I would keep the EUR 25/month savings draft and treat \"What investment risk means\" as the confidence step before any investment draft. Want me to mark that as the next step?",
+        "intent": "education_bridge",
+        "nora_action": "ask_question",
+        "tool_requests": [
+          {
+            "name": "education_risk_lesson_agent",
+            "reason": "Serve first blocker-specific beginner lesson"
+          },
+          {
+            "name": "learning_progress_agent",
+            "reason": "Mark the topic as started without school-like framing"
+          }
+        ],
+        "education_lesson": {
+          "agent": "education_risk_lesson",
+          "topic": "What investment risk means",
+          "format": "short_card",
+          "estimated_duration_seconds": 45,
+          "blocker": "risk",
+          "lesson_card": {
+            "title": "Risk means movement, not chaos",
+            "plain_answer": "Investment risk means the value can move up and down, especially in the short term. It does not mean every investment is gambling. The current draft habit is EUR 25/month.",
+            "key_points": [
+              "Short timelines usually favor savings first.",
+              "Longer timelines can make investing more reasonable.",
+              "The amount should be money the user can leave alone."
+            ],
+            "future_self_prompt": "Future-you does not need perfect confidence today. They need one idea clear enough that the next step feels safe."
+          },
+          "check_questions": [
+            {
+              "type": "single_check",
+              "question": "What is the first practical question before investing goal money?",
+              "correct_answer": "When do you need the money?",
+              "explanation": "This checks the core concept before Nora drafts any investment action."
+            }
+          ],
+          "next_topic": "Saving versus investing",
+          "resource_stub": {
+            "title": "What investment risk means",
+            "format": "short_card",
+            "status": "stub",
+            "note": "Demo stub only; no live article or podcast retrieval yet."
+          },
+          "memory_updates": [
+            {
+              "field": "financial_understanding.known_topics",
+              "value": [
+                "What investment risk means"
+              ],
+              "source": "inferred_from_conversation",
+              "confidence": "medium"
+            },
+            {
+              "field": "financial_understanding.preferred_content_format",
+              "value": "short_card",
+              "source": "inferred_from_conversation",
+              "confidence": "medium"
+            }
+          ],
+          "safety_flags": [
+            "education_before_investment_action",
+            "not_investment_advice"
+          ]
+        },
+        "learning_progress": {
+          "agent": "learning_progress",
+          "stage": "money_confidence",
+          "domain": "Risk Without Panic",
+          "domain_key": "risk_without_panic",
+          "topic": "What investment risk means",
+          "internal_status": "seen",
+          "visible_status": "Started",
+          "progress_delta": 25,
+          "domain_progress": 25,
+          "next_domain_suggestion": "Money Habits",
+          "interested_domains": [],
+          "user_facing_summary": "Risk Without Panic is started. Next useful idea later: Money Habits.",
+          "memory_updates": [
+            {
+              "field": "learning_progress.stage",
+              "value": "money_confidence",
+              "source": "inferred_from_conversation",
+              "confidence": "medium"
+            },
+            {
+              "field": "learning_progress.domains.risk_without_panic",
+              "value": {
+                "name": "Risk Without Panic",
+                "stage": "money_confidence",
+                "status": "seen",
+                "visible_status": "Started",
+                "progress": 25,
+                "last_topic": "What investment risk means"
+              },
+              "source": "inferred_from_conversation",
+              "confidence": "medium"
+            },
+            {
+              "field": "learning_progress.topic_history",
+              "value": [
+                "Risk Without Panic:What investment risk means:seen"
+              ],
+              "source": "inferred_from_conversation",
+              "confidence": "medium"
+            },
+            {
+              "field": "learning_progress.next_suggested_domain",
+              "value": "Money Habits",
+              "source": "inferred_from_conversation",
+              "confidence": "medium"
+            }
+          ],
+          "safety_flags": [
+            "education_progress_not_advice",
+            "do_not_show_raw_internal_status"
+          ],
+          "available_stage_1_domains": [
+            "Starting Safely",
+            "Risk Without Panic",
+            "Money Habits",
+            "Goal Planning",
+            "Borrowing & Loans"
+          ],
+          "unlocked_stage_2_domains": []
+        },
+        "recommendation_card": null,
+        "trust_ledger_entry": null,
+        "memory_updates": [
+          {
+            "field": "financial_understanding.known_topics",
+            "value": [
+              "What investment risk means"
+            ],
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          },
+          {
+            "field": "financial_understanding.preferred_content_format",
+            "value": "short_card",
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          },
+          {
+            "field": "learning_progress.stage",
+            "value": "money_confidence",
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          },
+          {
+            "field": "learning_progress.domains.risk_without_panic",
+            "value": {
+              "name": "Risk Without Panic",
+              "stage": "money_confidence",
+              "status": "seen",
+              "visible_status": "Started",
+              "progress": 25,
+              "last_topic": "What investment risk means"
+            },
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          },
+          {
+            "field": "learning_progress.topic_history",
+            "value": [
+              "Risk Without Panic:What investment risk means:seen"
+            ],
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          },
+          {
+            "field": "learning_progress.next_suggested_domain",
+            "value": "Money Habits",
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          }
+        ],
+        "next_best_question": "Mark \"What investment risk means\" as the next step?",
+        "education_hook": {
+          "topic": "Saving versus investing",
+          "reason": "Next lesson after this check",
+          "format_suggestion": "short_card"
+        },
+        "safety_flags": [
+          "education_before_investment_action",
+          "not_investment_advice"
+        ]
+      }
+    },
+    {
+      "role": "Simulated User",
+      "text": "Yes, mark that as the next step. That feels like enough for now.",
+      "internal_reason": "Persona accepts the journey endpoint."
+    },
+    {
+      "role": "Nora",
+      "text": "Marked. First journey complete: one draft savings habit, one monthly review habit, and one concept made less mysterious before any investment action.\n\nSmall win: You used the risk idea by keeping this journey savings-first before any investment action. (Applied once.) Progress without homework. I will keep Funds as the next useful thing to explain when you are ready.\n\nOne useful next thing: If you want one useful next thing, save this article for later: \"5 Strategies to Navigate Market Volatility\" from Morgan Stanley (5 min). Useful after the user says risk or market drops make investing feel scary.\n\nWant links like this as articles, videos, or podcasts next time?\n\nMoney picture: iPhone + travel fund has a draft habit of EUR 25/month. The current habit stack is EUR 25/month plus one monthly subscriptions review. You used the risk idea by keeping this journey savings-first before any investment action.\n\nNext useful move: Explain Funds next. The first confidence step is complete and there is a natural next learning path.\n\nYou can still ask me anything, anytime. I am also happy to stop here instead of inventing a new money task just to look busy.",
+      "structured": {
+        "visible_response": "Marked. First journey complete: one draft savings habit, one monthly review habit, and one concept made less mysterious before any investment action.\n\nSmall win: You used the risk idea by keeping this journey savings-first before any investment action. (Applied once.) Progress without homework. I will keep Funds as the next useful thing to explain when you are ready.\n\nOne useful next thing: If you want one useful next thing, save this article for later: \"5 Strategies to Navigate Market Volatility\" from Morgan Stanley (5 min). Useful after the user says risk or market drops make investing feel scary.\n\nWant links like this as articles, videos, or podcasts next time?\n\nMoney picture: iPhone + travel fund has a draft habit of EUR 25/month. The current habit stack is EUR 25/month plus one monthly subscriptions review. You used the risk idea by keeping this journey savings-first before any investment action.\n\nNext useful move: Explain Funds next. The first confidence step is complete and there is a natural next learning path.\n\nYou can still ask me anything, anytime. I am also happy to stop here instead of inventing a new money task just to look busy.",
+        "intent": "education_bridge",
+        "nora_action": "update_memory",
+        "tool_requests": [
+          {
+            "name": "learning_progress_agent",
+            "reason": "Record concept applied through a savings-first decision"
+          },
+          {
+            "name": "suggest_education_resource",
+            "reason": "Suggest one curated resource after education progress"
+          },
+          {
+            "name": "snapshot_insight_agent",
+            "reason": "Summarize the first Nora journey and choose one next useful move"
+          },
+          {
+            "name": "update_user_memory",
+            "reason": "Persist completed first journey"
+          }
+        ],
+        "learning_progress": {
+          "agent": "learning_progress",
+          "stage": "money_confidence",
+          "domain": "Risk Without Panic",
+          "domain_key": "risk_without_panic",
+          "topic": "What investment risk means",
+          "internal_status": "applied",
+          "visible_status": "Applied once",
+          "progress_delta": 50,
+          "domain_progress": 75,
+          "next_domain_suggestion": "Funds",
+          "interested_domains": [],
+          "user_facing_summary": "You used the risk idea by keeping this journey savings-first before any investment action.",
+          "memory_updates": [
+            {
+              "field": "learning_progress.stage",
+              "value": "money_confidence",
+              "source": "inferred_from_conversation",
+              "confidence": "medium"
+            },
+            {
+              "field": "learning_progress.domains.risk_without_panic",
+              "value": {
+                "name": "Risk Without Panic",
+                "stage": "money_confidence",
+                "status": "applied",
+                "visible_status": "Applied once",
+                "progress": 75,
+                "last_topic": "What investment risk means"
+              },
+              "source": "inferred_from_conversation",
+              "confidence": "medium"
+            },
+            {
+              "field": "learning_progress.topic_history",
+              "value": [
+                "Risk Without Panic:What investment risk means:applied"
+              ],
+              "source": "inferred_from_conversation",
+              "confidence": "medium"
+            },
+            {
+              "field": "learning_progress.next_suggested_domain",
+              "value": "Funds",
+              "source": "inferred_from_conversation",
+              "confidence": "medium"
+            }
+          ],
+          "safety_flags": [
+            "education_progress_not_advice",
+            "do_not_show_raw_internal_status"
+          ],
+          "available_stage_1_domains": [
+            "Starting Safely",
+            "Risk Without Panic",
+            "Money Habits",
+            "Goal Planning",
+            "Borrowing & Loans"
+          ],
+          "unlocked_stage_2_domains": [
+            "Funds",
+            "Stocks",
+            "Home & Real Estate",
+            "Retirement & Long-Term",
+            "Sustainable Investing"
+          ]
+        },
+        "resource_suggestion": {
+          "agent": "education_resource_suggestion",
+          "status": "available",
+          "resource": {
+            "id": "risk_article_market_volatility_morgan_stanley_001",
+            "title": "5 Strategies to Navigate Market Volatility",
+            "format": "article",
+            "domain": "Risk Without Panic",
+            "topic": "Market volatility and staying calm",
+            "source": "Morgan Stanley",
+            "url": "https://www.morganstanley.com/insights/articles/5-investment-strategies-market-volatility",
+            "estimated_time_minutes": 5,
+            "summary": "Explains that market volatility is a normal part of investing and gives practical strategies for handling it without panic."
+          },
+          "nora_line": "If you want one useful next thing, save this article for later: \"5 Strategies to Navigate Market Volatility\" from Morgan Stanley (5 min). Useful after the user says risk or market drops make investing feel scary.",
+          "memory_updates": [
+            {
+              "field": "recommendation_history",
+              "value": {
+                "id": "rec_U005_risk_article_market_volatility_morgan_stanley_001",
+                "type": "education_resource",
+                "resource_id": "risk_article_market_volatility_morgan_stanley_001",
+                "summary": "5 Strategies to Navigate Market Volatility",
+                "domain": "Risk Without Panic",
+                "format": "article",
+                "status": "suggested",
+                "created_at": "2026-05-25T20:52:20.437Z"
+              },
+              "source": "inferred_from_conversation",
+              "confidence": "medium"
+            }
+          ],
+          "safety_flags": [
+            "resource_is_educational",
+            "not_product_advice"
+          ]
+        },
+        "snapshot_insight": {
+          "agent": "snapshot_insight",
+          "mode": "next_best_action",
+          "snapshot_card": {
+            "title": "Your next useful Nora move",
+            "summary": "iPhone + travel fund has a draft habit of EUR 25/month. The current habit stack is EUR 25/month plus one monthly subscriptions review. You used the risk idea by keeping this journey savings-first before any investment action.",
+            "money_state": {
+              "monthly_income_estimate": 2200,
+              "available_this_month": 995,
+              "safe_to_save_estimate": 175,
+              "currency": "EUR",
+              "confidence": "medium"
+            },
+            "goal_state": {
+              "active_goal": "iPhone + travel fund",
+              "target_amount": null,
+              "monthly_contribution": 25,
+              "status": "draft",
+              "summary": "iPhone + travel fund has a draft habit of EUR 25/month."
+            },
+            "habit_state": {
+              "savings_habit": "EUR 25/month draft",
+              "expense_review_habit": "Inspect subscriptions monthly before changing anything.",
+              "summary": "The current habit stack is EUR 25/month plus one monthly subscriptions review."
+            },
+            "learning_state": {
+              "current_domain": "Risk Without Panic",
+              "visible_status": "Applied once",
+              "next_domain_suggestion": "Funds",
+              "summary": "You used the risk idea by keeping this journey savings-first before any investment action."
+            },
+            "memory_state": {
+              "tracked_facts_count": 28,
+              "low_confidence_count": 2,
+              "needs_review": true,
+              "summary": "Some remembered preferences or inferred facts should be checked before Nora relies on them."
+            }
+          },
+          "insights": [
+            {
+              "type": "cashflow",
+              "message": "EUR 175/month appears usable as a starter habit before any investment action.",
+              "confidence": "medium"
+            },
+            {
+              "type": "goal",
+              "message": "iPhone + travel fund has a draftable monthly savings habit.",
+              "confidence": "low"
+            },
+            {
+              "type": "expense",
+              "message": "Subscriptions is worth reviewing monthly, as inspection rather than automatic cutting.",
+              "confidence": "medium"
+            },
+            {
+              "type": "learning",
+              "message": "You used the risk idea by keeping this journey savings-first before any investment action.",
+              "confidence": "medium"
+            },
+            {
+              "type": "memory",
+              "message": "Nora has at least one low-confidence inferred fact that should be checked before relying on it.",
+              "confidence": "medium"
+            }
+          ],
+          "next_best_action": {
+            "action_type": "show_lesson",
+            "label": "Explain Funds next",
+            "reason": "The first confidence step is complete and there is a natural next learning path.",
+            "requires_approval": false
+          },
+          "memory_review": {
+            "confirmation_needed": true,
+            "stable_facts": [
+              "first name: Sofia",
+              "age from bank context",
+              "no Nordea investments in bank context",
+              "active goal: iPhone + travel fund"
+            ],
+            "uncertain_or_stale": [
+              {
+                "field": "goals",
+                "remembered_value": [
+                  {
+                    "id": "U005-iphone-travel-fund",
+                    "name": "iPhone + travel fund",
+                    "target_amount": null,
+                    "currency": "EUR",
+                    "monthly_contribution": 25,
+                    "status": "draft",
+                    "shared_goal": false
+                  }
+                ],
+                "reason": "low confidence inference",
+                "confidence": "low"
+              },
+              {
+                "field": "preferences.likes_future_self_framing",
+                "remembered_value": true,
+                "reason": "preference may change over time",
+                "confidence": "medium"
+              }
+            ],
+            "suggested_question": "Quick check: I currently have your main investing blocker as risk, your risk comfort as low, your preferred learning format as short card. Still true?"
+          },
+          "trust_ledger_input": {
+            "data_used": [
+              "user memory",
+              "financial snapshot",
+              "goal plan",
+              "expense review",
+              "education progress"
+            ],
+            "assumptions": [
+              "Snapshot uses synthetic demo data and previously saved Nora memory.",
+              "Memory review candidates are suggestions, not automatic changes."
+            ],
+            "confidence": "medium",
+            "boundaries": [
+              "This is not regulated investment advice.",
+              "This does not execute money movement or sharing.",
+              "Uncertain memory must be confirmed before it is corrected."
+            ],
+            "approval_required": false
+          },
+          "memory_updates": [],
+          "safety_flags": [
+            "snapshot_not_financial_advice",
+            "no_memory_update_without_confirmation"
+          ]
+        },
+        "recommendation_card": null,
+        "trust_ledger_entry": null,
+        "memory_updates": [
+          {
+            "field": "investment_journey.readiness_stage",
+            "value": "ready_to_plan",
+            "source": "inferred_from_conversation",
+            "confidence": "high"
+          },
+          {
+            "field": "learning_progress.stage",
+            "value": "money_confidence",
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          },
+          {
+            "field": "learning_progress.domains.risk_without_panic",
+            "value": {
+              "name": "Risk Without Panic",
+              "stage": "money_confidence",
+              "status": "applied",
+              "visible_status": "Applied once",
+              "progress": 75,
+              "last_topic": "What investment risk means"
+            },
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          },
+          {
+            "field": "learning_progress.topic_history",
+            "value": [
+              "Risk Without Panic:What investment risk means:applied"
+            ],
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          },
+          {
+            "field": "learning_progress.next_suggested_domain",
+            "value": "Funds",
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          },
+          {
+            "field": "recommendation_history",
+            "value": {
+              "id": "rec_U005_risk_article_market_volatility_morgan_stanley_001",
+              "type": "education_resource",
+              "resource_id": "risk_article_market_volatility_morgan_stanley_001",
+              "summary": "5 Strategies to Navigate Market Volatility",
+              "domain": "Risk Without Panic",
+              "format": "article",
+              "status": "suggested",
+              "created_at": "2026-05-25T20:52:20.437Z"
+            },
+            "source": "inferred_from_conversation",
+            "confidence": "medium"
+          }
+        ],
+        "next_best_question": null,
+        "education_hook": null,
+        "safety_flags": []
+      }
+    },
+    {
+      "role": "Simulated User",
+      "text": "That is enough for now. I would come back to the learning card next.",
+      "internal_reason": "Persona accepts the end of the test journey."
+    },
+    {
+      "role": "Nora",
+      "text": "We have reached the natural stopping point for this test conversation: one goal draft, one review habit, one education next step. For a longer demo, the next module should be the education system rather than more looping chat.",
+      "structured": {
+        "visible_response": "We have reached the natural stopping point for this test conversation: one goal draft, one review habit, one education next step. For a longer demo, the next module should be the education system rather than more looping chat.",
+        "intent": "education_bridge",
+        "nora_action": "answer",
+        "tool_requests": [],
+        "recommendation_card": null,
+        "trust_ledger_entry": null,
+        "memory_updates": [],
+        "next_best_question": null,
+        "education_hook": {
+          "topic": "Education system handoff",
+          "reason": "Conversation completed the first Nora journey",
+          "format_suggestion": "short_card"
+        },
+        "safety_flags": []
+      }
+    }
+  ],
+  "evaluation": {
+    "introducedNora": true,
+    "firstNoraWarmIdentity": true,
+    "avoidedAgeQuestion": true,
+    "investmentHookEarly": true,
+    "trustLedgerWhenRecommending": true,
+    "approvalGatePresent": true,
+    "memoryUpdatesPresent": true,
+    "goalPlanAgentUsed": true,
+    "expenseReviewAgentUsed": true,
+    "expenseReviewNoAutoCancel": true,
+    "educationAgentUsed": true,
+    "educationHasCheckQuestion": true,
+    "learningProgressAgentUsed": true,
+    "learningProgressNoRawStatusInVisible": true,
+    "snapshotInsightAgentUsed": true,
+    "snapshotIncludesNextAction": true,
+    "snapshotMemoryReviewDoesNotAutoUpdate": true,
+    "resourceSuggestionShown": true,
+    "resourceSuggestionNotEveryTurn": true,
+    "resourceSuggestionMatchesLearningDomain": true,
+    "resourceSuggestionNoHomeworkTone": true,
+    "resourceSuggestionNoReturnPromise": true,
+    "actionApprovalAgentUsed": true,
+    "actionConfirmationCardPresent": true,
+    "actionConfirmationCardProductWording": true,
+    "actionExecutionModeDemoOnly": true,
+    "actionLogPresent": true,
+    "noRealMoneyMovementLanguage": true,
+    "noInternalAgentNamesVisible": true,
+    "limitedFutureYouCatchphrase": true,
+    "limitedTinyLanguage": true,
+    "limitedBoringLanguage": true,
+    "fundsSuggestedOnlyAfterEducation": true,
+    "unrealisticGoalFlagged": true,
+    "slowLaptopGoalFlagged": true,
+    "oneQuestionStyle": true,
+    "noRepeatedNoraResponses": true,
+    "noRepeatedUserResponses": true
+  },
+  "mode": "offline"
+}

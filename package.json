@@ -9,6 +9,7 @@
     "test:education": "node tests/test_education_risk_lesson_agent.mjs",
     "test:expense": "node tests/test_expense_review_agent.mjs",
     "test:learning": "node tests/test_learning_progress_agent.mjs",
+    "test:resources": "node tests/test_education_resource_suggestion.mjs",
     "test:snapshot": "node tests/test_snapshot_insight_agent.mjs",
     "test:action": "node tests/test_action_approval_agent.mjs",
     "test:nora:offline": "node tests/run_nora_simulation.mjs --data synthetic_data/generated/nordea_5users_2025.json --users all --turns 11 --mode offline",

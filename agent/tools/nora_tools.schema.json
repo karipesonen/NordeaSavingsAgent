@@ -344,10 +344,31 @@
     },
     {
       "name": "suggest_education_resource",
-      "purpose": "Stub for the later education system: recommend a learning topic/resource format based on the user's current gap.",
-      "input_schema": {"type": "object", "required": ["topic", "preferred_format"], "properties": {"topic": {"type": "string"}, "preferred_format": {"type": ["string", "null"]}}},
-      "output_schema": {"type": "object", "properties": {"topic": {"type": "string"}, "format": {"type": "string"}, "status": {"type": "string", "enum": ["stub", "available"]}}},
-      "risk": "Do not pretend live retrieval exists if only the stub is implemented."
+      "purpose": "Deterministic resource selector that recommends one curated education article, video, or podcast after a relevant education moment.",
+      "input_schema": {
+        "type": "object",
+        "required": ["education_lesson"],
+        "properties": {
+          "education_lesson": {"type": "object"},
+          "learning_progress": {"type": "object"},
+          "user_memory": {"type": "object"},
+          "latest_user_message": {"type": ["string", "null"]},
+          "recommendation_history": {"type": "array"},
+          "force_suggestion": {"type": "boolean"}
+        }
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "agent": {"const": "education_resource_suggestion"},
+          "status": {"type": "string", "enum": ["available", "skipped", "unavailable"]},
+          "resource": {"type": ["object", "null"]},
+          "nora_line": {"type": ["string", "null"]},
+          "memory_updates": {"type": "array"},
+          "safety_flags": {"type": "array"}
+        }
+      },
+      "risk": "Resource is educational only. Do not imply product advice, guaranteed returns, or live retrieval beyond the curated resource database."
     },
     {
       "name": "create_shared_goal_draft",

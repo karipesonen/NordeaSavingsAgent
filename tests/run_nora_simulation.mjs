@@ -8,6 +8,7 @@ import { createExpenseReview } from '../agent/tools/expense_review_agent.mjs';
 import { createLearningProgress } from '../agent/tools/learning_progress_agent.mjs';
 import { createSnapshotInsight } from '../agent/tools/snapshot_insight_agent.mjs';
 import { createActionApproval } from '../agent/tools/action_approval_agent.mjs';
+import { suggestEducationResource } from '../agent/tools/education_resource_suggestion.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -196,13 +197,19 @@ function extractVisible(noraOutput) {
 function extractVisibleWithCards(noraOutput) {
   const visible = extractVisible(noraOutput);
   const card = noraOutput?.action_confirmation_card;
-  if (!card) return visible;
-  return [
-    visible,
-    `Action Confirmation: ${card.draft}`,
-    `Status: ${card.status}`,
-    `Options: ${Array.isArray(card.options) ? card.options.join(' | ') : ''}`
-  ].filter(Boolean).join('\n\n');
+  const resource = noraOutput?.resource_suggestion;
+  const lines = [visible];
+  if (card) {
+    lines.push(
+      `Action Confirmation: ${card.draft}`,
+      `Status: ${card.status}`,
+      `Options: ${Array.isArray(card.options) ? card.options.join(' | ') : ''}`
+    );
+  }
+  if (resource?.status === 'available' && resource.resource) {
+    lines.push(`Resource Suggestion: ${resource.resource.title} (${resource.resource.format})`);
+  }
+  return lines.filter(Boolean).join('\n\n');
 }
 
 function parseJsonLoose(text) {
@@ -308,6 +315,11 @@ function snapshotInsightVisibleText(snapshotInsight) {
     ? `Natural stopping point: ${action.reason}`
     : `Next useful move: ${action.label}. ${action.reason}`;
   return `Money picture: ${snapshotInsight.snapshot_card.summary}\n\n${actionText}`;
+}
+
+function resourceSuggestionVisibleText(resourceSuggestion) {
+  if (resourceSuggestion?.status !== 'available' || !resourceSuggestion.resource) return '';
+  return `One useful next thing: ${resourceSuggestion.nora_line}\n\nWant links like this as articles, videos, or podcasts next time?`;
 }
 
 function latestAction(memory, actionType, statuses = []) {
@@ -458,6 +470,14 @@ function offlineNoraTurn({ user, memory, snapshot, latestUserMessage, noraTurnIn
     recommendationHistory: memory.recommendation_history,
     conversationSoFar: []
   });
+  const resourceSuggestion = suggestEducationResource({
+    userId: user.userId,
+    educationLesson,
+    learningProgress: learningProgressApplied,
+    userMemory: memory,
+    latestUserMessage,
+    recommendationHistory: memory.recommendation_history
+  });
   const blockerWarmLine = blocker === 'confusion'
     ? 'Totally fair. Investing can look like a club where everyone else got the glossary at birth.'
     : blocker === 'risk'
@@ -468,7 +488,7 @@ function offlineNoraTurn({ user, memory, snapshot, latestUserMessage, noraTurnIn
 
   if (noraTurnIndex === 0) {
     return {
-      visible_response: `Hi, I'm Nora. I help make money decisions smaller and clearer: saving goals, spending patterns, first investing steps, and all the questions that feel too basic to ask. You can ask me anything anytime.\n\nI can already see the basics from your Nordea context, so I will not make you fill out a personality quiz disguised as banking.\n\nI can also see you have not started investing with us yet. Very normal. Quick investing check: what is the main thing holding you back right now - risk, confusion, feeling like the amount is too small, or just not getting around to it yet?`,
+      visible_response: `Hi, I'm Nora! I help make money decisions smaller and clearer: saving goals, spending patterns, first investing steps, and all the questions that feel too basic to ask. You can ask me anything anytime.\n\nI can already see the basics from your Nordea context, so I will not make you fill out a personality quiz disguised as banking.\n\nI can also see you have not started investing with us yet. Very normal. Quick investing check: what is the main thing holding you back right now - risk, confusion, feeling like the amount is too small, or just not getting around to it yet?`,
       intent: 'first_conversation',
       nora_action: 'ask_question',
       tool_requests: [],
@@ -519,7 +539,7 @@ function offlineNoraTurn({ user, memory, snapshot, latestUserMessage, noraTurnIn
       userMemory: memory
     });
     return {
-      visible_response: `Let's put numbers on it.\n\nYour income and recurring expenses suggest a small monthly habit could fit, but I would keep the first draft intentionally modest: EUR ${starterAmount}/month toward ${goal}.${adjustmentText}\n\nI put the next step into a draft so the choice is clean. You can approve it, edit the amount, leave it parked, or use it as the starter habit while we set a first milestone.`,
+      visible_response: `Let's put numbers on it!\n\nYour income and recurring expenses suggest a small monthly habit could fit, but I would keep the first draft intentionally modest: EUR ${starterAmount}/month toward ${goal}.${adjustmentText}\n\nI put the next step into a draft so the choice is clean. You can approve it, edit the amount, leave it parked, or use it as the starter habit while we set a first milestone.`,
       intent: 'savings_plan',
       nora_action: 'request_approval',
       tool_requests: [
@@ -629,7 +649,7 @@ function offlineNoraTurn({ user, memory, snapshot, latestUserMessage, noraTurnIn
     return {
       visible_response: wantsGoalAdjustment
         ? `Right. I will not pretend the full ${goal} is solved. I will store EUR ${gentleAmount}/month as the starter habit and mark the goal as needing a smaller first milestone or outside contribution.\n\nNext useful step: let's look for one recurring category that might protect this habit without turning your life into a punishment spreadsheet. Joy is not on trial. Want to review ${optionText} for now?`
-        : `Gentle it is. I will keep EUR ${gentleAmount}/month as the draft plan.\n\nNext useful step: let's look for one recurring category that might make this easier without turning your life into a punishment spreadsheet. Joy is not on trial. Want to review ${optionText} for now?`,
+        : `Gentle it is! I will keep EUR ${gentleAmount}/month as the draft plan.\n\nNext useful step: let's look for one recurring category that might make this easier without turning your life into a punishment spreadsheet. Joy is not on trial. Want to review ${optionText} for now?`,
       intent: 'expense_tracking',
       nora_action: 'ask_question',
       tool_requests: [{ name: 'expense_review_agent', reason: 'Find one safe recurring category to inspect before any cuts' }],
@@ -747,22 +767,26 @@ function offlineNoraTurn({ user, memory, snapshot, latestUserMessage, noraTurnIn
   }
 
   if (noraTurnIndex === 9) {
+    const resourceText = resourceSuggestionVisibleText(resourceSuggestion);
     return {
-      visible_response: `Marked. First journey complete: one draft savings habit, one monthly review habit, and one concept made less mysterious before any investment action.\n\n${learningProgressVisibleText(learningProgressApplied)}\n\n${snapshotInsightVisibleText(snapshotInsight)}\n\nYou can still ask me anything, anytime. I am also happy to stop here instead of inventing a new money task just to look busy.`,
+      visible_response: `Marked! First journey complete: one draft savings habit, one monthly review habit, and one concept made less mysterious before any investment action.\n\n${learningProgressVisibleText(learningProgressApplied)}\n\n${resourceText ? `${resourceText}\n\n` : ''}${snapshotInsightVisibleText(snapshotInsight)}\n\nYou can still ask me anything, anytime. I am also happy to stop here instead of inventing a new money task just to look busy.`,
       intent: 'education_bridge',
       nora_action: 'update_memory',
       tool_requests: [
         { name: 'learning_progress_agent', reason: 'Record concept applied through a savings-first decision' },
+        { name: 'suggest_education_resource', reason: 'Suggest one curated resource after education progress' },
         { name: 'snapshot_insight_agent', reason: 'Summarize the first Nora journey and choose one next useful move' },
         { name: 'update_user_memory', reason: 'Persist completed first journey' }
       ],
       learning_progress: learningProgressApplied,
+      resource_suggestion: resourceSuggestion,
       snapshot_insight: snapshotInsight,
       recommendation_card: null,
       trust_ledger_entry: null,
       memory_updates: [
         { field: 'investment_journey.readiness_stage', value: 'ready_to_plan', source: 'inferred_from_conversation', confidence: 'high' },
-        ...learningProgressApplied.memory_updates
+        ...learningProgressApplied.memory_updates,
+        ...resourceSuggestion.memory_updates
       ],
       next_best_question: null,
       education_hook: null,
@@ -862,6 +886,9 @@ function applyMemoryUpdates(memory, updates = []) {
     const last = parts[parts.length - 1];
     if (Array.isArray(target[last]) && Array.isArray(update.value)) {
       target[last] = [...new Set([...target[last], ...update.value])];
+    } else if (Array.isArray(target[last]) && update.value && typeof update.value === 'object') {
+      const exists = target[last].some((item) => JSON.stringify(item) === JSON.stringify(update.value));
+      if (!exists) target[last] = [...target[last], update.value];
     } else {
       target[last] = update.value;
     }
@@ -913,6 +940,7 @@ function evaluateConversation(conversation, finalMemory = {}) {
   for (const text of userTurns) userTurnCounts.set(text, (userTurnCounts.get(text) || 0) + 1);
   const snapshotOutputs = structured.map((s) => s.snapshot_insight).filter(Boolean);
   const actionOutputs = structured.map((s) => s.action_approval).filter(Boolean);
+  const resourceOutputs = structured.map((s) => s.resource_suggestion).filter((s) => s?.status === 'available');
   const actionLog = finalMemory.action_state?.action_log || [];
   return {
     introducedNora: /i['’]?m nora|i am nora/i.test(noraText),
@@ -932,6 +960,11 @@ function evaluateConversation(conversation, finalMemory = {}) {
     snapshotInsightAgentUsed: noraTurns.length >= 10 ? snapshotOutputs.some((s) => s.agent === 'snapshot_insight') : true,
     snapshotIncludesNextAction: noraTurns.length >= 10 ? snapshotOutputs.some((s) => s.next_best_action?.action_type) : true,
     snapshotMemoryReviewDoesNotAutoUpdate: snapshotOutputs.length ? snapshotOutputs.every((s) => Array.isArray(s.memory_updates) && s.memory_updates.length === 0) : true,
+    resourceSuggestionShown: noraTurns.length >= 10 ? resourceOutputs.some((s) => s.agent === 'education_resource_suggestion') : true,
+    resourceSuggestionNotEveryTurn: resourceOutputs.length <= 2,
+    resourceSuggestionMatchesLearningDomain: resourceOutputs.length ? structured.some((s) => s.resource_suggestion?.status === 'available' && s.learning_progress?.domain === s.resource_suggestion.resource?.domain) : true,
+    resourceSuggestionNoHomeworkTone: resourceOutputs.length ? resourceOutputs.every((s) => !/homework|study|course/i.test(s.nora_line || '')) : true,
+    resourceSuggestionNoReturnPromise: resourceOutputs.length ? resourceOutputs.every((s) => !/guarantee|guaranteed|certain return|profit promise/i.test(`${s.nora_line || ''} ${s.resource?.summary || ''}`)) : true,
     actionApprovalAgentUsed: noraTurns.length >= 3 ? actionOutputs.some((s) => s.agent === 'action_approval') : true,
     actionConfirmationCardPresent: noraTurns.length >= 3 ? confirmationCards.some((card) => card.status === 'Ready for approval') : true,
     actionConfirmationCardProductWording: confirmationCards.length ? confirmationCards.every((card) => Array.isArray(card.options) && card.options.includes('Approve') && card.options.includes('Not now') && card.options.some((option) => /^Edit|^Choose/.test(option)) && !/demo|not executed|Action\/Approval Agent/i.test(JSON.stringify(card))) : true,
@@ -967,6 +1000,22 @@ function renderActionConfirmationCard(card) {
     lines.push('');
     lines.push(`Options: ${card.options.join(' | ')}`);
   }
+  return lines;
+}
+
+function renderResourceSuggestionCard(resourceSuggestion) {
+  const resource = resourceSuggestion?.resource;
+  if (resourceSuggestion?.status !== 'available' || !resource) return [];
+  const lines = [
+    '**Resource Suggestion**',
+    '',
+    `Title: ${resource.title}`,
+    `Format: ${resource.format}`,
+    `Domain: ${resource.domain}`,
+    `Source: ${resource.source}`,
+    `URL: ${resource.url}`
+  ];
+  if (resource.estimated_time_minutes) lines.push(`Estimated time: ${resource.estimated_time_minutes} min`);
   return lines;
 }
 
@@ -1038,6 +1087,15 @@ function renderMarkdown({ user, mode, modelInfo, snapshot, conversation, evaluat
         lines.push('**Snapshot / Insights Agent**');
         lines.push('```json');
         lines.push(JSON.stringify(turn.structured.snapshot_insight, null, 2));
+        lines.push('```');
+      }
+      if (turn.structured?.resource_suggestion?.status === 'available') {
+        lines.push('');
+        lines.push(...renderResourceSuggestionCard(turn.structured.resource_suggestion));
+        lines.push('');
+        lines.push('**Education Resource Suggestion Tool**');
+        lines.push('```json');
+        lines.push(JSON.stringify(turn.structured.resource_suggestion, null, 2));
         lines.push('```');
       }
       if (turn.structured?.action_confirmation_card) {

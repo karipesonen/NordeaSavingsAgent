@@ -253,8 +253,8 @@ export function createEducationRiskLesson(input = {}) {
     resource_stub: {
       title: lesson.topic,
       format,
-      status: 'stub',
-      note: 'Demo stub only; no live article or podcast retrieval yet.'
+      status: 'selector_available',
+      note: 'Curated article/video/podcast links are selected by suggest_education_resource after the education progress step.'
     },
     memory_updates: [
       {

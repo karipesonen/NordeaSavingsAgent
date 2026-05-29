@@ -24,6 +24,11 @@ const CARD_MENTION_RULES = {
     article: 'a',
     terms: ['confirmation card', 'confirmation', 'approval', 'approve', 'confirm'],
   },
+  trip_research: {
+    label: 'cost breakdown',
+    article: 'a',
+    terms: ['cost breakdown', 'trip cost', 'price research', 'research', 'prices', 'cost'],
+  },
 };
 
 function uniqueCardTypes(cards = []) {

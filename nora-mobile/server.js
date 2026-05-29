@@ -25,6 +25,7 @@ const MODEL = process.env.AALTO_MODEL || 'RedHatAI/gemma-4-31B-it-FP8-Dynamic';
 const SCRIPTED_PROFILE_ID = 'scripted_emma';
 const TEST_DATA_PATH = join(__dirname, '..', 'synthetic_data', 'generated', 'nordea_5users_2025.json');
 const WEEKS_PER_MONTH = 4.33;
+const LUCA_URL = process.env.LUCA_URL || 'http://localhost:8001';
 
 // ── Load curated education resources ──────────────────────────────────────────
 const RESOURCES = JSON.parse(
@@ -422,6 +423,59 @@ async function runSubAgent(name, conversation, memory, customerContext = '') {
   return data;
 }
 
+// ── Trip research (calls Luca microservice) ──────────────────────────────────
+const TRIP_EXTRACT_SYSTEM = `Extract trip details from the conversation. Return ONLY valid JSON, no markdown:
+{
+  "destination": "country or city",
+  "duration_days": 10,
+  "travelers": 1,
+  "month": "",
+  "origin": "Helsinki"
+}
+Rules:
+- destination: the most specific place mentioned. Required.
+- duration_days: default 10 if not stated.
+- travelers: default 1 if not stated.
+- month: preferred travel month, empty string if not stated.
+- origin: departure city, default "Helsinki".`;
+
+async function extractTripParams(conversation) {
+  return await llmJson({
+    system: TRIP_EXTRACT_SYSTEM,
+    messages: conversation,
+    temperature: 0.1,
+    maxTokens: 150,
+  }) || { destination: '' };
+}
+
+async function runTripResearch(conversation) {
+  const params = await extractTripParams(conversation);
+  if (!params.destination) {
+    return { destination: 'unknown', error: 'Could not determine the destination from the conversation.' };
+  }
+
+  try {
+    const res = await fetch(`${LUCA_URL}/research`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        destination: params.destination,
+        duration_days: params.duration_days || 10,
+        travelers: params.travelers || 1,
+        month: params.month || '',
+        origin: params.origin || 'Helsinki',
+      }),
+    });
+    if (!res.ok) {
+      const errText = await res.text().catch(() => '');
+      return { destination: params.destination, error: `Research service returned ${res.status}: ${errText.slice(0, 200)}` };
+    }
+    return await res.json();
+  } catch (err) {
+    return { destination: params.destination, error: `Could not reach research service: ${err.message}` };
+  }
+}
+
 // ── Main chat endpoint ──────────────────────────────────────────────────────
 // POST /api/nora/chat
 // Body: { messages: [{role, content}], memory: [string] }
@@ -481,6 +535,11 @@ app.post('/api/nora/chat', async (req, res) => {
     if (invoke.length) {
       const results = await Promise.all(
         invoke.map(async name => {
+          // trip_research calls Luca's research microservice instead of the LLM
+          if (name === 'trip_research') {
+            const data = await runTripResearch(messages);
+            return { type: 'trip_research', data: data || { error: 'Research unavailable' } };
+          }
           const data = await runSubAgent(name, messages, memory, customerContext);
           if (!data) return null;
           // The education sub-agent can return EITHER kind="lesson" or kind="resource".

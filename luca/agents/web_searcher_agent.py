@@ -1,7 +1,7 @@
 import datetime
 from langchain_core.messages import SystemMessage
 from langgraph.store.base import BaseStore
-from langchain_anthropic import ChatAnthropic
+from model import llm_web as model
 from tools.web_search import WEB_TOOLS
 from memory.short_term import State
 
@@ -62,11 +62,9 @@ You are called by a supervisor agent to find real-world pricing and cost informa
 - If the request is too vague (e.g. "cheap phone"), ask for clarification
 """
 
-model = ChatAnthropic(
-    model="claude-haiku-4-5-20251001",
-)
 
-llm = model.bind_tools(WEB_TOOLS,parallel_tool_calls=True)
+llm = model.bind_tools(WEB_TOOLS, parallel_tool_calls=True)
+llm_forced = model.bind_tools(WEB_TOOLS, parallel_tool_calls=True, tool_choice="any")
 
 _ROUTING_WORDS = {"analyst", "web", "both", "banking"}
 
@@ -88,7 +86,9 @@ def web_agent(state: State, store: BaseStore):
     context = conversation + current_turn_msgs
     today = datetime.date.today().isoformat()
     system = SystemMessage(content=f"Today's date: {today}\n\n{WEB_RESEARCHER_PROMPT}")
-    response = llm.invoke([system] + context)
+    # Force a tool call on the first invocation — without this gpt-4o answers from training data
+    active_llm = llm_forced if not current_turn_msgs else llm
+    response = active_llm.invoke([system] + context)
     result = {"web_messages": [response]}
     if not (getattr(response, "tool_calls", None)) and not state.get("parallel_mode"):
         result["messages"] = [response]

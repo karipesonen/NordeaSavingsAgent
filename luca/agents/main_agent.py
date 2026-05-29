@@ -1,7 +1,7 @@
 from langchain_core.messages import SystemMessage
 from langgraph.store.base import BaseStore
-from langchain_anthropic import ChatAnthropic
 from memory.short_term import State
+from model import llm_orchestrator as model
 
 
 ROUTER_PROMPT = """You are a supervisor of a personal finance multi-agent system.
@@ -45,7 +45,6 @@ or references previously discussed financial data must be routed to analyst — 
 - For routing: reply with the agent name only, nothing else on that line
 """
 
-model = ChatAnthropic(model="claude-haiku-4-5-20251001")
 
 
 def main_agent(state: State, store: BaseStore):

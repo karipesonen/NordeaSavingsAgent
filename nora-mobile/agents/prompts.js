@@ -39,6 +39,15 @@ AVAILABLE SUB-AGENTS:
                      funds, student loans, etc.
                      Invoke when the customer asks about risk, funds, saving, borrowing, motivation,
                      or any topic where a learning piece would help.
+  "trip_research"  — Research real-world prices for a trip or purchase using live web search.
+                     Returns a cost breakdown card with flights, accommodation, daily budget, and sources.
+                     DO NOT invoke on the same turn the customer first mentions a trip or destination.
+                     Instead, tell them you can look up real current prices (flights, hotels, daily
+                     budget) and ask if they'd like you to do that. Make it sound compelling —
+                     "I can look up real prices for Japan right now — flights, hotels, daily budget.
+                     Want me to research that?"
+                     Only invoke after the customer explicitly confirms they want the research.
+                     Takes 15-30 seconds — the typing indicator will show while researching.
   "action_approval"— Surface the explicit confirmation summary before anything "moves".
                      Invoke when the customer says they are ready, want to confirm, or accept the plan.
 

@@ -2,7 +2,7 @@ import json
 import datetime
 from langchain_core.messages import SystemMessage, AIMessage
 from langchain_core.tools import tool
-from langchain_anthropic import ChatAnthropic
+from model import llm as model
 from langgraph.store.base import BaseStore
 from langgraph.types import interrupt
 from tools.database_tools import READING_TOOLS, WRITING_TOOLS
@@ -52,7 +52,6 @@ Use those values verbatim to populate create_goal arguments, then call propose_a
 - Write a clear, specific confirmation_message (e.g. "Send €50 to Marco Rossi (IBAN: IT123...) with note 'dinner'")
 """
 
-model = ChatAnthropic(model="claude-haiku-4-5-20251001")
 
 
 @tool

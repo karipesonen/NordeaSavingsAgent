@@ -1,7 +1,7 @@
 import datetime
 from langchain_core.messages import SystemMessage
 from langgraph.store.base import BaseStore
-from langchain_anthropic import ChatAnthropic
+from model import llm as model
 from tools.finance_tools import FINANCE_TOOLS
 from tools.database_tools import READING_TOOLS
 from memory.short_term import State
@@ -77,7 +77,6 @@ When asked about a specific asset:
 - If you don't know a ticker or symbol, say so and suggest the likely format
 """
 
-model = ChatAnthropic(model="claude-haiku-4-5-20251001")
 llm = model.bind_tools(INVESTMENT_TOOLS, parallel_tool_calls=True)
 
 _ROUTING_WORDS = {"analyst", "web", "both", "banking", "investment"}

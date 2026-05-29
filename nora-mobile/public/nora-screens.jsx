@@ -74,6 +74,7 @@ const AGENT_LABELS = {
   expense_review:  'Expense Review',
   risk_lesson:     'Education · Risk',
   action_approval: 'Action · Approval',
+  trip_research:   'Trip Research',
 };
 
 // ────────────────────────────────────────────────────────────────
@@ -476,6 +477,8 @@ function Card({ card, vibe, onConfirmAction, confirmed, onOpenTab, onOpenResourc
       const rid = card.data?.resource?.id;
       return <Chip data={card.data} onOpen={() => rid ? onOpenResource(rid) : onOpenTab('learn')} />;
     }
+    case 'trip_research':
+      return <TripResearchCard data={card.data} vibe={vibe} />;
     case 'action_approval':
       return <ActionApprovalCard data={card.data} vibe={vibe}
                                  onConfirm={onConfirmAction} confirmed={confirmed} />;
@@ -534,6 +537,108 @@ function GoalPlanCard({ data, vibe }) {
 }
 
 // (ExpenseReview + RiskLesson full cards live in nora-tabs.jsx now — chat shows previews.)
+
+// ── Card: Trip Research ───────────────────────────────────────────────────
+function tripCategoryIcon(category) {
+  const c = (category || '').toLowerCase();
+  if (c.includes('flight'))  return 'plane';
+  if (c.includes('accommod') || c.includes('hotel') || c.includes('lodging')) return 'bed-double';
+  if (c.includes('daily'))   return 'wallet';
+  if (c.includes('food'))    return 'utensils';
+  if (c.includes('transport') || c.includes('local')) return 'train';
+  if (c.includes('activit') || c.includes('sightseeing')) return 'compass';
+  return 'receipt';
+}
+
+function sourceHostname(url) {
+  try { return new URL(url).hostname.replace(/^www\./, ''); } catch { return url; }
+}
+
+function TripResearchCard({ data, vibe }) {
+  if (!data) return null;
+
+  if (data.error) {
+    return (
+      <InChatCard eyebrow="Trip research" vibe={vibe}>
+        <div style={{ padding: '16px 20px', fontSize: 13, color: 'var(--fg-2)', lineHeight: 1.5 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+            <NIcon name="alert-circle" size={16} color="var(--fg-3)" />
+            <span style={{ fontWeight: 600, color: 'var(--fg-1)' }}>Could not complete research</span>
+          </div>
+          {data.error}
+        </div>
+      </InChatCard>
+    );
+  }
+
+  const { destination = '', duration_days = 0, travelers = 1, total_eur = 0, breakdown = [], sources = [], summary = '' } = data;
+
+  return (
+    <InChatCard eyebrow={`Trip · ${destination}`} vibe={vibe}>
+      {/* Header with total cost */}
+      <div style={{
+        background: `linear-gradient(135deg, #00007a 0%, ${NORA_BLUE} 100%)`,
+        color: '#fff', padding: '20px 20px 22px',
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
+          <div style={{ width: 36, height: 36, borderRadius: 10, background: 'rgba(255,255,255,0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <NIcon name="plane" size={20} color="#fff" />
+          </div>
+          <div>
+            <div style={{ fontSize: 12, opacity: 0.75, fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase' }}>
+              Estimated cost
+            </div>
+            <div style={{ fontSize: 14, fontWeight: 600 }}>
+              {destination} · {duration_days} days{travelers > 1 ? ` · ${travelers} people` : ''}
+            </div>
+          </div>
+        </div>
+        <MoneyDisplay value={total_eur} size={44} color="#fff" />
+        {summary && (
+          <div style={{ marginTop: 10, fontSize: 12, opacity: 0.85, lineHeight: 1.5 }}>{summary}</div>
+        )}
+      </div>
+
+      {/* Cost breakdown */}
+      {breakdown.length > 0 && (
+        <div style={{ padding: '16px 20px' }}>
+          {breakdown.map((item, i) => (
+            <div key={i} style={{
+              display: 'flex', alignItems: 'center', gap: 12,
+              padding: '12px 0',
+              borderBottom: i < breakdown.length - 1 ? '1px solid var(--border-1)' : 'none',
+            }}>
+              <div style={{ width: 32, height: 32, borderRadius: 8, background: 'var(--blue-50)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                <NIcon name={tripCategoryIcon(item.category)} size={16} color={NORA_BLUE} />
+              </div>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--fg-1)' }}>{item.category}</div>
+                {item.note && <div style={{ fontSize: 11, color: 'var(--fg-3)', marginTop: 1 }}>{item.note}</div>}
+              </div>
+              <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--fg-1)', fontVariantNumeric: 'tabular-nums lining-nums' }}>
+                {euroN(item.amount_eur)}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Source chips */}
+      {sources.length > 0 && (
+        <div style={{ padding: '0 20px 16px', display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+          {sources.slice(0, 4).map((s, i) => (
+            <span key={i} style={{
+              fontSize: 10, color: 'var(--fg-3)', background: 'var(--bg-page)',
+              padding: '3px 8px', borderRadius: 6, fontWeight: 500,
+            }}>
+              {s.title || sourceHostname(s.url)}
+            </span>
+          ))}
+        </div>
+      )}
+    </InChatCard>
+  );
+}
 
 // ── Card: Action Approval ──────────────────────────────────────────────────
 function ActionApprovalCard({ data, vibe, onConfirm, confirmed }) {
@@ -600,4 +705,4 @@ function ActionApprovalCard({ data, vibe, onConfirm, confirmed }) {
   );
 }
 
-Object.assign(window, { ScreenWelcome, ScreenChat });
+Object.assign(window, { ScreenWelcome, ScreenChat, Turn, Card, AGENT_LABELS });

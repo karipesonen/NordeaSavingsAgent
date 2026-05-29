@@ -1,7 +1,7 @@
 // nora-app.jsx — Two-state shell. Welcome → open-ended Nora chat.
 
 const {
-  ScreenWelcome, ScreenChat,
+  ScreenWelcome, ScreenChat, ScreenShowcase,
   TweaksPanel, useTweaks, TweakSection, TweakRadio, TweakToggle,
   NIcon, NORA_BLUE,
 } = window;
@@ -84,12 +84,14 @@ function App() {
             <span className="dot" style={{ background: stageBg.dotShadow, boxShadow: `0 0 8px ${stageBg.dotShadow}` }} />
             Nordea Savings · Nora · live demo
             <span style={{ opacity: 0.5 }}>·</span>
-            <span style={{ opacity: 0.7 }}>{tweaks.started ? 'open conversation' : 'sign-in'}</span>
+            <span style={{ opacity: 0.7 }}>{tweaks.demoMode === 'showcase' ? 'showcase' : tweaks.started ? 'open conversation' : 'sign-in'}</span>
           </div>
 
-          {tweaks.started
-            ? <ScreenChat key={sessionKey} prev={back} tweaks={tweaks} profile={selectedProfile} />
-            : <ScreenWelcome next={start} profile={selectedProfile} />}
+          {tweaks.demoMode === 'showcase'
+            ? <ScreenShowcase key="showcase" tweaks={tweaks} />
+            : tweaks.started
+              ? <ScreenChat key={sessionKey} prev={back} tweaks={tweaks} profile={selectedProfile} />
+              : <ScreenWelcome next={start} profile={selectedProfile} />}
 
           <div style={{
             fontSize: 11, color: tweaks.vibe === 'subtle' ? 'rgba(10,10,30,0.4)' : 'rgba(255,255,255,0.4)',
@@ -126,6 +128,7 @@ function NoraTweaks({ tweaks, setTweak, profiles, profilesReady }) {
           options={[
             { value: 'scripted_emma', label: 'Scripted Emma' },
             { value: 'test_profile',  label: 'Test profile' },
+            { value: 'showcase',      label: 'Showcase' },
           ]}
         />
         {tweaks.demoMode === 'test_profile' && (

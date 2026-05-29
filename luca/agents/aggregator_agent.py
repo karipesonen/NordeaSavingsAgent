@@ -1,6 +1,6 @@
 from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
-from langchain_anthropic import ChatAnthropic
 from memory.short_term import State
+from model import llm as model
 
 ROUTING_WORDS = {"analyst", "web", "both"}
 
@@ -29,7 +29,6 @@ Always end your response with a **Suggested savings goal** block in this exact f
 - Rule type: fixed_amount
 """
 
-model = ChatAnthropic(model="claude-haiku-4-5-20251001")
 
 
 def _last_text(msgs: list) -> str:
@@ -62,6 +61,7 @@ def aggregator_agent(state: State):
     if web_output:
         context += f"Web research findings:\n{web_output}\n\n"
 
-    system = SystemMessage(content=AGGREGATOR_PROMPT)
+    today = "2026-06-01"
+    system = SystemMessage(content=f"Today's date: {today}\n\n{AGGREGATOR_PROMPT}")
     response = model.invoke([system, HumanMessage(content=context)])
     return {"messages": [response]}

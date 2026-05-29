@@ -1,7 +1,7 @@
 import datetime
 from langchain_core.messages import SystemMessage
 from langgraph.store.base import BaseStore
-from langchain_anthropic import ChatAnthropic
+from model import llm as model
 from tools.database_tools import READING_TOOLS
 from memory.short_term import State
 
@@ -79,9 +79,6 @@ When asked "can I afford X?" or "make a plan for X" where X has a known price:
 - Flag if savings rate needs to increase and by how much
 """
 
-model = ChatAnthropic(
-    model="claude-haiku-4-5-20251001",
-)
 
 llm = model.bind_tools(READING_TOOLS,parallel_tool_calls=True)
 
@@ -103,7 +100,7 @@ def analyst_agent(state: State, store: BaseStore):
     current_turn_msgs = (state.get("analyst_messages") or [])[turn_start:]
 
     context = conversation + current_turn_msgs
-    today = datetime.date.today().isoformat()
+    today = "2026-06-01"
     system = SystemMessage(content=f"Today's date: {today}\n\n{FINANCIAL_ANALYST_PROMPT}")
     response = llm.invoke([system] + context)
     result = {"analyst_messages": [response]}

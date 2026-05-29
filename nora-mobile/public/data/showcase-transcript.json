@@ -1,0 +1,315 @@
+{
+  "version": 1,
+  "conversations": [
+    {
+      "id": "emma_japan",
+      "profile": {
+        "userId": "showcase_emma",
+        "firstName": "Emma",
+        "fullName": "Emma",
+        "tagline": "Saving for a trip to Japan"
+      },
+      "firstReply": {
+        "text": "Hey Emma — I'm Nora, your savings copilot. No forms, no jargon. What's on your mind today, or what are you trying to save toward?",
+        "suggestedReplies": ["A trip to Japan", "First apartment", "Build an emergency fund", "I'm just exploring"]
+      },
+      "turns": [
+        {
+          "from": "user",
+          "text": "A trip to Japan",
+          "pickedChip": "A trip to Japan"
+        },
+        {
+          "from": "nora",
+          "text": "Japan is a great pick. Let me look up what a trip there actually costs right now — real flights, hotels, daily budget. This takes about 15 seconds.",
+          "cards": [
+            {
+              "type": "trip_research",
+              "data": {
+                "destination": "Japan",
+                "duration_days": 10,
+                "travelers": 1,
+                "total_eur": 3200,
+                "breakdown": [
+                  { "category": "Flights", "amount_eur": 850, "note": "Round-trip Helsinki–Tokyo, economy" },
+                  { "category": "Accommodation", "amount_eur": 1400, "note": "10 nights, mid-range hotel or Airbnb" },
+                  { "category": "Daily expenses", "amount_eur": 950, "note": "Food, transport, activities, pocket money" }
+                ],
+                "sources": [
+                  { "url": "https://www.skyscanner.fi", "title": "Skyscanner" },
+                  { "url": "https://www.booking.com", "title": "Booking.com" },
+                  { "url": "https://www.budgetyourtrip.com", "title": "Budget Your Trip" }
+                ],
+                "summary": "A 10-day solo trip to Japan from Helsinki costs roughly €3,200, covering flights, accommodation, and daily expenses."
+              }
+            }
+          ],
+          "invokedAgents": ["trip_research"],
+          "suggestedReplies": ["Should I put this in a fund or just savings?", "Build me a savings plan", "That's more than I expected"],
+          "memoryUpdates": ["Emma wants to save for a 10-day trip to Japan, estimated cost around €3,200."]
+        },
+        {
+          "from": "user",
+          "text": "Should I put this in a fund or just savings?",
+          "pickedChip": "Should I put this in a fund or just savings?"
+        },
+        {
+          "from": "nora",
+          "text": "Good question. The answer depends on how soon you need the money. Here's a quick explainer.",
+          "cards": [
+            {
+              "type": "risk_lesson",
+              "data": {
+                "kind": "lesson",
+                "headline": "Funds or savings? It depends on time",
+                "body": "If you need the money within 18 months, a savings deposit protects your capital — no market risk. If your horizon is longer, a fund can grow more, but the value moves up and down along the way.",
+                "checkQuestion": "Emma's trip is about 14 months away. What fits best?",
+                "checkOptions": ["An equity index fund", "A capital-protected savings deposit", "Split 50/50 between both"],
+                "correctIndex": 1,
+                "noraNote": "Under 18 months means protecting what you save matters more than chasing growth."
+              }
+            }
+          ],
+          "invokedAgents": ["risk_lesson"],
+          "suggestedReplies": ["Ok, build me a plan with savings", "What if I push the trip to 2 years?"],
+          "memoryUpdates": ["Emma asked about funds vs savings. Trip is ~14 months out, so savings deposit is the right fit."]
+        },
+        {
+          "from": "user",
+          "text": "Ok, build me a plan with savings",
+          "pickedChip": "Ok, build me a plan with savings"
+        },
+        {
+          "from": "nora",
+          "text": "Here's a starter plan. Since the trip is under 18 months away, everything goes into a capital-protected savings deposit.",
+          "cards": [
+            {
+              "type": "goal_plan",
+              "firstTime": true,
+              "data": {
+                "label": "Trip to Japan",
+                "icon": "plane",
+                "targetAmount": 3200,
+                "deadline": "Aug 2027",
+                "monthsToGo": 14,
+                "weeklyTransfer": 55,
+                "mix": "100% savings deposit",
+                "horizon": "short",
+                "noraNote": "Fourteen months of steady saving gets you to Tokyo."
+              }
+            }
+          ],
+          "invokedAgents": ["goal_plan"],
+          "suggestedReplies": ["Looks good, let's set it up", "Can I do a bit less per week?"],
+          "memoryUpdates": ["Goal plan created: €3,200 for Japan trip by Aug 2027, €55/week into savings deposit."]
+        },
+        {
+          "from": "user",
+          "text": "Looks good, let's set it up",
+          "pickedChip": "Looks good, let's set it up"
+        },
+        {
+          "from": "nora",
+          "text": "Here's the confirmation. Everything can be changed anytime in the app.",
+          "cards": [
+            {
+              "type": "action_approval",
+              "data": {
+                "goalLabel": "Trip to Japan",
+                "goalIcon": "plane",
+                "targetSummary": "€3,200 by Aug 2027",
+                "actions": [
+                  { "label": "Open new goal", "value": "Trip to Japan", "icon": "plus-circle" },
+                  { "label": "Auto-transfer", "value": "€55 every Monday", "icon": "repeat" },
+                  { "label": "Round-ups", "value": "On — to this goal", "icon": "sparkles" },
+                  { "label": "Savings type", "value": "100% savings deposit", "icon": "shield-check" },
+                  { "label": "Check-ins", "value": "Sundays, in chat", "icon": "message-circle" }
+                ],
+                "reassurance": "You can pause, adjust the amount, or cancel anytime — your money stays yours.",
+                "noraNote": "All set — Japan fund starts Monday."
+              }
+            }
+          ],
+          "invokedAgents": ["action_approval"],
+          "suggestedReplies": ["Confirm — start saving"],
+          "memoryUpdates": []
+        },
+        {
+          "from": "user",
+          "text": "Confirm — start saving",
+          "pickedChip": "Confirm — start saving",
+          "isConfirm": true
+        },
+        {
+          "from": "nora",
+          "text": "Done. First transfer goes out Monday, and I'll check in on Sunday to see how things are going. Have a great week, Emma.",
+          "cards": [],
+          "invokedAgents": [],
+          "suggestedReplies": [],
+          "memoryUpdates": ["Emma confirmed the Japan savings plan. Auto-transfer €55/week starts Monday."]
+        }
+      ]
+    },
+    {
+      "id": "aleksi_apartment",
+      "profile": {
+        "userId": "showcase_aleksi",
+        "firstName": "Aleksi",
+        "fullName": "Aleksi",
+        "tagline": "Saving for a first apartment"
+      },
+      "firstReply": {
+        "text": "Hey Aleksi — I'm Nora, your savings copilot. No forms, no jargon. What are you saving toward?",
+        "suggestedReplies": ["First apartment", "A trip somewhere", "Build an emergency fund", "I'm just exploring"]
+      },
+      "turns": [
+        {
+          "from": "user",
+          "text": "I want to buy my first apartment in about 3 years",
+          "pickedChip": "First apartment"
+        },
+        {
+          "from": "nora",
+          "text": "Three years is a solid timeline. Let me check your recent spending to see where there's room to redirect toward the apartment.",
+          "cards": [
+            {
+              "type": "expense_review",
+              "data": {
+                "weeklyRoom": 142,
+                "monthlyRoom": 615,
+                "noraNote": "You have about €615 per month in areas where spending could flex without changing your lifestyle much.",
+                "items": [
+                  { "name": "Food & dining", "sub": "Takeout and restaurants", "weeklyAmount": 45, "monthlyAmount": 195, "icon": "utensils" },
+                  { "name": "Subscriptions", "sub": "Streaming, apps, gym", "weeklyAmount": 28, "monthlyAmount": 121, "icon": "tv" },
+                  { "name": "Transport", "sub": "Ride shares, fuel top-ups", "weeklyAmount": 35, "monthlyAmount": 152, "icon": "car" },
+                  { "name": "Shopping", "sub": "Clothes, electronics, misc", "weeklyAmount": 34, "monthlyAmount": 147, "icon": "shopping-bag" }
+                ]
+              }
+            }
+          ],
+          "invokedAgents": ["expense_review"],
+          "suggestedReplies": ["Is putting money in funds safe?", "How much should I save for a deposit?", "Build me a plan"],
+          "memoryUpdates": ["Aleksi wants to buy his first apartment in about 3 years. Monthly spending has about €615 in flexible categories."]
+        },
+        {
+          "from": "user",
+          "text": "Is putting money in funds actually safe? I've heard people lose everything",
+          "pickedChip": "Is putting money in funds safe?"
+        },
+        {
+          "from": "nora",
+          "text": "That's a fair concern — and a common one. I drafted a short guide on how fund risk actually works over time. Worth a 3-minute read.",
+          "cards": [
+            {
+              "type": "resource_link",
+              "data": {
+                "kind": "resource",
+                "resource": {
+                  "id": "generated_showcase_volatility_001",
+                  "title": "Can you actually lose everything in a fund?",
+                  "format": "explainer",
+                  "domain": "Risk Without Panic",
+                  "source": "Drafted by Nora",
+                  "summary": "A calm look at what fund risk means in practice, why time is your biggest safety net, and what history shows about 3-year horizons.",
+                  "body": "When people say they lost everything in the market, they usually mean they sold during a crash. A broadly diversified index fund has never gone to zero. Individual stocks can collapse, but a fund that holds hundreds of companies spreads that risk across the whole market.\n\nThe key factor is time. Over any single month, a stock fund might drop 5–10%. Over a year, drops of 20% have happened. But over 3 years or more, the historical odds shift strongly in your favour. Since 1990, a global index fund held for any rolling 3-year period has been positive about 90% of the time.\n\nThis is why Nora matches the product to your timeline. Under 18 months, a savings deposit protects your capital with zero market risk. Between 18 months and 4 years, a balanced mix (savings plus some funds) gives you growth potential while keeping most of the money safe. Over 4 years, equity funds make sense because you have time to ride out the dips.\n\nThe real risk is not investing at all. Inflation quietly eats savings that sit in a zero-interest account. A 3-year timeline like yours is long enough to benefit from a balanced approach, while short enough that you would not put everything in equities.\n\nNo one can guarantee returns. But understanding how risk and time interact means you can make a calm, informed choice instead of avoiding funds out of fear.",
+                  "keyTakeaways": [
+                    "Diversified index funds have never gone to zero — individual stocks have",
+                    "A 3-year horizon puts historical odds strongly in your favour",
+                    "The biggest risk for long-term savings is often doing nothing (inflation)",
+                    "Nora matches the product mix to your timeline automatically"
+                  ],
+                  "suggestedReading": [
+                    { "title": "How index funds work", "where": "Search Nordea funds or Morningstar basics" },
+                    { "title": "Historical stock market returns by holding period", "where": "Search Finanssivalvonta investor guides" }
+                  ],
+                  "estimatedMinutes": 3,
+                  "whyNora": "Aleksi asked about fund safety from a place of genuine worry. This covers the fear directly with data, not jargon.",
+                  "generated": true,
+                  "createdAt": 1748520000000
+                },
+                "noraNote": "This covers the main fear — that you could lose everything. The short answer: with a diversified fund and a 3-year horizon, history is on your side."
+              }
+            }
+          ],
+          "invokedAgents": ["risk_lesson"],
+          "suggestedReplies": ["Ok, I feel better about that. Build me a plan", "What about a balanced mix?"],
+          "memoryUpdates": ["Aleksi worried about fund safety. Nora provided a drafted explainer on volatility and time horizons."]
+        },
+        {
+          "from": "user",
+          "text": "Ok, I feel better about that. Build me a plan",
+          "pickedChip": "Ok, I feel better about that. Build me a plan"
+        },
+        {
+          "from": "nora",
+          "text": "Here's a plan. Since 3 years gives you enough time, I've included index funds alongside savings — the balanced approach from the guide.",
+          "cards": [
+            {
+              "type": "goal_plan",
+              "firstTime": true,
+              "data": {
+                "label": "First apartment",
+                "icon": "home",
+                "targetAmount": 15000,
+                "deadline": "Jun 2029",
+                "monthsToGo": 36,
+                "weeklyTransfer": 100,
+                "mix": "50% savings · 50% index funds",
+                "horizon": "medium",
+                "noraNote": "Three years of steady saving builds a solid deposit."
+              }
+            }
+          ],
+          "invokedAgents": ["goal_plan"],
+          "suggestedReplies": ["Looks good, let's go", "Can I do less per week?", "Why 50/50?"],
+          "memoryUpdates": ["Goal plan created: €15,000 for first apartment by Jun 2029, €100/week, 50/50 savings and index funds."]
+        },
+        {
+          "from": "user",
+          "text": "Looks good, let's go",
+          "pickedChip": "Looks good, let's go"
+        },
+        {
+          "from": "nora",
+          "text": "Here's the full summary. Take a look and confirm when ready.",
+          "cards": [
+            {
+              "type": "action_approval",
+              "data": {
+                "goalLabel": "First apartment",
+                "goalIcon": "home",
+                "targetSummary": "€15,000 by Jun 2029",
+                "actions": [
+                  { "label": "Open new goal", "value": "First apartment", "icon": "plus-circle" },
+                  { "label": "Auto-transfer", "value": "€100 every Monday", "icon": "repeat" },
+                  { "label": "Round-ups", "value": "On — to this goal", "icon": "sparkles" },
+                  { "label": "Risk profile", "value": "Balanced · 50/50", "icon": "sliders" },
+                  { "label": "Check-ins", "value": "Sundays, in chat", "icon": "message-circle" }
+                ],
+                "reassurance": "You can pause transfers, change the mix, or withdraw anytime. Nothing is locked.",
+                "noraNote": "Ready when you are."
+              }
+            }
+          ],
+          "invokedAgents": ["action_approval"],
+          "suggestedReplies": ["Confirm — start saving"],
+          "memoryUpdates": []
+        },
+        {
+          "from": "user",
+          "text": "Confirm — start saving",
+          "pickedChip": "Confirm — start saving",
+          "isConfirm": true
+        },
+        {
+          "from": "nora",
+          "text": "You're all set. First transfer goes out Monday. I'll check in on Sunday to see how the first week went. Good luck with the apartment, Aleksi.",
+          "cards": [],
+          "invokedAgents": [],
+          "suggestedReplies": [],
+          "memoryUpdates": ["Aleksi confirmed the apartment savings plan. €100/week, 50/50 split, starts Monday."]
+        }
+      ]
+    }
+  ]
+}

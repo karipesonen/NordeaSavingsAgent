@@ -3,7 +3,7 @@ from langchain_core.messages import SystemMessage
 from langgraph.store.base import BaseStore
 from langchain_anthropic import ChatAnthropic
 from tools.web_search import WEB_TOOLS
-from memory.short_term import State
+from memory.short_term import State, ROUTING_WORDS
 
 
 WEB_RESEARCHER_PROMPT = """
@@ -68,9 +68,6 @@ model = ChatAnthropic(
 
 llm = model.bind_tools(WEB_TOOLS,parallel_tool_calls=True)
 
-_ROUTING_WORDS = {"analyst", "web", "both", "banking"}
-
-
 def web_agent(state: State, store: BaseStore):
     conversation = []
     for m in state["messages"]:
@@ -79,7 +76,7 @@ def web_agent(state: State, store: BaseStore):
             conversation.append(m)
         elif msg_type == "ai":
             content = m.content if isinstance(m.content, str) else ""
-            if content.strip().lower() not in _ROUTING_WORDS and not getattr(m, "tool_calls", None):
+            if content.strip().lower() not in ROUTING_WORDS and not getattr(m, "tool_calls", None):
                 conversation.append(m)
 
     turn_start = state.get("web_turn_start", 0)

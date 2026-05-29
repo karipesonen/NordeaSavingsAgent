@@ -619,3 +619,6 @@ txn_664,acc_001,EMPLOYER,Reaktor Oy,3222.62,EUR,salary,income,,,true,May salary,
 txn_689,acc_001,FI2198765432100145,Mikko,-50.00,EUR,payment,other,,,false,,completed,2026-05-24T17:42:25Z
 txn_690,acc_001,FI2112345600078573,Lisa,-10.00,EUR,payment,other,,,false,"Coffe, Thank you!",completed,2026-05-24T17:52:13Z
 txn_691,acc_001,FI2100112233445522,Mom,-4.99,EUR,payment,other,,,false,,completed,2026-05-24T19:00:53Z
+txn_692,acc_001,FI2100112233445522,Mom,-10.00,EUR,payment,other,,,false,Transfer to Mom,completed,2026-05-29T12:45:26Z
+txn_693,acc_001,FI2100112233445522,Mom,-10.00,EUR,transfer,other,,,false,,completed,2026-05-29T13:52:29Z
+txn_694,acc_001,FI2112345600078566,Midsummer Cabin,600.00,EUR,goal_refund,savings_goals,goal_004,,false,Refund from deleted goal 'Midsummer Cabin',completed,2026-05-29T14:55:17Z

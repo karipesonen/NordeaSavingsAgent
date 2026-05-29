@@ -101,7 +101,8 @@ def contribute_to_goal(goal_id: str, amount: float) -> dict:
 
 @tool
 def delete_goal(goal_id: str) -> dict:
-    """Permanently delete a savings goal."""
+    """Permanently delete a savings goal. Any accumulated savings are automatically
+    refunded to the account balance and logged as a goal_refund transaction."""
     return db.delete_goal(goal_id)
 
 @tool
@@ -184,10 +185,11 @@ def create_loan_request(
  
 WRITING_TOOLS = [
     update_profile,
+    update_card,
     add_contact, update_contact, delete_contact,
     create_goal, update_goal, contribute_to_goal, delete_goal,
-    make_transaction,
-    create_loan_request
+    make_transaction, update_transaction_status,
+    create_loan_request,
 ]
 
 READING_TOOLS = [

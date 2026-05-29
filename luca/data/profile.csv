@@ -1,2 +1,2 @@
 account_id,first_name,last_name,date_of_birth,email,phone,address,city,postal_code,country,iban,bic,account_type,balance,currency,credit_score,joined_date
-acc_001,Sofia,Mäkinen,1995-03-14,sofia.makinen@email.fi,+358401234567,Mannerheimintie 42 B 12,Helsinki,00100,FI,FI2112345600078512,NDEAFIHH,personal,2935.76,EUR,4,2021-08-01
+acc_001,Sofia,Mäkinen,1995-03-14,sofia.makinen@email.fi,+358401234567,Mannerheimintie 42 B 12,Helsinki,00100,FI,FI2112345600078512,NDEAFIHH,personal,3515.76,EUR,4,2021-08-01

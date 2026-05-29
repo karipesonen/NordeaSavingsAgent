@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nora — Nordea Savings (Concept)</title>
+
+  <!-- Design tokens -->
+  <link rel="stylesheet" href="tokens.css" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- React + Babel -->
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <style>
+    html, body {
+      margin: 0; padding: 0; min-height: 100vh;
+      background: #1a1a22;
+      font-family: 'Manrope', system-ui, -apple-system, sans-serif;
+      color: var(--fg-1);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    button { font-family: inherit; }
+
+    .stage {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 32px 16px;
+      position: relative;
+    }
+    .stage-bg {
+      position: fixed; inset: 0; z-index: 0;
+      background: radial-gradient(1200px 800px at 50% 0%, #2a2a3a 0%, #1a1a22 60%, #0d0d12 100%);
+    }
+    .stage-grain {
+      position: fixed; inset: 0; z-index: 1; pointer-events: none;
+      opacity: 0.025;
+      background-image:
+        radial-gradient(circle at 20% 20%, #fff 1px, transparent 1.5px),
+        radial-gradient(circle at 80% 60%, #fff 1px, transparent 1.5px),
+        radial-gradient(circle at 40% 80%, #fff 1px, transparent 1.5px);
+      background-size: 180px 180px, 220px 220px, 160px 160px;
+    }
+    .stage-inner {
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column; align-items: center; gap: 24px;
+    }
+
+    .caption {
+      color: rgba(255,255,255,0.55);
+      font-size: 12px; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .caption .dot { width: 6px; height: 6px; border-radius: 999px; background: #00d27a; box-shadow: 0 0 8px #00d27a; }
+
+    .progress-dots {
+      display: flex; gap: 8px;
+      margin-top: 4px;
+    }
+    .progress-dots button {
+      width: 28px; height: 4px; border-radius: 999px;
+      background: rgba(255,255,255,0.18);
+      border: 0; padding: 0; cursor: pointer;
+      transition: background 200ms, width 200ms;
+    }
+    .progress-dots button.active { background: #fff; width: 40px; }
+    .progress-dots button:hover { background: rgba(255,255,255,0.35); }
+
+    .controls {
+      display: flex; align-items: center; gap: 14px;
+      color: rgba(255,255,255,0.7);
+      font-size: 13px; font-weight: 500;
+    }
+    .controls button {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: #fff; padding: 8px 16px; border-radius: 999px;
+      cursor: pointer; font-weight: 600; font-size: 13px;
+      display: inline-flex; align-items: center; gap: 6px;
+      transition: background 120ms;
+    }
+    .controls button:hover { background: rgba(255,255,255,0.14); }
+    .controls button:disabled { opacity: 0.35; cursor: not-allowed; }
+    .controls .step { font-variant-numeric: tabular-nums; min-width: 60px; text-align: center; }
+
+    @keyframes shimmer {
+      0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; }
+    }
+    .pulse-dot { animation: shimmer 1.4s ease-in-out infinite; }
+
+    @keyframes bubbleIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .bubble-in { animation: bubbleIn 280ms cubic-bezier(0.2, 0, 0, 1) both; }
+
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(12px) scale(0.98); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .card-in { animation: cardIn 360ms cubic-bezier(0.2, 0, 0, 1) both; }
+
+    @keyframes pulseSparkle {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50%       { transform: scale(1.4); opacity: 0.6; }
+    }
+    .sparkle { animation: pulseSparkle 1.8s ease-in-out infinite; }
+
+    @keyframes tagIn {
+      from { opacity: 0; transform: translateX(-6px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    .tag-in { animation: tagIn 240ms cubic-bezier(0.2, 0, 0, 1) both; }
+
+    .scroll-y {
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0,0,0,0.15) transparent;
+    }
+    .scroll-y::-webkit-scrollbar { width: 4px; }
+    .scroll-y::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 999px; }
+
+    #tweaks-root { position: fixed; inset: 0; pointer-events: none; z-index: 1000; }
+    #tweaks-root > * { pointer-events: auto; }
+  </style>
+
+  <script>
+    window.__NORA_TWEAKS__ = /*EDITMODE-BEGIN*/{
+      "vibe": "balanced",
+      "showAgentTags": true,
+      "density": "comfortable",
+      "started": false
+    }/*EDITMODE-END*/;
+  </script>
+</head>
+<body>
+  <div id="root"></div>
+  <div id="tweaks-root"></div>
+
+  <script type="text/babel" src="tweaks-panel.jsx"></script>
+  <script type="text/babel" src="nora-components.jsx"></script>
+  <script type="text/babel" src="nora-tabs.jsx"></script>
+  <script type="text/babel" src="nora-screens.jsx"></script>
+  <script type="text/babel" src="nora-app.jsx"></script>
+</body>
+</html>

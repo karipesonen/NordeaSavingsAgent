@@ -1,7 +1,7 @@
 from langchain_core.messages import SystemMessage
 from langgraph.store.base import BaseStore
 from langchain_anthropic import ChatAnthropic
-from memory.short_term import State
+from memory.short_term import State, ROUTING_WORDS
 
 
 ROUTER_PROMPT = """You are a supervisor of a personal finance multi-agent system.
@@ -51,12 +51,26 @@ model = ChatAnthropic(model="claude-haiku-4-5-20251001")
 def main_agent(state: State, store: BaseStore):
     namespace = ("Sofia", "Profile")
     profile = store.get(namespace, "info").value
+
+    # Strip routing words and tool-call messages so the model only sees
+    # real human turns and meaningful AI replies (no consecutive AI messages).
+    conversation = []
+    for m in state["messages"]:
+        msg_type = getattr(m, "type", None)
+        if msg_type == "human":
+            conversation.append(m)
+        elif msg_type == "ai":
+            content = m.content if isinstance(m.content, str) else ""
+            if content.strip().lower() not in ROUTING_WORDS and not getattr(m, "tool_calls", None):
+                conversation.append(m)
+
     system = SystemMessage(content=ROUTER_PROMPT.format(profile=profile))
-    response = model.invoke([system] + state["messages"])
+    response = model.invoke([system] + conversation)
     first_line = ""
     if isinstance(response.content, str):
         first_line = response.content.strip().splitlines()[0].strip().lower()
     parallel = first_line == "both"
+    print(f"[main_agent] routing → {first_line!r}  (parallel={parallel})")
     return {
         "messages": [response],
         "parallel_mode": parallel,

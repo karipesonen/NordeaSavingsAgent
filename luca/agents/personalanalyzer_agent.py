@@ -3,7 +3,7 @@ from langchain_core.messages import SystemMessage
 from langgraph.store.base import BaseStore
 from langchain_anthropic import ChatAnthropic
 from tools.database_tools import READING_TOOLS
-from memory.short_term import State
+from memory.short_term import State, ROUTING_WORDS
 
 
 FINANCIAL_ANALYST_PROMPT = """
@@ -83,10 +83,8 @@ model = ChatAnthropic(
     model="claude-haiku-4-5-20251001",
 )
 
-llm = model.bind_tools(READING_TOOLS,parallel_tool_calls=True)
-
-_ROUTING_WORDS = {"analyst", "web", "both", "banking"}
-
+llm      = model.bind_tools(READING_TOOLS, parallel_tool_calls=True)
+llm_must = model.bind_tools(READING_TOOLS, parallel_tool_calls=True, tool_choice="any")
 
 def analyst_agent(state: State, store: BaseStore):
     conversation = []
@@ -96,18 +94,33 @@ def analyst_agent(state: State, store: BaseStore):
             conversation.append(m)
         elif msg_type == "ai":
             content = m.content if isinstance(m.content, str) else ""
-            if content.strip().lower() not in _ROUTING_WORDS and not getattr(m, "tool_calls", None):
+            if content.strip().lower() not in ROUTING_WORDS and not getattr(m, "tool_calls", None):
                 conversation.append(m)
 
     turn_start = state.get("analyst_turn_start", 0)
     current_turn_msgs = (state.get("analyst_messages") or [])[turn_start:]
 
     context = conversation + current_turn_msgs
+    print(f"[analyst] context messages: {len(context)}  (conversation={len(conversation)}, turn_msgs={len(current_turn_msgs)})")
+
     today = datetime.date.today().isoformat()
     system = SystemMessage(content=f"Today's date: {today}\n\n{FINANCIAL_ANALYST_PROMPT}")
-    response = llm.invoke([system] + context)
+
+    # First call of this turn: force at least one tool call so the model
+    # cannot hallucinate an answer without reading real data.
+    invoker = llm_must if not current_turn_msgs else llm
+    response = invoker.invoke([system] + context)
+
+    tool_calls = getattr(response, "tool_calls", None)
+    if tool_calls:
+        print(f"[analyst] tool calls: {[tc['name'] for tc in tool_calls]}")
+    else:
+        print(f"[analyst] NO tool calls — replying directly")
+        content = response.content if isinstance(response.content, str) else ""
+        print(f"[analyst] reply preview: {content[:120]!r}")
+
     result = {"analyst_messages": [response]}
     # In single-route mode surface the final reply to the shared channel so the CLI can read it
-    if not (getattr(response, "tool_calls", None)) and not state.get("parallel_mode"):
+    if not tool_calls and not state.get("parallel_mode"):
         result["messages"] = [response]
     return result

@@ -1,0 +1,285 @@
+/* =========================================================================
+   Nordea Savings — Colors & Type
+   --------------------------------------------------------------------------
+   Brand color is locked: Nordea Deep Blue #0000a0 + black/white only for
+   the logotype. The rest of the system uses neutrals + a small set of
+   functional colors derived from the deep blue.
+   --------------------------------------------------------------------------
+   Typography note: Nordea uses a proprietary "Nordea Sans" (custom, not
+   publicly licensed). We substitute Manrope as the closest open-source
+   match — geometric humanist sans, similar x-height and apertures.
+   See README.md → "Visual Foundations" for the substitution caveat.
+   ========================================================================= */
+
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap");
+
+:root {
+  /* ---------------------------------------------------------------------
+     CORE PALETTE — locked
+     --------------------------------------------------------------------- */
+  --nordea-blue:        #0000a0;   /* THE brand color. Pantone 286 / Dark Blue C */
+  --nordea-blue-pressed:#000080;   /* slightly darker for press states */
+  --nordea-blue-hover:  #1a1ab0;   /* very subtle lift on hover */
+  --nordea-black:       #000000;
+  --nordea-white:       #ffffff;
+
+  /* ---------------------------------------------------------------------
+     EXTENDED BLUE SCALE — used sparingly, for backgrounds and tints.
+     Always derived from #0000a0; never invent new accent hues.
+     --------------------------------------------------------------------- */
+  --blue-950: #00005a;
+  --blue-900: #000078;
+  --blue-800: #0000a0;             /* === --nordea-blue */
+  --blue-700: #2929b3;
+  --blue-600: #5252c2;
+  --blue-500: #7a7ad1;
+  --blue-400: #a3a3e0;
+  --blue-300: #c2c2eb;             /* the light-blue used in the clear-space markers */
+  --blue-200: #d9d9f1;
+  --blue-100: #ececf8;
+  --blue-50:  #f5f5fc;             /* tinted page background */
+
+  /* ---------------------------------------------------------------------
+     NEUTRALS — warmer than pure grey to feel less corporate-cold.
+     Calibrated to read clearly against --blue-50 and --nordea-white.
+     --------------------------------------------------------------------- */
+  --grey-950: #0a0a0f;
+  --grey-900: #1a1a22;
+  --grey-800: #2b2b35;
+  --grey-700: #3f3f4d;
+  --grey-600: #5a5a6b;
+  --grey-500: #7a7a8a;
+  --grey-400: #9a9aa8;
+  --grey-300: #c2c2cc;
+  --grey-200: #e0e0e6;
+  --grey-100: #ededf0;
+  --grey-50:  #f6f6f8;
+
+  /* ---------------------------------------------------------------------
+     SEMANTIC FUNCTIONAL COLORS — for status, balance trends, alerts.
+     Muted and a little desaturated so they don't fight the brand blue.
+     --------------------------------------------------------------------- */
+  --success:        #1f7a4d;       /* gain, deposit, on-track */
+  --success-bg:     #e6f3ec;
+  --warning:        #b07215;       /* low balance, attention needed */
+  --warning-bg:     #fbf2e1;
+  --danger:         #b3261e;       /* errors, declined, overspend */
+  --danger-bg:      #fbe9e7;
+  --info:           var(--nordea-blue);
+  --info-bg:        var(--blue-100);
+
+  /* ---------------------------------------------------------------------
+     SEMANTIC TOKENS — use these in components, not raw scales.
+     --------------------------------------------------------------------- */
+  --bg-page:        #f6f6f8;
+  --bg-surface:     #ffffff;
+  --bg-surface-alt: #f6f6f8;
+  --bg-inverse:     var(--nordea-blue);
+  --bg-tint:        var(--blue-50);
+
+  --fg-1:           var(--grey-950);   /* primary text */
+  --fg-2:           var(--grey-700);   /* secondary text */
+  --fg-3:           var(--grey-500);   /* tertiary / metadata */
+  --fg-disabled:    var(--grey-400);
+  --fg-on-blue:     #ffffff;
+  --fg-link:        var(--nordea-blue);
+
+  --border-1:       var(--grey-200);   /* default hairline */
+  --border-2:       var(--grey-300);   /* stronger separator */
+  --border-focus:   var(--nordea-blue);
+
+  /* ---------------------------------------------------------------------
+     TYPOGRAPHY
+     --------------------------------------------------------------------- */
+  --font-sans:    "Manrope", "Nordea Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Manrope", "Nordea Sans Large", "Helvetica Neue", Arial, sans-serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --font-numeric: "Manrope", "Nordea Sans", "Helvetica Neue", Arial, sans-serif;
+
+  /* Type scale (modular, ratio ~1.2). All sizes in px for clarity. */
+  --fs-12: 12px;
+  --fs-13: 13px;
+  --fs-14: 14px;
+  --fs-15: 15px;
+  --fs-16: 16px;
+  --fs-18: 18px;
+  --fs-20: 20px;
+  --fs-24: 24px;
+  --fs-28: 28px;
+  --fs-32: 32px;
+  --fs-40: 40px;
+  --fs-48: 48px;
+  --fs-64: 64px;
+
+  --lh-tight:   1.1;
+  --lh-snug:    1.25;
+  --lh-normal:  1.45;
+  --lh-relaxed: 1.6;
+
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+  --fw-heavy:    800;
+
+  --tracking-tight:  -0.02em;
+  --tracking-normal:  0em;
+  --tracking-wide:    0.04em;
+
+  /* ---------------------------------------------------------------------
+     SPACING — 4px base grid
+     --------------------------------------------------------------------- */
+  --space-0:  0;
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  /* ---------------------------------------------------------------------
+     RADII — restrained. Nordea is buttoned-up; no playful rounding.
+     --------------------------------------------------------------------- */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-pill: 999px;
+
+  /* ---------------------------------------------------------------------
+     ELEVATION — quiet shadows. Banks shouldn't float.
+     --------------------------------------------------------------------- */
+  --shadow-sm: 0 1px 2px rgba(10, 10, 25, 0.06);
+  --shadow-md: 0 2px 8px rgba(10, 10, 25, 0.08), 0 1px 2px rgba(10, 10, 25, 0.04);
+  --shadow-lg: 0 8px 24px rgba(10, 10, 25, 0.10), 0 2px 6px rgba(10, 10, 25, 0.05);
+  --shadow-focus: 0 0 0 3px rgba(0, 0, 160, 0.25);
+  --shadow-inset: inset 0 1px 2px rgba(10, 10, 25, 0.05);
+
+  /* Motion */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-decel:    cubic-bezier(0, 0, 0.2, 1);
+  --ease-accel:    cubic-bezier(0.4, 0, 1, 1);
+  --dur-fast:   120ms;
+  --dur-normal: 200ms;
+  --dur-slow:   320ms;
+}
+
+/* =========================================================================
+   SEMANTIC TYPOGRAPHY — apply via class, or inherit from body.
+   ========================================================================= */
+
+html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--fs-16);
+  line-height: var(--lh-normal);
+  color: var(--fg-1);
+  background: var(--bg-page);
+  font-weight: var(--fw-regular);
+  text-rendering: optimizeLegibility;
+}
+
+.h-display, h1.display {
+  font-family: var(--font-display);
+  font-size: var(--fs-64);
+  line-height: var(--lh-tight);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tracking-tight);
+  color: var(--fg-1);
+}
+
+h1, .h1 {
+  font-family: var(--font-display);
+  font-size: var(--fs-40);
+  line-height: var(--lh-tight);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tracking-tight);
+  margin: 0;
+}
+
+h2, .h2 {
+  font-family: var(--font-display);
+  font-size: var(--fs-28);
+  line-height: var(--lh-snug);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tracking-tight);
+  margin: 0;
+}
+
+h3, .h3 {
+  font-family: var(--font-sans);
+  font-size: var(--fs-20);
+  line-height: var(--lh-snug);
+  font-weight: var(--fw-semibold);
+  margin: 0;
+}
+
+h4, .h4 {
+  font-family: var(--font-sans);
+  font-size: var(--fs-16);
+  line-height: var(--lh-snug);
+  font-weight: var(--fw-semibold);
+  margin: 0;
+}
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--fs-12);
+  line-height: 1.2;
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--fg-2);
+}
+
+p, .body {
+  font-size: var(--fs-16);
+  line-height: var(--lh-normal);
+  color: var(--fg-1);
+  margin: 0;
+}
+
+.body-lg { font-size: var(--fs-18); line-height: var(--lh-normal); }
+.body-sm { font-size: var(--fs-14); line-height: var(--lh-normal); color: var(--fg-2); }
+.caption { font-size: var(--fs-12); line-height: 1.4; color: var(--fg-3); }
+
+/* Numeric / amount display — tabular figures so columns of money align. */
+.amount, .num {
+  font-family: var(--font-numeric);
+  font-feature-settings: "tnum" 1, "lnum" 1;
+  font-variant-numeric: tabular-nums lining-nums;
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--tracking-tight);
+}
+
+.amount-display {
+  font-family: var(--font-display);
+  font-size: var(--fs-48);
+  line-height: 1;
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tracking-tight);
+  font-feature-settings: "tnum" 1, "lnum" 1;
+  font-variant-numeric: tabular-nums lining-nums;
+  color: var(--fg-1);
+}
+
+code, .mono {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+}
+
+a {
+  color: var(--fg-link);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+a:hover { text-decoration-thickness: 2px; }

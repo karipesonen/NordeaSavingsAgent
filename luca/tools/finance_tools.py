@@ -23,7 +23,7 @@ def get_price_history(ticker: str, period: str = "1mo") -> str:
     return hist[["Open", "High", "Low", "Close", "Volume"]].to_string()
 
 @tool
-def get_financials(ticker: str) -> str:
+def get_financials(ticker: str) -> dict:
     """Get income statement, balance sheet and cash flow for a ticker."""
     stock = yf.Ticker(ticker)
     return {

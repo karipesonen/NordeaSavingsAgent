@@ -1,80 +1,69 @@
-import json
 import datetime
-from langchain_core.messages import SystemMessage, AIMessage
-from langchain_core.tools import tool
+from langchain_core.messages import SystemMessage, ToolMessage
 from langchain_anthropic import ChatAnthropic
 from langgraph.store.base import BaseStore
 from langgraph.types import interrupt
 from tools.database_tools import READING_TOOLS, WRITING_TOOLS
-from memory.short_term import State, namespace
+from memory.short_term import State, namespace, ROUTING_WORDS
 import db_tools as db
 
 
 BANKING_AGENT_PROMPT = """You are a banking automation agent for a personal finance system.
-You help users execute banking actions: transfers, creating savings goals, and requesting loans.
+You help users execute banking actions: transfers, savings goals, loan requests, and card management.
 
-## CRITICAL — you cannot execute anything directly
-You have NO write tools. The ONLY way to execute an action is to call propose_action.
-If you have all required information → call propose_action. That is the ONLY valid next step.
+## Tools available
+Reading (free to call anytime): get_profile, get_contacts, get_cards, get_goals,
+  get_transactions, get_balance_summary, get_loans, and their single-item variants.
+Writing: make_transaction, create_goal, update_goal, delete_goal,
+  create_loan_request, update_card
 
-## Capabilities
-- Transfer money to a contact or external IBAN: make_transaction
-- Create a new savings goal: create_goal
-- Update a savings goal: update_goal
-- Delete a savings goal: delete_goal
-- Submit a loan request: create_loan_request
-- Card management is read-only (block/unblock handled separately)
+## CRITICAL: call write tools immediately — never ask conversationally for confirmation
+The system automatically pauses for user confirmation before any write executes.
+You must NOT replicate that step by saying "Should I proceed?", "Shall I send?",
+"Can I confirm?" or anything similar. The moment you have all required fields,
+call the write tool in that same response — no exceptions.
 
-## Your workflow
-1. GATHER — use reading tools to look up any required IDs (contacts, cards, goals)
-2. CLARIFY — ask the user for any missing required field before proceeding
-3. CONFIRM — call propose_action with all arguments. This is the ONLY step that triggers execution.
+If the user's reply is "yes" / "go ahead" / "do it" without you having called a write tool:
+they are responding to something you said conversationally. Treat their message as
+confirmation of intent and call the write tool immediately using the details already in
+the conversation.
 
-## Required fields per action
-- make_transaction: amount (signed float, negative = expense), counterpart_name, counterpart_account_or_iban, note (optional)
-- create_goal: name, description, category (travel|electronics|emergency|event|investment), amount_goal, rule_value, rule_type (fixed_amount|percentage), deadline (YYYY-MM-DD)
-- update_goal: goal_id (required), plus any fields to change: name, description, amount_goal, deadline, status, rule_value
-- delete_goal: goal_id (required) — always look it up with get_goals first
-- create_loan_request: total_amount, interest_rate, monthly_amount, description, date_starting, date_ending
+## Workflow
+1. GATHER — call reading tools to resolve IDs and IBANs. Never guess them.
+2. CLARIFY — ask only for fields that are genuinely missing from the conversation.
+3. EXECUTE — call the write tool the moment every required field is known.
 
-## Extracting parameters from conversation context
-If the conversation already contains a **Suggested savings goal** block (output by the planning agent),
-extract all parameters directly from it — do NOT ask the user again.
-The block looks like:
-  Name / Category / Target amount / Monthly contribution / Suggested deadline / Rule type
+## Required fields per write action
+- make_transaction : amount (signed float, negative = outgoing), counterpart_name,
+    counterpart_account_or_iban, note (optional)
+- create_goal      : name, description, category (travel|electronics|emergency|event|investment),
+    amount_goal, rule_value, rule_type (fixed_amount|percentage), deadline (YYYY-MM-DD)
+- update_goal      : goal_id, plus any fields to change
+- delete_goal      : goal_id — always look it up with get_goals first
+- create_loan_request : total_amount, interest_rate, monthly_amount, description,
+    date_starting, date_ending
+- update_card      : card_id, status ('blocked'|'active'), and optional limit/contactless fields
 
-Use those values verbatim to populate create_goal arguments, then call propose_action immediately.
+## IBAN lookup rule
+For contacts in your saved list: call get_contacts and copy linked_iban exactly.
+For recipients NOT in contacts: if the user has provided an IBAN in the conversation,
+use it directly. Do not invent or modify IBANs.
 
-## Rules
-- Never guess IDs or IBANs — always look them up with reading tools first
-- Only ask for missing fields that are NOT already present in the conversation
-- Call propose_action ONLY ONCE as your last step — never mix it with other tool calls
-- Write a clear, specific confirmation_message (e.g. "Send €50 to Marco Rossi (IBAN: IT123...) with note 'dinner'")
+## Suggested savings goal blocks
+If the conversation contains a **Suggested savings goal** block from the planning agent,
+extract all parameters from it and call create_goal immediately — do not ask again.
 """
 
-model = ChatAnthropic(model="claude-haiku-4-5-20251001")
+model = ChatAnthropic(model="claude-sonnet-4-6")
 
+ALL_BANKING_TOOLS = READING_TOOLS + WRITING_TOOLS
+llm = model.bind_tools(ALL_BANKING_TOOLS, parallel_tool_calls=False)
 
-@tool
-def propose_action(tool_name: str, tool_args: str, confirmation_message: str) -> str:
-    """Call this as your FINAL step when you have ALL required information.
-    This triggers a human confirmation before anything is executed.
-    tool_name: the write tool to call after confirmation (make_transaction | create_goal | update_goal | delete_goal | create_loan_request)
-    tool_args: JSON string with all arguments for that tool
-    confirmation_message: clear, specific description of what will happen (shown to the user)"""
-    return f"[{tool_name}] {confirmation_message} | args: {tool_args}"
-
-
-BANKING_TOOLS = READING_TOOLS + [propose_action]
-llm = model.bind_tools(BANKING_TOOLS, parallel_tool_calls=False)
-
-
-_ROUTING_WORDS = {"analyst", "web", "both", "banking"}
+WRITE_TOOL_NAMES = {t.name for t in WRITING_TOOLS}
+_WRITE_TOOL_MAP = {t.name: t for t in WRITING_TOOLS}
 
 
 def banking_agent(state: State, store: BaseStore):
-    # Full conversation history: human messages + clean AI replies across all turns
-    # This lets the agent remember info the user gave in previous messages (e.g. an IBAN)
     conversation = []
     for m in state["messages"]:
         msg_type = getattr(m, "type", None)
@@ -82,74 +71,93 @@ def banking_agent(state: State, store: BaseStore):
             conversation.append(m)
         elif msg_type == "ai":
             content = m.content if isinstance(m.content, str) else ""
-            if content.strip().lower() not in _ROUTING_WORDS and not getattr(m, "tool_calls", None):
+            if content.strip().lower() not in ROUTING_WORDS and not getattr(m, "tool_calls", None):
                 conversation.append(m)
 
-    # Current-turn tool loop messages (read tool calls + results within this invocation)
     turn_start = state.get("banking_turn_start", 0)
     current_turn_msgs = (state.get("banking_messages") or [])[turn_start:]
 
-    context = conversation + current_turn_msgs
     today = datetime.date.today().isoformat()
     system = SystemMessage(content=f"Today's date: {today}\n\n{BANKING_AGENT_PROMPT}")
-    response = llm.invoke([system] + context)
-
-    # Intercept propose_action to store pending_action in state
-    pending = None
-    if hasattr(response, "tool_calls"):
-        for tc in response.tool_calls:
-            if tc.get("name") == "propose_action":
-                raw_args = tc["args"].get("tool_args", "{}")
-                try:
-                    args = json.loads(raw_args) if isinstance(raw_args, str) else raw_args
-                except Exception:
-                    args = {}
-                pending = {
-                    "tool": tc["args"].get("tool_name"),
-                    "args": args,
-                    "message": tc["args"].get("confirmation_message", ""),
-                }
+    response = llm.invoke([system] + conversation + current_turn_msgs)
 
     result = {"banking_messages": [response]}
-    if pending is not None:
-        result["pending_action"] = pending
-    # Surface plain-text replies (clarifications, questions) to the shared channel so the CLI shows them
     if not getattr(response, "tool_calls", None):
         result["messages"] = [response]
     return result
 
 
-def banking_confirm(state: State):
-    pending = state.get("pending_action", {})
-    msg = pending.get("message", "Unknown action")
+def _format_confirmation(tool_name: str, tool_args: dict) -> str:
+    if tool_name == "make_transaction":
+        amount = float(tool_args.get("amount", 0))
+        name = tool_args.get("counterpart_name", "?")
+        iban = tool_args.get("counterpart_account_or_iban", "")
+        note = tool_args.get("note", "")
+        verb = "Send" if amount < 0 else "Receive"
+        prep = "to" if amount < 0 else "from"
+        line = f"{verb} €{abs(amount):.2f} {prep} {name}"
+        if iban:
+            line += f"  (IBAN: {iban})"
+        if note:
+            line += f"\nNote: {note}"
+        return line
+    if tool_name == "create_goal":
+        return (
+            f"Create savings goal '{tool_args.get('name', '?')}'\n"
+            f"Target: €{tool_args.get('amount_goal', '?')}   "
+            f"Deadline: {tool_args.get('deadline', '?')}"
+        )
+    if tool_name == "update_goal":
+        return f"Update goal {tool_args.get('goal_id', '?')}: {tool_args}"
+    if tool_name == "delete_goal":
+        return f"Permanently delete goal {tool_args.get('goal_id', '?')}"
+    if tool_name == "update_card":
+        card = tool_args.get("card_id", "?")
+        status = tool_args.get("status", "")
+        return f"Update card {card}" + (f" → {status}" if status else f": {tool_args}")
+    if tool_name == "create_loan_request":
+        return (
+            f"Submit loan request: €{tool_args.get('total_amount', '?')} "
+            f"at {tool_args.get('interest_rate', '?')}% interest\n"
+            f"{tool_args.get('description', '')}"
+        )
+    return f"{tool_name}({tool_args})"
+
+
+def banking_write_confirm(state: State, store: BaseStore):
+    msgs = state.get("banking_messages") or []
+    last = msgs[-1]
+    tc = last.tool_calls[0]          # parallel_tool_calls=False guarantees one at a time
+    tool_name = tc["name"]
+    tool_args = tc["args"]
+
+    confirmation = _format_confirmation(tool_name, tool_args)
+
+    # Flag IBANs not in contacts so the user can spot a hallucinated address,
+    # but still let them confirm — they may have provided it explicitly.
+    if tool_name == "make_transaction":
+        iban = tool_args.get("counterpart_account_or_iban", "")
+        if iban:
+            known_ibans = {c["linked_iban"] for c in db.get_contacts()}
+            if iban not in known_ibans:
+                confirmation += "\n[!] This IBAN is not in your saved contacts — verify before confirming."
+
     user_response = interrupt(
-        f"Action pending — please confirm:\n\n{msg}\n\nType 'yes' to confirm or 'no' to cancel."
+        f"Action pending — please confirm:\n\n"
+        f"{confirmation}\n\n"
+        "Type 'yes' to confirm or 'no' to cancel."
     )
-    confirmed = user_response.strip().lower() in ("yes", "y", "confirm", "ok")
-    return {"confirmed": confirmed}
 
-
-def banking_execute(state: State, store: BaseStore):
-    pending = state.get("pending_action", {})
-    tool_name = pending.get("tool")
-    tool_args = pending.get("args", {})
-
-    tool_map = {t.name: t for t in WRITING_TOOLS}
-    t = tool_map.get(tool_name)
-
-    if not t:
-        msg = f"Error: unknown action '{tool_name}'. No changes were made."
-    else:
+    if user_response.strip().lower() in ("yes", "y", "confirm", "ok"):
         try:
-            result = t.invoke(tool_args)
-            msg = f"Done. {result}"
-            # Refresh the profile in long-term store so the updated balance is visible to all agents
+            result = _WRITE_TOOL_MAP[tool_name].invoke(tool_args)
             store.put(namespace, "info", db.get_profile())
+            content = str(result)
         except Exception as e:
-            msg = f"Failed to execute '{tool_name}': {e}"
+            content = f"Error: {e}"
+    else:
+        content = "Cancelled by user."
 
-    return {"messages": [AIMessage(content=msg)], "pending_action": None}
-
-
-def banking_cancelled(_state: State):
-    return {"messages": [AIMessage(content="Action cancelled. Nothing was changed.")]}
+    return {
+        "banking_messages": [ToolMessage(content=content, tool_call_id=tc["id"])]
+    }

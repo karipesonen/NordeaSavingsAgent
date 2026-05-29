@@ -1,6 +1,5 @@
 goal_id,owner_id,name,description,category,amount_goal,accumulated,currency,rule_type,rule_value,rule_period,shared_with_contacts,status,created_date,deadline,wallet_iban
 goal_001,acc_001,Tokyo Trip 2025,Save for a 2-week trip to Japan with Aino,travel,4000.00,1250.00,EUR,fixed_amount,200.00,monthly,con_002,active,2024-11-01,2025-10-15,FI2112345600078599
 goal_003,acc_001,Emergency Fund,3 months of expenses as safety net,emergency,7200.00,3240.75,EUR,percentage,10.00,per_income,,active,2021-08-01,2026-12-31,FI2112345600078577
-goal_004,acc_001,Midsummer Cabin,Rent a cabin with friends for midsummer,event,600.00,600.00,EUR,fixed_amount,200.00,once,"con_001,con_002",completed,2025-03-01,2025-06-20,FI2112345600078566
 goal_005,acc_001,Investment Starter,Start a small index fund portfolio,investment,5000.00,420.00,EUR,fixed_amount,100.00,monthly,,active,2025-02-01,2026-06-01,FI2112345600078555
 goal_006,acc_001,Mikko's Birthday Present,Savings plan for Mikko's birthday present with shared contributions,event,180.00,0.00,EUR,fixed_amount,30.00,monthly,,active,2026-05-24,2026-11-30,

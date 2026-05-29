@@ -8,13 +8,11 @@ from agents.personalanalyzer_agent import analyst_agent
 from agents.web_searcher_agent import web_agent
 from agents.aggregator_agent import aggregator_agent
 from agents.bank_automation import (
-    banking_agent, banking_confirm, banking_execute, banking_cancelled,
-    BANKING_TOOLS,
+    banking_agent, banking_write_confirm,
+    ALL_BANKING_TOOLS, WRITE_TOOL_NAMES,
 )
 from agents.investment_agent import investment_agent, INVESTMENT_TOOLS
-from memory.short_term import State, short_term_memory_checkpointer, long_term_memory_store
-
-ROUTING_WORDS = {"analyst", "web", "both", "banking", "investment"}
+from memory.short_term import State, short_term_memory_checkpointer, long_term_memory_store, ROUTING_WORDS
 
 
 def _first_line(state: State) -> str:
@@ -65,12 +63,10 @@ def banking_next(state: State):
     last = msgs[-1]
     if not getattr(last, "tool_calls", None):
         return END
-    # propose_action was called → go to confirmation
     for tc in last.tool_calls:
-        if tc.get("name") == "propose_action":
-            return "banking_confirm"
-    # Regular read tool calls → run them
-    return "banking_tools"
+        if tc["name"] in WRITE_TOOL_NAMES:
+            return "banking_write_confirm"
+    return "banking_read_tools"
 
 
 def investment_next(state: State):
@@ -79,32 +75,20 @@ def investment_next(state: State):
     return END
 
 
-def after_confirm(state: State):
-    return "banking_execute" if state.get("confirmed") else "banking_cancelled"
-
-
 graph_builder = StateGraph(State)
 
-# Existing nodes
 graph_builder.add_node("main", main_agent)
 graph_builder.add_node("analyst", analyst_agent)
 graph_builder.add_node("analyst_tools", ToolNode(READING_TOOLS, messages_key="analyst_messages"))
 graph_builder.add_node("web", web_agent)
 graph_builder.add_node("web_tools", ToolNode(WEB_TOOLS, messages_key="web_messages"))
 graph_builder.add_node("aggregator", aggregator_agent)
-
-# Investment nodes
 graph_builder.add_node("investment", investment_agent)
 graph_builder.add_node("investment_tools", ToolNode(INVESTMENT_TOOLS, messages_key="investment_messages"))
-
-# Banking nodes
 graph_builder.add_node("banking", banking_agent)
-graph_builder.add_node("banking_tools", ToolNode(BANKING_TOOLS, messages_key="banking_messages"))
-graph_builder.add_node("banking_confirm", banking_confirm)
-graph_builder.add_node("banking_execute", banking_execute)
-graph_builder.add_node("banking_cancelled", banking_cancelled)
+graph_builder.add_node("banking_read_tools", ToolNode(READING_TOOLS, messages_key="banking_messages"))
+graph_builder.add_node("banking_write_confirm", banking_write_confirm)
 
-# Edges AAAAAAAAAA TOOOO MANNNNNNY
 graph_builder.add_edge(START, "main")
 graph_builder.add_conditional_edges("main", route_main)
 graph_builder.add_conditional_edges("analyst", analyst_next)
@@ -115,10 +99,8 @@ graph_builder.add_edge("aggregator", END)
 graph_builder.add_conditional_edges("investment", investment_next)
 graph_builder.add_edge("investment_tools", "investment")
 graph_builder.add_conditional_edges("banking", banking_next)
-graph_builder.add_edge("banking_tools", "banking")
-graph_builder.add_conditional_edges("banking_confirm", after_confirm)
-graph_builder.add_edge("banking_execute", END)
-graph_builder.add_edge("banking_cancelled", END)
+graph_builder.add_edge("banking_read_tools", "banking")
+graph_builder.add_edge("banking_write_confirm", "banking")  # agent summarises the outcome
 
 graph = graph_builder.compile(
     checkpointer=short_term_memory_checkpointer,
@@ -139,7 +121,7 @@ if __name__ == "__main__":
             config,
         )
 
-        # Handle interrupt loop (banking confirmation)
+        # Handle interrupt loop (banking confirmation — may fire multiple times per turn)
         while True:
             snapshot = graph.get_state(config)
             if not snapshot.next:
@@ -156,7 +138,6 @@ if __name__ == "__main__":
             human_response = input("Your answer: ").strip()
             result = graph.invoke(Command(resume=human_response), config)
 
-        # Print the last meaningful bot reply
         for msg in reversed(result["messages"]):
             content = getattr(msg, "content", "")
             text = content if isinstance(content, str) else ""

@@ -35,8 +35,11 @@ PATHS = {
 # ── Internal helpers ───────────────────────────────────────────────────────────
 
 def _read(name: str) -> list[dict]:
-    with open(PATHS[name], newline="", encoding="utf-8") as f:
-        return list(csv.DictReader(f))
+    path = PATHS[name]
+    with open(path, newline="", encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+    print(f"[db] read '{name}' → {len(rows)} rows  ({path})")
+    return rows
 
 
 def _write(name: str, rows: list[dict]) -> None:
@@ -413,6 +416,7 @@ def contribute_to_goal(goal_id: str, amount: float) -> dict:
 def delete_goal(goal_id: str) -> dict:
     """
     Delete a goal by goal_id.
+    Any accumulated savings are returned to the account balance automatically.
     Returns the deleted row.
 
     Example:
@@ -424,6 +428,20 @@ def delete_goal(goal_id: str) -> dict:
         raise KeyError(f"Goal '{goal_id}' not found.")
 
     _write("goals", [r for r in rows if r["goal_id"] != goal_id])
+
+    accumulated = float(match.get("accumulated", "0"))
+    if accumulated > 0:
+        make_transaction(
+            account_id=match["owner_id"],
+            amount=accumulated,
+            counterpart_account_or_iban=match.get("wallet_iban", ""),
+            counterpart_name=match["name"],
+            txn_type="goal_refund",
+            category="savings_goals",
+            goal_id=goal_id,
+            note=f"Refund from deleted goal '{match['name']}'",
+        )
+
     return match
 
 
@@ -533,6 +551,15 @@ def make_transaction(
             note="June salary",
         )
     """
+    if amount < 0:
+        profile = get_profile()
+        balance = float(profile.get("balance", 0))
+        if abs(amount) > balance:
+            raise ValueError(
+                f"Insufficient funds: balance is €{balance:.2f}, "
+                f"transaction requires €{abs(amount):.2f}."
+            )
+
     rows = _read("transactions")
     new_id = _next_id(rows, "txn_")
 

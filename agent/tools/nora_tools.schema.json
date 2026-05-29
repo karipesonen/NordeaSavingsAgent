@@ -371,6 +371,41 @@
       "risk": "Resource is educational only. Do not imply product advice, guaranteed returns, or live retrieval beyond the curated resource database."
     },
     {
+      "name": "future_perspective_card",
+      "purpose": "Deterministic support tool that turns a meaningful money tradeoff into one short future-you perspective card and one practical decision question.",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "user_id": {"type": "string"},
+          "user_memory": {"type": "object"},
+          "financial_snapshot": {"type": "object"},
+          "goal_plan": {"type": "object"},
+          "expense_review": {"type": "object"},
+          "education_lesson": {"type": "object"},
+          "action_approval": {"type": "object"},
+          "latest_user_message": {"type": ["string", "null"]},
+          "recommendation_history": {"type": "array"},
+          "is_first_conversation": {"type": "boolean"}
+        }
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "agent": {"const": "future_perspective_card"},
+          "status": {"type": "string", "enum": ["available", "skipped"]},
+          "title": {"type": ["string", "null"]},
+          "time_horizon": {"type": ["string", "null"]},
+          "future_snapshot": {"type": ["string", "null"]},
+          "tradeoff": {"type": ["string", "null"]},
+          "decision_question": {"type": ["string", "null"]},
+          "options": {"type": "array"},
+          "memory_updates": {"type": "array"},
+          "safety_flags": {"type": "array"}
+        }
+      },
+      "risk": "Decision lens only. Must not ask for broad future-life essays, guarantee outcomes, predict returns, or pressure investing."
+    },
+    {
       "name": "create_shared_goal_draft",
       "purpose": "Roadmap stub for shared financial goals with selected people and explicit permissions.",
       "input_schema": {"type": "object", "required": ["goal_id", "allowed_people", "visibility"], "properties": {"goal_id": {"type": "string"}, "allowed_people": {"type": "array", "items": {"type": "string"}}, "visibility": {"type": "string"}}},

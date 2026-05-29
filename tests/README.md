@@ -84,6 +84,16 @@ npm run test:snapshot
 
 These check current snapshots, next-best-action selection, memory review without automatic updates, bank-known age handling, and recap safety flags.
 
+## Future perspective unit test
+
+Run the deterministic Future Perspective Card tests:
+
+```powershell
+npm run test:future
+```
+
+These check slow-goal, down-payment, borrowing/loan, low-emotion skip, duplicate-avoidance, concrete-number, and no-guarantee behavior.
+
 ## Action/approval unit test
 
 Run the deterministic Action/Approval Agent tests:
@@ -124,7 +134,7 @@ Or choose specific users:
 node tests/run_nora_simulation.mjs --data synthetic_data/generated/nordea_5users_2025.json --users Emma,Sofia --turns 11 --mode offline
 ```
 
-The offline runner includes smoke checks for repeated Nora and simulated-user responses, Goal/Savings Plan Agent usage, Expense Review Agent usage, Education/Risk Lesson Agent usage, Learning Progress Agent usage, Education Resource suggestions, Snapshot/Insights Agent usage, Action/Approval Agent usage, Action Confirmation cards, concept-check questions, no raw progress-status wording in visible Nora copy, no internal agent names in user-facing Nora copy, no real money-movement wording, delayed funds suggestions, cheerful money friend identity, limited repeated catchphrases, demotivating laptop timelines, and whether unrealistic large goals are flagged.
+The offline runner includes smoke checks for repeated Nora and simulated-user responses, Goal/Savings Plan Agent usage, Expense Review Agent usage, Education/Risk Lesson Agent usage, Learning Progress Agent usage, Education Resource suggestions, Future Perspective cards, Snapshot/Insights Agent usage, Action/Approval Agent usage, Action Confirmation cards, concept-check questions, no raw progress-status wording in visible Nora copy, no internal agent names in user-facing Nora copy, no real money-movement wording, delayed funds suggestions, cheerful money friend identity, limited repeated catchphrases, demotivating laptop timelines, and whether unrealistic large goals are flagged.
 
 ## OpenRouter simulation
 

@@ -9,6 +9,7 @@ import { createLearningProgress } from '../agent/tools/learning_progress_agent.m
 import { createSnapshotInsight } from '../agent/tools/snapshot_insight_agent.mjs';
 import { createActionApproval } from '../agent/tools/action_approval_agent.mjs';
 import { suggestEducationResource } from '../agent/tools/education_resource_suggestion.mjs';
+import { createFuturePerspectiveCard } from '../agent/tools/future_perspective_card.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -198,7 +199,14 @@ function extractVisibleWithCards(noraOutput) {
   const visible = extractVisible(noraOutput);
   const card = noraOutput?.action_confirmation_card;
   const resource = noraOutput?.resource_suggestion;
+  const future = noraOutput?.future_perspective_card;
   const lines = [visible];
+  if (future?.status === 'available') {
+    lines.push(
+      `Future Perspective: ${future.future_snapshot}`,
+      `Question: ${future.decision_question}`
+    );
+  }
   if (card) {
     lines.push(
       `Action Confirmation: ${card.draft}`,
@@ -538,17 +546,28 @@ function offlineNoraTurn({ user, memory, snapshot, latestUserMessage, noraTurnIn
       sourceAgent: 'goal_savings_plan',
       userMemory: memory
     });
+    const futurePerspective = createFuturePerspectiveCard({
+      userId: user.userId,
+      userMemory: memory,
+      financialSnapshot: snapshot,
+      goalPlan,
+      actionApproval,
+      latestUserMessage,
+      recommendationHistory: memory.recommendation_history
+    });
     return {
-      visible_response: `Let's put numbers on it!\n\nYour income and recurring expenses suggest a small monthly habit could fit, but I would keep the first draft intentionally modest: EUR ${starterAmount}/month toward ${goal}.${adjustmentText}\n\nI put the next step into a draft so the choice is clean. You can approve it, edit the amount, leave it parked, or use it as the starter habit while we set a first milestone.`,
+      visible_response: `Let's put numbers on it!\n\nYour income and recurring expenses suggest a small monthly habit could fit, but I would keep the first draft intentionally modest: EUR ${starterAmount}/month toward ${goal}.${adjustmentText}\n\nBefore you choose, here is the quick future view.\n\nI put the next step into a draft so the choice is clean. You can approve it, edit the amount, leave it parked, or use it as the starter habit while we set a first milestone.`,
       intent: 'savings_plan',
       nora_action: 'request_approval',
       tool_requests: [
         { name: 'goal_savings_plan_agent', reason: `Assess feasibility and create plan for ${goal}` },
+        { name: 'future_perspective_card', reason: 'Show one short decision lens for the goal tradeoff' },
         { name: 'action_approval_agent', reason: 'Create demo-only savings draft and approval state' },
         { name: 'write_trust_ledger', reason: 'Explain recommendation basis' },
         { name: 'action_approval_agent', reason: 'Request explicit approval without real execution' }
       ],
       goal_plan: goalPlan,
+      future_perspective_card: futurePerspective,
       action_confirmation_card: actionConfirmationCard(actionApproval),
       action_approval: actionApproval,
       recommendation_card: goalPlan.recommendation_card,
@@ -556,6 +575,7 @@ function offlineNoraTurn({ user, memory, snapshot, latestUserMessage, noraTurnIn
       memory_updates: [
         { field: 'preferences.wants_expense_tables', value: true, source: 'inferred_from_conversation', confidence: 'medium' },
         ...goalPlan.memory_updates,
+        ...futurePerspective.memory_updates,
         ...actionApprovalMemoryUpdates(actionApproval)
       ],
       next_best_question: 'Approve the starter habit, adjust target/timeline, or keep it as a learning plan?',
@@ -941,6 +961,7 @@ function evaluateConversation(conversation, finalMemory = {}) {
   const snapshotOutputs = structured.map((s) => s.snapshot_insight).filter(Boolean);
   const actionOutputs = structured.map((s) => s.action_approval).filter(Boolean);
   const resourceOutputs = structured.map((s) => s.resource_suggestion).filter((s) => s?.status === 'available');
+  const futureOutputs = structured.map((s) => s.future_perspective_card).filter((s) => s?.status === 'available');
   const actionLog = finalMemory.action_state?.action_log || [];
   return {
     introducedNora: /i['’]?m nora|i am nora/i.test(noraText),
@@ -965,6 +986,11 @@ function evaluateConversation(conversation, finalMemory = {}) {
     resourceSuggestionMatchesLearningDomain: resourceOutputs.length ? structured.some((s) => s.resource_suggestion?.status === 'available' && s.learning_progress?.domain === s.resource_suggestion.resource?.domain) : true,
     resourceSuggestionNoHomeworkTone: resourceOutputs.length ? resourceOutputs.every((s) => !/homework|study|course/i.test(s.nora_line || '')) : true,
     resourceSuggestionNoReturnPromise: resourceOutputs.length ? resourceOutputs.every((s) => !/guarantee|guaranteed|certain return|profit promise/i.test(`${s.nora_line || ''} ${s.resource?.summary || ''}`)) : true,
+    futurePerspectiveShown: noraTurns.length >= 3 ? futureOutputs.some((s) => s.agent === 'future_perspective_card') : true,
+    futurePerspectiveLimited: futureOutputs.length <= 2,
+    futurePerspectiveHasOneChoice: futureOutputs.length ? futureOutputs.every((s) => typeof s.decision_question === 'string' && s.decision_question.length > 0 && Array.isArray(s.options) && s.options.length >= 2 && s.options.length <= 3) : true,
+    futurePerspectiveNoEssayPrompt: futureOutputs.length ? futureOutputs.every((s) => !/describe your future|future situation|write about/i.test(`${s.decision_question || ''} ${s.future_snapshot || ''}`)) : true,
+    futurePerspectiveNoGuarantees: futureOutputs.length ? futureOutputs.every((s) => !/guarantee|guaranteed|return prediction|will earn|profit/i.test(`${s.future_snapshot || ''} ${s.tradeoff || ''} ${s.decision_question || ''}`)) : true,
     actionApprovalAgentUsed: noraTurns.length >= 3 ? actionOutputs.some((s) => s.agent === 'action_approval') : true,
     actionConfirmationCardPresent: noraTurns.length >= 3 ? confirmationCards.some((card) => card.status === 'Ready for approval') : true,
     actionConfirmationCardProductWording: confirmationCards.length ? confirmationCards.every((card) => Array.isArray(card.options) && card.options.includes('Approve') && card.options.includes('Not now') && card.options.some((option) => /^Edit|^Choose/.test(option)) && !/demo|not executed|Action\/Approval Agent/i.test(JSON.stringify(card))) : true,
@@ -1017,6 +1043,26 @@ function renderResourceSuggestionCard(resourceSuggestion) {
   ];
   if (resource.estimated_time_minutes) lines.push(`Estimated time: ${resource.estimated_time_minutes} min`);
   return lines;
+}
+
+function renderFuturePerspectiveCard(card) {
+  if (card?.status !== 'available') return [];
+  const lines = [
+    '**Future Perspective**',
+    '',
+    `${card.title || 'Future-you view'}, ${card.time_horizon || 'later'} from now:`,
+    card.future_snapshot,
+    '',
+    'Tradeoff:',
+    card.tradeoff,
+    '',
+    'Question:',
+    card.decision_question
+  ];
+  if (Array.isArray(card.options) && card.options.length) {
+    lines.push('', `Options: ${card.options.join(' | ')}`);
+  }
+  return lines.filter(Boolean);
 }
 
 function renderMarkdown({ user, mode, modelInfo, snapshot, conversation, evaluation }) {
@@ -1087,6 +1133,15 @@ function renderMarkdown({ user, mode, modelInfo, snapshot, conversation, evaluat
         lines.push('**Snapshot / Insights Agent**');
         lines.push('```json');
         lines.push(JSON.stringify(turn.structured.snapshot_insight, null, 2));
+        lines.push('```');
+      }
+      if (turn.structured?.future_perspective_card?.status === 'available') {
+        lines.push('');
+        lines.push(...renderFuturePerspectiveCard(turn.structured.future_perspective_card));
+        lines.push('');
+        lines.push('**Future Perspective Tool**');
+        lines.push('```json');
+        lines.push(JSON.stringify(turn.structured.future_perspective_card, null, 2));
         lines.push('```');
       }
       if (turn.structured?.resource_suggestion?.status === 'available') {

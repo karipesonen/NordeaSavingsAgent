@@ -14,6 +14,7 @@ Nora is the first concrete vertical slice of the Nordea Savings hackathon agent.
 - `tools/learning_progress_agent.mjs` - deterministic Learning Progress Agent implementation used by the simulator.
 - `tools/snapshot_insight_agent.mjs` - deterministic Snapshot/Insights Agent implementation used by the simulator.
 - `tools/action_approval_agent.mjs` - deterministic Action/Approval Agent implementation used by the simulator.
+- `tools/future_perspective_card.mjs` - deterministic support tool for short future-you decision cards.
 - `subagents/goal_savings_plan/` - prompt and contract for the first sub-agent behind Nora.
 - `subagents/education_risk_lesson/` - prompt and contract for the education bridge sub-agent.
 - `subagents/expense_review/` - prompt and contract for no-shame recurring expense review.
@@ -37,6 +38,7 @@ Nora Main Agent
 + Learning Progress Agent
 + Snapshot/Insights Agent
 + Action/Approval Agent
++ Future Perspective Card
 + Trust Ledger / approval gate
 ```
 
@@ -67,6 +69,7 @@ Nora
 -> calls Learning Progress Agent to track confidence without course-like UX
 -> calls Snapshot/Insights Agent to summarize state, choose one next move, or draft a memory check
 -> calls Action/Approval Agent to create or update demo-only action records
+-> shows a Future Perspective Card when a decision benefits from seeing the tradeoff over time
 -> renders plan options, Trust Ledger, and a user-facing Action Confirmation card
 -> updates memory
 ```

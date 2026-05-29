@@ -14,16 +14,17 @@ const T = {
   TYPING_BASE:       1200,
   TYPING_PER_CHAR:   12,
   TYPING_CAP:        4000,
-  PAUSE_AFTER_USER:  600,
-  PAUSE_AFTER_NORA:  1400,
-  CHIP_HIGHLIGHT:    800,
-  CHIP_CLICK:        400,
-  CARD_SETTLE:       1000,
+  PAUSE_AFTER_USER:  800,
+  PAUSE_AFTER_NORA:  2500,
+  CHIP_HIGHLIGHT:    1000,
+  CHIP_CLICK:        500,
+  CARD_SETTLE:       1500,
   TRANSITION_FADE:   400,
-  TRANSITION_HOLD:   2500,
-  END_PAUSE:         5000,
-  FIRST_REPLY_DELAY: 1200,
-  PROFILE_INTRO:     2800,
+  TRANSITION_HOLD:   4000,
+  END_PAUSE:         8000,
+  FIRST_REPLY_DELAY: 1500,
+  PROFILE_INTRO:     4500,
+  SCROLL_THRESHOLD:  50,
 };
 
 function typingDuration(text) {
@@ -76,8 +77,12 @@ function ScreenShowcase({ tweaks }) {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const [activeTab, setActiveTab]   = React.useState('chat');
 
-  const scrollRef = React.useRef(null);
-  const timerRef  = React.useRef(null);
+  // Pause playback when user scrolls up
+  const [paused, setPaused] = React.useState(false);
+
+  const scrollRef    = React.useRef(null);
+  const timerRef     = React.useRef(null);
+  const processedRef = React.useRef(null);  // tracks which state+turn was already handled
 
   // ── Load transcript ─────────────────────────────────────────────────
   React.useEffect(() => {
@@ -90,12 +95,29 @@ function ScreenShowcase({ tweaks }) {
       .catch(err => console.error('Failed to load showcase transcript:', err));
   }, []);
 
-  // ── Auto-scroll ─────────────────────────────────────────────────────
+  // ── Scroll-to-pause detection ───────────────────────────────────────
+  // Re-run when transcript loads (scrollRef div only exists after load)
   React.useEffect(() => {
-    if (scrollRef.current) {
+    const el = scrollRef.current;
+    if (!el) return;
+    function onScroll() {
+      const atBottom = el.scrollHeight - el.scrollTop - el.clientHeight < T.SCROLL_THRESHOLD;
+      setPaused(prev => {
+        if (atBottom && prev) return false;   // resume
+        if (!atBottom && !prev) return true;  // pause
+        return prev;
+      });
+    }
+    el.addEventListener('scroll', onScroll, { passive: true });
+    return () => el.removeEventListener('scroll', onScroll);
+  }, [transcript]);
+
+  // ── Auto-scroll (only when not paused) ──────────────────────────────
+  React.useEffect(() => {
+    if (!paused && scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
-  }, [messages, typing]);
+  }, [messages, typing, paused]);
 
   // ── Reset state between conversations ───────────────────────────────
   function resetConversationState() {
@@ -150,11 +172,22 @@ function ScreenShowcase({ tweaks }) {
 
     clearTimeout(timerRef.current);
 
+    // When paused (user scrolled up), freeze playback
+    if (paused) return;
+
+    // Track which state+turn combo was already processed to avoid
+    // re-running side effects (e.g. appending messages) on re-renders
+    const stateKey = `${playState}:${turnIndex}:${convIndex}`;
+    const isNew = processedRef.current !== stateKey;
+    if (isNew) processedRef.current = stateKey;
+
     switch (playState) {
       case PS.PROFILE_INTRO: {
-        resetConversationState();
-        setTransitioning(true);
-        setTransitionProfile(conv.profile);
+        if (isNew) {
+          resetConversationState();
+          setTransitioning(true);
+          setTransitionProfile(conv.profile);
+        }
         timerRef.current = setTimeout(() => {
           setTransitioning(false);
           setPlayState(PS.FIRST_REPLY);
@@ -163,7 +196,7 @@ function ScreenShowcase({ tweaks }) {
       }
 
       case PS.FIRST_REPLY: {
-        setTyping(true);
+        if (isNew) setTyping(true);
         timerRef.current = setTimeout(() => {
           setTyping(false);
           setMessages([{
@@ -208,7 +241,7 @@ function ScreenShowcase({ tweaks }) {
       }
 
       case PS.CHIP_HIGHLIGHT: {
-        setHighlightedChip(turn.pickedChip);
+        if (isNew) setHighlightedChip(turn.pickedChip);
         timerRef.current = setTimeout(() => {
           setHighlightedChip(null);
           setPlayState(PS.USER_MESSAGE);
@@ -217,28 +250,29 @@ function ScreenShowcase({ tweaks }) {
       }
 
       case PS.USER_MESSAGE: {
-        setSuggestedReplies([]);
-        setMessages(m => [...m, { from: 'user', text: turn.text }]);
+        if (isNew) {
+          setSuggestedReplies([]);
+          setMessages(m => [...m, { from: 'user', text: turn.text }]);
 
-        // Handle confirm action
-        if (turn.isConfirm) {
-          // Find the last action_approval card data
-          const approvalMsg = [...messages].reverse().find(
-            m => m.cards?.some(c => c.type === 'action_approval')
-          );
-          const approvalCard = approvalMsg?.cards?.find(c => c.type === 'action_approval');
-          if (approvalCard) setConfirmed(approvalCard.data);
+          // Handle confirm action
+          if (turn.isConfirm) {
+            const approvalMsg = [...messages].reverse().find(
+              m => m.cards?.some(c => c.type === 'action_approval')
+            );
+            const approvalCard = approvalMsg?.cards?.find(c => c.type === 'action_approval');
+            if (approvalCard) setConfirmed(approvalCard.data);
+          }
         }
 
-        setTurnIndex(i => i + 1);
         timerRef.current = setTimeout(() => {
+          setTurnIndex(i => i + 1);
           setPlayState(PS.WAITING);
         }, T.CHIP_CLICK);
         break;
       }
 
       case PS.TYPING: {
-        setTyping(true);
+        if (isNew) setTyping(true);
         const hasCards = turn.cards?.length > 0;
         const duration = typingDuration(turn.text) + (hasCards ? T.CARD_SETTLE : 0);
         timerRef.current = setTimeout(() => {
@@ -248,7 +282,6 @@ function ScreenShowcase({ tweaks }) {
       }
 
       case PS.NORA_MESSAGE: {
-        setTyping(false);
         const cards = (turn.cards || []).map(card => {
           if (card.type === 'goal_plan') {
             return { ...card, firstTime: card.firstTime !== false };
@@ -256,24 +289,28 @@ function ScreenShowcase({ tweaks }) {
           return card;
         });
 
-        setMessages(m => [...m, {
-          from: 'nora',
-          text: turn.text,
-          cards,
-          invokedAgents: tweaks.showAgentTags ? (turn.invokedAgents || []) : [],
-        }]);
-        setSuggestedReplies(turn.suggestedReplies || []);
+        if (isNew) {
+          setTyping(false);
+          setMessages(m => [...m, {
+            from: 'nora',
+            text: turn.text,
+            cards,
+            invokedAgents: tweaks.showAgentTags ? (turn.invokedAgents || []) : [],
+          }]);
+          setSuggestedReplies(turn.suggestedReplies || []);
 
-        if (turn.memoryUpdates?.length) {
-          setMemory(prev => [...prev, ...turn.memoryUpdates].slice(-12));
+          if (turn.memoryUpdates?.length) {
+            setMemory(prev => [...prev, ...turn.memoryUpdates].slice(-12));
+          }
+
+          appendToCollections(cards);
         }
 
-        appendToCollections(cards);
-        setTurnIndex(i => i + 1);
-
+        const delay = T.PAUSE_AFTER_NORA + (cards.length ? T.CARD_SETTLE : 0);
         timerRef.current = setTimeout(() => {
+          setTurnIndex(i => i + 1);
           setPlayState(PS.WAITING);
-        }, T.PAUSE_AFTER_NORA + (cards.length ? T.CARD_SETTLE : 0));
+        }, delay);
         break;
       }
 
@@ -294,7 +331,7 @@ function ScreenShowcase({ tweaks }) {
     }
 
     return () => clearTimeout(timerRef.current);
-  }, [playState, turnIndex, convIndex, transcript]);
+  }, [playState, turnIndex, convIndex, transcript, paused]);
 
   // ── Render ──────────────────────────────────────────────────────────
   if (!transcript) {
@@ -368,8 +405,8 @@ function ScreenShowcase({ tweaks }) {
         <NoraAvatar size={32} pulsing={typing} />
         <div style={{ flex: 1 }}>
           <div style={{ fontWeight: 700, fontSize: 15, color: 'var(--fg-1)' }}>Nora</div>
-          <div style={{ fontSize: 11, color: 'var(--fg-3)', fontWeight: 500 }}>
-            {typing ? 'thinking...' : `Talking with ${profile.firstName}`}
+          <div style={{ fontSize: 11, color: paused ? '#b3261e' : 'var(--fg-3)', fontWeight: 500 }}>
+            {paused ? 'paused — scroll down to resume' : typing ? 'thinking...' : `Talking with ${profile.firstName}`}
           </div>
         </div>
         <div style={{

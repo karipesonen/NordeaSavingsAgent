@@ -449,6 +449,81 @@ function AppHeader({ title, onBack, rightIcon, onRight, blue = false, subtitle }
 // Wait helper — used to simulate agent latency for the scripted parts
 function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
 
+// ─── Markdown renderer ─────────────────────────────────────────
+function InlineText({ text }) {
+  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+  return (
+    <>
+      {parts.map((part, i) =>
+        part.startsWith('**') && part.endsWith('**')
+          ? <strong key={i}>{part.slice(2, -2)}</strong>
+          : part
+      )}
+    </>
+  );
+}
+
+function MarkdownText({ text }) {
+  if (!text) return null;
+
+  const lines = text.split('\n');
+  const out = [];
+  let numbered = [];
+  let bulleted = [];
+
+  const flushNumbered = () => {
+    if (!numbered.length) return;
+    out.push(
+      <ol key={out.length} style={{ paddingLeft: 18, margin: '6px 0 2px', listStyleType: 'decimal' }}>
+        {numbered.map((item, i) => (
+          <li key={i} style={{ marginBottom: 3, paddingLeft: 2 }}>
+            <InlineText text={item.replace(/\s*\|\s*/g, ' · ')} />
+          </li>
+        ))}
+      </ol>
+    );
+    numbered = [];
+  };
+
+  const flushBulleted = () => {
+    if (!bulleted.length) return;
+    out.push(
+      <ul key={out.length} style={{ paddingLeft: 0, margin: '6px 0 2px', listStyle: 'none' }}>
+        {bulleted.map((item, i) => (
+          <li key={i} style={{ marginBottom: 3, display: 'flex', gap: 6, alignItems: 'baseline' }}>
+            <span style={{ color: 'var(--fg-3)', flexShrink: 0 }}>·</span>
+            <span><InlineText text={item.replace(/\s*\|\s*/g, ' · ')} /></span>
+          </li>
+        ))}
+      </ul>
+    );
+    bulleted = [];
+  };
+
+  lines.forEach(line => {
+    const num = line.match(/^(\d+)\.\s+(.*)/);
+    const bul = line.match(/^[-*]\s+(.*)/);
+    if (num) {
+      flushBulleted();
+      numbered.push(num[2]);
+    } else if (bul) {
+      flushNumbered();
+      bulleted.push(bul[1]);
+    } else if (line.trim() === '') {
+      flushNumbered(); flushBulleted();
+      if (out.length) out.push(<div key={out.length} style={{ height: 5 }} />);
+    } else {
+      flushNumbered(); flushBulleted();
+      out.push(<div key={out.length}><InlineText text={line} /></div>);
+    }
+  });
+
+  flushNumbered();
+  flushBulleted();
+
+  return <div>{out}</div>;
+}
+
 // Expose
 Object.assign(window, {
   NORA_BLUE, NORA_BLUE_HOVER,
@@ -456,4 +531,5 @@ Object.assign(window, {
   NIcon, PhoneFrame, NoraAvatar, AgentTag,
   ChatBubble, TypingBubble, ChipRow, Composer,
   MoneyDisplay, InChatCard, PrimaryButton, AppHeader,
+  MarkdownText,
 });

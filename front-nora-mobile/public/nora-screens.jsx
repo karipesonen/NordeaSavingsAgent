@@ -434,7 +434,9 @@ function Turn({ turn, density, vibe, onConfirmAction, confirmed, onOpenTab, onOp
     <>
       {turn.text && (
         <ChatBubble from={turn.from} agentTags={agentTags} density={density}>
-          {turn.text}
+          {turn.from === 'nora'
+            ? <MarkdownText text={turn.text} />
+            : turn.text}
         </ChatBubble>
       )}
       {(turn.cards || []).map((card, i) => (

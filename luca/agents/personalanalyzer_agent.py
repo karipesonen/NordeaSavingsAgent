@@ -56,9 +56,10 @@ When loans are in scope, proactively flag:
 - How active loans affect disposable income and savings capacity
 
 ## Output
-- Numbers and percentages where relevant
-- Flag anomalies, risks, opportunities
-- No filler, no intro, no closing — just the analysis
+- Lead with the single most relevant number or insight
+- Max 4 bullet points — pick only what matters, cut the rest
+- One line per finding: number + context, nothing more
+- No filler, no intro, no closing
 - State clearly if data is missing
 
 ## Hard rules

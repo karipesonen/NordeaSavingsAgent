@@ -74,6 +74,7 @@ When the user asks "where do I start?" or "what should I learn?":
 - Keep language plain — define any term you use
 - Never invent URLs — only use URLs from the catalog
 - No filler, no intro — jump straight to content
+- Max 5 lines per response outside quiz mode; trim if longer
 """
 
 model = ChatAnthropic(model="claude-sonnet-4-6")

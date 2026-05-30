@@ -24,6 +24,7 @@ const T = {
   END_PAUSE:         8000,
   FIRST_REPLY_DELAY: 1500,
   PROFILE_INTRO:     4500,
+  RESUME_DELAY:      400,
   SCROLL_THRESHOLD:  50,
 };
 
@@ -77,12 +78,16 @@ function ScreenShowcase({ tweaks }) {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const [activeTab, setActiveTab]   = React.useState('chat');
 
+  // Focused resource id — when user taps a resource_link chip, open its detail in Learn
+  const [focusedResourceId, setFocusedResourceId] = React.useState(null);
+
   // Pause playback when user scrolls up
   const [paused, setPaused] = React.useState(false);
 
   const scrollRef    = React.useRef(null);
   const timerRef     = React.useRef(null);
   const processedRef = React.useRef(null);  // tracks which state+turn was already handled
+  const wasPausedRef = React.useRef(false); // true on the first tick after unpausing
 
   // ── Load transcript ─────────────────────────────────────────────────
   React.useEffect(() => {
@@ -97,20 +102,30 @@ function ScreenShowcase({ tweaks }) {
 
   // ── Scroll-to-pause detection ───────────────────────────────────────
   // Re-run when transcript loads (scrollRef div only exists after load)
+  // and when activeTab changes (scroll div unmounts/remounts on tab switch)
   React.useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
     function onScroll() {
       const atBottom = el.scrollHeight - el.scrollTop - el.clientHeight < T.SCROLL_THRESHOLD;
       setPaused(prev => {
-        if (atBottom && prev) return false;   // resume
+        if (atBottom && prev) { wasPausedRef.current = true; return false; }  // resume
         if (!atBottom && !prev) return true;  // pause
         return prev;
       });
     }
     el.addEventListener('scroll', onScroll, { passive: true });
     return () => el.removeEventListener('scroll', onScroll);
-  }, [transcript]);
+  }, [transcript, activeTab]);
+
+  // ── Unpause when returning to chat tab ──────────────────────────────
+  // The scroll div re-mounts at the bottom, so resume playback
+  React.useEffect(() => {
+    if (activeTab === 'chat') {
+      wasPausedRef.current = true;
+      setPaused(false);
+    }
+  }, [activeTab]);
 
   // ── Auto-scroll (only when not paused) ──────────────────────────────
   React.useEffect(() => {
@@ -175,6 +190,12 @@ function ScreenShowcase({ tweaks }) {
     // When paused (user scrolled up), freeze playback
     if (paused) return;
 
+    // If we just resumed from pause, use a short delay instead of the
+    // full timer so the next beat feels snappy after the user scrolled down.
+    const resuming = wasPausedRef.current;
+    if (resuming) wasPausedRef.current = false;
+    const d = (normal) => resuming ? T.RESUME_DELAY : normal;
+
     // Track which state+turn combo was already processed to avoid
     // re-running side effects (e.g. appending messages) on re-renders
     const stateKey = `${playState}:${turnIndex}:${convIndex}`;
@@ -217,7 +238,7 @@ function ScreenShowcase({ tweaks }) {
           // No more turns — conversation done
           timerRef.current = setTimeout(() => {
             setPlayState(PS.CONV_END);
-          }, T.PAUSE_AFTER_NORA);
+          }, d(T.PAUSE_AFTER_NORA));
           break;
         }
 
@@ -225,17 +246,17 @@ function ScreenShowcase({ tweaks }) {
           if (turn.pickedChip) {
             timerRef.current = setTimeout(() => {
               setPlayState(PS.CHIP_HIGHLIGHT);
-            }, T.PAUSE_AFTER_NORA);
+            }, d(T.PAUSE_AFTER_NORA));
           } else {
             timerRef.current = setTimeout(() => {
               setPlayState(PS.USER_MESSAGE);
-            }, T.PAUSE_AFTER_NORA);
+            }, d(T.PAUSE_AFTER_NORA));
           }
         } else {
           // nora turn
           timerRef.current = setTimeout(() => {
             setPlayState(PS.TYPING);
-          }, T.PAUSE_AFTER_USER);
+          }, d(T.PAUSE_AFTER_USER));
         }
         break;
       }
@@ -245,7 +266,7 @@ function ScreenShowcase({ tweaks }) {
         timerRef.current = setTimeout(() => {
           setHighlightedChip(null);
           setPlayState(PS.USER_MESSAGE);
-        }, T.CHIP_HIGHLIGHT);
+        }, d(T.CHIP_HIGHLIGHT));
         break;
       }
 
@@ -267,7 +288,7 @@ function ScreenShowcase({ tweaks }) {
         timerRef.current = setTimeout(() => {
           setTurnIndex(i => i + 1);
           setPlayState(PS.WAITING);
-        }, T.CHIP_CLICK);
+        }, d(T.CHIP_CLICK));
         break;
       }
 
@@ -306,7 +327,7 @@ function ScreenShowcase({ tweaks }) {
           appendToCollections(cards);
         }
 
-        const delay = T.PAUSE_AFTER_NORA + (cards.length ? T.CARD_SETTLE : 0);
+        const delay = d(T.PAUSE_AFTER_NORA) + (cards.length ? T.CARD_SETTLE : 0);
         timerRef.current = setTimeout(() => {
           setTurnIndex(i => i + 1);
           setPlayState(PS.WAITING);
@@ -317,7 +338,7 @@ function ScreenShowcase({ tweaks }) {
       case PS.CONV_END: {
         timerRef.current = setTimeout(() => {
           setPlayState(PS.TRANSITION);
-        }, T.END_PAUSE);
+        }, d(T.END_PAUSE));
         break;
       }
 
@@ -363,7 +384,7 @@ function ScreenShowcase({ tweaks }) {
       };
       let tabContent = null;
       if (activeTab === 'goals')    tabContent = <TabComp {...tabProps} goals={goals} />;
-      if (activeTab === 'learn')    tabContent = <TabComp {...tabProps} lessons={lessons} suggestedResourceIds={suggestedResourceIds} generatedResources={generatedResources} focusedResourceId={null} onClearFocus={() => {}} />;
+      if (activeTab === 'learn')    tabContent = <TabComp {...tabProps} lessons={lessons} suggestedResourceIds={suggestedResourceIds} generatedResources={generatedResources} focusedResourceId={focusedResourceId} onClearFocus={() => setFocusedResourceId(null)} />;
       if (activeTab === 'spending') tabContent = <TabComp {...tabProps} reviews={expenseReviews} />;
       if (activeTab === 'memory')   tabContent = <TabComp {...tabProps} memory={memory} />;
 
@@ -429,7 +450,7 @@ function ScreenShowcase({ tweaks }) {
           <Turn key={`${convIndex}-${i}`} turn={m} density={tweaks.density} vibe={tweaks.vibe}
                 onConfirmAction={() => {}} confirmed={confirmed}
                 onOpenTab={(tab) => { setActiveTab(tab); setDrawerOpen(false); }}
-                onOpenResource={() => {}} />
+                onOpenResource={(rid) => { setFocusedResourceId(rid); setActiveTab('learn'); setDrawerOpen(false); }} />
         ))}
         {typing && <TypingBubble />}
         {!typing && suggestedReplies.length > 0 && (

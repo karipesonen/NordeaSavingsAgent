@@ -486,6 +486,49 @@ function Card({ card, vibe, onConfirmAction, confirmed, onOpenTab, onOpenResourc
   }
 }
 
+// ── Shared: Trust Note footnote ────────────────────────────────────────────
+function TrustNote({ text }) {
+  if (!text) return null;
+  return (
+    <div style={{
+      margin: '0 20px 12px', padding: '8px 12px',
+      background: 'transparent', border: '1px dashed var(--border-1)',
+      borderRadius: 8, fontSize: 11, color: 'var(--fg-3)',
+      lineHeight: 1.5, display: 'flex', alignItems: 'flex-start', gap: 6,
+    }}>
+      <NIcon name="shield-check" size={12} color="var(--fg-3)" style={{ marginTop: 1, flexShrink: 0 }} />
+      <span>{text}</span>
+    </div>
+  );
+}
+
+// ── Shared: Feasibility badge ─────────────────────────────────────────────
+function FeasibilityBadge({ feasibility, note, suggestion }) {
+  if (!feasibility) return null;
+  const configs = {
+    easy:        { label: 'Comfortable pace',    icon: 'check-circle', bg: 'var(--blue-50)',   border: 'var(--blue-100)',  color: NORA_BLUE },
+    workable:    { label: 'Workable pace',       icon: 'check-circle', bg: 'var(--blue-50)',   border: 'var(--blue-100)',  color: NORA_BLUE },
+    tight:       { label: 'Tight but doable',    icon: 'alert-circle', bg: '#fff8e1',          border: '#ffe082',          color: '#f57f17' },
+    unrealistic: { label: 'Ambitious pace',      icon: 'alert-circle', bg: '#fce4ec',          border: '#ef9a9a',          color: '#c62828' },
+  };
+  const c = configs[feasibility] || configs.workable;
+  const showDetail = (feasibility === 'tight' || feasibility === 'unrealistic') && (note || suggestion);
+  return (
+    <div style={{
+      margin: '0 20px', padding: '10px 12px',
+      background: c.bg, border: `1px solid ${c.border}`, borderRadius: 8,
+      fontSize: 12, color: c.color, fontWeight: 500, lineHeight: 1.5,
+      display: 'flex', alignItems: 'flex-start', gap: 8,
+    }}>
+      <NIcon name={c.icon} size={14} color={c.color} style={{ marginTop: 1, flexShrink: 0 }} />
+      <div>
+        <span style={{ fontWeight: 600 }}>{c.label}</span>
+        {showDetail && <span style={{ fontWeight: 400 }}> — {suggestion || note}</span>}
+      </div>
+    </div>
+  );
+}
+
 // ── Card: Goal Plan ────────────────────────────────────────────────────────
 function GoalPlanCard({ data, vibe }) {
   const target  = data.targetAmount || 0;
@@ -514,24 +557,40 @@ function GoalPlanCard({ data, vibe }) {
           <span>{months} months to go</span>
         </div>
       </div>
+      <FeasibilityBadge feasibility={data.feasibility} note={data.feasibilityNote} suggestion={data.adjustmentSuggestion} />
       <div style={{ padding: '16px 20px' }}>
         {[
           { label: 'Auto-transfer',  value: `€${weekly} / week`,       sub: 'every Monday',          icon: 'repeat' },
           { label: 'Plus round-ups', value: '~€15 / week',             sub: 'spare change to this goal', icon: 'sparkles' },
           { label: 'Where it lives', value: data.mix || '—',           sub: 'low-volatility mix',    icon: 'layers' },
         ].map((row, i) => (
-          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 0', borderBottom: i < 2 ? '1px solid var(--border-1)' : 'none' }}>
-            <div style={{ width: 32, height: 32, borderRadius: 8, background: 'var(--blue-50)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+          <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '12px 0', borderBottom: i < 2 ? '1px solid var(--border-1)' : 'none' }}>
+            <div style={{ width: 32, height: 32, borderRadius: 8, background: 'var(--blue-50)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: 1 }}>
               <NIcon name={row.icon} size={16} color={NORA_BLUE} />
             </div>
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--fg-1)' }}>{row.label}</div>
               <div style={{ fontSize: 11, color: 'var(--fg-3)', marginTop: 1 }}>{row.sub}</div>
             </div>
-            <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--fg-1)', fontVariantNumeric: 'tabular-nums lining-nums' }}>{row.value}</div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--fg-1)', fontVariantNumeric: 'tabular-nums lining-nums', textAlign: 'right', flexShrink: 0, maxWidth: '52%', lineHeight: 1.4 }}>{row.value}</div>
           </div>
         ))}
       </div>
+      {data.altOption && (
+        <div style={{ margin: '0 20px 12px', padding: '12px 14px', background: 'var(--bg-page)', border: '1px solid var(--border-1)', borderRadius: 10 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--fg-3)', letterSpacing: '0.04em', textTransform: 'uppercase', marginBottom: 8 }}>
+            Alternative · {data.altOption.label || 'Other pace'}
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 4 }}>
+            <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--fg-1)' }}>€{data.altOption.weeklyTransfer} / week</span>
+            <span style={{ fontSize: 12, color: 'var(--fg-3)' }}>by {data.altOption.deadline}</span>
+          </div>
+          {data.altOption.tradeoff && (
+            <div style={{ fontSize: 12, color: 'var(--fg-2)', lineHeight: 1.45 }}>{data.altOption.tradeoff}</div>
+          )}
+        </div>
+      )}
+      <TrustNote text={data.trustNote} />
     </InChatCard>
   );
 }
@@ -625,7 +684,7 @@ function TripResearchCard({ data, vibe }) {
 
       {/* Source chips */}
       {sources.length > 0 && (
-        <div style={{ padding: '0 20px 16px', display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+        <div style={{ padding: '0 20px 12px', display: 'flex', flexWrap: 'wrap', gap: 6 }}>
           {sources.slice(0, 4).map((s, i) => (
             <span key={i} style={{
               fontSize: 10, color: 'var(--fg-3)', background: 'var(--bg-page)',
@@ -636,6 +695,7 @@ function TripResearchCard({ data, vibe }) {
           ))}
         </div>
       )}
+      <TrustNote text={data.trustNote} />
     </InChatCard>
   );
 }
@@ -701,8 +761,9 @@ function ActionApprovalCard({ data, vibe, onConfirm, confirmed }) {
           </PrimaryButton>
         </div>
       </div>
+      <TrustNote text={data.trustNote} />
     </InChatCard>
   );
 }
 
-Object.assign(window, { ScreenWelcome, ScreenChat, Turn, Card, AGENT_LABELS });
+Object.assign(window, { ScreenWelcome, ScreenChat, Turn, Card, AGENT_LABELS, TrustNote });

@@ -397,13 +397,78 @@ function ResourceCard({ resource, highlighted, onOpen }) {
   );
 }
 
+// ── YouTube facade (thumbnail → iframe on click, fallback to YouTube link) ──
+// Shows a static thumbnail always. On click: tries to load iframe. If the video
+// has embedding disabled the iframe will show an error; we catch that with an
+// error handler and fall back to opening the YouTube link in a new tab.
+function YouTubeFacade({ ytId, url, title }) {
+  const [active, setActive] = React.useState(false);
+  const [embedFailed, setEmbedFailed] = React.useState(false);
+
+  // hqdefault: 480×360, always public regardless of embed permission
+  const thumb = `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`;
+  const embedSrc = `https://www.youtube-nocookie.com/embed/${ytId}?autoplay=1&rel=0`;
+  const ytUrl = url || `https://www.youtube.com/watch?v=${ytId}`;
+
+  if (active && !embedFailed) {
+    return (
+      <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, marginBottom: 16, borderRadius: 12, overflow: 'hidden', background: '#000' }}>
+        <iframe
+          src={embedSrc}
+          title={title}
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          onError={() => setEmbedFailed(true)}
+          style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0 }}
+        />
+      </div>
+    );
+  }
+
+  // Thumbnail facade (also shown after embed failure)
+  return (
+    <div style={{ position: 'relative', marginBottom: 16, borderRadius: 12, overflow: 'hidden', background: '#000', cursor: 'pointer' }}
+         onClick={() => embedFailed ? window.open(ytUrl, '_blank', 'noopener') : setActive(true)}>
+      <img
+        src={thumb}
+        alt={title}
+        style={{ width: '100%', display: 'block', aspectRatio: '16/9', objectFit: 'cover', opacity: embedFailed ? 0.7 : 1 }}
+        onError={e => { e.currentTarget.style.minHeight = '180px'; e.currentTarget.style.background = '#111'; }}
+      />
+      {/* Play button overlay */}
+      <div style={{
+        position: 'absolute', inset: 0,
+        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+        gap: 8,
+        background: 'rgba(0,0,0,0.3)',
+      }}>
+        <div style={{
+          width: 56, height: 56, borderRadius: 999,
+          background: embedFailed ? '#fff' : 'rgba(255,255,255,0.92)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          boxShadow: '0 4px 16px rgba(0,0,0,0.4)',
+          transition: 'transform 120ms',
+        }}>
+          <NIcon name={embedFailed ? 'external-link' : 'play'} size={22} color="#111" strokeWidth={2} />
+        </div>
+        {embedFailed && (
+          <div style={{ fontSize: 12, color: '#fff', fontWeight: 600, letterSpacing: '0.02em', textShadow: '0 1px 4px rgba(0,0,0,0.6)' }}>
+            Open on YouTube
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 // ── Resource detail screen (in-app reader) ─────────────────────────────────
 // Two modes: curated catalog item (with URL/iframe) OR drafted-by-Nora explainer.
 function ResourceDetail({ resource, onBack, onMenu }) {
   const isGen = !!resource.generated;
   const accent = isGen ? '#7a3eb3' : NORA_BLUE;
 
-  // Build YouTube embed URL if curated video
+  // Build YouTube video id if curated video
   const ytId = (() => {
     if (isGen) return null;
     const m = (resource.url || '').match(/(?:youtu\.be\/|youtube\.com\/watch\?v=|youtube\.com\/embed\/)([\w-]{11})/);
@@ -493,19 +558,8 @@ function ResourceDetail({ resource, onBack, onMenu }) {
             : <>From <strong style={{ color: 'var(--fg-2)' }}>{resource.source}</strong></>}
         </div>
 
-        {/* Curated: YouTube embed when applicable */}
-        {ytId && (
-          <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, marginBottom: 16, borderRadius: 12, overflow: 'hidden', background: '#000' }}>
-            <iframe
-              src={`https://www.youtube.com/embed/${ytId}`}
-              title={resource.title}
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0 }}
-            />
-          </div>
-        )}
+        {/* Curated: YouTube facade (thumbnail → embed on click, fallback to link) */}
+        {ytId && <YouTubeFacade ytId={ytId} url={resource.url} title={resource.title} />}
 
         {/* Summary */}
         {resource.summary && (
@@ -789,15 +843,15 @@ function FullGoalCard({ data }) {
           { label: 'Plus round-ups', value: '~€15 / week',                                sub: 'spare change',          icon: 'sparkles' },
           { label: 'Where it lives', value: data.mix || '—',                              sub: 'low-volatility mix',    icon: 'layers' },
         ].map((row, i) => (
-          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 0', borderBottom: i < 2 ? '1px solid var(--border-1)' : 'none' }}>
-            <div style={{ width: 32, height: 32, borderRadius: 8, background: 'var(--blue-50)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+          <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '12px 0', borderBottom: i < 2 ? '1px solid var(--border-1)' : 'none' }}>
+            <div style={{ width: 32, height: 32, borderRadius: 8, background: 'var(--blue-50)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: 1 }}>
               <NIcon name={row.icon} size={16} color={NORA_BLUE} />
             </div>
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--fg-1)' }}>{row.label}</div>
               <div style={{ fontSize: 11, color: 'var(--fg-3)', marginTop: 1 }}>{row.sub}</div>
             </div>
-            <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--fg-1)', fontVariantNumeric: 'tabular-nums lining-nums' }}>{row.value}</div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--fg-1)', fontVariantNumeric: 'tabular-nums lining-nums', textAlign: 'right', flexShrink: 0, maxWidth: '52%', lineHeight: 1.4 }}>{row.value}</div>
           </div>
         ))}
       </div>
@@ -833,6 +887,18 @@ function FullExpenseCard({ data, createdAt }) {
           </div>
         ))}
       </div>
+      {data.reviewHabit && (
+        <div style={{ margin: '0 20px 12px', padding: '12px 14px', background: 'var(--blue-50)', border: '1px solid var(--blue-100)', borderRadius: 10, display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+          <div style={{ width: 28, height: 28, borderRadius: 8, background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+            <NIcon name={data.reviewHabit.icon || 'calendar-check'} size={14} color={NORA_BLUE} />
+          </div>
+          <div>
+            <div style={{ fontSize: 11, fontWeight: 700, color: NORA_BLUE, letterSpacing: '0.04em', textTransform: 'uppercase', marginBottom: 3 }}>Monthly habit</div>
+            <div style={{ fontSize: 12, color: NORA_BLUE, lineHeight: 1.45, fontWeight: 500 }}>{data.reviewHabit.action}</div>
+          </div>
+        </div>
+      )}
+      {window.TrustNote && <window.TrustNote text={data.trustNote} />}
     </InChatCard>
   );
 }
@@ -902,7 +968,20 @@ function FullLessonCard({ data }) {
             </div>
           </div>
         )}
+
+        {data.progress && (
+          <div style={{
+            marginTop: 16, padding: '8px 12px',
+            background: 'var(--blue-50)', border: '1px solid var(--blue-100)',
+            borderRadius: 8, fontSize: 12, fontWeight: 500, color: NORA_BLUE,
+            display: 'flex', alignItems: 'center', gap: 8,
+          }}>
+            <NIcon name="trending-up" size={14} color={NORA_BLUE} />
+            <span>{data.progress.domain}: <strong>{data.progress.status}</strong></span>
+          </div>
+        )}
       </div>
+      {window.TrustNote && <window.TrustNote text={data.trustNote} />}
     </InChatCard>
   );
 }
@@ -932,7 +1011,7 @@ function LessonPreviewChip({ data, onOpen }) {
         </div>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--fg-3)', letterSpacing: '0.04em', textTransform: 'uppercase', marginBottom: 2 }}>
-            Lesson · 30s
+            {data.progress ? `${data.progress.domain} · ${data.progress.status}` : 'Lesson · 30s'}
           </div>
           <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--fg-1)', lineHeight: 1.35 }}>
             {data.headline || 'How risk works'}

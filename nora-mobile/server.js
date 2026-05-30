@@ -281,16 +281,110 @@ function getDemoProfile({ demoMode = 'scripted_emma', profileId } = {}) {
   return TEST_PROFILES.find(p => p.userId === profileId) || TEST_PROFILES[0] || SCRIPTED_PROFILE;
 }
 
+// ── Active context synthesis ─────────────────────────────────────────────────
+// Reads memory + recent messages and produces a short <active_context> block
+// that the orchestrator can use authoritatively — preventing the profile's
+// savingsGoal from silently overriding what the user actually discussed.
+function synthesizeActiveContext(messages, memory, profile) {
+  const lines = ['<active_context>'];
+
+  // --- Most recently captured goal from memory (written chronologically) ------
+  // Memory entries are short factual strings written by the orchestrator itself.
+  // The most recent one mentioning a savings goal, trip, or purchase is the
+  // authoritative active topic.
+  const GOAL_KEYWORDS = ['save', 'saving', 'trip', 'goal', 'apartment', 'buy',
+                         'fund', 'laptop', 'car', 'travel', 'holiday', 'vacation'];
+  const goalMemory = memory.filter(m =>
+    GOAL_KEYWORDS.some(kw => m.toLowerCase().includes(kw))
+  );
+
+  if (goalMemory.length > 0) {
+    const mostRecent = goalMemory[goalMemory.length - 1];
+    lines.push(`Active goal from conversation memory: "${mostRecent}"`);
+    lines.push(`This takes priority over the profile's default opening topic.`);
+  } else {
+    // No memory yet — scan recent user messages for a structured topic signal.
+    // Extract rather than quote raw text, so the model gets a clear structured line.
+    const recentUserMsgs = messages
+      .filter(m => m.role === 'user')
+      .slice(-8)
+      .map(m => m.content);
+
+    // Topic extractors: ordered by specificity. First match wins.
+    const TOPIC_PATTERNS = [
+      // Named destinations / trips
+      { re: /\b(japan|tokyo|paris|london|barcelona|rome|new york|thailand|bali|iceland|portugal|spain|italy|greece|sweden|norway|denmark|amsterdam|berlin|vienna)\b/i,
+        label: m => `trip to ${m[1].charAt(0).toUpperCase() + m[1].slice(1).toLowerCase()}` },
+      // Generic trip
+      { re: /\b(trip|travel|holiday|vacation|flight)\b/i,
+        label: () => 'a trip or travel goal' },
+      // Housing
+      { re: /\b(apartment|flat|house|home|deposit|mortgage)\b/i,
+        label: () => 'buying a home or apartment' },
+      // Emergency fund
+      { re: /\b(emergency fund|safety net|buffer|rainy day)\b/i,
+        label: () => 'building an emergency fund' },
+      // Specific purchase
+      { re: /\b(laptop|computer|phone|car|bike|bicycle|camera)\b/i,
+        label: m => `buying a ${m[1].toLowerCase()}` },
+      // Generic saving
+      { re: /\b(save|saving|savings)\b/i,
+        label: () => 'a savings goal (not yet specified)' },
+    ];
+
+    let detectedTopic = null;
+    // Search messages from most recent backwards
+    outer: for (const msg of [...recentUserMsgs].reverse()) {
+      for (const { re, label } of TOPIC_PATTERNS) {
+        const m = msg.match(re);
+        if (m) { detectedTopic = label(m); break outer; }
+      }
+    }
+
+    if (detectedTopic) {
+      lines.push(`Detected active topic from conversation (not yet in memory): ${detectedTopic}.`);
+      lines.push(`Treat this as the active goal. Do not fall back to the profile's default opening topic.`);
+    } else {
+      lines.push(`No specific goal detected in conversation yet. Fall back to profile's default opening topic if relevant.`);
+    }
+  }
+
+  // --- Profile goal is explicitly a fallback -----------------------------------
+  const isOpenEnded = !profile.savingsGoal ||
+    profile.savingsGoal.toLowerCase().includes('open-ended') ||
+    profile.savingsGoal.toLowerCase().includes('first savings');
+  if (!isOpenEnded) {
+    lines.push(`Profile default goal (fallback only — use if conversation above has no goal): ${profile.savingsGoal}`);
+  }
+
+  // --- Deferred signals -------------------------------------------------------
+  const recentUserLower = messages
+    .filter(m => m.role === 'user')
+    .slice(-8)
+    .map(m => m.content.toLowerCase());
+  if (recentUserLower.some(m => m.includes('maybe later') || m.includes('not now') || m.includes('later'))) {
+    lines.push(`The user deferred something earlier this session. Do not re-offer deferred actions unprompted.`);
+  }
+
+  // --- Disambiguation instruction ---------------------------------------------
+  lines.push(`When the user says "build me a plan" without naming a goal: use the most recently captured goal above. Do not silently default to the profile goal.`);
+
+  lines.push('</active_context>');
+  return '\n\n' + lines.join('\n');
+}
+
 function buildCustomerContext(profile, demoMode = 'scripted_emma') {
+  const today = new Date().toISOString().slice(0, 10);
   const lines = [
     '<customer_context>',
     `Demo mode: ${demoMode}.`,
+    `Today's date: ${today}. All goal deadlines and plans must use dates after this.`,
     `Customer: ${profile.firstName}${profile.age ? `, age ${profile.age}` : ''}${profile.city ? `, ${profile.city}` : ''}.`,
     profile.occupation ? `Occupation: ${profile.occupation}.` : null,
     profile.familyStatus ? `Family status: ${profile.familyStatus}.` : null,
     profile.monthlyIncome ? `Monthly income: ${eur(profile.monthlyIncome)}.` : null,
     profile.incomeSource ? `Income source: ${profile.incomeSource}.` : null,
-    profile.savingsGoal ? `Known savings goal: ${profile.savingsGoal}.` : null,
+    profile.savingsGoal ? `Default opening topic (use only before the customer has expressed any goal in conversation): ${profile.savingsGoal}.` : null,
     profile.riskProfile ? `Risk profile: ${profile.riskProfile}.` : null,
     'Age and basic profile facts are bank-known. Do not ask for them unless missing.',
   ].filter(Boolean);
@@ -514,8 +608,10 @@ app.post('/api/nora/chat', async (req, res) => {
     }
     const stateBlock = `\n\n<session_state>\n${stateLines.join('\n')}\n</session_state>`;
 
+    const activeContextBlock = synthesizeActiveContext(messages, memory, profile);
+
     const orchestration = await llmJson({
-      system: NORA_ORCHESTRATOR_SYSTEM + '\n\n' + customerContext + memoryBlock + stateBlock,
+      system: NORA_ORCHESTRATOR_SYSTEM + '\n\n' + customerContext + memoryBlock + stateBlock + activeContextBlock,
       messages,
       temperature: 0.7,
       maxTokens: 512,

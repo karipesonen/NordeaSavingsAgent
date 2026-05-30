@@ -40,7 +40,8 @@
                   { "url": "https://www.booking.com", "title": "Booking.com" },
                   { "url": "https://www.budgetyourtrip.com", "title": "Budget Your Trip" }
                 ],
-                "summary": "A 10-day solo trip to Japan from Helsinki costs roughly €3,200, covering flights, accommodation, and daily expenses."
+                "summary": "A 10-day solo trip to Japan from Helsinki costs roughly €3,200, covering flights, accommodation, and daily expenses.",
+                "trustNote": "Prices gathered from Skyscanner, Booking.com, and Budget Your Trip for a summer 2027 trip."
               }
             }
           ],
@@ -66,6 +67,8 @@
                 "checkQuestion": "Emma's trip is about 14 months away. What fits best?",
                 "checkOptions": ["An equity index fund", "A capital-protected savings deposit", "Split 50/50 between both"],
                 "correctIndex": 1,
+                "progress": { "domain": "Risk Without Panic", "status": "Getting clearer" },
+                "trustNote": "Based on your 14-month timeline for the Japan trip.",
                 "noraNote": "Under 18 months means protecting what you save matters more than chasing growth."
               }
             }
@@ -95,6 +98,17 @@
                 "weeklyTransfer": 55,
                 "mix": "100% savings deposit",
                 "horizon": "short",
+                "feasibility": "workable",
+                "feasibilityNote": "€55 per week is a solid pace that leaves room for surprises.",
+                "altOption": {
+                  "label": "Relaxed pace",
+                  "weeklyTransfer": 35,
+                  "monthsToGo": 22,
+                  "deadline": "Apr 2028",
+                  "mix": "100% savings deposit",
+                  "tradeoff": "Takes 8 months longer but only €35/week — easier to sustain."
+                },
+                "trustNote": "Based on a €3,200 target over 14 months with 100% capital protection.",
                 "noraNote": "Fourteen months of steady saving gets you to Tokyo."
               }
             }
@@ -126,6 +140,7 @@
                   { "label": "Check-ins", "value": "Sundays, in chat", "icon": "message-circle" }
                 ],
                 "reassurance": "You can pause, adjust the amount, or cancel anytime — your money stays yours.",
+                "trustNote": "Reflects the savings plan you reviewed above — €55/week into a capital-protected deposit.",
                 "noraNote": "All set — Japan fund starts Monday."
               }
             }
@@ -178,6 +193,12 @@
                 "weeklyRoom": 142,
                 "monthlyRoom": 615,
                 "noraNote": "You have about €615 per month in areas where spending could flex without changing your lifestyle much.",
+                "reviewHabit": {
+                  "category": "Subscriptions",
+                  "action": "Glance at subscriptions once a month. Cancel only what you genuinely forgot about.",
+                  "icon": "calendar-check"
+                },
+                "trustNote": "Based on your last 12 months of transactions across 4 flexible spending categories.",
                 "items": [
                   { "name": "Food & dining", "sub": "Takeout and restaurants", "weeklyAmount": 45, "monthlyAmount": 195, "icon": "utensils" },
                   { "name": "Subscriptions", "sub": "Streaming, apps, gym", "weeklyAmount": 28, "monthlyAmount": 121, "icon": "tv" },
@@ -227,6 +248,8 @@
                   "generated": true,
                   "createdAt": 1748520000000
                 },
+                "progress": { "domain": "Risk Without Panic", "status": "Getting clearer" },
+                "trustNote": "Tailored to your question about fund safety with a 3-year horizon.",
                 "noraNote": "This covers the main fear — that you could lose everything. The short answer: with a diversified fund and a 3-year horizon, history is on your side."
               }
             }
@@ -256,6 +279,18 @@
                 "weeklyTransfer": 100,
                 "mix": "50% savings · 50% index funds",
                 "horizon": "medium",
+                "feasibility": "tight",
+                "feasibilityNote": "€100 per week is doable but leaves little flex room.",
+                "adjustmentSuggestion": "Extending to 4 years would bring this to €70/week with more breathing room.",
+                "altOption": {
+                  "label": "Relaxed pace",
+                  "weeklyTransfer": 70,
+                  "monthsToGo": 50,
+                  "deadline": "Aug 2030",
+                  "mix": "50% savings · 50% index funds",
+                  "tradeoff": "14 months longer at €70/week — more sustainable and still reaches your target."
+                },
+                "trustNote": "Based on a €15,000 target over 36 months, using your estimated monthly surplus of €615.",
                 "noraNote": "Three years of steady saving builds a solid deposit."
               }
             }
@@ -287,6 +322,7 @@
                   { "label": "Check-ins", "value": "Sundays, in chat", "icon": "message-circle" }
                 ],
                 "reassurance": "You can pause transfers, change the mix, or withdraw anytime. Nothing is locked.",
+                "trustNote": "Reflects the plan above — €100/week, 50/50 savings and index funds over 36 months.",
                 "noraNote": "Ready when you are."
               }
             }

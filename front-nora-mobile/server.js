@@ -138,6 +138,18 @@ app.post('/api/nora/confirm', async (req, res) => {
   }
 });
 
+// ── Daily recap ────────────────────────────────────────────────────────────────
+app.get('/api/nora/daily-recap', async (_req, res) => {
+  try {
+    const r = await fetch(`${PYTHON_API}/daily-recap`);
+    if (!r.ok) throw new Error(`Python API ${r.status}`);
+    res.json(await r.json());
+  } catch (err) {
+    console.error('[/api/nora/daily-recap]', err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // ── Curated resource library ───────────────────────────────────────────────────
 app.get('/api/resources', (_req, res) => res.json({ resources: RESOURCES }));
 

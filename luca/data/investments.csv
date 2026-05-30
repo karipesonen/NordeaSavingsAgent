@@ -1,0 +1,4 @@
+investment_id,account_id,ticker,name,asset_type,quantity,avg_buy_price,currency,current_price,price_date,first_purchase_date,goal_id,status
+inv_001,acc_001,AAPL,Apple Inc.,stock,2,178.50,USD,212.35,2026-05-29,2025-09-14,goal_005,active
+inv_002,acc_001,VWCE.DE,Vanguard FTSE All-World ETF,etf,3,115.20,EUR,121.80,2026-05-29,2025-09-14,goal_005,active
+inv_003,acc_001,NVDA,NVIDIA Corporation,stock,1,460.00,USD,1087.50,2026-05-29,2026-02-10,goal_005,active

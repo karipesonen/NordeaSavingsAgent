@@ -632,3 +632,6 @@ txn_701,acc_001,FI2112345673761580,,-100.00,EUR,goal_contribution,savings_goals,
 txn_702,acc_001,FI2100112233445522,Mom,-10.00,EUR,payment,other,,,false,,completed,2026-05-30T13:14:01Z
 txn_703,acc_001,FI2112345600078515,Dad,-10.00,EUR,payment,other,,,false,,completed,2026-05-30T13:14:47Z
 txn_704,acc_001,FI2112345600078515,Dad,-30.00,EUR,payment,other,,,false,,completed,2026-05-30T13:15:30Z
+txn_705,acc_001,FI2112345600078519,Lisa,-10.00,EUR,payment,other,,,false,,completed,2026-05-30T13:35:25Z
+txn_706,acc_001,FI2100112233445522,Mom,-10.00,EUR,transfer,other,,,false,,completed,2026-05-30T13:50:46Z
+txn_707,acc_001,FI2100112233445522,Mom,-30.00,EUR,transfer,other,,,false,,completed,2026-05-30T13:54:26Z

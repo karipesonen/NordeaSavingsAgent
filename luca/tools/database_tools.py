@@ -183,6 +183,16 @@ def create_loan_request(
         currency=currency,
     )
  
+@tool
+def get_investments(status: str = None) -> list:
+    """Return all investment positions. Optionally filter by status: 'active' | 'closed'."""
+    return db.get_investments(account_id="acc_001", status=status)
+
+@tool
+def get_investment(investment_id: str) -> dict:
+    """Return a single investment position by investment_id e.g. 'inv_001'."""
+    return db.get_investment(investment_id)
+
 WRITING_TOOLS = [
     update_profile,
     update_card,
@@ -198,8 +208,9 @@ READING_TOOLS = [
     get_contacts, get_contact,
     get_goals, get_goal,
     get_transactions, get_transaction,
-    get_balance_summary, 
-    get_loans, get_loan
+    get_balance_summary,
+    get_loans, get_loan,
+    get_investments, get_investment,
 ]
 
 

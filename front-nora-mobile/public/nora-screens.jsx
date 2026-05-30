@@ -171,6 +171,16 @@ function ScreenChat({ prev, tweaks }) {
   // LearnTab can auto-open the detail screen for that resource.
   const [focusedResourceId, setFocusedResourceId] = React.useState(null);
 
+  const [dailyBrief, setDailyBrief] = React.useState(null);
+
+  // Fetch daily brief once on mount
+  React.useEffect(() => {
+    fetch('/api/nora/daily-recap')
+      .then(r => r.ok ? r.json() : null)
+      .then(data => { if (data) setDailyBrief(data); })
+      .catch(() => {});
+  }, []);
+
   const scrollRef = React.useRef(null);
 
   React.useEffect(() => {
@@ -356,6 +366,13 @@ function ScreenChat({ prev, tweaks }) {
               <NIcon name="log-out" size={18} color="var(--fg-2)" />
             </button>
           </div>
+
+          {/* Daily Brief — outside the scroll area so it stays pinned */}
+          {dailyBrief && (
+            <div style={{ padding: '8px 14px 0', background: 'var(--bg-page)' }}>
+              <DailyBriefCard data={dailyBrief} onClose={() => setDailyBrief(null)} />
+            </div>
+          )}
 
           {/* Conversation */}
           <div ref={scrollRef} className="scroll-y" style={{

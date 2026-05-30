@@ -1,0 +1,36 @@
+{
+  "status": "red",
+  "headline": "Today's spending 2.59x average; Italy trip goal behind",
+  "observations": [
+    "Spent \u20ac110 today vs \u20ac42.49 daily average \u2014 a 159% spike in the 'other' category",
+    "Italy Summer Trip 2027 is off-track: needs \u20ac92.92/month but accumulates \u20ac0 with 12 months remaining",
+    "iPhone goal on track (\u20ac100 of \u20ac1,000 saved); strong portfolio gains: NVDA +136%, AAPL +19%, VWCE +5.2%"
+  ],
+  "goals": [
+    {
+      "name": "Italy Summer Trip 2027",
+      "reachable": false,
+      "note": "\u20ac0 accumulated, \u20ac1,115 needed in 12 months at \u20ac92.92/month \u2014 no progress yet"
+    },
+    {
+      "name": "New iPhone",
+      "reachable": true,
+      "note": "\u20ac100 of \u20ac1,000 saved; only \u20ac75/month needed over 12 months"
+    }
+  ],
+  "web_insights": [
+    {
+      "goal": "New iPhone",
+      "type": "deal",
+      "summary": "iPhone 17 series discounts up to $1,100 with trade-in; timing favorable for your target"
+    },
+    {
+      "goal": "Apple Inc. (AAPL)",
+      "type": "news",
+      "summary": "AI developments and in-house modem chip production strengthening competitive position"
+    }
+  ],
+  "advice": "Identify what drove today's \u20ac110 spike and rebuild Italy trip savings immediately \u2014 start with \u20ac93 this month to catch up, or increase monthly allocation. Your investments are performing well; prioritize trip funding.",
+  "date": "2026-05-30",
+  "generated_at": "2026-05-30T17:51:47.151841"
+}

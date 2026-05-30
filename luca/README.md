@@ -39,12 +39,13 @@ User Input
 
 | Agent | Model | Role |
 |---|---|---|
-| `main_agent` | Haiku | Supervisor — classifies intent and routes to the right agent(s) |
-| `analyst_agent` | Haiku | Reads personal financial data (balance, transactions, goals, loans, cards) |
-| `web_agent` | Haiku | Searches and scrapes the web for real-world prices and market data |
-| `aggregator_agent` | Haiku | Merges analyst + web outputs into one coherent response (parallel mode only) |
-| `banking_agent` | **Sonnet** | Executes write actions — transfers, goals, loans, card management — with human confirmation before every write |
-| `investment_agent` | Haiku | Fetches live market data (stocks, ETFs, crypto) and cross-references it with the user's financial capacity |
+| `main_agent` | Haiku 4.5 | Supervisor — classifies intent and routes; hard-bypasses LLM when banking is mid-conversation |
+| `analyst_agent` | Haiku 4.5 | Reads personal financial data (balance, transactions, goals, loans, cards) |
+| `web_agent` | Haiku 4.5 | Searches and scrapes the web for real-world prices and market data |
+| `aggregator_agent` | Haiku 4.5 | Merges analyst + web outputs into one coherent response (parallel mode only) |
+| `banking_agent` | **Sonnet 4.6** | Executes write actions — transfers, goals, loans, card management — with human confirmation before every write |
+| `investment_agent` | Haiku 4.5 | Fetches live market data (stocks, ETFs, crypto) and cross-references it with the user's financial capacity |
+| `learner_agent` | **Sonnet 4.6** | Investment education — explains concepts, generates quizzes, surfaces curated resources |
 
 ### Routing Logic
 
@@ -79,21 +80,25 @@ banking ──read tool──→ banking_read_tools ──┐
 ```
 luca/
 ├── main.py                        # LangGraph graph definition and CLI entry point
+├── api.py                         # FastAPI wrapper (POST /chat, POST /confirm, GET /daily-recap)
 ├── db_tools.py                    # Raw CRUD layer — CSV-backed, no external dependencies
+├── daily_recap.py                 # Daily financial summary — no LLM, pure data aggregation
 ├── pyproject.toml
 │
 ├── agents/
-│   ├── main_agent.py              # Supervisor / router
+│   ├── main_agent.py              # Supervisor / router (hard-routes banking follow-ups)
 │   ├── personalanalyzer_agent.py  # Financial analyst agent
 │   ├── web_searcher_agent.py      # Web research agent
 │   ├── aggregator_agent.py        # Synthesis agent (parallel mode)
 │   ├── bank_automation.py         # Banking agent + write-confirmation flow
-│   └── investment_agent.py        # Investment research agent
+│   ├── investment_agent.py        # Investment research agent
+│   └── learner_agent.py           # Investment education agent
 │
 ├── tools/
 │   ├── database_tools.py          # LangChain tool wrappers (READING_TOOLS / WRITING_TOOLS)
 │   ├── finance_tools.py           # Stock / ETF / crypto market data tools (yfinance)
-│   └── web_search.py              # Web search (title + URL + description) and scrape tools (Firecrawl)
+│   ├── learning_tools.py          # RAG tools for the learner agent
+│   └── web_search.py              # Web search and scrape tools (Firecrawl)
 │
 ├── memory/
 │   └── short_term.py              # LangGraph State, SqliteSaver checkpointer, InMemoryStore
@@ -101,10 +106,10 @@ luca/
 └── data/                          # CSV files — the user's financial database
     ├── profile.csv                # Account profile and balance
     ├── transactions.csv           # Full transaction ledger
-    ├── goals.csv                  # Savings goals
+    ├── goals.csv                  # Savings goals (each has an auto-generated wallet IBAN)
     ├── loans.csv                  # Loan requests and accepted loans
     ├── cards.csv                  # Debit / credit cards
-    └── contacts.csv               # Saved payees / contacts
+    └── contacts.csv               # Saved payees (auto-populated after transactions)
 ```
 
 ---
@@ -215,4 +220,8 @@ All financial data is stored as CSV files in `data/`. The `db_tools.py` layer ha
 - **Separate private message channels per agent** (`analyst_messages`, `banking_messages`, etc.) — agents do not pollute each other's tool-call history.
 - **Turn isolation via `*_turn_start`** — each agent only sees its own tool calls for the current user turn, set by `main_agent` at the start of every turn.
 - **Single confirmation interrupt** — `banking_write_confirm` is the only place where execution pauses; the banking agent never asks "should I proceed?" conversationally.
-- **Sonnet for banking, Haiku everywhere else** — the agent that moves money uses the most capable available model; the read-only agents use the fastest one.
+- **Mid-conversation routing guard** — `banking_awaiting_reply` and `banking_just_wrote` state flags let `main_agent` hard-route follow-up replies (amounts, "yes", "no") to the banking agent without calling the LLM, preventing hallucinated outcomes.
+- **Auto-contact creation** — after every confirmed `make_transaction`, the counterpart is added to contacts automatically if their IBAN is not already saved.
+- **Auto wallet IBAN** — each new savings goal gets a randomly generated unique Finnish IBAN assigned at creation time.
+- **Sonnet for banking and learning, Haiku everywhere else** — the agents that move money and generate educational content use the most capable model; read-only agents use the fastest one.
+- **Daily recap without an LLM** — `daily_recap.py` computes today's spending, overspending alerts, upcoming subscription renewals, and goal deadline warnings purely from the CSV data.

@@ -31,6 +31,7 @@ PATHS = {
     "contacts":     os.path.join(DATA_DIR, "./data/contacts.csv"),
     "goals":        os.path.join(DATA_DIR, "./data/goals.csv"),
     "transactions": os.path.join(DATA_DIR, "./data/transactions.csv"),
+    "investments":  os.path.join(DATA_DIR, "./data/investments.csv"),
 }
 
 # ── Internal helpers ───────────────────────────────────────────────────────────
@@ -704,6 +705,36 @@ def get_loan(loan_id: str) -> dict:
     match = next((r for r in rows if r["loan_id"] == loan_id), None)
     if not match:
         raise KeyError(f"Loan '{loan_id}' not found.")
+    return match
+
+
+def get_investments(account_id: Optional[str] = None, status: Optional[str] = None) -> list[dict]:
+    """
+    Return investment positions, optionally filtered by account_id and/or status.
+
+    Example:
+        get_investments()
+        get_investments(account_id="acc_001", status="active")
+    """
+    rows = _read("investments")
+    if account_id:
+        rows = [r for r in rows if r["account_id"] == account_id]
+    if status:
+        rows = [r for r in rows if r["status"] == status]
+    return rows
+
+
+def get_investment(investment_id: str) -> dict:
+    """
+    Return a single investment position by investment_id.
+
+    Example:
+        get_investment("inv_001")
+    """
+    rows = _read("investments")
+    match = next((r for r in rows if r["investment_id"] == investment_id), None)
+    if not match:
+        raise KeyError(f"Investment '{investment_id}' not found.")
     return match
 
 

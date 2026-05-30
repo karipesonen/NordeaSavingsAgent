@@ -16,6 +16,7 @@ Files managed:
 
 import csv
 import os
+import random
 import uuid
 from datetime import datetime, timezone
 from typing import Optional
@@ -196,7 +197,12 @@ def add_contact(
         )
     """
     rows = _read("contacts")
-    new_id = _next_id(rows, "con_")
+    existing_ids = {r["contact_id"] for r in rows}
+    while True:
+        candidate = f"con_{uuid.uuid4().hex[:8]}"
+        if candidate not in existing_ids:
+            new_id = candidate
+            break
     new_row = {
         "contact_id":        new_id,
         "owner_id":          owner_id,
@@ -316,6 +322,13 @@ def create_goal(
             deadline="2026-06-01",
         )
     """
+    if not wallet_iban:
+        existing_ibans = {r.get("wallet_iban", "") for r in _read("goals")}
+        while True:
+            candidate = f"FI21123456{random.randint(10000000, 99999999)}"
+            if candidate not in existing_ibans:
+                wallet_iban = candidate
+                break
     rows = _read("goals")
     new_id = _next_id(rows, "goal_")
     new_row = {

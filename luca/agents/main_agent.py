@@ -1,4 +1,4 @@
-from langchain_core.messages import SystemMessage
+from langchain_core.messages import SystemMessage, AIMessage
 from langgraph.store.base import BaseStore
 from langchain_anthropic import ChatAnthropic
 from memory.short_term import State, ROUTING_WORDS
@@ -19,7 +19,13 @@ This is the user's profile (for context only — never use it to answer question
 3. Needs BOTH personal financial data AND real-world market prices → both
 4. Needs personal financial data only (balance, goals, transactions, spending, loans, cards) → analyst
 5. Needs web research only (prices, products, travel costs, real estate) → web
-6. Greeting or meta question ("what can you do?") → answer directly in plain text
+6. Wants to LEARN, understand a concept, take a quiz, or get an educational resource about
+   investing or personal finance (e.g. "how do ETFs work?", "quiz me on index funds",
+   "explain dollar-cost averaging", "what should I learn first?", "give me a lesson on risk")
+   → learn
+   NOTE: use LEARN for concept explanations and education, not for live market data or
+   personal account data — those still go to investment or analyst respectively.
+7. Greeting or meta question ("what can you do?") → answer directly in plain text
 
 ## When in doubt → route to analyst
 Any message that is vague, a follow-up ("what about...", "and the others?", "you can see them"),
@@ -38,11 +44,24 @@ or references previously discussed financial data must be routed to analyst — 
 
 ## Examples of "banking"
 - "Send €50 to Marco" / "Create a savings goal" / "Apply for a loan" / "Yes, create it"
+- Any bare number, amount, or short reply ("100", "€50", "yes", "no", "next month") when
+  the previous Nora message was a banking question asking for missing details
+
+## Examples of "learn"
+- "How do ETFs work?" / "Explain index funds" / "What is dollar-cost averaging?"
+- "Quiz me on risk" / "Test my knowledge of investing" / "Give me a lesson on volatility"
+- "What should I learn about investing?" / "Explain diversification to me"
+- "What's the difference between a stock and an ETF?"
 
 ## Hard rules
 - NEVER answer financial questions from the profile — route to analyst instead
 - NEVER explain what you are doing — just output the agent name or your direct reply
 - For routing: reply with the agent name only, nothing else on that line
+- NEVER simulate or fabricate the outcome of a banking action — if a transaction, goal
+  contribution, or any write action is involved, ALWAYS route to banking
+- If the previous Nora message was a banking follow-up question (e.g. "How much?",
+  "Which goal?", "Please confirm"), the user's reply (even a bare number, "yes", or "no")
+  MUST be routed to banking — never answered directly
 """
 
 model = ChatAnthropic(model="claude-haiku-4-5-20251001")
@@ -51,6 +70,22 @@ model = ChatAnthropic(model="claude-haiku-4-5-20251001")
 def main_agent(state: State, store: BaseStore):
     namespace = ("Sofia", "Profile")
     profile = store.get(namespace, "info").value
+
+    # Hard bypass: if the banking agent is mid-conversation waiting for the user's
+    # reply, skip the LLM entirely and route straight to banking.
+    if state.get("banking_awaiting_reply"):
+        print("[main_agent] banking_awaiting_reply → hard-routing to banking")
+        base = {
+            "messages": [AIMessage(content="banking")],
+            "parallel_mode": False,
+            "banking_awaiting_reply": False,
+            "analyst_turn_start": len(state.get("analyst_messages") or []),
+            "web_turn_start":     len(state.get("web_messages") or []),
+            "banking_turn_start": len(state.get("banking_messages") or []),
+            "investment_turn_start": len(state.get("investment_messages") or []),
+            "learner_turn_start": len(state.get("learner_messages") or []),
+        }
+        return base
 
     # Strip routing words and tool-call messages so the model only sees
     # real human turns and meaningful AI replies (no consecutive AI messages).
@@ -78,4 +113,5 @@ def main_agent(state: State, store: BaseStore):
         "web_turn_start": len(state.get("web_messages") or []),
         "banking_turn_start": len(state.get("banking_messages") or []),
         "investment_turn_start": len(state.get("investment_messages") or []),
+        "learner_turn_start": len(state.get("learner_messages") or []),
     }

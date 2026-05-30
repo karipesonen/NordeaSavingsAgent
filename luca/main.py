@@ -12,6 +12,8 @@ from agents.bank_automation import (
     ALL_BANKING_TOOLS, WRITE_TOOL_NAMES,
 )
 from agents.investment_agent import investment_agent, INVESTMENT_TOOLS
+from agents.learner_agent import learner_agent
+from tools.learning_tools import LEARNING_TOOLS
 from memory.short_term import State, short_term_memory_checkpointer, long_term_memory_store, ROUTING_WORDS
 
 
@@ -34,6 +36,8 @@ def route_main(state: State):
         destination = "banking"
     elif word == "investment":
         destination = "investment"
+    elif word == "learn":
+        destination = "learner"
     else:
         destination = END
     print(f"[router] main → {destination!r}  (first_line: {word!r})")
@@ -75,6 +79,12 @@ def investment_next(state: State):
     return END
 
 
+def learner_next(state: State):
+    if _last_has_tool_calls(state.get("learner_messages") or []):
+        return "learner_tools"
+    return END
+
+
 graph_builder = StateGraph(State)
 
 graph_builder.add_node("main", main_agent)
@@ -85,6 +95,8 @@ graph_builder.add_node("web_tools", ToolNode(WEB_TOOLS, messages_key="web_messag
 graph_builder.add_node("aggregator", aggregator_agent)
 graph_builder.add_node("investment", investment_agent)
 graph_builder.add_node("investment_tools", ToolNode(INVESTMENT_TOOLS, messages_key="investment_messages"))
+graph_builder.add_node("learner", learner_agent)
+graph_builder.add_node("learner_tools", ToolNode(LEARNING_TOOLS, messages_key="learner_messages"))
 graph_builder.add_node("banking", banking_agent)
 graph_builder.add_node("banking_read_tools", ToolNode(READING_TOOLS, messages_key="banking_messages"))
 graph_builder.add_node("banking_write_confirm", banking_write_confirm)
@@ -98,6 +110,8 @@ graph_builder.add_edge("web_tools", "web")
 graph_builder.add_edge("aggregator", END)
 graph_builder.add_conditional_edges("investment", investment_next)
 graph_builder.add_edge("investment_tools", "investment")
+graph_builder.add_conditional_edges("learner", learner_next)
+graph_builder.add_edge("learner_tools", "learner")
 graph_builder.add_conditional_edges("banking", banking_next)
 graph_builder.add_edge("banking_read_tools", "banking")
 graph_builder.add_edge("banking_write_confirm", "banking")  # agent summarises the outcome

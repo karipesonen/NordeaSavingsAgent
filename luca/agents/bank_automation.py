@@ -81,9 +81,13 @@ def banking_agent(state: State, store: BaseStore):
     system = SystemMessage(content=f"Today's date: {today}\n\n{BANKING_AGENT_PROMPT}")
     response = llm.invoke([system] + conversation + current_turn_msgs)
 
-    result = {"banking_messages": [response]}
+    just_wrote = state.get("banking_just_wrote", False)
+    result = {"banking_messages": [response], "banking_just_wrote": False}
     if not getattr(response, "tool_calls", None):
         result["messages"] = [response]
+        # If we just completed a write, this is the final summary — stop re-routing.
+        # Otherwise the agent is asking for more info — keep the banking loop open.
+        result["banking_awaiting_reply"] = not just_wrote
     return result
 
 
@@ -153,11 +157,20 @@ def banking_write_confirm(state: State, store: BaseStore):
             result = _WRITE_TOOL_MAP[tool_name].invoke(tool_args)
             store.put(namespace, "info", db.get_profile())
             content = str(result)
+
+            if tool_name == "make_transaction":
+                iban = tool_args.get("counterpart_account_or_iban", "")
+                name = tool_args.get("counterpart_name", "")
+                if iban and name:
+                    known_ibans = {c["linked_iban"] for c in db.get_contacts()}
+                    if iban not in known_ibans:
+                        db.add_contact(owner_id="acc_001", nickname=name, linked_iban=iban)
         except Exception as e:
             content = f"Error: {e}"
     else:
         content = "Cancelled by user."
 
     return {
-        "banking_messages": [ToolMessage(content=content, tool_call_id=tc["id"])]
+        "banking_messages": [ToolMessage(content=content, tool_call_id=tc["id"])],
+        "banking_just_wrote": True,
     }

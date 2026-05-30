@@ -10,7 +10,7 @@ from db_tools import get_profile
 namespace = ("Sofia", "Profile")
 
 # Single source of truth for routing/filler words that all agents should filter out
-ROUTING_WORDS = {"analyst", "web", "both", "banking", "investment"}
+ROUTING_WORDS = {"analyst", "web", "both", "banking", "investment", "learn"}
 
 
 class State(TypedDict):
@@ -26,8 +26,14 @@ class State(TypedDict):
     banking_turn_start: NotRequired[int]
     investment_turn_start: NotRequired[int]
 
+    learner_messages: NotRequired[Annotated[list, add_messages]]
+    learner_turn_start: NotRequired[int]
+
     pending_action: NotRequired[dict]
     confirmed: NotRequired[bool]
+
+    banking_awaiting_reply: NotRequired[bool]
+    banking_just_wrote: NotRequired[bool]
 
 
 _conn = sqlite3.connect("luca_checkpoints.db", check_same_thread=False)

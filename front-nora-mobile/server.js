@@ -79,7 +79,7 @@ app.post('/api/nora/chat', async (req, res) => {
             threadId,
           },
         }],
-        suggestedReplies: ['Yes', 'No'],
+        suggestedReplies: [],
         memoryUpdates: [],
         invokedAgents: ['banking'],
       });
@@ -119,7 +119,7 @@ app.post('/api/nora/confirm', async (req, res) => {
           type: 'banking_confirm',
           data: { message: data.pending_confirmation.message, threadId },
         }],
-        suggestedReplies: ['Yes', 'No'],
+        suggestedReplies: [],
         memoryUpdates: [],
         invokedAgents: ['banking'],
       });

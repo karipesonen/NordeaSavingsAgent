@@ -1,0 +1,56 @@
+{
+  "status": "red",
+  "headline": "Strong spending discipline, but 3 of 4 goals critically behind.",
+  "observations": [
+    "Spending ratio 0.31 is excellent \u2014 today \u20ac20 vs \u20ac64.99 daily average \u2014 but income data shows \u20ac0 this month against \u20ac84.99 outflows.",
+    "Tokyo Trip needs \u20ac2,750 in 1 month (\u20ac2,750/month required); currently only \u20ac1,250 of \u20ac4,000 saved \u2014 unreachable at current pace.",
+    "Emergency Fund and Investment Starter both off-track; Emergency needs \u20ac565.61/month for 7 months, but no deposits visible this month."
+  ],
+  "goals": [
+    {
+      "name": "Tokyo Trip 2025",
+      "reachable": false,
+      "note": "\u20ac1,250/\u20ac4,000 saved; needs \u20ac2,750 in 1 month \u2014 impossible without major income."
+    },
+    {
+      "name": "Emergency Fund",
+      "reachable": false,
+      "note": "\u20ac3,240.75/\u20ac7,200; \u20ac565.61/month needed; no contributions recorded this month."
+    },
+    {
+      "name": "Investment Starter",
+      "reachable": false,
+      "note": "\u20ac420/\u20ac5,000; needs \u20ac4,580 in 1 month \u2014 severely behind."
+    },
+    {
+      "name": "Mikko's Birthday Present",
+      "reachable": true,
+      "note": "\u20ac0/\u20ac180; 6 months left at \u20ac30/month \u2014 on track."
+    }
+  ],
+  "web_insights": [
+    {
+      "goal": "NVIDIA Corporation (NVDA)",
+      "type": "news",
+      "summary": "NVDA +136% from \u20ac460 buy price to \u20ac1,087.50; significant unrealized gain warrants review of position size and profit-taking strategy."
+    },
+    {
+      "goal": "Apple Inc. (AAPL)",
+      "type": "news",
+      "summary": "AAPL +19% from \u20ac178.50 to \u20ac212.35; steady growth, monitor for sector headwinds."
+    },
+    {
+      "goal": "Vanguard FTSE All-World ETF (VWCE.DE)",
+      "type": "news",
+      "summary": "VWCE.DE +5.7% from \u20ac115.20 to \u20ac121.80; stable diversified holding."
+    }
+  ],
+  "suggestions": [
+    "Address income crisis: \u20ac0 recorded income this month but \u20ac84.99 spent. Verify income deposits are being tracked; if salary/wage is delayed, contact employer. Without income, all three failing goals cannot be funded.",
+    "Consider trimming NVDA position (up 136% from \u20ac460\u2192\u20ac1,087.50): lock in \u20ac627.50/share gain on 1 share (~\u20ac628 realized), redirect to Emergency Fund shortfall (\u20ac3,959.25 needed).",
+    "Tokyo Trip is 1 month away with \u20ac2,750 gap: either postpone to next year and reallocate \u20ac1,250 to Emergency Fund, or secure \u20ac2,750 upfront (gift, bonus, loan) \u2014 current savings pace will not work."
+  ],
+  "advice": "Clarify income status immediately. If salary/deposits are on hold or delayed, three goals will fail. If income is normal, investigate why zero appears in monthly_summary; a tracking issue may hide deposits. Then decide: reallocate NVDA gains to close Emergency Fund gap, or postpone/cancel Tokyo Trip to free \u20ac2,750 for critical reserves.",
+  "date": "2026-05-30",
+  "generated_at": "2026-05-30T20:36:15.989304"
+}

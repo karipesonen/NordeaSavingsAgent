@@ -29,6 +29,16 @@ const CARD_MENTION_RULES = {
     article: 'a',
     terms: ['cost breakdown', 'trip cost', 'price research', 'research', 'prices', 'cost'],
   },
+  price_research: {
+    label: 'price lookup',
+    article: 'a',
+    terms: ['price', 'prices', 'cost', 'costs', 'how much', 'lookup', 'research', 'current price'],
+  },
+  banking_confirm: {
+    label: 'confirmation',
+    article: 'a',
+    terms: ['confirm', 'set up', 'send', 'transfer', 'block', 'loan', 'goal'],
+  },
 };
 
 function uniqueCardTypes(cards = []) {

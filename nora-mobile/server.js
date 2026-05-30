@@ -25,7 +25,8 @@ const MODEL = process.env.AALTO_MODEL || 'RedHatAI/gemma-4-31B-it-FP8-Dynamic';
 const SCRIPTED_PROFILE_ID = 'scripted_emma';
 const TEST_DATA_PATH = join(__dirname, '..', 'synthetic_data', 'generated', 'nordea_5users_2025.json');
 const WEEKS_PER_MONTH = 4.33;
-const LUCA_URL = process.env.LUCA_URL || 'http://localhost:8001';
+const LUCA_URL = process.env.LUCA_URL || 'http://localhost:8001';       // server.py — web research
+const LUCA_API_URL = process.env.LUCA_API_URL || 'http://localhost:8000'; // api.py — banking, investment, daily recap
 
 // ── Load curated education resources ──────────────────────────────────────────
 const RESOURCES = JSON.parse(
@@ -55,13 +56,62 @@ function weeklyToMonthlyDisplay(value) {
   return Math.round(Number(value || 0) * WEEKS_PER_MONTH);
 }
 
-function enrichExpenseReviewData(data = {}) {
+function roundToNearest(value, step = 10) {
+  return Math.max(0, Math.round(Number(value || 0) / step) * step);
+}
+
+function textFromMessages(messages = []) {
+  return messages.map(m => m?.content || '').join('\n').toLowerCase();
+}
+
+function inferGoalHorizon(messages = []) {
+  const text = textFromMessages(messages);
+  if (/\b(retirement|pension|long[- ]term|first home|apartment|down payment|mortgage|invest(?:ing|ment)?|funds?|etf|index)\b/i.test(text)) {
+    return 'long_or_investing';
+  }
+  if (/\b(laptop|phone|trip|travel|holiday|festival|concert|emergency|buffer|car|toyota|yaris)\b/i.test(text)) {
+    return 'short_or_purchase';
+  }
+  return 'unknown';
+}
+
+function buildInvestmentBridge(monthlyRoom, messages = []) {
+  if (!Number.isFinite(monthlyRoom) || monthlyRoom < 80) return null;
+
+  const text = textFromMessages(messages);
+  const horizon = inferGoalHorizon(messages);
+  const investingCuriosity = /\b(invest|fund|funds|etf|stock|stocks|portfolio|risk|market)\b/i.test(text);
+  const futureFundsRatio = horizon === 'long_or_investing' || investingCuriosity ? 0.3 : 0.2;
+  const futureFundsAmount = Math.min(
+    roundToNearest(monthlyRoom * futureFundsRatio, 10),
+    Math.max(0, monthlyRoom - 50)
+  );
+
+  if (futureFundsAmount < 20) return null;
+
+  const savingsAmount = Math.max(0, monthlyRoom - futureFundsAmount);
+  const mode = horizon === 'short_or_purchase'
+    ? 'short_goal_savings_first_funds_later'
+    : 'savings_first_with_funds_next';
+
+  return {
+    monthlyRoom,
+    savingsAmount,
+    futureFundsAmount,
+    mode,
+    noraLine: `A clean split could be about EUR ${savingsAmount} toward the goal and EUR ${futureFundsAmount} as a future fund habit once short-term money is protected.`,
+  };
+}
+
+function enrichExpenseReviewData(data = {}, { messages = [] } = {}) {
   const weeklyRoom = Number(data.weeklyRoom || 0);
+  const monthlyRoom = Number.isFinite(Number(data.monthlyRoom))
+    ? Number(data.monthlyRoom)
+    : weeklyToMonthlyDisplay(weeklyRoom);
   return {
     ...data,
-    monthlyRoom: Number.isFinite(Number(data.monthlyRoom))
-      ? Number(data.monthlyRoom)
-      : weeklyToMonthlyDisplay(weeklyRoom),
+    monthlyRoom,
+    investmentBridge: data.investmentBridge || buildInvestmentBridge(monthlyRoom, messages),
     items: Array.isArray(data.items)
       ? data.items.map(item => ({
           ...item,
@@ -116,6 +166,15 @@ function normalizeExpenseAmountMentions(message = '', cards = [], sessionState =
       /\b(\d{1,5}(?:[.,]\d{1,2})?)\s*(?:\/\s*month|per month|a month|monthly)\b/gi,
       replaceNearMonthlyRoom
     );
+}
+
+function addInvestmentBridgeMention(message = '', cards = []) {
+  const bridge = cards.find(card => card.type === 'expense_review')?.data?.investmentBridge;
+  if (!bridge?.futureFundsAmount || !bridge?.savingsAmount) return message;
+  if (/\b(fund|funds|invest|investment)\b/i.test(message)) return message;
+
+  const line = `One possible path: EUR ${bridge.savingsAmount} toward the goal, EUR ${bridge.futureFundsAmount} as a future fund habit once short-term money is protected.`;
+  return `${message || ''}\n\n${line}`.trim();
 }
 
 function iconForCategory(category = '') {
@@ -570,6 +629,94 @@ async function runTripResearch(conversation) {
   }
 }
 
+// ── Price research (calls Luca microservice) ─────────────────────────────────
+const PRICE_EXTRACT_SYSTEM = `Extract the item/product details from the conversation. Return ONLY valid JSON, no markdown:
+{
+  "item": "specific product or property description",
+  "category": "product",
+  "region": "Finland"
+}
+Rules:
+- item: be as specific as possible — include brand, model, size if mentioned. Required.
+- category: one of "product", "real_estate", "car". Default "product".
+- region: default "Finland" unless a different country or city is mentioned.`;
+
+async function extractPriceParams(conversation) {
+  return await llmJson({
+    system: PRICE_EXTRACT_SYSTEM,
+    messages: conversation,
+    temperature: 0.1,
+    maxTokens: 150,
+  }) || { item: '' };
+}
+
+async function runPriceResearch(conversation) {
+  const params = await extractPriceParams(conversation);
+  if (!params.item) {
+    return { item: 'unknown', error: 'Could not determine what to research from the conversation.' };
+  }
+
+  try {
+    const res = await fetch(`${LUCA_URL}/price-research`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        item: params.item,
+        category: params.category || 'product',
+        region: params.region || 'Finland',
+      }),
+    });
+    if (!res.ok) {
+      const errText = await res.text().catch(() => '');
+      return { item: params.item, error: `Research service returned ${res.status}: ${errText.slice(0, 200)}` };
+    }
+    return await res.json();
+  } catch (err) {
+    return { item: params.item, error: `Could not reach research service: ${err.message}` };
+  }
+}
+
+// ── Luca API proxy helpers (banking, investment, daily recap) ─────────────────
+
+async function callLucaApi(path, body = {}, method = 'POST') {
+  const opts = { method, headers: { 'Content-Type': 'application/json' } };
+  if (method !== 'GET') opts.body = JSON.stringify(body);
+  const res = await fetch(`${LUCA_API_URL}${path}`, opts);
+  if (!res.ok) {
+    const text = await res.text().catch(() => '');
+    throw new Error(`Luca API ${res.status}: ${text.slice(0, 300)}`);
+  }
+  return res.json();
+}
+
+async function runBanking(messages, threadId) {
+  const lastUser = [...messages].reverse().find(m => m.role === 'user');
+  if (!lastUser) return { message: '', cards: [] };
+  try {
+    const data = await callLucaApi('/chat', { message: lastUser.content, thread_id: threadId });
+    if (data.pending_confirmation) {
+      return {
+        message: '',
+        cards: [{ type: 'banking_confirm', data: { message: data.pending_confirmation.message, threadId } }],
+      };
+    }
+    return { message: data.message || '', cards: [] };
+  } catch (err) {
+    return { message: `Banking service unavailable: ${err.message}`, cards: [] };
+  }
+}
+
+async function runInvestment(messages, threadId) {
+  const lastUser = [...messages].reverse().find(m => m.role === 'user');
+  if (!lastUser) return { message: '' };
+  try {
+    const data = await callLucaApi('/chat', { message: lastUser.content, thread_id: threadId });
+    return { message: data.message || '' };
+  } catch (err) {
+    return { message: `Investment service unavailable: ${err.message}` };
+  }
+}
+
 // ── Main chat endpoint ──────────────────────────────────────────────────────
 // POST /api/nora/chat
 // Body: { messages: [{role, content}], memory: [string] }
@@ -606,6 +753,10 @@ app.post('/api/nora/chat', async (req, res) => {
     if (sessionState.lastExpenseReview?.monthlyRoom) {
       stateLines.push(`Last displayed spending review room to redirect: EUR ${sessionState.lastExpenseReview.monthlyRoom}/month. If referencing that amount, use exactly this number.`);
     }
+    if (sessionState.educationCount || sessionState.resourceCount) {
+      stateLines.push(`Education shown this session: ${Number(sessionState.educationCount || 0)} learning cards and ${Number(sessionState.resourceCount || 0)} resources.`);
+      stateLines.push('Use education/resource cards only when they fit the current topic; otherwise use a short optional learning nudge.');
+    }
     const stateBlock = `\n\n<session_state>\n${stateLines.join('\n')}\n</session_state>`;
 
     const activeContextBlock = synthesizeActiveContext(messages, memory, profile);
@@ -628,13 +779,32 @@ app.post('/api/nora/chat', async (req, res) => {
 
     // Step 2 — run requested sub-agents in parallel
     const cards = [];
+    const threadId = sessionState.threadId || 'default';
+    let lucaTextOverride = null; // banking/investment replace orchestrator message with their own
+
     if (invoke.length) {
       const results = await Promise.all(
         invoke.map(async name => {
-          // trip_research calls Luca's research microservice instead of the LLM
+          // trip_research + price_research call Luca's research microservice
           if (name === 'trip_research') {
             const data = await runTripResearch(messages);
             return { type: 'trip_research', data: data || { error: 'Research unavailable' } };
+          }
+          if (name === 'price_research') {
+            const data = await runPriceResearch(messages);
+            return { type: 'price_research', data: data || { error: 'Research unavailable' } };
+          }
+          // banking + investment call Luca's full agent API
+          if (name === 'banking') {
+            const result = await runBanking(messages, threadId);
+            if (result.message) lucaTextOverride = result.message;
+            if (result.cards?.length) return result.cards[0]; // banking_confirm card
+            return null;
+          }
+          if (name === 'investment') {
+            const result = await runInvestment(messages, threadId);
+            if (result.message) lucaTextOverride = result.message;
+            return null;
           }
           const data = await runSubAgent(name, messages, memory, customerContext);
           if (!data) return null;
@@ -645,7 +815,7 @@ app.post('/api/nora/chat', async (req, res) => {
             return { type: 'resource_link', data };
           }
           if (name === 'expense_review') {
-            return { type: name, data: enrichExpenseReviewData(data) };
+            return { type: name, data: enrichExpenseReviewData(data, { messages }) };
           }
           return { type: name, data };
         })
@@ -653,7 +823,9 @@ app.post('/api/nora/chat', async (req, res) => {
       for (const r of results) if (r) cards.push(r);
     }
 
-    const mentionedMessage = ensureCardMentions(orchestration.message || '', cards);
+    // Banking/investment return their own text; use it if the orchestrator only wrote a generic intro
+    const rawMessage = lucaTextOverride || orchestration.message || '';
+    const mentionedMessage = addInvestmentBridgeMention(ensureCardMentions(rawMessage, cards), cards);
 
     res.json({
       message: normalizeExpenseAmountMentions(mentionedMessage, cards, sessionState),
@@ -749,6 +921,57 @@ app.get('/api/demo-profiles/:userId', (req, res) => {
   const profile = TEST_PROFILES.find(p => p.userId === req.params.userId);
   if (!profile) return res.status(404).json({ error: 'profile not found' });
   res.json({ profile });
+});
+
+// ── Banking confirmation (proxy to Luca API) ────────────────────────────────
+app.post('/api/nora/confirm', async (req, res) => {
+  const { threadId, answer } = req.body;
+  if (!threadId || !answer) return res.status(400).json({ error: 'threadId and answer required' });
+  try {
+    const data = await callLucaApi('/confirm', { thread_id: threadId, answer });
+    // If the graph pauses again (chained write actions), return another confirm card
+    if (data.pending_confirmation) {
+      return res.json({
+        message: '',
+        cards: [{ type: 'banking_confirm', data: { message: data.pending_confirmation.message, threadId } }],
+        suggestedReplies: [],
+        memoryUpdates: [],
+        invokedAgents: ['banking'],
+      });
+    }
+    res.json({
+      message: data.message || '',
+      cards: [],
+      suggestedReplies: [],
+      memoryUpdates: [],
+      invokedAgents: ['banking'],
+    });
+  } catch (err) {
+    console.error('[/api/nora/confirm]', err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// ── Daily recap (proxy to Luca API) ──────────────────────────────────────────
+app.get('/api/nora/daily-recap', async (_req, res) => {
+  try {
+    const data = await callLucaApi('/daily-recap', null, 'GET');
+    res.json(data);
+  } catch (err) {
+    const missing = String(err.message || '').includes('Luca API 404');
+    res.status(missing ? 404 : 503).json({
+      error: missing ? 'No saved daily recap found' : 'Daily recap unavailable',
+    });
+  }
+});
+
+app.post('/api/nora/run-daily-recap', async (_req, res) => {
+  try {
+    const data = await callLucaApi('/run-daily-recap', {}, 'POST');
+    res.json(data);
+  } catch (err) {
+    res.status(503).json({ error: 'Daily recap refresh unavailable' });
+  }
 });
 
 // ── Health / introspection ──────────────────────────────────────────────────

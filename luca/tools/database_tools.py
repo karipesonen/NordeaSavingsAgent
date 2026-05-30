@@ -1,4 +1,6 @@
 
+from datetime import date
+from math import pow
 
 from langchain_core.tools import tool
 import db_tools as db
@@ -149,6 +151,16 @@ def get_balance_summary(from_date: str = None, to_date: str = None) -> dict:
 
 
 @tool
+def get_investments(status: str = None) -> list:
+    """Return investment positions. Optionally filter by status: 'active'|'sold'."""
+    return db.get_investments(account_id="acc_001", status=status)
+
+@tool
+def get_investment(investment_id: str) -> dict:
+    """Return a single investment position by investment_id e.g. 'inv_001'."""
+    return db.get_investment(investment_id)
+
+@tool
 def get_loans(status: str = None) -> list:
     """Return all loans for the account. Optionally filter by status: 'accepted' | 'requested'."""
     return db.get_loans(account_id="acc_001", status=status)
@@ -162,15 +174,23 @@ def get_loan(loan_id: str) -> dict:
 def create_loan_request(
     total_amount: float,
     interest_rate: float,
-    monthly_amount: float,
     description: str,
+    monthly_amount: float = None,
     date_starting: str = "",
     date_ending: str = "",
     currency: str = "EUR",
 ) -> dict:
     """Submit a new loan request. Status will be set to 'requested' until accepted.
     description examples: 'Mortgage', 'Car loan', 'Personal loan – renovation'.
-    date_starting / date_ending format: 'YYYY-MM-DD'. Leave empty if not yet known."""
+    date_starting / date_ending format: 'YYYY-MM-DD'. Leave empty if not yet known.
+    monthly_amount is optional when date_starting/date_ending are provided; it will be estimated."""
+    if monthly_amount is None:
+        monthly_amount = _estimate_monthly_loan_payment(
+            total_amount=total_amount,
+            annual_interest_rate=interest_rate,
+            date_starting=date_starting,
+            date_ending=date_ending,
+        )
     return db.create_loan_request(
         account_id="acc_001",
         total_amount=total_amount,
@@ -181,9 +201,40 @@ def create_loan_request(
         date_ending=date_ending,
         currency=currency,
     )
+
+
+def _estimate_monthly_loan_payment(
+    total_amount: float,
+    annual_interest_rate: float,
+    date_starting: str = "",
+    date_ending: str = "",
+) -> float:
+    """Estimate a monthly payment from dates for demo loan requests."""
+    try:
+        principal = float(total_amount)
+        annual_rate = float(annual_interest_rate or 0)
+    except Exception as exc:
+        raise ValueError("total_amount and interest_rate must be numeric") from exc
+
+    if not date_ending:
+        raise ValueError("monthly_amount is required unless date_ending is provided")
+
+    try:
+        start = date.fromisoformat(date_starting) if date_starting else date.today()
+        end = date.fromisoformat(date_ending)
+    except Exception as exc:
+        raise ValueError("date_starting/date_ending must use YYYY-MM-DD") from exc
+
+    months = max(1, (end.year - start.year) * 12 + (end.month - start.month))
+    monthly_rate = annual_rate / 100 / 12
+    if monthly_rate <= 0:
+        return round(principal / months, 2)
+    payment = principal * monthly_rate / (1 - pow(1 + monthly_rate, -months))
+    return round(payment, 2)
  
 WRITING_TOOLS = [
     update_profile,
+    update_card,
     add_contact, update_contact, delete_contact,
     create_goal, update_goal, contribute_to_goal, delete_goal,
     make_transaction,
@@ -196,8 +247,9 @@ READING_TOOLS = [
     get_contacts, get_contact,
     get_goals, get_goal,
     get_transactions, get_transaction,
-    get_balance_summary, 
-    get_loans, get_loan
+    get_balance_summary,
+    get_loans, get_loan,
+    get_investments, get_investment,
 ]
 
 

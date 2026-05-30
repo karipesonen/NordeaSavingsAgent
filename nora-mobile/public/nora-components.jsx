@@ -475,6 +475,198 @@ function AppHeader({ title, onBack, rightIcon, onRight, blue = false, subtitle }
 // Wait helper — used to simulate agent latency for the scripted parts
 function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
 
+// ── Markdown renderer ─────────────────────────────────────────────────────────
+function InlineText({ text }) {
+  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+  return (
+    <>
+      {parts.map((part, i) =>
+        part.startsWith('**') && part.endsWith('**')
+          ? <strong key={i}>{part.slice(2, -2)}</strong>
+          : part
+      )}
+    </>
+  );
+}
+
+function MarkdownText({ text }) {
+  if (!text) return null;
+  const lines = text.split('\n');
+  const out = [];
+  let numbered = [];
+  let bulleted = [];
+
+  const flushNumbered = () => {
+    if (!numbered.length) return;
+    out.push(
+      <ol key={out.length} style={{ paddingLeft: 18, margin: '6px 0 2px', listStyleType: 'decimal' }}>
+        {numbered.map((item, i) => (
+          <li key={i} style={{ marginBottom: 3, paddingLeft: 2 }}>
+            <InlineText text={item.replace(/\s*\|\s*/g, ' · ')} />
+          </li>
+        ))}
+      </ol>
+    );
+    numbered = [];
+  };
+
+  const flushBulleted = () => {
+    if (!bulleted.length) return;
+    out.push(
+      <ul key={out.length} style={{ paddingLeft: 0, margin: '6px 0 2px', listStyle: 'none' }}>
+        {bulleted.map((item, i) => (
+          <li key={i} style={{ marginBottom: 3, display: 'flex', gap: 6, alignItems: 'baseline' }}>
+            <span style={{ color: 'var(--fg-3)', flexShrink: 0 }}>·</span>
+            <span><InlineText text={item.replace(/\s*\|\s*/g, ' · ')} /></span>
+          </li>
+        ))}
+      </ul>
+    );
+    bulleted = [];
+  };
+
+  lines.forEach(line => {
+    const num = line.match(/^(\d+)\.\s+(.*)/);
+    const bul = line.match(/^[-*]\s+(.*)/);
+    if (num) {
+      flushBulleted();
+      numbered.push(num[2]);
+    } else if (bul) {
+      flushNumbered();
+      bulleted.push(bul[1]);
+    } else if (line.trim() === '') {
+      flushNumbered(); flushBulleted();
+      if (out.length) out.push(<div key={out.length} style={{ height: 5 }} />);
+    } else {
+      flushNumbered(); flushBulleted();
+      out.push(<div key={out.length}><InlineText text={line} /></div>);
+    }
+  });
+
+  flushNumbered();
+  flushBulleted();
+  return <div>{out}</div>;
+}
+
+// ── Daily Brief Card ──────────────────────────────────────────────────────────
+const STATUS_CONFIG = {
+  green:  { color: '#16a34a', bg: 'rgba(22,163,74,.08)',  border: 'rgba(22,163,74,.3)',  icon: 'check-circle',   label: 'All good' },
+  yellow: { color: '#ca8a04', bg: 'rgba(202,138,4,.08)',  border: 'rgba(202,138,4,.3)',  icon: 'alert-triangle', label: 'Watch out' },
+  red:    { color: '#dc2626', bg: 'rgba(220,38,38,.08)',  border: 'rgba(220,38,38,.3)',  icon: 'alert-circle',   label: 'Attention' },
+};
+
+function DailyBriefCard({ data, onClose }) {
+  const [open, setOpen] = React.useState(true);
+  if (!data) return null;
+  const cfg = STATUS_CONFIG[data.status] || STATUS_CONFIG.yellow;
+  const fmtDate = (iso) => {
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return null;
+    return d.toLocaleDateString('en-IE', { weekday: 'short', month: 'short', day: 'numeric' });
+  };
+  const briefLabel = data.just_refreshed ? 'Fresh brief' : 'Saved brief';
+  const generatedLabel = fmtDate(data.generated_at || data.date);
+
+  return (
+    <div style={{
+      borderRadius: 16, border: `1.5px solid ${cfg.border}`,
+      background: '#fff', overflow: 'hidden',
+      boxShadow: '0 1px 4px rgba(10,10,25,.06)',
+    }}>
+      {/* Header */}
+      <div onClick={() => setOpen(o => !o)} style={{
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        padding: '10px 14px', cursor: 'pointer', background: cfg.bg,
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <NIcon name={cfg.icon} size={16} color={cfg.color} />
+          <span style={{ fontWeight: 700, fontSize: 13, color: cfg.color }}>{cfg.label}</span>
+          <span style={{ fontSize: 12, color: 'var(--fg-3)' }}>
+            · {briefLabel}{generatedLabel ? ` · ${generatedLabel}` : ''}
+          </span>
+          {data.is_stale && (
+            <span style={{
+              fontSize: 10, fontWeight: 700, color: 'var(--fg-3)',
+              border: '1px solid var(--border-1)', borderRadius: 999,
+              padding: '1px 6px', background: '#fff',
+            }}>
+              cached
+            </span>
+          )}
+        </div>
+        <NIcon name={open ? 'chevron-up' : 'chevron-down'} size={14} color="var(--fg-3)" />
+      </div>
+
+      {open && (
+        <div style={{ padding: '12px 14px 14px', display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--fg-1)', lineHeight: 1.4 }}>
+            {data.headline}
+          </div>
+
+          {data.observations?.length > 0 && (
+            <ul style={{ margin: 0, paddingLeft: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 4 }}>
+              {data.observations.map((obs, i) => (
+                <li key={i} style={{ display: 'flex', gap: 6, alignItems: 'baseline', fontSize: 13, color: 'var(--fg-2)' }}>
+                  <span style={{ color: cfg.color, flexShrink: 0 }}>·</span>
+                  <span>{obs}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+
+          {data.goals?.length > 0 && (
+            <div>
+              <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--fg-3)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 6 }}>Goals</div>
+              {data.goals.map((g, i) => (
+                <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', padding: '5px 0', borderBottom: i < data.goals.length - 1 ? '1px solid var(--border-1)' : 'none', gap: 8 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, minWidth: 0 }}>
+                    <NIcon name={g.reachable ? 'check' : 'x'} size={13} color={g.reachable ? '#16a34a' : '#dc2626'} />
+                    <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--fg-1)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{g.name}</span>
+                  </div>
+                  <span style={{ fontSize: 12, color: 'var(--fg-3)', textAlign: 'right', flexShrink: 0 }}>{g.note}</span>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {data.suggestions?.length > 0 && (
+            <div>
+              <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--fg-3)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 6 }}>Suggestions</div>
+              {data.suggestions.map((s, i) => (
+                <div key={i} style={{ display: 'flex', gap: 8, alignItems: 'flex-start', padding: '5px 0', borderBottom: i < data.suggestions.length - 1 ? '1px solid var(--border-1)' : 'none' }}>
+                  <NIcon name="lightbulb" size={13} color="#ca8a04" style={{ marginTop: 2, flexShrink: 0 }} />
+                  <span style={{ fontSize: 13, color: 'var(--fg-2)' }}>{s}</span>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {data.web_insights?.length > 0 && (
+            <div>
+              <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--fg-3)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 6 }}>Market &amp; Deals</div>
+              {data.web_insights.map((w, i) => (
+                <div key={i} style={{ display: 'flex', gap: 8, alignItems: 'flex-start', padding: '5px 0', borderBottom: i < data.web_insights.length - 1 ? '1px solid var(--border-1)' : 'none' }}>
+                  <NIcon name={w.type === 'news' ? 'trending-up' : 'tag'} size={13} color={w.type === 'news' ? '#7c3aed' : '#0891b2'} style={{ marginTop: 2, flexShrink: 0 }} />
+                  <div>
+                    <span style={{ fontSize: 11, fontWeight: 700, color: w.type === 'news' ? '#7c3aed' : '#0891b2', marginRight: 6 }}>{w.goal}</span>
+                    <span style={{ fontSize: 12, color: 'var(--fg-2)' }}>{w.summary}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {data.advice && (
+            <div style={{ fontSize: 12, color: cfg.color, fontWeight: 600, padding: '8px 10px', borderRadius: 8, background: cfg.bg }}>
+              {data.advice}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 // Expose
 Object.assign(window, {
   NORA_BLUE, NORA_BLUE_HOVER,
@@ -482,4 +674,5 @@ Object.assign(window, {
   NIcon, PhoneFrame, NoraAvatar, AgentTag,
   ChatBubble, TypingBubble, ChipRow, Composer,
   MoneyDisplay, InChatCard, PrimaryButton, AppHeader,
+  MarkdownText, DailyBriefCard,
 });

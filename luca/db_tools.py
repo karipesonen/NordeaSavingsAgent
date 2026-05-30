@@ -634,6 +634,42 @@ def _update_balance(account_id: str, delta: float) -> None:
 # LOANS
 # ══════════════════════════════════════════════════════════════════════════════
 
+# ══════════════════════════════════════════════════════════════════════════════
+# INVESTMENTS
+# ══════════════════════════════════════════════════════════════════════════════
+
+PATHS["investments"] = os.path.join(DATA_DIR, "./data/investments.csv")
+
+def get_investments(account_id: Optional[str] = None, status: Optional[str] = None) -> list[dict]:
+    """
+    Return investment positions, optionally filtered by account_id and/or status.
+
+    Example:
+        get_investments()
+        get_investments(account_id="acc_001", status="active")
+    """
+    rows = _read("investments")
+    if account_id:
+        rows = [r for r in rows if r["account_id"] == account_id]
+    if status:
+        rows = [r for r in rows if r["status"] == status]
+    return rows
+
+
+def get_investment(investment_id: str) -> dict:
+    """
+    Return a single investment position by investment_id.
+
+    Example:
+        get_investment("inv_001")
+    """
+    rows = _read("investments")
+    match = next((r for r in rows if r["investment_id"] == investment_id), None)
+    if not match:
+        raise KeyError(f"Investment '{investment_id}' not found.")
+    return match
+
+
 PATHS["loans"] = os.path.join(DATA_DIR, "./data/loans.csv")
 
 def get_loans(account_id: Optional[str] = None, status: Optional[str] = None) -> list[dict]:

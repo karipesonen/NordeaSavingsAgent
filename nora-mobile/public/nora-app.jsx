@@ -3,7 +3,7 @@
 const {
   ScreenWelcome, ScreenChat, ScreenShowcase,
   TweaksPanel, useTweaks, TweakSection, TweakRadio, TweakToggle,
-  NIcon, NORA_BLUE,
+  TweakButton, NIcon, NORA_BLUE,
 } = window;
 
 const VIBES = {
@@ -15,7 +15,8 @@ const VIBES = {
 const DEFAULT_TWEAKS = {
   vibe: 'balanced',
   showAgentTags: true,
-  density: 'comfortable',
+  density: 'compact',
+  showDailyBrief: false,
   started: false,
   demoMode: 'scripted_emma',
   profileId: 'U001',
@@ -30,9 +31,20 @@ const SCRIPTED_PROFILE = {
 };
 
 function App() {
-  const [tweaks, setTweak] = useTweaks({ ...DEFAULT_TWEAKS, ...(window.__NORA_TWEAKS__ || {}) });
+  const initialTweaks = { ...DEFAULT_TWEAKS, ...(window.__NORA_TWEAKS__ || {}) };
+  initialTweaks.density = 'compact';
+  if (typeof initialTweaks.showDailyBrief !== 'boolean') initialTweaks.showDailyBrief = false;
+  const [tweaks, setTweak] = useTweaks(initialTweaks);
   const [profiles, setProfiles] = React.useState([]);
   const [profilesReady, setProfilesReady] = React.useState(false);
+  const [dailyBrief, setDailyBrief] = React.useState(null);
+  const [dailyBriefStatus, setDailyBriefStatus] = React.useState('');
+  const [dailyBriefBusy, setDailyBriefBusy] = React.useState(false);
+  const effectiveTweaks = React.useMemo(() => ({
+    ...tweaks,
+    density: 'compact',
+    showDailyBrief: !!tweaks.showDailyBrief,
+  }), [tweaks]);
 
   React.useEffect(() => {
     let cancelled = false;
@@ -88,9 +100,10 @@ function App() {
           </div>
 
           {tweaks.demoMode === 'showcase'
-            ? <ScreenShowcase key="showcase" tweaks={tweaks} />
+            ? <ScreenShowcase key="showcase" tweaks={effectiveTweaks} />
             : tweaks.started
-              ? <ScreenChat key={sessionKey} prev={back} tweaks={tweaks} profile={selectedProfile} />
+              ? <ScreenChat key={sessionKey} prev={back} tweaks={effectiveTweaks} profile={selectedProfile}
+                            dailyBrief={dailyBrief} setDailyBrief={setDailyBrief} />
               : <ScreenWelcome next={start} profile={selectedProfile} />}
 
           <div style={{
@@ -99,17 +112,59 @@ function App() {
             display: 'flex', alignItems: 'center', gap: 6,
           }}>
             <NIcon name="sliders-horizontal" size={12} color="currentColor" />
-            Open Tweaks (bottom-right) to change profile, opening mode, agent tags, vibe, density
+            Open Tweaks (bottom-right) to change profile, opening mode, Daily Brief, agent tags, and vibe
           </div>
         </div>
       </div>
 
-      <NoraTweaks tweaks={tweaks} setTweak={setTweak} profiles={profiles} profilesReady={profilesReady} />
+      <NoraTweaks tweaks={tweaks} setTweak={setTweak} profiles={profiles} profilesReady={profilesReady}
+                  dailyBriefStatus={dailyBriefStatus}
+                  dailyBriefBusy={dailyBriefBusy}
+                  onLoadDailyBrief={async () => {
+                    if (dailyBriefBusy) return;
+                    setDailyBriefBusy(true);
+                    setDailyBriefStatus('Loading saved brief…');
+                    try {
+                      const res = await fetch('/api/nora/daily-recap');
+                      if (!res.ok) {
+                        setDailyBriefStatus(res.status === 404 ? 'No saved brief found.' : 'Could not load saved brief.');
+                        return;
+                      }
+                      const data = await res.json();
+                      setDailyBrief({ ...data, just_refreshed: false });
+                      setTweak('showDailyBrief', true);
+                      setDailyBriefStatus(data.is_stale ? 'Loaded saved brief. It may be stale.' : 'Loaded saved brief.');
+                    } catch {
+                      setDailyBriefStatus('Could not reach Daily Brief service.');
+                    } finally {
+                      setDailyBriefBusy(false);
+                    }
+                  }}
+                  onRefreshDailyBrief={async () => {
+                    if (dailyBriefBusy) return;
+                    setDailyBriefBusy(true);
+                    setDailyBriefStatus('Refreshing brief…');
+                    try {
+                      const res = await fetch('/api/nora/run-daily-recap', { method: 'POST' });
+                      if (!res.ok) {
+                        setDailyBriefStatus('Could not refresh brief.');
+                        return;
+                      }
+                      const data = await res.json();
+                      setDailyBrief({ ...data, is_stale: false, just_refreshed: true });
+                      setTweak('showDailyBrief', true);
+                      setDailyBriefStatus('Refreshed brief.');
+                    } catch {
+                      setDailyBriefStatus('Could not reach Daily Brief service.');
+                    } finally {
+                      setDailyBriefBusy(false);
+                    }
+                  }} />
     </>
   );
 }
 
-function NoraTweaks({ tweaks, setTweak, profiles, profilesReady }) {
+function NoraTweaks({ tweaks, setTweak, profiles, profilesReady, dailyBriefStatus, dailyBriefBusy, onLoadDailyBrief, onRefreshDailyBrief }) {
   const setDemoMode = (mode) => {
     const edits = { demoMode: mode };
     if (mode === 'test_profile' && !profiles.some(p => p.userId === tweaks.profileId) && profiles[0]) {
@@ -189,15 +244,23 @@ function NoraTweaks({ tweaks, setTweak, profiles, profilesReady }) {
           value={!!tweaks.showAgentTags}
           onChange={(v) => setTweak('showAgentTags', v)}
         />
-        <TweakRadio
-          label="Density"
-          value={tweaks.density || 'comfortable'}
-          onChange={(v) => setTweak('density', v)}
-          options={[
-            { value: 'compact',     label: 'Compact' },
-            { value: 'comfortable', label: 'Comfy' },
-          ]}
+      </TweakSection>
+
+      <TweakSection label="Daily Brief">
+        <TweakToggle
+          label="Show daily brief"
+          value={!!tweaks.showDailyBrief}
+          onChange={(v) => setTweak('showDailyBrief', v)}
         />
+        <div style={{ display: 'flex', gap: 8 }}>
+          <TweakButton label={dailyBriefBusy ? 'Loading…' : 'Load saved brief'} secondary onClick={onLoadDailyBrief} />
+          <TweakButton label={dailyBriefBusy ? 'Working…' : 'Refresh brief'} onClick={onRefreshDailyBrief} />
+        </div>
+        {dailyBriefStatus && (
+          <div style={{ fontSize: 11, color: 'var(--fg-3)', lineHeight: 1.45 }}>
+            {dailyBriefStatus}
+          </div>
+        )}
       </TweakSection>
 
       <TweakSection label="Session">

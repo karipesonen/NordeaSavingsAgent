@@ -26,9 +26,9 @@ The desired feel is now Warm Spark / Cheerful Money Friend: warm, practical, lig
 - `education_resource_suggestion`: deterministic support tool that selects one curated article/video/podcast after an education-progress moment, using domain/topic, preferred format, readiness, and recommendation history.
 - `future_perspective_card`: deterministic support tool that shows one short future-you decision lens for meaningful tradeoffs such as slow goals, approval moments, expense support, or borrowing pressure.
 
-## Luca Prototype Branch Note
+## Luca / Mobile Demo Integration Note
 
-The GitHub branch `feature/agent_structure` contains a separate `luca/` Python/LangGraph prototype. It is not integrated into Nora's current JS demo stack.
+As of 2026-05-30, Luca is present in the local project tree and is partially integrated with `nora-mobile` through HTTP services. Treat it as teammate prototype work that extends the demo, not as the canonical offline Nora architecture.
 
 Luca currently includes:
 
@@ -38,23 +38,36 @@ Luca currently includes:
 - a yfinance investment/market-data agent for stocks, ETFs, and crypto
 - a banking automation agent with human confirmation before CSV write actions
 - an aggregator that combines personal finance data with web research
+- a FastAPI web research microservice in `luca/server.py` with `/research`, `/price-research`, and `/health`
+- a FastAPI graph API in `luca/api.py` with `/chat`, `/confirm`, `/daily-recap`, `/run-daily-recap`, and `/health`
+- a daily recap agent in `luca/agents/daily_recap_agent.py`
+- richer CSV demo data including loans and investments
 
 Current caveats:
 
-- Treat Luca as experimental teammate work, not final Nora architecture.
-- It is hardcoded around a Sofia / `acc_001` CSV-backed dataset.
+- Luca is still hardcoded around a Sofia / `acc_001` CSV-backed dataset.
 - It has no tests yet.
 - `learner_agent.py` is empty.
 - It contains committed `__pycache__` files that should be cleaned before merging.
-- It uses `ChatAnthropic` throughout, so `ANTHROPIC_API_KEY` is required as written.
+- It uses `ChatAnthropic` for most subagents/web/daily recap and `ChatOpenAI` for the router, so `ANTHROPIC_API_KEY` and `OPENAI_API_KEY` are required as written.
 - It could be edited to use other providers such as OpenAI, OpenRouter, or Ollama, but that provider abstraction is not implemented yet.
 - The README calls Firecrawl optional, but `tools/web_search.py` creates `FirecrawlApp(api_key=os.environ["FIRECRAWL_API_KEY"])` at import time, so the full app likely needs `FIRECRAWL_API_KEY` to start unless web tools are refactored/lazily loaded.
+- `luca/api.py` tries to load `env.env`, while `luca/model.py` loads `.env`; verify env loading before demo day.
+
+Current `nora-mobile` connection:
+
+- `nora-mobile/server.js` calls Luca web research at `LUCA_URL` default `http://localhost:8001`.
+- `nora-mobile/server.js` calls Luca banking/investment/daily recap API at `LUCA_API_URL` default `http://localhost:8000`.
+- `trip_research` and `price_research` produce UI cards from Luca web research.
+- `banking` and `investment` proxy the latest user message into Luca `/chat`; banking can return a `banking_confirm` card and is confirmed through `/api/nora/confirm`.
+- `daily-recap` is fetched once on chat mount and shown if Luca API is running.
+- `start-demo.ps1` launches `nora-mobile` on port 3001, Luca web research on 8001, and Luca agent API on 8000. `-Minimal` runs only Nora mobile; `-NoAgent` runs Nora mobile plus web research only.
 
 Recommendation:
 
-- Do not merge Luca into `main` blindly. Keep it on the feature branch until the teammate confirms it is ready.
-- For Nora's final demo, consider extracting only useful ideas: resource/web lookup, market lookup, CSV fake-bank patterns, or confirmation-flow ideas.
-- Avoid confusing the repo with two competing architectures unless the team intentionally wants multiple prototype systems.
+- Do not present Luca as fully merged/canonical until the team validates the flows end to end.
+- Before committing, clean or ignore `__pycache__` files and confirm whether the generated CSV state should be committed.
+- For the final demo, decide whether Luca-powered real price lookup / investment lookup / banking confirmation are part of the main story or optional side demos.
 
 ## Memory Architecture Decision
 
@@ -127,7 +140,7 @@ Current demo-first priorities:
 
 - **Nora personality and prompt separateness** — nora-mobile runs its own stripped-down `NORA_BASE` (~16 lines, "No exclamation marks") from `nora-mobile/agents/prompts.js`. The canonical Cheerful Money Friend persona in `agent/system_prompt.md` (622 lines) is not used by the mobile demo. The mobile sub-agents (`PLAN_BUILDER_SYSTEM`, `EXPENSE_REVIEW_SYSTEM`, `EDUCATION_RISK_SYSTEM`, `ACTION_APPROVAL_SYSTEM`) are also separate JS strings — the canonical agent/subagents/*.md files are only used by the offline simulation tests. Decision needed: (a) keep mobile deliberately sparse as a "polished bank-native copilot" divergence, or (b) port the canonical voice/tone rules into mobile prompts.js. Close the open-question note under "Open Decisions" once decided.
 
-- **Luca as HTTP service** — Decided 2026-05-28. Luca will run as a standalone Python/LangGraph HTTP server alongside nora-mobile. It owns its own `ANTHROPIC_API_KEY` and `FIRECRAWL_API_KEY`, runs its own graph, and returns a result payload to Nora's orchestrator. Nora-mobile adds a new sub-agent (e.g. `external_research`) that POSTs to the local Luca endpoint and surfaces the response as a card. No shared state, no code merging. Next steps: (1) add a `POST /query` HTTP endpoint to Luca's `main.py`, (2) register `external_research` in nora-mobile's `SUBAGENTS` map and `runSubAgent`, (3) add invocation rules to `NORA_ORCHESTRATOR_SYSTEM` so Nora knows when to call it (web prices, live market data, affordability + web research combos).
+- **Luca integration validation** — Updated 2026-05-30. Luca now has HTTP endpoints and `nora-mobile` has proxy calls for trip research, price research, banking, investment, and daily recap. Pending decision is no longer "add HTTP integration"; it is "validate, polish, and decide which Luca-backed flows belong in the final demo story."
 
 ## Open Decisions / Final Demo Reminders
 
@@ -142,6 +155,14 @@ Current demo-first priorities:
 - Future perspective is implemented as a demo moment, not a full subsystem: trigger when the user faces a tradeoff, approves a habit, or asks what the choice changes over time. Use it sparingly and keep it as a decision lens.
 
 ## Latest Implementation Notes
+
+2026-05-30 demo failure fixes:
+
+- Capped Luca web research token usage: `luca/tools/web_search.py` now limits search results to 3 and truncates scraped pages to compact price-relevant text; `luca/server.py` also caps the final synthesis input. This is meant to prevent Toyota Yaris / Lisbon style Anthropic context and TPM failures during the demo.
+- `nora-mobile/public/nora-screens.jsx` now hides raw provider errors in trip/price research cards and shows short user-facing fallback text instead of JSON blobs, request IDs, rate-limit URLs, or token-limit internals.
+- `luca/agents/bank_automation.py` now formats successful write results into user-facing confirmations instead of returning raw CSV dictionaries after actions like transfers or loan requests.
+- Luca banking now supports card blocking/unblocking through `update_card` in `WRITING_TOOLS`, matching the UI/orchestrator behavior instead of saying card management is unavailable while still offering a confirm chip.
+- Loan request prompting was softened: the banking agent should ask for practical customer choices such as purpose and repayment period/monthly comfort, while using demo estimates for backend-only fields when needed.
 
 2026-05-25 education resources pass:
 
@@ -213,6 +234,53 @@ Current demo-first priorities:
 - Added a narrow server-side message normalizer so if Nora says a near-miss euro/monthly amount while an expense review card is present, or while a previous expense review amount is carried in `sessionState.lastExpenseReview`, the visible text is corrected to the card's monthly room amount. The normalizer handles common variants such as `€151`, `151 euros`, `151 EUR`, `151€`, and `151/month`.
 - Fixed follow-up turns by sending the latest displayed expense review monthly amount from the frontend session state back to the server. Without this, Nora could say `151` on a later turn because the server only saw `[rendered expense_review card]`, not the original `152` value.
 - No first-reply, tone, prompt-opening, or goal-plan behavior was changed in this pass.
+
+2026-05-30 nora-mobile Daily Brief demo-control pass:
+
+- Confirmed Snapshot/Insights remains part of the canonical/offline agent stack, not wired into `nora-mobile` in this pass.
+- Changed the Luca-backed Daily Brief into an explicit demo-control feature: hidden by default, no chat-mount auto-fetch, and no background regeneration/scraping.
+- Added Tweaks controls for `Show daily brief`, `Load saved brief`, and `Refresh brief`; loading reads the saved brief, refreshing intentionally calls Luca regeneration.
+- Changed mobile and Luca daily recap GET routes to read-only behavior; refresh now goes through explicit POST `/api/nora/run-daily-recap`.
+- Disabled Luca's background daily recap scheduler and changed saved brief loading so stale cached briefs can still display with stale/cached status.
+- Default mobile density is now compact and the Density Tweaks control was removed.
+
+2026-05-30 Luca loan confirmation fix:
+
+- Confirmed Luca is currently a single-account prototype: banking, investment, analyst, and daily brief tools read/write `acc_001`, and the Luca router still loads the `("Sofia", "Profile")` store namespace.
+- This means selecting another profile in `nora-mobile` changes the mobile Nora/profile context, but Luca-backed workflows still use Sofia/`acc_001` data until an account-context refactor is done.
+- Fixed loan confirmation failure where the banking agent could propose `create_loan_request` with a repayment period but no `monthly_amount`; the database tool now estimates monthly payment from loan amount, interest, and start/end dates when `monthly_amount` is missing.
+
+2026-05-30 nora-mobile banking confirmation lifecycle fix:
+
+- Fixed a mobile UI bug where Luca banking confirmation cards became clickable again after leaving chat for a tab and returning.
+- Banking confirmation state now lives in `ScreenChat` instead of inside the card component, so answered confirmations remain confirmed/cancelled/processing across tab switches.
+- Confirmation clicks no longer append a fake user bubble saying `Confirm` or `Cancel`; only Nora's resulting banking response is added to the chat.
+
+## New Demo To-Do / Notes
+
+- Education should play a larger role in ordinary chat, not only showcase: Nora should more often ask whether the user wants a short explanation that helps with the current topic, and should casually suggest resources when relevant.
+- Expense/spending intelligence feels too shallow. The agent should have richer transaction context available, not only store/category labels; include numbers, category totals, recurring patterns, examples, and merchant-level summaries.
+- For the interactive demo, likely stick with Sofia for Luca-backed flows because Luca currently uses Sofia/`acc_001` data. If profile switching remains visible, make clear or technically ensure what happens when a non-Sofia profile is selected.
+- Check whether `nora-mobile` synthetic profile data and Luca `acc_001` transaction/loan/goal data match well enough for the demo. If not, either align Sofia's data or avoid mixing profile modes with Luca features.
+- Consider using Luca data/tools to enrich the mobile spending explanation and interactive demo data access.
+- Possibly revise the Daily Brief card if time remains; it is secondary polish after core chat/confirmation/data consistency.
+
+2026-05-30 nora-mobile education + investment presence pass:
+
+- Added light investment-pathway behavior to the mobile demo without creating a new readiness card or investment action draft.
+- Expense review cards can now include an `investmentBridge` when there is enough monthly room: most money toward the current goal/buffer, with a smaller future fund habit once short-term money is protected.
+- The Spending tab can show a compact `Possible path` split such as `EUR 100 goal · EUR 50 future funds`.
+- Nora's orchestration prompt now treats beginner investing as funds/monthly fund habit education, not stock-picking or live market lookup.
+- Luca `investment` remains for explicit stock/ETF/crypto/portfolio/current-market research only.
+- Education is allowed to appear more often through soft nudges or cards/resources, but with guardrails so banking confirmations and execution flows stay focused.
+
+2026-05-30 data-mode decision / next consideration:
+
+- For the interactive demo, prefer Sofia/Luca as the detailed bank-data mode because Luca tools currently use Sofia/`acc_001`.
+- Keep showcase and other synthetic profiles separate unless a later account-context refactor maps each profile to its own Luca account data.
+- Avoid silently mixing Emma/Aino/etc. profile copy with Sofia/Luca transactions, loans, banking actions, or daily brief.
+- Recommended future demo controls: label modes clearly as `Sofia · detailed bank data`, `Synthetic profile`, and `Showcase · scripted`.
+- Rich expense work should use Luca data deterministically for Sofia first: category totals, merchant names, transaction counts, recurring subscriptions, recent/largest examples, loans, and goal contributions.
 
 2026-05-19 loans education pass:
 

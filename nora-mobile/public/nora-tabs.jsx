@@ -863,6 +863,7 @@ function FullExpenseCard({ data, createdAt }) {
   const items = data.items || [];
   const weeklyRoom = Number(data.weeklyRoom || 0);
   const monthlyRoom = data.monthlyRoom ?? weeklyToMonthly(weeklyRoom);
+  const bridge = data.investmentBridge;
   return (
     <InChatCard eyebrow={`Expense review · ${createdAt ? formatRelative(createdAt) : 'last 90 days'}`} vibe="balanced">
       <div style={{ padding: '16px 20px 18px' }}>
@@ -874,6 +875,23 @@ function FullExpenseCard({ data, createdAt }) {
         <div style={{ fontSize: 12, color: 'var(--fg-3)', fontWeight: 500, marginBottom: 18 }}>
           about {euroN(weeklyRoom)} / week
         </div>
+        {bridge?.futureFundsAmount > 0 && (
+          <div style={{
+            padding: '10px 12px', borderRadius: 10, background: 'var(--blue-50)',
+            border: '1px solid var(--blue-100)', marginBottom: 14,
+            display: 'flex', alignItems: 'center', gap: 10,
+          }}>
+            <div style={{ width: 28, height: 28, borderRadius: 8, background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <NIcon name="split" size={14} color={NORA_BLUE} />
+            </div>
+            <div style={{ minWidth: 0 }}>
+              <div style={{ fontSize: 11, fontWeight: 700, color: NORA_BLUE, letterSpacing: '0.04em', textTransform: 'uppercase', marginBottom: 2 }}>Possible path</div>
+              <div style={{ fontSize: 12, color: NORA_BLUE, lineHeight: 1.4, fontWeight: 500 }}>
+                {euroN(bridge.savingsAmount)} goal · {euroN(bridge.futureFundsAmount)} future funds
+              </div>
+            </div>
+          </div>
+        )}
         {items.map((row, i) => (
           <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 0', borderBottom: i < items.length - 1 ? '1px solid var(--border-1)' : 'none' }}>
             <div style={{ width: 32, height: 32, borderRadius: 8, background: 'var(--blue-50)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>

@@ -37,6 +37,19 @@ async function callNora({ messages, memory, sessionState, demoMode, profileId })
   return res.json();
 }
 
+async function callConfirm({ threadId, answer }) {
+  const res = await fetch('/api/nora/confirm', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ threadId, answer }),
+  });
+  if (!res.ok) {
+    const errText = await res.text().catch(() => '');
+    throw new Error(`Confirm API ${res.status}: ${errText.slice(0, 200)}`);
+  }
+  return res.json();
+}
+
 async function callFirstReply({ demoMode, profileId, firstReplyMode }) {
   const res = await fetch('/api/nora/first-reply', {
     method: 'POST',
@@ -61,6 +74,11 @@ function monthlyRoomFromExpenseReview(review) {
   return Math.round(Number(data.weeklyRoom || 0) * 4.33);
 }
 
+function bankingConfirmKey(data) {
+  if (data?.confirmId) return data.confirmId;
+  return `${data?.threadId || 'default'}::${data?.message || ''}`;
+}
+
 function startingChips(profile, demoMode) {
   if (demoMode === 'test_profile' && profile?.savingsGoal) {
     return [profile.savingsGoal, 'Show my spending', 'Explain investing simply', "I'm just exploring"];
@@ -75,6 +93,9 @@ const AGENT_LABELS = {
   risk_lesson:     'Education · Risk',
   action_approval: 'Action · Approval',
   trip_research:   'Trip Research',
+  price_research:  'Price Research',
+  banking:         'Banking',
+  investment:      'Investment Research',
 };
 
 // ────────────────────────────────────────────────────────────────
@@ -139,7 +160,7 @@ function ScreenWelcome({ next, profile }) {
 // ────────────────────────────────────────────────────────────────
 // SCREEN 2 — The whole agentic experience
 // ────────────────────────────────────────────────────────────────
-function ScreenChat({ prev, tweaks, profile }) {
+function ScreenChat({ prev, tweaks, profile, dailyBrief, setDailyBrief }) {
   const demoMode = tweaks.demoMode || 'scripted_emma';
   const profileId = demoMode === 'test_profile' ? tweaks.profileId : null;
   const firstReplyMode = tweaks.firstReplyMode || 'hardcoded';
@@ -155,6 +176,8 @@ function ScreenChat({ prev, tweaks, profile }) {
   const [input, setInput] = React.useState('');
   const [typing, setTyping] = React.useState(false);
   const [confirmed, setConfirmed] = React.useState(null);
+  const [bankingConfirmStatus, setBankingConfirmStatus] = React.useState({});
+  const bankingConfirmStatusRef = React.useRef({});
   const [invokedHistory, setInvokedHistory] = React.useState([]);
 
   // Tab / drawer state
@@ -173,6 +196,9 @@ function ScreenChat({ prev, tweaks, profile }) {
   // When user taps "Open in Learn" on a resource preview, store the id so
   // LearnTab can auto-open the detail screen for that resource.
   const [focusedResourceId, setFocusedResourceId] = React.useState(null);
+
+  // Banking thread id — generated once per chat session, used for interrupt confirmations
+  const [threadId] = React.useState(() => `thread_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`);
 
   const scrollRef = React.useRef(null);
 
@@ -227,8 +253,11 @@ function ScreenChat({ prev, tweaks, profile }) {
       });
 
       const sessionState = {
+        threadId,
         confirmed: !!confirmed,
         invokedSoFar: Array.from(new Set(invokedHistory.flatMap(h => h.agents))),
+        educationCount: lessons.length,
+        resourceCount: suggestedResourceIds.length + generatedResources.length,
         lastExpenseReview: expenseReviews.length
           ? { monthlyRoom: monthlyRoomFromExpenseReview(expenseReviews.at(-1)) }
           : null,
@@ -243,6 +272,15 @@ function ScreenChat({ prev, tweaks, profile }) {
         if (card.type === 'goal_plan') {
           const firstTime = !knownGoalLabels.has(card.data.label);
           return { ...card, firstTime };
+        }
+        if (card.type === 'banking_confirm') {
+          return {
+            ...card,
+            data: {
+              ...card.data,
+              confirmId: card.data?.confirmId || `banking-confirm-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+            },
+          };
         }
         return card;
       });
@@ -299,6 +337,11 @@ function ScreenChat({ prev, tweaks, profile }) {
     send('Confirm — start saving.');
   };
 
+  const setBankingStatus = (key, status) => {
+    bankingConfirmStatusRef.current = { ...bankingConfirmStatusRef.current, [key]: status };
+    setBankingConfirmStatus(bankingConfirmStatusRef.current);
+  };
+
   // Open a tab from inside the chat (clicking a preview card)
   const openTab = (tab) => {
     setActiveTab(tab);
@@ -317,6 +360,40 @@ function ScreenChat({ prev, tweaks, profile }) {
     setActiveTab('chat');
     if (typeof text === 'string') {
       setTimeout(() => send(text), 60);
+    }
+  };
+
+  // Handle Confirm/Cancel from a banking_confirm card
+  const onBankingAnswer = async (answer, cardData) => {
+    const key = bankingConfirmKey(cardData);
+    if (bankingConfirmStatusRef.current[key]) return;
+    setBankingStatus(key, answer === 'yes' ? 'processing_confirm' : 'processing_cancel');
+    setTyping(true);
+    try {
+      const result = await callConfirm({ threadId: cardData?.threadId || threadId, answer });
+      setBankingStatus(key, answer === 'yes' ? 'confirmed' : 'cancelled');
+      const resultCards = (result.cards || []).map(card => (
+        card.type === 'banking_confirm'
+          ? {
+              ...card,
+              data: {
+                ...card.data,
+                confirmId: card.data?.confirmId || `banking-confirm-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+              },
+            }
+          : card
+      ));
+      setMessages(m => [...m, {
+        from: 'nora',
+        text: result.message || '',
+        cards: resultCards,
+        invokedAgents: tweaks.showAgentTags ? (result.invokedAgents || []) : [],
+      }]);
+    } catch (err) {
+      setBankingStatus(key, 'failed');
+      setMessages(m => [...m, { from: 'nora', text: `Something went wrong: ${err.message}` }]);
+    } finally {
+      setTyping(false);
     }
   };
 
@@ -361,6 +438,16 @@ function ScreenChat({ prev, tweaks, profile }) {
             </button>
           </div>
 
+          {/* Daily brief — shown only when explicitly loaded from Tweaks */}
+          {tweaks.showDailyBrief && dailyBrief && (() => {
+            const DailyBriefCard = window.DailyBriefCard;
+            return DailyBriefCard ? (
+              <div style={{ padding: '8px 14px 0', background: 'var(--bg-page)', flexShrink: 0 }}>
+                <DailyBriefCard data={dailyBrief} onClose={() => setDailyBrief(null)} />
+              </div>
+            ) : null;
+          })()}
+
           {/* Conversation */}
           <div ref={scrollRef} className="scroll-y" style={{
             flex: 1, padding: '16px 14px 12px',
@@ -370,7 +457,9 @@ function ScreenChat({ prev, tweaks, profile }) {
             {messages.map((m, i) => (
               <Turn key={i} turn={m} density={tweaks.density} vibe={tweaks.vibe}
                     onConfirmAction={onConfirmAction} confirmed={confirmed}
-                    onOpenTab={openTab} onOpenResource={openResource} />
+                    onOpenTab={openTab} onOpenResource={openResource}
+                    onBankingAnswer={onBankingAnswer}
+                    bankingConfirmStatus={bankingConfirmStatus} />
             ))}
             {typing && <TypingBubble />}
             {!typing && suggestedReplies.length > 0 && (
@@ -427,24 +516,88 @@ function ScreenChat({ prev, tweaks, profile }) {
   );
 }
 
+// ── Card: Banking Confirmation ─────────────────────────────────────────────
+function BankingConfirmCard({ data, vibe, onAnswer, status }) {
+  const reply = (answer) => {
+    if (status) return;
+    onAnswer(answer, data);
+  };
+
+  const raw = data.message || '';
+  const bodyMatch = raw.match(/please confirm:\s*([\s\S]*?)\s*Type 'yes'/i);
+  const body = bodyMatch ? bodyMatch[1].trim() : raw;
+
+  return (
+    <InChatCard eyebrow="Action · Confirmation" vibe={vibe}>
+      <div style={{ padding: '16px 20px 18px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14, paddingBottom: 14, borderBottom: '1px solid var(--border-1)' }}>
+          <div style={{ width: 40, height: 40, borderRadius: 10, background: 'var(--blue-50)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+            <NIcon name="landmark" size={20} color={NORA_BLUE} />
+          </div>
+          <div>
+            <div style={{ fontWeight: 700, fontSize: 14, color: 'var(--fg-1)' }}>Pending action</div>
+            <div style={{ fontSize: 12, color: 'var(--fg-3)', marginTop: 2 }}>Review before confirming</div>
+          </div>
+        </div>
+        <div style={{ fontSize: 13, color: 'var(--fg-1)', lineHeight: 1.65, whiteSpace: 'pre-wrap', marginBottom: 16 }}>
+          {body}
+        </div>
+        {status ? (
+          <div style={{ fontSize: 13, color: 'var(--fg-3)', fontStyle: 'italic', textAlign: 'center' }}>
+            {status === 'confirmed' && 'Confirmed'}
+            {status === 'cancelled' && 'Cancelled'}
+            {status === 'failed' && 'Could not complete'}
+            {status?.startsWith('processing') && 'Processing…'}
+          </div>
+        ) : (
+          <div style={{ display: 'flex', gap: 10 }}>
+            <button onClick={() => reply('yes')} style={{
+              flex: 1, background: NORA_BLUE, color: '#fff', border: 0,
+              borderRadius: 10, padding: '12px 0', fontSize: 14, fontWeight: 700,
+              cursor: 'pointer', fontFamily: 'inherit',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
+            }}>
+              <NIcon name="check" size={16} color="#fff" strokeWidth={2.5} />
+              Confirm
+            </button>
+            <button onClick={() => reply('no')} style={{
+              flex: 1, background: 'transparent', color: 'var(--fg-2)',
+              border: '1.5px solid var(--border-1)', borderRadius: 10,
+              padding: '12px 0', fontSize: 14, fontWeight: 600,
+              cursor: 'pointer', fontFamily: 'inherit',
+            }}>
+              Cancel
+            </button>
+          </div>
+        )}
+      </div>
+    </InChatCard>
+  );
+}
+
 // ── Render a single turn (text bubble + any cards Nora returned) ───────────
-function Turn({ turn, density, vibe, onConfirmAction, confirmed, onOpenTab, onOpenResource }) {
+function Turn({ turn, density, vibe, onConfirmAction, confirmed, onOpenTab, onOpenResource, onBankingAnswer, bankingConfirmStatus }) {
   const agentTags = (turn.invokedAgents || []).map(name => ({
     name: AGENT_LABELS[name] || name,
     state: 'done',
   }));
 
+  const MarkdownText = window.MarkdownText;
   return (
     <>
       {turn.text && (
         <ChatBubble from={turn.from} agentTags={agentTags} density={density}>
-          {turn.text}
+          {turn.from === 'nora' && MarkdownText
+            ? <MarkdownText text={turn.text} />
+            : turn.text}
         </ChatBubble>
       )}
       {(turn.cards || []).map((card, i) => (
         <Card key={i} card={card} vibe={vibe}
               onConfirmAction={onConfirmAction} confirmed={confirmed}
-              onOpenTab={onOpenTab} onOpenResource={onOpenResource} />
+              onOpenTab={onOpenTab} onOpenResource={onOpenResource}
+              onBankingAnswer={onBankingAnswer}
+              bankingConfirmStatus={bankingConfirmStatus} />
       ))}
     </>
   );
@@ -455,7 +608,7 @@ function Turn({ turn, density, vibe, onConfirmAction, confirmed, onOpenTab, onOp
 // risk_lesson    — always compact preview (→ Learn tab)
 // expense_review — always compact preview (→ Spending tab)
 // action_approval — full card in chat (decision moment)
-function Card({ card, vibe, onConfirmAction, confirmed, onOpenTab, onOpenResource }) {
+function Card({ card, vibe, onConfirmAction, confirmed, onOpenTab, onOpenResource, onBankingAnswer, bankingConfirmStatus }) {
   if (!card?.data) return null;
   switch (card.type) {
     case 'goal_plan': {
@@ -479,9 +632,15 @@ function Card({ card, vibe, onConfirmAction, confirmed, onOpenTab, onOpenResourc
     }
     case 'trip_research':
       return <TripResearchCard data={card.data} vibe={vibe} />;
+    case 'price_research':
+      return <PriceResearchCard data={card.data} vibe={vibe} />;
     case 'action_approval':
       return <ActionApprovalCard data={card.data} vibe={vibe}
                                  onConfirm={onConfirmAction} confirmed={confirmed} />;
+    case 'banking_confirm':
+      return <BankingConfirmCard data={card.data} vibe={vibe}
+                                 onAnswer={onBankingAnswer || (() => {})}
+                                 status={bankingConfirmStatus?.[bankingConfirmKey(card.data)]} />;
     default: return null;
   }
 }
@@ -613,6 +772,20 @@ function sourceHostname(url) {
   try { return new URL(url).hostname.replace(/^www\./, ''); } catch { return url; }
 }
 
+function friendlyResearchError(error, kind = 'research') {
+  const raw = String(error || '').toLowerCase();
+  if (raw.includes('rate_limit') || raw.includes('rate limit') || raw.includes('tokens per minute')) {
+    return 'Live lookup is busy right now. Try again in a moment, or ask Nora to make a rough plan without live prices.';
+  }
+  if (raw.includes('prompt is too long') || raw.includes('maximum')) {
+    return 'Live lookup pulled in too much source material. Try a more specific version, like model year, city, or budget range.';
+  }
+  if (raw.includes('could not reach') || raw.includes('unavailable') || raw.includes('failed')) {
+    return `Live ${kind} lookup is unavailable right now. You can still ask Nora for a rough estimate or try again.`;
+  }
+  return `Live ${kind} lookup could not finish. Try again with a little more detail.`;
+}
+
 function TripResearchCard({ data, vibe }) {
   if (!data) return null;
 
@@ -624,7 +797,7 @@ function TripResearchCard({ data, vibe }) {
             <NIcon name="alert-circle" size={16} color="var(--fg-3)" />
             <span style={{ fontWeight: 600, color: 'var(--fg-1)' }}>Could not complete research</span>
           </div>
-          {data.error}
+          {friendlyResearchError(data.error, 'trip')}
         </div>
       </InChatCard>
     );
@@ -675,6 +848,121 @@ function TripResearchCard({ data, vibe }) {
                 {item.note && <div style={{ fontSize: 11, color: 'var(--fg-3)', marginTop: 1 }}>{item.note}</div>}
               </div>
               <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--fg-1)', fontVariantNumeric: 'tabular-nums lining-nums' }}>
+                {euroN(item.amount_eur)}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Source chips */}
+      {sources.length > 0 && (
+        <div style={{ padding: '0 20px 12px', display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+          {sources.slice(0, 4).map((s, i) => (
+            <span key={i} style={{
+              fontSize: 10, color: 'var(--fg-3)', background: 'var(--bg-page)',
+              padding: '3px 8px', borderRadius: 6, fontWeight: 500,
+            }}>
+              {s.title || sourceHostname(s.url)}
+            </span>
+          ))}
+        </div>
+      )}
+      <TrustNote text={data.trustNote} />
+    </InChatCard>
+  );
+}
+
+// ── Card: Price Research ──────────────────────────────────────────────────
+function priceCategoryIcon(category) {
+  const c = (category || '').toLowerCase();
+  if (c.includes('real_estate') || c.includes('apartment') || c.includes('house')) return 'home';
+  if (c.includes('car') || c.includes('vehicle')) return 'car';
+  return 'shopping-bag';
+}
+
+function PriceResearchCard({ data, vibe }) {
+  if (!data) return null;
+
+  if (data.error) {
+    return (
+      <InChatCard eyebrow="Price research" vibe={vibe}>
+        <div style={{ padding: '16px 20px', fontSize: 13, color: 'var(--fg-2)', lineHeight: 1.5 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+            <NIcon name="alert-circle" size={16} color="var(--fg-3)" />
+            <span style={{ fontWeight: 600, color: 'var(--fg-1)' }}>Could not complete research</span>
+          </div>
+          {friendlyResearchError(data.error, 'price')}
+        </div>
+      </InChatCard>
+    );
+  }
+
+  const { item = '', category = 'product', price_low_eur = 0, price_high_eur = 0, typical_eur = 0, breakdown = [], sources = [], summary = '' } = data;
+  const icon = priceCategoryIcon(category);
+  const hasRange = price_low_eur > 0 && price_high_eur > 0 && price_low_eur !== price_high_eur;
+
+  return (
+    <InChatCard eyebrow={`Price · ${item}`} vibe={vibe}>
+      {/* Header with typical price */}
+      <div style={{
+        background: `linear-gradient(135deg, #00007a 0%, ${NORA_BLUE} 100%)`,
+        color: '#fff', padding: '20px 20px 22px',
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
+          <div style={{ width: 36, height: 36, borderRadius: 10, background: 'rgba(255,255,255,0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <NIcon name={icon} size={20} color="#fff" />
+          </div>
+          <div>
+            <div style={{ fontSize: 12, opacity: 0.75, fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase' }}>
+              Typical price
+            </div>
+            <div style={{ fontSize: 14, fontWeight: 600 }}>{item}</div>
+          </div>
+        </div>
+        <MoneyDisplay value={typical_eur} size={44} color="#fff" />
+        {hasRange && (
+          <div style={{ marginTop: 10 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, opacity: 0.7, fontWeight: 500, marginBottom: 4 }}>
+              <span>{euroN(price_low_eur)}</span>
+              <span>{euroN(price_high_eur)}</span>
+            </div>
+            <div style={{ height: 6, background: 'rgba(255,255,255,0.18)', borderRadius: 999, overflow: 'hidden', position: 'relative' }}>
+              {(() => {
+                const range = price_high_eur - price_low_eur || 1;
+                const pos = ((typical_eur - price_low_eur) / range) * 100;
+                return (
+                  <>
+                    <div style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', background: 'rgba(255,255,255,0.3)', borderRadius: 999 }} />
+                    <div style={{ position: 'absolute', left: `${Math.max(0, Math.min(pos - 2, 96))}%`, top: -1, width: 8, height: 8, borderRadius: 999, background: '#fff', boxShadow: '0 1px 4px rgba(0,0,0,0.3)' }} />
+                  </>
+                );
+              })()}
+            </div>
+          </div>
+        )}
+        {summary && (
+          <div style={{ marginTop: 10, fontSize: 12, opacity: 0.85, lineHeight: 1.5 }}>{summary}</div>
+        )}
+      </div>
+
+      {/* Breakdown */}
+      {breakdown.length > 0 && (
+        <div style={{ padding: '16px 20px' }}>
+          {breakdown.map((item, i) => (
+            <div key={i} style={{
+              display: 'flex', alignItems: 'flex-start', gap: 12,
+              padding: '12px 0',
+              borderBottom: i < breakdown.length - 1 ? '1px solid var(--border-1)' : 'none',
+            }}>
+              <div style={{ width: 32, height: 32, borderRadius: 8, background: 'var(--blue-50)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                <NIcon name="receipt" size={16} color={NORA_BLUE} />
+              </div>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--fg-1)' }}>{item.category}</div>
+                {item.note && <div style={{ fontSize: 11, color: 'var(--fg-3)', marginTop: 1 }}>{item.note}</div>}
+              </div>
+              <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--fg-1)', fontVariantNumeric: 'tabular-nums lining-nums', textAlign: 'right', flexShrink: 0 }}>
                 {euroN(item.amount_eur)}
               </div>
             </div>

@@ -11,7 +11,7 @@ import db_tools as db
 
 
 BANKING_AGENT_PROMPT = """You are a banking automation agent for a personal finance system.
-You help users execute banking actions: transfers, creating savings goals, and requesting loans.
+You help users execute banking actions: transfers, creating savings goals, card controls, and requesting loans.
 
 ## CRITICAL — you cannot execute anything directly
 You have NO write tools. The ONLY way to execute an action is to call propose_action.
@@ -23,7 +23,7 @@ If you have all required information → call propose_action. That is the ONLY v
 - Update a savings goal: update_goal
 - Delete a savings goal: delete_goal
 - Submit a loan request: create_loan_request
-- Card management is read-only (block/unblock handled separately)
+- Block or unblock a card: update_card
 
 ## Your workflow
 1. GATHER — use reading tools to look up any required IDs (contacts, cards, goals)
@@ -35,7 +35,15 @@ If you have all required information → call propose_action. That is the ONLY v
 - create_goal: name, description, category (travel|electronics|emergency|event|investment), amount_goal, rule_value, rule_type (fixed_amount|percentage), deadline (YYYY-MM-DD)
 - update_goal: goal_id (required), plus any fields to change: name, description, amount_goal, deadline, status, rule_value
 - delete_goal: goal_id (required) — always look it up with get_goals first
-- create_loan_request: total_amount, interest_rate, monthly_amount, description, date_starting, date_ending
+- update_card: card_id (required), status ("blocked" or "active"). Always look up cards first if the user did not name a specific card.
+- create_loan_request: total_amount, description, and either a preferred monthly_amount OR loan period. If only a loan period is known, provide date_starting and date_ending; the tool estimates monthly_amount. If interest_rate is not given, use 5.50 as a demo estimate. If dates are not given, use today as date_starting and infer date_ending from the requested period where possible.
+
+## Loan request UX
+Do not ask the customer to provide bank-internal calculation fields all at once.
+For a loan request, prefer asking for the missing practical customer choice:
+- purpose/description
+- preferred repayment period OR comfortable monthly payment
+If the user has already provided amount, purpose, interest, monthly payment, and relative dates, convert them to concrete YYYY-MM-DD dates and call propose_action.
 
 ## Extracting parameters from conversation context
 If the conversation already contains a **Suggested savings goal** block (output by the planning agent),
@@ -58,7 +66,7 @@ Use those values verbatim to populate create_goal arguments, then call propose_a
 def propose_action(tool_name: str, tool_args: str, confirmation_message: str) -> str:
     """Call this as your FINAL step when you have ALL required information.
     This triggers a human confirmation before anything is executed.
-    tool_name: the write tool to call after confirmation (make_transaction | create_goal | update_goal | delete_goal | create_loan_request)
+    tool_name: the write tool to call after confirmation (make_transaction | create_goal | update_goal | delete_goal | update_card | create_loan_request)
     tool_args: JSON string with all arguments for that tool
     confirmation_message: clear, specific description of what will happen (shown to the user)"""
     return f"[{tool_name}] {confirmation_message} | args: {tool_args}"
@@ -69,6 +77,54 @@ llm = model.bind_tools(BANKING_TOOLS, parallel_tool_calls=False)
 
 
 _ROUTING_WORDS = {"analyst", "web", "both", "banking"}
+
+
+def _eur(value) -> str:
+    try:
+        return f"€{abs(float(value)):,.0f}".replace(",", " ")
+    except Exception:
+        return "the amount"
+
+
+def _friendly_success(tool_name: str, result: dict) -> str:
+    """Turn raw CSV rows into customer-facing confirmation text."""
+    if not isinstance(result, dict):
+        return "Done."
+
+    if tool_name == "make_transaction":
+        amount = result.get("amount")
+        counterpart = result.get("counterpart_name") or "the recipient"
+        status = result.get("status", "completed")
+        return f"Done. Sent {_eur(amount)} to {counterpart}. Status: {status}."
+
+    if tool_name == "create_loan_request":
+        amount = result.get("total_amount")
+        description = result.get("description") or "loan request"
+        monthly = result.get("monthly_amount")
+        return f"Done. Submitted a {description} loan request for {_eur(amount)} with about {_eur(monthly)} per month."
+
+    if tool_name == "update_card":
+        status = result.get("status", "updated")
+        card_type = result.get("card_type") or result.get("type") or "card"
+        masked = result.get("card_number_masked", "")
+        last4 = result.get("last4") or result.get("last_four") or result.get("card_number_last4") or masked[-4:]
+        suffix = f" ending in {last4}" if last4 else ""
+        return f"Done. Your {card_type}{suffix} is now {status}."
+
+    if tool_name == "create_goal":
+        name = result.get("name") or "savings goal"
+        amount = result.get("amount_goal")
+        return f"Done. Created the {name} goal for {_eur(amount)}."
+
+    if tool_name == "update_goal":
+        name = result.get("name") or "savings goal"
+        return f"Done. Updated {name}."
+
+    if tool_name == "delete_goal":
+        name = result.get("name") or "the savings goal"
+        return f"Done. Deleted {name}."
+
+    return "Done."
 
 
 def banking_agent(state: State, store: BaseStore):
@@ -141,7 +197,7 @@ def banking_execute(state: State, store: BaseStore):
     else:
         try:
             result = t.invoke(tool_args)
-            msg = f"Done. {result}"
+            msg = _friendly_success(tool_name, result)
             # Refresh the profile in long-term store so the updated balance is visible to all agents
             store.put(namespace, "info", db.get_profile())
         except Exception as e:

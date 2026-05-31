@@ -217,6 +217,41 @@ function normalizeExpenseAmountMentions(message = '', cards = [], sessionState =
     );
 }
 
+function formatNoraParagraphs(message = '', cards = []) {
+  const text = String(message || '').trim();
+  if (!text || text.length < 150 || /\n\s*\n/.test(text)) return text;
+  if (cards.some(card => ['action_approval', 'banking_confirm'].includes(card?.type))) return text;
+  if (/\b(failed|error|something went wrong|unable to|couldn'?t)\b/i.test(text)) return text;
+
+  const transitionPatterns = [
+    /\s+(One possible path:)/i,
+    /\s+(I also added\b)/i,
+    /\s+(I added\b)/i,
+    /\s+(Want me to\b)/i,
+    /\s+(Would you like\b)/i,
+    /\s+(Next useful choice:)/i,
+    /\s+(The next useful step\b)/i,
+    /\s+(If you want\b)/i,
+  ];
+
+  for (const pattern of transitionPatterns) {
+    const match = pattern.exec(text);
+    if (!match || match.index < 60) continue;
+    const before = text.slice(0, match.index).trim();
+    const after = text.slice(match.index).trim();
+    if (before.length < 40 || after.length < 25) continue;
+    return `${before}\n\n${after}`;
+  }
+
+  const sentences = text.match(/[^.!?]+[.!?]+(?:["')\]]+)?|[^.!?]+$/g) || [];
+  if (sentences.length < 3) return text;
+
+  const first = sentences.slice(0, 2).join('').trim();
+  const rest = sentences.slice(2).join('').trim();
+  if (first.length < 60 || rest.length < 35) return text;
+  return `${first}\n\n${rest}`;
+}
+
 function addInvestmentBridgeMention(message = '', cards = []) {
   const bridge = cards.find(card => card.type === 'expense_review')?.data?.investmentBridge;
   if (!bridge?.futureFundsAmount || !bridge?.savingsAmount) return message;
@@ -231,6 +266,51 @@ function latestUserText(messages = []) {
     if (messages[i]?.role === 'user') return String(messages[i].content || '');
   }
   return '';
+}
+
+function previousUserText(messages = []) {
+  let latestSeen = false;
+  for (let i = messages.length - 1; i >= 0; i -= 1) {
+    if (messages[i]?.role !== 'user') continue;
+    if (!latestSeen) {
+      latestSeen = true;
+      continue;
+    }
+    return String(messages[i].content || '');
+  }
+  return '';
+}
+
+function deterministicPlanningFollowup(messages = []) {
+  const latest = latestUserText(messages).trim();
+  const previous = previousUserText(messages).trim().toLowerCase();
+  if (!latest || previous !== "i'm planning something") return null;
+
+  if (/^(a\s+)?(trip|travel|holiday|vacation)$/i.test(latest)) {
+    return {
+      message: 'A trip works. Where are you thinking of going, and roughly when?',
+      suggestedReplies: ['Lisbon this summer', 'Japan next year', 'Not sure yet'],
+      memoryUpdates: ['Customer is thinking about planning a trip.'],
+    };
+  }
+
+  if (/^(a\s+)?(purchase|thing|item|product)$/i.test(latest)) {
+    return {
+      message: 'Got it. What are you thinking of buying? I can help turn it into a realistic budget.',
+      suggestedReplies: ['A laptop', 'A car', 'A phone'],
+      memoryUpdates: ['Customer is thinking about planning a purchase.'],
+    };
+  }
+
+  if (/^(a\s+)?(house|home|apartment|flat|deposit|house deposit|home deposit)$/i.test(latest)) {
+    return {
+      message: 'That is a bigger one. Are you thinking about a first deposit, moving costs, or comparing rent and buying?',
+      suggestedReplies: ['First deposit', 'Moving costs', 'Rent or buy?'],
+      memoryUpdates: ['Customer is thinking about a housing-related goal.'],
+    };
+  }
+
+  return null;
 }
 
 function isStarterPlanRequest(messages = []) {
@@ -308,10 +388,11 @@ function formatList(items = [], max = 5) {
 
 function buildLucaSpendingContextBlock(summary) {
   if (!summary?.categories?.length) return '';
+  const periodLabel = 'last month';
   const lines = [
     '<luca_spending_context>',
     'Detailed Sofia bank-data mode is active. These are deterministic facts from Luca CSV data, not guesses.',
-    `Period: ${summary.period?.label || 'latest complete month'} (${summary.period?.selection_rule || 'latest complete banking month'}).`,
+    `Period: ${periodLabel} (${summary.period?.selection_rule || 'latest complete banking month'}).`,
     `Monthly income: ${eur(summary.totals?.monthly_income)}. Monthly expenses: ${eur(summary.totals?.monthly_expenses)}.`,
     `Loan repayments: ${eur(summary.totals?.loan_repayments)} per month. Goal contributions: ${eur(summary.totals?.goal_contributions)} per month.`,
     `Reviewable spending: ${eur(summary.totals?.reviewable_spending)} per month across flexible categories.`,
@@ -359,7 +440,7 @@ function buildLucaExpenseReviewData(summary, { messages = [] } = {}) {
 
   const data = {
     source: 'luca_csv',
-    period: summary.period,
+    period: { ...(summary.period || {}), label: 'Last month' },
     weeklyRoom: monthlyToWeeklyDisplay(monthlyRoom),
     monthlyRoom,
     noraNote: first
@@ -370,7 +451,7 @@ function buildLucaExpenseReviewData(summary, { messages = [] } = {}) {
       action: `Check ${first.label.toLowerCase()} once a month and keep only what still earns its place.`,
       icon: 'calendar-check',
     } : null,
-    trustNote: `Built from your ${summary.period?.label || 'latest complete month'} spending picture: monthly categories, merchants, recurring payments, loan commitments, and goal contributions.`,
+    trustNote: 'Built from last month\'s spending picture: monthly categories, merchants, recurring payments, loan commitments, and goal contributions.',
     items: reviewable.map(c => ({
       name: c.label,
       sub: c.top_merchants?.length ? formatList(c.top_merchants) : `${c.transaction_count} transactions`,
@@ -716,10 +797,7 @@ function hardcodedFirstReply(profile) {
 }
 
 function defaultSuggestedReplies(profile) {
-  if (profile.userId !== SCRIPTED_PROFILE_ID && profile.savingsGoal) {
-    return [profile.savingsGoal, 'Show my spending', 'Explain investing simply', "I'm just exploring"];
-  }
-  return ['First apartment', 'A trip somewhere', 'Build an emergency fund', "I'm just exploring"];
+  return ['I want to save more', "I'm curious about investing", "I'm planning something"];
 }
 
 app.use(express.json({ limit: '1mb' }));
@@ -991,6 +1069,26 @@ async function runInvestment(messages, threadId) {
   const lower = text.toLowerCase();
 
   try {
+    if (/\bmy\b[\s\S]{0,30}\betfs?\b/i.test(text)
+        || /\betfs?\b[\s\S]{0,30}\b(?:own|hold|holding|portfolio|mine)\b/i.test(text)) {
+      const data = filterPortfolioByAssetType(await fetchPortfolioSummary(), 'etf');
+      return {
+        message: data.positions.length
+          ? 'Here is the ETF part of your portfolio. I would treat this as a check-in on diversification, not a signal to buy more.'
+          : 'I do not see any ETF holdings in the demo portfolio yet. I can show beginner ETF examples instead.',
+        cards: data.positions.length ? [{ type: 'portfolio_summary', data }] : [{ type: 'etf_overview', data: buildEtfOverview() }],
+      };
+    }
+
+    if (/\b(etfs?|index funds?|fund examples?|show me funds|show me etfs?)\b/i.test(text)
+        && !/\b(price|performing|trading|worth|portfolio|holdings?)\b/i.test(text)) {
+      const data = buildEtfOverview();
+      return {
+        message: data.noraSummary,
+        cards: [{ type: 'etf_overview', data }],
+      };
+    }
+
     if (/\b(portfolio|investments?|holdings?)\b/i.test(text) && !/\b(apple|aapl|nvidia|nvda|vwce|bitcoin|btc|price)\b/i.test(text)) {
       const data = await fetchPortfolioSummary();
       return {
@@ -1019,6 +1117,60 @@ async function runInvestment(messages, threadId) {
   } catch (err) {
     return { message: `Investment service unavailable: ${err.message}` };
   }
+}
+
+function filterPortfolioByAssetType(data = {}, assetType = '') {
+  const positions = (data.positions || []).filter(position =>
+    String(position.assetType || '').toLowerCase() === assetType.toLowerCase()
+  );
+  return {
+    ...data,
+    title: assetType.toLowerCase() === 'etf' ? 'ETF holdings' : data.title,
+    marketValue: _sum(positions, 'marketValue'),
+    unrealizedGain: _sum(positions, 'unrealizedGain'),
+    linkedGoalName: positions.find(p => p.linkedGoalName)?.linkedGoalName || data.linkedGoalName,
+    positions,
+    noraSummary: positions.length
+      ? `You currently have ${positions.length} ETF holding${positions.length === 1 ? '' : 's'} in this demo portfolio.`
+      : `No ${assetType} holdings found.`,
+  };
+}
+
+function _sum(rows = [], key = '') {
+  return Math.round(rows.reduce((sum, row) => sum + Number(row[key] || 0), 0) * 100) / 100;
+}
+
+function buildEtfOverview() {
+  return {
+    title: 'Beginner ETF examples',
+    noraSummary: 'Here are ETF examples to research, not a buy list. For a first investing habit, I would start with broad diversified funds before single stocks.',
+    explanation: 'The beginner shape is broad, low-maintenance, and diversified. The ticker matters less than the idea: many companies, low fees, and money you do not need soon.',
+    examples: [
+      {
+        ticker: 'VWCE.DE',
+        name: 'Vanguard FTSE All-World ETF',
+        region: 'Global',
+        style: 'Broad all-world equity ETF',
+        note: 'A common EUR-listed example for global diversification.',
+      },
+      {
+        ticker: 'EXS1.DE',
+        name: 'iShares Core DAX UCITS ETF',
+        region: 'Germany',
+        style: 'Large German companies',
+        note: 'More concentrated than a global fund.',
+      },
+      {
+        ticker: 'SPY',
+        name: 'SPDR S&P 500 ETF',
+        region: 'US',
+        style: 'Large US companies',
+        note: 'US-focused and usually USD-denominated.',
+      },
+    ],
+    nextStep: 'Pick one ticker to inspect, or keep learning the fund basics first.',
+    safetyNote: 'Educational examples only. Nora should connect any fund choice to time horizon, risk comfort, and money needed soon.',
+  };
 }
 
 function cleanInvestmentFallbackText(message = '') {
@@ -1058,6 +1210,17 @@ app.post('/api/nora/chat', async (req, res) => {
     const profile = getDemoProfile({ demoMode, profileId });
     const spendingContext = await buildSpendingContext(profile, demoMode, profileId);
     const customerContext = buildCustomerContext(profile, demoMode, spendingContext);
+
+    const planningFollowup = deterministicPlanningFollowup(messages);
+    if (planningFollowup) {
+      return res.json({
+        message: planningFollowup.message,
+        cards: [],
+        suggestedReplies: planningFollowup.suggestedReplies,
+        memoryUpdates: planningFollowup.memoryUpdates,
+        invokedAgents: [],
+      });
+    }
 
     const starterPlan = isStarterPlanRequest(messages)
       ? buildStarterPlanFromExpenseReview(sessionState)
@@ -1186,9 +1349,10 @@ app.post('/api/nora/chat', async (req, res) => {
     // Banking/investment return their own text; use it if the orchestrator only wrote a generic intro
     const rawMessage = lucaTextOverride || orchestration.message || '';
     const mentionedMessage = addInvestmentBridgeMention(ensureCardMentions(rawMessage, cards), cards);
+    const normalizedMessage = normalizeExpenseAmountMentions(mentionedMessage, cards, sessionState);
 
     res.json({
-      message: normalizeExpenseAmountMentions(mentionedMessage, cards, sessionState),
+      message: formatNoraParagraphs(normalizedMessage, cards),
       cards,
       suggestedReplies: orchestration.suggested_replies || [],
       memoryUpdates: orchestration.memory_updates || [],
@@ -1240,7 +1404,7 @@ Rules:
 
     res.json({
       message: data?.message || hardcodedFirstReply(profile),
-      suggestedReplies: Array.isArray(data?.suggested_replies) ? data.suggested_replies : defaultSuggestedReplies(profile),
+      suggestedReplies: defaultSuggestedReplies(profile),
       profile,
     });
   } catch (err) {

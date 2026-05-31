@@ -4,3 +4,4 @@ loan_002,acc_001,accepted,12000.00,4.50,220.00,2023-03-01,2028-03-01,Car loan â€
 loan_003,acc_001,requested,5000.00,6.90,95.00,,,Personal loan â€“ home renovation,EUR,0.00
 loan_004,acc_001,requested,3000.00,5.50,150.00,2026-06-27,2028-05-30,car,EUR,0.00
 loan_005,acc_001,requested,3000.00,5.50,132.29,2026-05-31,2028-05-31,Personal loan for car purchase,EUR,0.00
+loan_006,acc_001,requested,3000.00,5.50,132.29,2026-05-31,2028-05-31,Purchasing a car,EUR,0.00

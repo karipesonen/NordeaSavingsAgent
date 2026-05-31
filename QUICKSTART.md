@@ -22,7 +22,7 @@ uv run uvicorn api:app --port 8000 --reload
 I feel like investing is for people who already know what they are doing, and my budget is pretty small. I'd like to set up a monthly savings goal that works with monthly expenses. Can you show me a table of them so we know where to cut?
 
 ## Education toward investing:
-I found about EUR 150/month I could redirect from spending. I still want to save for my goal, but I also don’t want to wait forever before learning investing. How would you split this between short-term savings and eventually starting with funds? And can you explain why funds would make sense before individual stocks?
+I found about EUR 100/month I could redirect from spending. I still want to save for my goal, but I also don’t want to wait forever before learning investing. How would you split this between short-term savings and eventually starting with funds? And can you explain why funds would make sense before individual stocks?
 
 ## Expense Details: expense reasoning and merchant/category specificity:
 Should I cut spending from some habit in particular? What would be the easiest thing to remove? Any specific store or subscription should I look at first?

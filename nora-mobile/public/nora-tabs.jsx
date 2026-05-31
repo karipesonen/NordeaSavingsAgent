@@ -1013,15 +1013,26 @@ function fmtQty(value) {
   return Number.isInteger(n) ? String(n) : n.toFixed(2);
 }
 
+function formatDisplayDate(value) {
+  if (!value) return 'latest';
+  const date = new Date(`${value}T00:00:00`);
+  if (Number.isNaN(date.getTime())) return value;
+  return new Intl.DateTimeFormat('en-GB', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  }).format(date);
+}
+
 function PortfolioSummaryCard({ data }) {
   const positions = data.positions || [];
   const gainPositive = Number(data.unrealizedGain || 0) >= 0;
   return (
     <div style={{ width: 'calc(100% - 38px)', marginLeft: 38 }}>
-      <InChatCard eyebrow={`Portfolio · ${data.asOf || 'latest'}`} vibe="balanced">
+      <InChatCard eyebrow={`Portfolio · ${formatDisplayDate(data.asOf)}`} vibe="balanced">
         <div style={{ padding: '16px 20px 18px' }}>
           <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--fg-3)', letterSpacing: '0.04em', textTransform: 'uppercase', marginBottom: 12 }}>
-            Portfolio summary
+            {data.title || 'Portfolio summary'}
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 14 }}>
             <div>
@@ -1104,6 +1115,56 @@ function MarketSnapshotCard({ data }) {
             </div>
           )}
         </div>
+      </InChatCard>
+    </div>
+  );
+}
+
+function EtfOverviewCard({ data }) {
+  const examples = data.examples || [];
+  return (
+    <div style={{ width: 'calc(100% - 38px)', marginLeft: 38 }}>
+      <InChatCard eyebrow="ETF research" vibe="balanced">
+        <div style={{ padding: '16px 20px 18px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
+            <div style={{ width: 38, height: 38, borderRadius: 10, background: 'var(--blue-50)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <NIcon name="layers" size={19} color={NORA_BLUE} />
+            </div>
+            <div>
+              <div style={{ fontSize: 17, fontWeight: 750, color: 'var(--fg-1)', lineHeight: 1.2 }}>{data.title || 'ETF examples'}</div>
+              <div style={{ fontSize: 11, color: 'var(--fg-3)', fontWeight: 600, marginTop: 2 }}>Educational examples, not a buy list</div>
+            </div>
+          </div>
+
+          {data.explanation && (
+            <div style={{ fontSize: 13, lineHeight: 1.45, color: 'var(--fg-2)', marginBottom: 12 }}>
+              {data.explanation}
+            </div>
+          )}
+
+          {examples.map((row, i) => (
+            <div key={row.ticker || i} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, padding: '10px 0', borderTop: i ? '1px solid var(--border-1)' : 'none' }}>
+              <div style={{ width: 32, height: 32, borderRadius: 8, background: 'var(--blue-50)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: 1 }}>
+                <NIcon name="line-chart" size={15} color={NORA_BLUE} />
+              </div>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', gap: 8, alignItems: 'baseline' }}>
+                  <div style={{ fontSize: 13, fontWeight: 750, color: 'var(--fg-1)' }}>{row.ticker}</div>
+                  <div style={{ fontSize: 11, color: 'var(--fg-3)', fontWeight: 650 }}>{row.region}</div>
+                </div>
+                <div style={{ fontSize: 12, color: 'var(--fg-2)', lineHeight: 1.35, marginTop: 1 }}>{row.name}</div>
+                <div style={{ fontSize: 11, color: 'var(--fg-3)', lineHeight: 1.35, marginTop: 3 }}>{row.style}. {row.note}</div>
+              </div>
+            </div>
+          ))}
+
+          {data.nextStep && (
+            <div style={{ marginTop: 12, padding: '10px 12px', borderRadius: 10, background: 'var(--blue-50)', border: '1px solid var(--blue-100)', fontSize: 12, lineHeight: 1.4, color: NORA_BLUE, fontWeight: 600 }}>
+              {data.nextStep}
+            </div>
+          )}
+        </div>
+        {window.TrustNote && <window.TrustNote text={data.safetyNote} />}
       </InChatCard>
     </div>
   );
@@ -1324,7 +1385,7 @@ function MixBarSvg({ risk }) {
 Object.assign(window, {
   Drawer, GoalsTab, LearnTab, SpendingTab, MemoryTab,
   FullGoalCard, FullExpenseCard, FullLessonCard,
-  PortfolioSummaryCard, MarketSnapshotCard,
+  PortfolioSummaryCard, MarketSnapshotCard, EtfOverviewCard,
   LessonPreviewChip, ExpensePreviewChip, CompactGoalRef,
   ResourceLinkChip, ResourceCard, ResourceDetail,
 });

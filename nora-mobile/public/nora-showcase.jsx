@@ -118,14 +118,34 @@ function ScreenShowcase({ tweaks }) {
     return () => el.removeEventListener('scroll', onScroll);
   }, [transcript, activeTab]);
 
-  // ── Unpause when returning to chat tab ──────────────────────────────
-  // The scroll div re-mounts at the bottom, so resume playback
+  function chatIsAtBottom() {
+    const el = scrollRef.current;
+    if (!el) return null;
+    return el.scrollHeight - el.scrollTop - el.clientHeight < T.SCROLL_THRESHOLD;
+  }
+
+  // ── Pause while reading tabs/details; resume only from chat bottom ──
+  // Opening Learn/Spending/Goals unmounts the chat scroller. When the user
+  // returns or closes the drawer, preserve a scrolled-up pause instead of
+  // forcing auto-scroll.
   React.useEffect(() => {
-    if (activeTab === 'chat') {
-      wasPausedRef.current = true;
-      setPaused(false);
+    if (activeTab !== 'chat' || drawerOpen) {
+      setPaused(true);
+      return;
     }
-  }, [activeTab]);
+
+    const raf = requestAnimationFrame(() => {
+      const atBottom = chatIsAtBottom();
+      if (atBottom === null) return;
+      if (atBottom) {
+        wasPausedRef.current = true;
+        setPaused(false);
+      } else {
+        setPaused(true);
+      }
+    });
+    return () => cancelAnimationFrame(raf);
+  }, [activeTab, drawerOpen, transcript]);
 
   // ── Auto-scroll (only when not paused) ──────────────────────────────
   React.useEffect(() => {
@@ -381,7 +401,7 @@ function ScreenShowcase({ tweaks }) {
 
     if (TabComp) {
       const tabProps = {
-        onMenu: () => setDrawerOpen(true),
+        onMenu: () => { setPaused(true); setDrawerOpen(true); },
         onAskNora: () => setActiveTab('chat'),
       };
       let tabContent = null;
@@ -399,7 +419,7 @@ function ScreenShowcase({ tweaks }) {
               open={drawerOpen}
               onClose={() => setDrawerOpen(false)}
               activeTab={activeTab}
-              onPick={(tab) => { setActiveTab(tab); setDrawerOpen(false); }}
+              onPick={(tab) => { setPaused(true); setActiveTab(tab); setDrawerOpen(false); }}
               profile={profile}
               counts={{ goals: goals.length, lessons: lessons.length, spending: expenseReviews.length, memory: memory.length }}
             /> : null;
@@ -418,7 +438,7 @@ function ScreenShowcase({ tweaks }) {
         borderBottom: '1px solid var(--border-1)',
         background: '#fff', flexShrink: 0,
       }}>
-        <button onClick={() => setDrawerOpen(true)} style={{
+        <button onClick={() => { setPaused(true); setDrawerOpen(true); }} style={{
           width: 40, height: 40, border: 0, background: 'transparent',
           borderRadius: 999, cursor: 'pointer',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -451,8 +471,8 @@ function ScreenShowcase({ tweaks }) {
         {messages.map((m, i) => (
           <Turn key={`${convIndex}-${i}`} turn={m} density={tweaks.density} vibe={tweaks.vibe}
                 onConfirmAction={() => {}} confirmed={confirmed}
-                onOpenTab={(tab) => { setActiveTab(tab); setDrawerOpen(false); }}
-                onOpenResource={(rid) => { setFocusedResourceId(rid); setActiveTab('learn'); setDrawerOpen(false); }} />
+                onOpenTab={(tab) => { setPaused(true); setActiveTab(tab); setDrawerOpen(false); }}
+                onOpenResource={(rid) => { setPaused(true); setFocusedResourceId(rid); setActiveTab('learn'); setDrawerOpen(false); }} />
         ))}
         {typing && <TypingBubble />}
         {!typing && suggestedReplies.length > 0 && (
@@ -523,7 +543,7 @@ function ScreenShowcase({ tweaks }) {
           open={drawerOpen}
           onClose={() => setDrawerOpen(false)}
           activeTab={activeTab}
-          onPick={(tab) => { setActiveTab(tab); setDrawerOpen(false); }}
+          onPick={(tab) => { setPaused(true); setActiveTab(tab); setDrawerOpen(false); }}
           profile={profile}
           counts={{ goals: goals.length, lessons: lessons.length, spending: expenseReviews.length, memory: memory.length }}
         /> : null;

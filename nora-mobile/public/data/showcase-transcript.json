@@ -16,12 +16,12 @@
       "turns": [
         {
           "from": "user",
-          "text": "A trip to Japan",
+          "text": "I'm trying to save for a trip to Japan.",
           "pickedChip": "A trip to Japan"
         },
         {
           "from": "nora",
-          "text": "Japan is a great pick. Let me look up what a trip there actually costs right now — real flights, hotels, daily budget. This takes about 15 seconds.",
+          "text": "Japan is a great pick. I looked up realistic costs for flights, stays, and daily spending so we have a real target instead of a guess. Next useful choice: savings-first, or check whether a longer timeline opens the door to funds.",
           "cards": [
             {
               "type": "trip_research",
@@ -31,7 +31,7 @@
                 "travelers": 1,
                 "total_eur": 3200,
                 "breakdown": [
-                  { "category": "Flights", "amount_eur": 850, "note": "Round-trip Helsinki–Tokyo, economy" },
+                  { "category": "Flights", "amount_eur": 850, "note": "Round-trip Helsinki-Tokyo, economy" },
                   { "category": "Accommodation", "amount_eur": 1400, "note": "10 nights, mid-range hotel or Airbnb" },
                   { "category": "Daily expenses", "amount_eur": 950, "note": "Food, transport, activities, pocket money" }
                 ],
@@ -56,14 +56,14 @@
         },
         {
           "from": "nora",
-          "text": "Good question. The answer depends on how soon you need the money. Here's a quick explainer.",
+          "text": "Good question. This is exactly where timing matters more than excitement. I added a quick learning card. If this fits, I can build the safe version next.",
           "cards": [
             {
               "type": "risk_lesson",
               "data": {
                 "kind": "lesson",
                 "headline": "Funds or savings? It depends on time",
-                "body": "If you need the money within 18 months, a savings deposit protects your capital — no market risk. If your horizon is longer, a fund can grow more, but the value moves up and down along the way.",
+                "body": "If you need the money within 18 months, a savings deposit protects your capital. If your horizon is longer, a fund can grow more, but the value moves up and down along the way.",
                 "checkQuestion": "Emma's trip is about 14 months away. What fits best?",
                 "checkOptions": ["An equity index fund", "A capital-protected savings deposit", "Split 50/50 between both"],
                 "correctIndex": 1,
@@ -75,7 +75,7 @@
           ],
           "invokedAgents": ["risk_lesson"],
           "suggestedReplies": ["Ok, build me a plan with savings", "What if I push the trip to 2 years?"],
-          "memoryUpdates": ["Emma asked about funds vs savings. Trip is ~14 months out, so savings deposit is the right fit."]
+          "memoryUpdates": ["Emma asked about funds vs savings. Trip is around 14 months out, so capital protection matters most."]
         },
         {
           "from": "user",
@@ -84,7 +84,7 @@
         },
         {
           "from": "nora",
-          "text": "Here's a starter plan. Since the trip is under 18 months away, everything goes into a capital-protected savings deposit.",
+          "text": "Here's a starter plan. Since the trip is under 18 months away, this keeps the trip money in savings. If the pace feels okay, the next step is a confirmation card; if not, use the relaxed pace.",
           "cards": [
             {
               "type": "goal_plan",
@@ -124,7 +124,7 @@
         },
         {
           "from": "nora",
-          "text": "Here's the confirmation. Everything can be changed anytime in the app.",
+          "text": "Here's the confirmation card. Everything can be changed anytime in the app.",
           "cards": [
             {
               "type": "action_approval",
@@ -157,147 +157,163 @@
         },
         {
           "from": "nora",
-          "text": "Done. First transfer goes out Monday, and I'll check in on Sunday to see how things are going. Have a great week, Emma.",
+          "text": "Done. First transfer goes out Monday, and I'll check in on Sunday to see how the plan feels after week one.",
           "cards": [],
           "invokedAgents": [],
-          "suggestedReplies": [],
+          "suggestedReplies": ["What if I push the trip to 2 years?"],
           "memoryUpdates": ["Emma confirmed the Japan savings plan. Auto-transfer €238/month starts Monday."]
-        }
-      ]
-    },
-    {
-      "id": "aleksi_apartment",
-      "profile": {
-        "userId": "showcase_aleksi",
-        "firstName": "Aleksi",
-        "fullName": "Aleksi",
-        "tagline": "Saving for a first apartment"
-      },
-      "firstReply": {
-        "text": "Hey Aleksi — I'm Nora. I help make saving feel smaller: realistic goals, spending patterns, first investing steps, and the questions that feel too basic to ask. Want to start by setting a goal or finding room in your spending?",
-        "suggestedReplies": ["First apartment", "A trip somewhere", "Build an emergency fund", "I'm just exploring"]
-      },
-      "turns": [
+        },
         {
           "from": "user",
-          "text": "I want to buy my first apartment in about 3 years",
-          "pickedChip": "First apartment"
+          "text": "What if I push the trip to 2 years?",
+          "pickedChip": "What if I push the trip to 2 years?"
         },
         {
           "from": "nora",
-          "text": "Three years is a solid timeline. Let me check your recent spending to see where there's room to redirect toward the apartment.",
+          "text": "Then the answer gets more flexible. I added a second learning card and one resource: savings still does the heavy lifting, but a small balanced fund slice becomes reasonable if you accept some movement.",
           "cards": [
             {
-              "type": "expense_review",
+              "type": "risk_lesson",
               "data": {
-                "weeklyRoom": 142,
-                "monthlyRoom": 615,
-                "noraNote": "You have about €615 per month in areas where spending could flex without changing your lifestyle much.",
-                "reviewHabit": {
-                  "category": "Subscriptions",
-                  "action": "Glance at subscriptions once a month. Cancel only what you genuinely forgot about.",
-                  "icon": "calendar-check"
-                },
-                "trustNote": "Based on your last 12 months of transactions across 4 flexible spending categories.",
-                "items": [
-                  { "name": "Food & dining", "sub": "Takeout and restaurants", "weeklyAmount": 45, "monthlyAmount": 195, "icon": "utensils" },
-                  { "name": "Subscriptions", "sub": "Streaming, apps, gym", "weeklyAmount": 28, "monthlyAmount": 121, "icon": "tv" },
-                  { "name": "Transport", "sub": "Ride shares, fuel top-ups", "weeklyAmount": 35, "monthlyAmount": 152, "icon": "car" },
-                  { "name": "Shopping", "sub": "Clothes, electronics, misc", "weeklyAmount": 34, "monthlyAmount": 147, "icon": "shopping-bag" }
-                ]
+                "kind": "lesson",
+                "headline": "When investing enters the picture",
+                "body": "At two years, you have more time than a short trip fund, but not enough to ignore market dips. A cautious split could keep most money in savings and put a smaller part in a balanced fund.",
+                "checkQuestion": "What changes when the trip moves from 14 months to 24 months away?",
+                "checkOptions": ["All money should go into stocks", "A small fund slice can be considered", "The timeline no longer matters"],
+                "correctIndex": 1,
+                "progress": { "domain": "Funds", "status": "Started" },
+                "trustNote": "Based on moving the Japan goal from 14 months to about 24 months.",
+                "noraNote": "More time opens the investing door a little, but it does not turn trip money into stock-picking money."
               }
-            }
-          ],
-          "invokedAgents": ["expense_review"],
-          "suggestedReplies": ["Is putting money in funds safe?", "How much should I save for a deposit?", "Build me a plan"],
-          "memoryUpdates": ["Aleksi wants to buy his first apartment in about 3 years. Monthly spending has about €615 in flexible categories."]
-        },
-        {
-          "from": "user",
-          "text": "Is putting money in funds actually safe? I've heard people lose everything",
-          "pickedChip": "Is putting money in funds safe?"
-        },
-        {
-          "from": "nora",
-          "text": "That's a fair concern — and a common one. I drafted a short guide on how fund risk actually works over time. Worth a 3-minute read.",
-          "cards": [
+            },
             {
               "type": "resource_link",
               "data": {
                 "kind": "resource",
                 "resource": {
-                  "id": "generated_showcase_volatility_001",
-                  "title": "Can you actually lose everything in a fund?",
-                  "format": "explainer",
-                  "domain": "Risk Without Panic",
-                  "source": "Drafted by Nora",
-                  "summary": "A calm look at what fund risk means in practice, why time is your biggest safety net, and what history shows about 3-year horizons.",
-                  "body": "When people say they lost everything in the market, they usually mean they sold during a crash. A broadly diversified index fund has never gone to zero. Individual stocks can collapse, but a fund that holds hundreds of companies spreads that risk across the whole market.\n\nThe key factor is time. Over any single month, a stock fund might drop 5–10%. Over a year, drops of 20% have happened. But over 3 years or more, the historical odds shift strongly in your favour. Since 1990, a global index fund held for any rolling 3-year period has been positive about 90% of the time.\n\nThis is why Nora matches the product to your timeline. Under 18 months, a savings deposit protects your capital with zero market risk. Between 18 months and 4 years, a balanced mix (savings plus some funds) gives you growth potential while keeping most of the money safe. Over 4 years, equity funds make sense because you have time to ride out the dips.\n\nThe real risk is not investing at all. Inflation quietly eats savings that sit in a zero-interest account. A 3-year timeline like yours is long enough to benefit from a balanced approach, while short enough that you would not put everything in equities.\n\nNo one can guarantee returns. But understanding how risk and time interact means you can make a calm, informed choice instead of avoiding funds out of fear.",
-                  "keyTakeaways": [
-                    "Diversified index funds have never gone to zero — individual stocks have",
-                    "A 3-year horizon puts historical odds strongly in your favour",
-                    "The biggest risk for long-term savings is often doing nothing (inflation)",
-                    "Nora matches the product mix to your timeline automatically"
-                  ],
-                  "suggestedReading": [
-                    { "title": "How index funds work", "where": "Search Nordea funds or Morningstar basics" },
-                    { "title": "Historical stock market returns by holding period", "where": "Search Finanssivalvonta investor guides" }
-                  ],
-                  "estimatedMinutes": 3,
-                  "whyNora": "Aleksi asked about fund safety from a place of genuine worry. This covers the fear directly with data, not jargon.",
-                  "generated": true,
-                  "createdAt": 1748520000000
+                  "id": "money_habits_article_monthly_saving_nordea_001",
+                  "title": "Start monthly saving",
+                  "format": "article",
+                  "domain": "Money Habits",
+                  "topic": "Automatic monthly saving and monthly fund investing",
+                  "url": "https://www.nordea.fi/en/personal/our-services/savings-investments/monthly-saving.html",
+                  "source": "Nordea",
+                  "difficulty": "beginner",
+                  "estimatedMinutes": 5,
+                  "summary": "Explains regular monthly saving, automatic transfers, building a buffer first, and moving toward funds when the buffer is in place.",
+                  "whyNora": "Useful because Emma is comparing pure saving with the first possible step toward fund saving."
                 },
-                "progress": { "domain": "Risk Without Panic", "status": "Getting clearer" },
-                "trustNote": "Tailored to your question about fund safety with a 3-year horizon.",
-                "noraNote": "This covers the main fear — that you could lose everything. The short answer: with a diversified fund and a 3-year horizon, history is on your side."
+                "progress": { "domain": "Money Habits", "status": "Started" },
+                "trustNote": "Selected for the monthly-saving and beginner fund habit question.",
+                "noraNote": "This is the bank-native next read if Emma wants to understand how monthly saving can later include funds."
               }
             }
           ],
           "invokedAgents": ["risk_lesson"],
-          "suggestedReplies": ["Ok, I feel better about that. Build me a plan", "What about a balanced mix?"],
-          "memoryUpdates": ["Aleksi worried about fund safety. Nora provided a drafted explainer on volatility and time horizons."]
-        },
+          "suggestedReplies": [],
+          "memoryUpdates": ["Emma explored how extending the Japan timeline could make a small balanced fund slice possible."]
+        }
+      ]
+    },
+    {
+      "id": "sofia_spending_to_investing",
+      "profile": {
+        "userId": "showcase_sofia",
+        "firstName": "Sofia",
+        "fullName": "Sofia",
+        "tagline": "Turning spending room into an investing habit"
+      },
+      "firstReply": {
+        "text": "Hey Sofia — I'm Nora. I help make saving feel smaller: realistic goals, spending patterns, first investing steps, and the questions that feel too basic to ask. Want to start by setting a goal or finding room in your spending?",
+        "suggestedReplies": ["Find room in my spending", "Explain funds simply", "Why not stocks?", "I'm just exploring"]
+      },
+      "turns": [
         {
           "from": "user",
-          "text": "Ok, I feel better about that. Build me a plan",
-          "pickedChip": "Ok, I feel better about that. Build me a plan"
+          "text": "Find room in my spending",
+          "pickedChip": "Find room in my spending"
         },
         {
           "from": "nora",
-          "text": "Here's a plan. Since 3 years gives you enough time, I've included index funds alongside savings — the balanced approach from the guide.",
+          "text": "I looked at your May spending. Dining out at Juuri and Ravintola Nokka is the largest flexible area, and subscriptions like Netflix and HBO Max are easy to review. One possible path: EUR 70 toward the goal, EUR 30 as a future fund habit once short-term money is protected. Want me to build that into a starter plan?",
+          "cards": [
+            {
+              "type": "expense_review",
+              "data": {
+                "source": "luca_csv",
+                "period": { "label": "Last month", "from": "2025-05-01", "to": "2025-05-31" },
+                "weeklyRoom": 23,
+                "monthlyRoom": 100,
+                "noraNote": "The cleanest review areas are dining out and subscriptions.",
+                "reviewHabit": {
+                  "category": "Subscriptions",
+                  "action": "Check subscriptions once a month and keep only what still earns its place.",
+                  "icon": "calendar-check"
+                },
+                "investmentBridge": {
+                  "monthlyRoom": 100,
+                  "savingsAmount": 70,
+                  "futureFundsAmount": 30,
+                  "mode": "savings_first_with_funds_next",
+                  "noraLine": "A clean split could be about EUR 70 toward the goal and EUR 30 as a future fund habit once short-term money is protected."
+                },
+                "trustNote": "Built from last month's spending picture: monthly categories, merchants, recurring payments, loan commitments, and goal contributions.",
+                "items": [
+                  { "name": "Dining out", "sub": "Juuri, Sandro, Ravintola Nokka", "detail": "3 restaurant transactions", "weeklyAmount": 41, "monthlyAmount": 176, "redirectMonthly": 45, "icon": "utensils" },
+                  { "name": "Subscriptions", "sub": "Netflix, HBO Max, Spotify, Elisa", "detail": "5 recurring payments", "weeklyAmount": 18, "monthlyAmount": 77, "redirectMonthly": 25, "icon": "tv" },
+                  { "name": "Shopping", "sub": "Stockmann, Sokos, Verkkokauppa", "detail": "4 flexible purchases", "weeklyAmount": 44, "monthlyAmount": 190, "redirectMonthly": 20, "icon": "shopping-bag" },
+                  { "name": "Transport", "sub": "HSL, occasional taxi", "detail": "1 recurring pass plus taxis", "weeklyAmount": 14, "monthlyAmount": 60, "redirectMonthly": 10, "icon": "car" }
+                ],
+                "commitments": [
+                  { "name": "Loan repayments", "monthlyAmount": 870, "icon": "landmark" },
+                  { "name": "Goal contributions", "monthlyAmount": 770, "icon": "piggy-bank" }
+                ]
+              }
+            }
+          ],
+          "invokedAgents": ["expense_review"],
+          "suggestedReplies": ["Build me a plan", "Why funds later?", "Which subscription first?"],
+          "memoryUpdates": ["Sofia has about EUR 100/month of reviewable spending room, with a possible EUR 70 savings and EUR 30 future fund split."]
+        },
+        {
+          "from": "user",
+          "text": "Build me a plan",
+          "pickedChip": "Build me a plan"
+        },
+        {
+          "from": "nora",
+          "text": "Yes — I'll use the EUR 100/month room we just found and turn it into a starter plan: most toward savings, a smaller future fund habit for later.",
           "cards": [
             {
               "type": "goal_plan",
               "firstTime": true,
               "data": {
-                "label": "First apartment",
-                "icon": "home",
-                "targetAmount": 15000,
-                "deadline": "Jun 2029",
-                "monthsToGo": 36,
-                "monthlyTransfer": 433,
-                "mix": "50% savings · 50% index funds",
+                "label": "Starter Savings & Funds",
+                "icon": "piggy-bank",
+                "targetAmount": 3000,
+                "deadline": "Nov 2028",
+                "monthsToGo": 30,
+                "monthlyTransfer": 100,
+                "mix": "70% savings · 30% future funds",
                 "horizon": "medium",
-                "feasibility": "tight",
-                "feasibilityNote": "€433 per month is doable but leaves little flex room.",
-                "adjustmentSuggestion": "Extending to 4 years would bring this to about €303/month with more breathing room.",
+                "feasibility": "easy",
+                "feasibilityNote": "Uses the EUR 100/month room from the spending review.",
                 "altOption": {
-                  "label": "Relaxed pace",
-                  "monthlyTransfer": 303,
-                  "monthsToGo": 50,
-                  "deadline": "Aug 2030",
-                  "mix": "50% savings · 50% index funds",
-                  "tradeoff": "14 months longer at €303/month — more sustainable and still reaches your target."
+                  "label": "Gentler pace",
+                  "monthlyTransfer": 70,
+                  "monthsToGo": 43,
+                  "deadline": "Dec 2029",
+                  "mix": "100% savings deposit",
+                  "tradeoff": "Slower, but keeps investing as learning-only until the habit feels steady."
                 },
-                "trustNote": "Based on a €15,000 target over 36 months, using your estimated monthly surplus of €615.",
-                "noraNote": "Three years of steady saving builds a solid deposit."
+                "trustNote": "Based on the EUR 100/month room identified in the spending review.",
+                "noraNote": "Uses the room we just found instead of asking for a separate profile goal."
               }
             }
           ],
           "invokedAgents": ["goal_plan"],
-          "suggestedReplies": ["Looks good, let's go", "Can I do less per month?", "Why 50/50?"],
-          "memoryUpdates": ["Goal plan created: €15,000 for first apartment by Jun 2029, €433/month, 50/50 savings and index funds."]
+          "suggestedReplies": ["Looks good, let's go", "Why not all stocks?", "Make it gentler"],
+          "memoryUpdates": ["Starter plan created from spending review room: EUR 100/month split 70% savings and 30% future funds."]
         },
         {
           "from": "user",
@@ -306,23 +322,23 @@
         },
         {
           "from": "nora",
-          "text": "Here's the full summary. Take a look and confirm when ready.",
+          "text": "Here's the confirmation card. This keeps the habit small and adjustable while the investing part stays beginner-friendly.",
           "cards": [
             {
               "type": "action_approval",
               "data": {
-                "goalLabel": "First apartment",
-                "goalIcon": "home",
-                "targetSummary": "€15,000 by Jun 2029",
+                "goalLabel": "Starter Savings & Funds",
+                "goalIcon": "piggy-bank",
+                "targetSummary": "€3,000 by Nov 2028",
                 "actions": [
-                  { "label": "Open new goal", "value": "First apartment", "icon": "plus-circle" },
-                  { "label": "Monthly habit", "value": "€433 / month", "icon": "repeat" },
-                  { "label": "Round-ups", "value": "On — to this goal", "icon": "sparkles" },
-                  { "label": "Risk profile", "value": "Balanced · 50/50", "icon": "sliders" },
+                  { "label": "Open new goal", "value": "Starter Savings & Funds", "icon": "plus-circle" },
+                  { "label": "Monthly habit", "value": "€100 / month", "icon": "repeat" },
+                  { "label": "Where it lives", "value": "70% savings · 30% future funds", "icon": "layers" },
+                  { "label": "Review spending", "value": "Subscriptions monthly", "icon": "calendar-check" },
                   { "label": "Check-ins", "value": "Sundays, in chat", "icon": "message-circle" }
                 ],
-                "reassurance": "You can pause transfers, change the mix, or withdraw anytime. Nothing is locked.",
-                "trustNote": "Reflects the plan above — €433/month, 50/50 savings and index funds over 36 months.",
+                "reassurance": "You can pause, adjust the split, or keep the fund part learning-only until you are ready.",
+                "trustNote": "Reflects the starter plan above — EUR 100/month from reviewed spending room.",
                 "noraNote": "Ready when you are."
               }
             }
@@ -339,11 +355,74 @@
         },
         {
           "from": "nora",
-          "text": "You're all set. First transfer goes out Monday. I'll check in on Sunday to see how the first week went. Good luck with the apartment, Aleksi.",
+          "text": "Done. The starter habit is set, and I'll check in before the first review so it stays adjustable.",
+          "cards": [],
+          "invokedAgents": [],
+          "suggestedReplies": ["Why not all stocks?", "What would the first fund step look like?"],
+          "memoryUpdates": ["Sofia confirmed the starter savings and future funds habit at EUR 100/month."]
+        },
+        {
+          "from": "user",
+          "text": "Why not just put the full 100 into stocks?",
+          "pickedChip": "Why not all stocks?"
+        },
+        {
+          "from": "nora",
+          "text": "Because stocks are company-specific bets, and this money is partly there to build a habit. I added a learning card and one beginner resource: funds come before stock picking for most first steps. The practical move is to keep the fund line small and automatic.",
+          "cards": [
+            {
+              "type": "risk_lesson",
+              "data": {
+                "kind": "lesson",
+                "headline": "Funds before stock picking",
+                "body": "A fund spreads your money across many companies. A single stock depends on one company doing well. For a first investing habit, spreading risk matters more than trying to pick the winner.",
+                "checkQuestion": "Why does Nora start with funds before individual stocks?",
+                "checkOptions": ["Funds guarantee returns", "Funds spread company-specific risk", "Stocks are never useful"],
+                "correctIndex": 1,
+                "progress": { "domain": "Funds", "status": "Getting clearer" },
+                "trustNote": "Based on Sofia asking whether the whole EUR 100/month should go into stocks.",
+                "noraNote": "The point is not avoiding investing. The point is starting with the version that is harder to accidentally over-risk."
+              }
+            },
+            {
+              "type": "resource_link",
+              "data": {
+                "kind": "resource",
+                "resource": {
+                  "id": "funds_article_index_funds_investing_com_001",
+                  "title": "How to Invest in Index Funds: A Beginner's Guide",
+                  "format": "article",
+                  "domain": "Funds",
+                  "topic": "Index funds, diversification, and fees",
+                  "url": "https://www.investing.com/brokers/guides/trading/how-to-invest-in-index-funds-a-beginners-guide-to-diversified-investing/",
+                  "source": "Investing.com",
+                  "difficulty": "beginner",
+                  "estimatedMinutes": 8,
+                  "summary": "Explains what index funds are, why diversification and low costs matter, and what beginners should consider before choosing funds.",
+                  "whyNora": "Useful when Sofia asks why Nora starts with funds instead of individual stocks."
+                },
+                "progress": { "domain": "Funds", "status": "Getting clearer" },
+                "trustNote": "Selected for the funds-versus-stocks question.",
+                "noraNote": "This is the useful next read if Sofia wants the investing part without stock-picking energy."
+              }
+            }
+          ],
+          "invokedAgents": ["risk_lesson"],
+          "suggestedReplies": ["What would the first fund step look like?"],
+          "memoryUpdates": ["Sofia asked why not to put the full EUR 100/month into stocks. Nora explained funds as the safer beginner path."]
+        },
+        {
+          "from": "user",
+          "text": "What would the first fund step look like?",
+          "pickedChip": "What would the first fund step look like?"
+        },
+        {
+          "from": "nora",
+          "text": "It would stay small and automatic. Keep the EUR 70 savings part for the near-term goal, then use the EUR 30 line as your first fund habit once the buffer feels steady. No stock picks, no big leap — just a repeatable first step into investing.",
           "cards": [],
           "invokedAgents": [],
           "suggestedReplies": [],
-          "memoryUpdates": ["Aleksi confirmed the apartment savings plan. €433/month, 50/50 split, starts Monday."]
+          "memoryUpdates": ["Sofia asked what a first fund step would look like. Nora framed it as a small automatic EUR 30/month fund habit after short-term savings are protected."]
         }
       ]
     }

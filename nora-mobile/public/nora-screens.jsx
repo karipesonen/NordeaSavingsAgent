@@ -68,6 +68,8 @@ function hardcodedFirstReply(profile) {
   return `Hey ${firstName} — I'm Nora. I help make saving feel smaller: realistic goals, spending patterns, first investing steps, and the questions that feel too basic to ask. Want to start by setting a goal or finding room in your spending?`;
 }
 
+const STARTER_CHIPS = ['I want to save more', "I'm curious about investing", "I'm planning something"];
+
 function monthlyRoomFromExpenseReview(review) {
   const data = review?.data || {};
   if (Number.isFinite(Number(data.monthlyRoom))) return Number(data.monthlyRoom);
@@ -124,10 +126,7 @@ function latestPendingBankingConfirm(messages = [], statusByKey = {}) {
 }
 
 function startingChips(profile, demoMode) {
-  if (demoMode === 'test_profile' && profile?.savingsGoal) {
-    return [profile.savingsGoal, 'Show my spending', 'Explain investing simply', "I'm just exploring"];
-  }
-  return ['First apartment', 'A trip somewhere', 'Build an emergency fund', "I'm just exploring"];
+  return STARTER_CHIPS;
 }
 
 // Friendly labels for the orchestrator's agent ids
@@ -702,6 +701,10 @@ function Card({ card, vibe, onConfirmAction, confirmed, onOpenTab, onOpenResourc
     }
     case 'market_snapshot': {
       const Card = w('MarketSnapshotCard');
+      return <Card data={card.data} />;
+    }
+    case 'etf_overview': {
+      const Card = w('EtfOverviewCard');
       return <Card data={card.data} />;
     }
     case 'action_approval':

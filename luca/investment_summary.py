@@ -18,6 +18,8 @@ TICKER_ALIASES = {
     "BTC": "BTC-USD",
 }
 
+DEMO_AS_OF = "2026-06-01"
+
 
 def _number(value, fallback=0.0) -> float:
     try:
@@ -77,7 +79,7 @@ def _position_summary(position: dict, goal_names: dict[str, str] | None = None) 
         "marketValue": _money(quantity * current),
         "unrealizedGain": _money(gain),
         "unrealizedGainPct": _pct(gain_pct),
-        "asOf": position.get("price_date", ""),
+        "asOf": DEMO_AS_OF,
         "linkedGoalName": (goal_names or {}).get(goal_id) or None,
     }
 
@@ -90,7 +92,7 @@ def portfolio_summary(account_id: str = "acc_001") -> dict:
     unrealized_gain = sum(p["unrealizedGain"] for p in summarized)
     best = max(summarized, key=lambda p: p["unrealizedGainPct"], default=None)
     linked_goal = next((p["linkedGoalName"] for p in summarized if p.get("linkedGoalName")), None)
-    as_of = max((p.get("asOf") or "" for p in summarized), default="")
+    as_of = DEMO_AS_OF if summarized else ""
 
     nora_summary = "Your portfolio is up overall"
     if best:

@@ -142,6 +142,36 @@ async def run_daily_recap_now():
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@app.get("/spending-summary")
+async def spending_summary(account_id: str = "acc_001", period: str = "latest_complete"):
+    """Return deterministic spending facts from the local CSV ledger."""
+    from spending_summary import build_spending_summary
+    try:
+        return build_spending_summary(account_id=account_id, period=period)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/portfolio-summary")
+async def portfolio_summary_endpoint(account_id: str = "acc_001"):
+    """Return deterministic portfolio facts from local investment CSV data."""
+    from investment_summary import portfolio_summary
+    try:
+        return portfolio_summary(account_id=account_id)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/market-snapshot")
+async def market_snapshot_endpoint(ticker: str, account_id: str = "acc_001"):
+    """Return a compact market snapshot for a ticker or known asset name."""
+    from investment_summary import market_snapshot
+    try:
+        return market_snapshot(ticker=ticker, account_id=account_id)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @app.get("/health")
 async def health():
     return {"ok": True, "agents": list(ROUTING_WORDS)}

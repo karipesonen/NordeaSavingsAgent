@@ -816,6 +816,7 @@ function EmptyState({ icon, title, body, cta, onCta }) {
 
 // ── Full cards (live in their respective tabs) ─────────────────────────────
 function FullGoalCard({ data }) {
+  const monthly = goalMonthlyAmount(data);
   return (
     <InChatCard eyebrow={`Goal · ${data.label || 'Your goal'}`} vibe="balanced">
       <div style={{ background: `linear-gradient(135deg, #00007a 0%, ${NORA_BLUE} 100%)`, color: '#fff', padding: '20px 20px 22px' }}>
@@ -839,8 +840,8 @@ function FullGoalCard({ data }) {
       </div>
       <div style={{ padding: '16px 20px' }}>
         {[
-          { label: 'Auto-transfer',  value: `€${data.weeklyTransfer || 0} / week`,       sub: 'every Monday',          icon: 'repeat' },
-          { label: 'Plus round-ups', value: '~€15 / week',                                sub: 'spare change',          icon: 'sparkles' },
+          { label: 'Monthly habit',  value: `€${monthly} / month`,                        sub: 'automatic transfer',    icon: 'repeat' },
+          { label: 'Optional round-ups', value: 'On when available',                       sub: 'small extras, not counted in the plan', icon: 'sparkles' },
           { label: 'Where it lives', value: data.mix || '—',                              sub: 'low-volatility mix',    icon: 'layers' },
         ].map((row, i) => (
           <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '12px 0', borderBottom: i < 2 ? '1px solid var(--border-1)' : 'none' }}>
@@ -873,7 +874,7 @@ function FullExpenseCard({ data, createdAt }) {
           <span style={{ fontSize: 13, color: 'var(--fg-3)', fontWeight: 500 }}>/ month</span>
         </div>
         <div style={{ fontSize: 12, color: 'var(--fg-3)', fontWeight: 500, marginBottom: 18 }}>
-          about {euroN(weeklyRoom)} / week
+          from reviewable monthly categories
         </div>
         {bridge?.futureFundsAmount > 0 && (
           <div style={{
@@ -900,6 +901,9 @@ function FullExpenseCard({ data, createdAt }) {
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--fg-1)' }}>{row.name}</div>
               <div style={{ fontSize: 11, color: 'var(--fg-3)', marginTop: 1 }}>{row.sub}</div>
+              {row.detail && (
+                <div style={{ fontSize: 10.5, color: 'var(--fg-3)', marginTop: 3, fontWeight: 500 }}>{row.detail}</div>
+              )}
             </div>
             <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--fg-1)', fontVariantNumeric: 'tabular-nums lining-nums' }}>−{euroN(row.monthlyAmount ?? weeklyToMonthly(row.weeklyAmount))}/mo</div>
           </div>
@@ -1001,6 +1005,116 @@ function FullLessonCard({ data }) {
       </div>
       {window.TrustNote && <window.TrustNote text={data.trustNote} />}
     </InChatCard>
+  );
+}
+
+function fmtQty(value) {
+  const n = Number(value || 0);
+  return Number.isInteger(n) ? String(n) : n.toFixed(2);
+}
+
+function PortfolioSummaryCard({ data }) {
+  const positions = data.positions || [];
+  const gainPositive = Number(data.unrealizedGain || 0) >= 0;
+  return (
+    <div style={{ width: 'calc(100% - 38px)', marginLeft: 38 }}>
+      <InChatCard eyebrow={`Portfolio · ${data.asOf || 'latest'}`} vibe="balanced">
+        <div style={{ padding: '16px 20px 18px' }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--fg-3)', letterSpacing: '0.04em', textTransform: 'uppercase', marginBottom: 12 }}>
+            Portfolio summary
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 14 }}>
+            <div>
+              <div style={{ fontSize: 11, color: 'var(--fg-3)', fontWeight: 600, marginBottom: 2 }}>Market value</div>
+              <MoneyDisplay value={data.marketValue || 0} size={28} color="var(--fg-1)" />
+            </div>
+            <div>
+              <div style={{ fontSize: 11, color: 'var(--fg-3)', fontWeight: 600, marginBottom: 2 }}>Unrealized gain</div>
+              <div style={{ fontSize: 25, fontWeight: 750, color: gainPositive ? '#147a4a' : '#9b1c1c', lineHeight: 1.05 }}>
+                {gainPositive ? '+' : ''}{euroN(data.unrealizedGain || 0)}
+              </div>
+            </div>
+          </div>
+          {data.linkedGoalName && (
+            <div style={{ fontSize: 12, color: 'var(--fg-3)', marginBottom: 12 }}>
+              Linked goal: <strong style={{ color: 'var(--fg-2)' }}>{data.linkedGoalName}</strong>
+            </div>
+          )}
+          {positions.map((row, i) => (
+            <div key={row.ticker || i} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 0', borderTop: i ? '1px solid var(--border-1)' : 'none' }}>
+              <div style={{ width: 32, height: 32, borderRadius: 8, background: 'var(--blue-50)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                <NIcon name={row.assetType === 'etf' ? 'layers' : 'line-chart'} size={15} color={NORA_BLUE} />
+              </div>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--fg-1)' }}>{row.ticker}</div>
+                <div style={{ fontSize: 11, color: 'var(--fg-3)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                  {fmtQty(row.quantity)} shares · {row.name}
+                </div>
+              </div>
+              <div style={{ textAlign: 'right', flexShrink: 0 }}>
+                <div style={{ fontSize: 13, fontWeight: 700, color: Number(row.unrealizedGain || 0) >= 0 ? '#147a4a' : '#9b1c1c' }}>
+                  {Number(row.unrealizedGain || 0) >= 0 ? '+' : ''}{euroN(row.unrealizedGain || 0)}
+                </div>
+                <div style={{ fontSize: 11, color: 'var(--fg-3)' }}>{Number(row.unrealizedGainPct || 0) >= 0 ? '+' : ''}{row.unrealizedGainPct}%</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </InChatCard>
+    </div>
+  );
+}
+
+function MarketSnapshotCard({ data }) {
+  const holding = data.userHolding;
+  return (
+    <div style={{ width: 'calc(100% - 38px)', marginLeft: 38 }}>
+      <InChatCard eyebrow="Market snapshot" vibe="balanced">
+        <div style={{ padding: '16px 20px 18px' }}>
+          <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12, marginBottom: 14 }}>
+            <div>
+              <div style={{ fontSize: 18, fontWeight: 750, color: 'var(--fg-1)' }}>{data.name || data.ticker}</div>
+              <div style={{ fontSize: 12, color: 'var(--fg-3)', fontWeight: 600 }}>{data.ticker}</div>
+            </div>
+            <div style={{ textAlign: 'right' }}>
+              <div style={{ fontSize: 25, fontWeight: 800, color: 'var(--fg-1)', lineHeight: 1.05 }}>
+                {data.price ? `${data.price} ${data.currency || ''}` : '—'}
+              </div>
+              <div style={{ fontSize: 11, color: 'var(--fg-3)', fontWeight: 600 }}>current price</div>
+            </div>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: holding ? 14 : 0 }}>
+            <Metric label="52-week low" value={data.week52Low ? `${data.week52Low}` : '—'} />
+            <Metric label="52-week high" value={data.week52High ? `${data.week52High}` : '—'} />
+            <Metric label="P/E ratio" value={data.peRatio || '—'} />
+            <Metric label="Market cap" value={data.marketCap || '—'} />
+          </div>
+          {holding && (
+            <div style={{ padding: '10px 12px', borderRadius: 10, background: 'var(--blue-50)', border: '1px solid var(--blue-100)', display: 'flex', justifyContent: 'space-between', gap: 12 }}>
+              <div>
+                <div style={{ fontSize: 11, fontWeight: 700, color: NORA_BLUE, letterSpacing: '0.04em', textTransform: 'uppercase', marginBottom: 2 }}>Your holding</div>
+                <div style={{ fontSize: 12, color: NORA_BLUE, fontWeight: 500 }}>{fmtQty(holding.quantity)} shares</div>
+              </div>
+              <div style={{ textAlign: 'right' }}>
+                <div style={{ fontSize: 13, color: NORA_BLUE, fontWeight: 750 }}>
+                  {data.currency === 'EUR' ? euroN(holding.estimatedValue || 0) : `${holding.estimatedValue} ${data.currency || ''}`}
+                </div>
+                <div style={{ fontSize: 11, color: NORA_BLUE }}>{Number(holding.unrealizedGainPct || 0) >= 0 ? '+' : ''}{holding.unrealizedGainPct}% from buy price</div>
+              </div>
+            </div>
+          )}
+        </div>
+      </InChatCard>
+    </div>
+  );
+}
+
+function Metric({ label, value }) {
+  return (
+    <div style={{ padding: '9px 10px', borderRadius: 9, background: 'var(--bg-page)', border: '1px solid var(--border-1)' }}>
+      <div style={{ fontSize: 10.5, color: 'var(--fg-3)', fontWeight: 700, letterSpacing: '0.03em', textTransform: 'uppercase', marginBottom: 2 }}>{label}</div>
+      <div style={{ fontSize: 13, color: 'var(--fg-1)', fontWeight: 700 }}>{value}</div>
+    </div>
   );
 }
 
@@ -1159,6 +1273,11 @@ function weeklyToMonthly(value) {
   return Math.round(Number(value || 0) * WEEKS_PER_MONTH);
 }
 
+function goalMonthlyAmount(data = {}) {
+  if (Number.isFinite(Number(data.monthlyTransfer))) return Math.round(Number(data.monthlyTransfer));
+  return weeklyToMonthly(data.weeklyTransfer);
+}
+
 function formatRelative(ts) {
   const diff = Date.now() - ts;
   const mins = Math.floor(diff / 60000);
@@ -1205,6 +1324,7 @@ function MixBarSvg({ risk }) {
 Object.assign(window, {
   Drawer, GoalsTab, LearnTab, SpendingTab, MemoryTab,
   FullGoalCard, FullExpenseCard, FullLessonCard,
+  PortfolioSummaryCard, MarketSnapshotCard,
   LessonPreviewChip, ExpensePreviewChip, CompactGoalRef,
   ResourceLinkChip, ResourceCard, ResourceDetail,
 });

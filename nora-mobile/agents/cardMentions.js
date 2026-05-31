@@ -34,6 +34,16 @@ const CARD_MENTION_RULES = {
     article: 'a',
     terms: ['price', 'prices', 'cost', 'costs', 'how much', 'lookup', 'research', 'current price'],
   },
+  portfolio_summary: {
+    label: 'portfolio summary',
+    article: 'a',
+    terms: ['portfolio summary', 'portfolio', 'investments', 'holdings'],
+  },
+  market_snapshot: {
+    label: 'market snapshot',
+    article: 'a',
+    terms: ['market snapshot', 'stock price', 'current price', 'trading', 'price'],
+  },
   banking_confirm: {
     label: 'confirmation',
     article: 'a',

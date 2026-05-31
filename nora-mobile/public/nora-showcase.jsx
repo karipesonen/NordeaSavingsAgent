@@ -180,6 +180,7 @@ function ScreenShowcase({ tweaks }) {
   const conv = transcript?.conversations?.[convIndex];
   const turn = conv?.turns?.[turnIndex];
   const profile = conv?.profile || { firstName: '...' };
+  const playbackPaused = paused || activeTab !== 'chat' || drawerOpen;
 
   // ── Main playback state machine ─────────────────────────────────────
   React.useEffect(() => {
@@ -187,8 +188,9 @@ function ScreenShowcase({ tweaks }) {
 
     clearTimeout(timerRef.current);
 
-    // When paused (user scrolled up), freeze playback
-    if (paused) return;
+    // Freeze playback when the user is reading away from the chat, has the
+    // drawer open, or has scrolled up in the chat history.
+    if (playbackPaused) return;
 
     // If we just resumed from pause, use a short delay instead of the
     // full timer so the next beat feels snappy after the user scrolled down.
@@ -352,7 +354,7 @@ function ScreenShowcase({ tweaks }) {
     }
 
     return () => clearTimeout(timerRef.current);
-  }, [playState, turnIndex, convIndex, transcript, paused]);
+  }, [playState, turnIndex, convIndex, transcript, playbackPaused]);
 
   // ── Render ──────────────────────────────────────────────────────────
   if (!transcript) {

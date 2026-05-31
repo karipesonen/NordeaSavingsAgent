@@ -10,7 +10,7 @@
         "tagline": "Saving for a trip to Japan"
       },
       "firstReply": {
-        "text": "Hey Emma — I'm Nora, your savings copilot. No forms, no jargon. What's on your mind today, or what are you trying to save toward?",
+        "text": "Hey Emma — I'm Nora. I help make saving feel smaller: realistic goals, spending patterns, first investing steps, and the questions that feel too basic to ask. Want to start by setting a goal or finding room in your spending?",
         "suggestedReplies": ["A trip to Japan", "First apartment", "Build an emergency fund", "I'm just exploring"]
       },
       "turns": [
@@ -95,18 +95,18 @@
                 "targetAmount": 3200,
                 "deadline": "Aug 2027",
                 "monthsToGo": 14,
-                "weeklyTransfer": 55,
+                "monthlyTransfer": 238,
                 "mix": "100% savings deposit",
                 "horizon": "short",
                 "feasibility": "workable",
-                "feasibilityNote": "€55 per week is a solid pace that leaves room for surprises.",
+                "feasibilityNote": "€238 per month is a solid pace that leaves room for surprises.",
                 "altOption": {
                   "label": "Relaxed pace",
-                  "weeklyTransfer": 35,
+                  "monthlyTransfer": 152,
                   "monthsToGo": 22,
                   "deadline": "Apr 2028",
                   "mix": "100% savings deposit",
-                  "tradeoff": "Takes 8 months longer but only €35/week — easier to sustain."
+                  "tradeoff": "Takes 8 months longer but only €152/month — easier to sustain."
                 },
                 "trustNote": "Based on a €3,200 target over 14 months with 100% capital protection.",
                 "noraNote": "Fourteen months of steady saving gets you to Tokyo."
@@ -114,8 +114,8 @@
             }
           ],
           "invokedAgents": ["goal_plan"],
-          "suggestedReplies": ["Looks good, let's set it up", "Can I do a bit less per week?"],
-          "memoryUpdates": ["Goal plan created: €3,200 for Japan trip by Aug 2027, €55/week into savings deposit."]
+          "suggestedReplies": ["Looks good, let's set it up", "Can I do a bit less per month?"],
+          "memoryUpdates": ["Goal plan created: €3,200 for Japan trip by Aug 2027, €238/month into savings deposit."]
         },
         {
           "from": "user",
@@ -134,13 +134,13 @@
                 "targetSummary": "€3,200 by Aug 2027",
                 "actions": [
                   { "label": "Open new goal", "value": "Trip to Japan", "icon": "plus-circle" },
-                  { "label": "Auto-transfer", "value": "€55 every Monday", "icon": "repeat" },
+                  { "label": "Monthly habit", "value": "€238 / month", "icon": "repeat" },
                   { "label": "Round-ups", "value": "On — to this goal", "icon": "sparkles" },
                   { "label": "Savings type", "value": "100% savings deposit", "icon": "shield-check" },
                   { "label": "Check-ins", "value": "Sundays, in chat", "icon": "message-circle" }
                 ],
                 "reassurance": "You can pause, adjust the amount, or cancel anytime — your money stays yours.",
-                "trustNote": "Reflects the savings plan you reviewed above — €55/week into a capital-protected deposit.",
+                "trustNote": "Reflects the savings plan you reviewed above — €238/month into a capital-protected deposit.",
                 "noraNote": "All set — Japan fund starts Monday."
               }
             }
@@ -161,7 +161,7 @@
           "cards": [],
           "invokedAgents": [],
           "suggestedReplies": [],
-          "memoryUpdates": ["Emma confirmed the Japan savings plan. Auto-transfer €55/week starts Monday."]
+          "memoryUpdates": ["Emma confirmed the Japan savings plan. Auto-transfer €238/month starts Monday."]
         }
       ]
     },
@@ -174,7 +174,7 @@
         "tagline": "Saving for a first apartment"
       },
       "firstReply": {
-        "text": "Hey Aleksi — I'm Nora, your savings copilot. No forms, no jargon. What are you saving toward?",
+        "text": "Hey Aleksi — I'm Nora. I help make saving feel smaller: realistic goals, spending patterns, first investing steps, and the questions that feel too basic to ask. Want to start by setting a goal or finding room in your spending?",
         "suggestedReplies": ["First apartment", "A trip somewhere", "Build an emergency fund", "I'm just exploring"]
       },
       "turns": [
@@ -276,19 +276,19 @@
                 "targetAmount": 15000,
                 "deadline": "Jun 2029",
                 "monthsToGo": 36,
-                "weeklyTransfer": 100,
+                "monthlyTransfer": 433,
                 "mix": "50% savings · 50% index funds",
                 "horizon": "medium",
                 "feasibility": "tight",
-                "feasibilityNote": "€100 per week is doable but leaves little flex room.",
-                "adjustmentSuggestion": "Extending to 4 years would bring this to €70/week with more breathing room.",
+                "feasibilityNote": "€433 per month is doable but leaves little flex room.",
+                "adjustmentSuggestion": "Extending to 4 years would bring this to about €303/month with more breathing room.",
                 "altOption": {
                   "label": "Relaxed pace",
-                  "weeklyTransfer": 70,
+                  "monthlyTransfer": 303,
                   "monthsToGo": 50,
                   "deadline": "Aug 2030",
                   "mix": "50% savings · 50% index funds",
-                  "tradeoff": "14 months longer at €70/week — more sustainable and still reaches your target."
+                  "tradeoff": "14 months longer at €303/month — more sustainable and still reaches your target."
                 },
                 "trustNote": "Based on a €15,000 target over 36 months, using your estimated monthly surplus of €615.",
                 "noraNote": "Three years of steady saving builds a solid deposit."
@@ -296,8 +296,8 @@
             }
           ],
           "invokedAgents": ["goal_plan"],
-          "suggestedReplies": ["Looks good, let's go", "Can I do less per week?", "Why 50/50?"],
-          "memoryUpdates": ["Goal plan created: €15,000 for first apartment by Jun 2029, €100/week, 50/50 savings and index funds."]
+          "suggestedReplies": ["Looks good, let's go", "Can I do less per month?", "Why 50/50?"],
+          "memoryUpdates": ["Goal plan created: €15,000 for first apartment by Jun 2029, €433/month, 50/50 savings and index funds."]
         },
         {
           "from": "user",
@@ -316,13 +316,13 @@
                 "targetSummary": "€15,000 by Jun 2029",
                 "actions": [
                   { "label": "Open new goal", "value": "First apartment", "icon": "plus-circle" },
-                  { "label": "Auto-transfer", "value": "€100 every Monday", "icon": "repeat" },
+                  { "label": "Monthly habit", "value": "€433 / month", "icon": "repeat" },
                   { "label": "Round-ups", "value": "On — to this goal", "icon": "sparkles" },
                   { "label": "Risk profile", "value": "Balanced · 50/50", "icon": "sliders" },
                   { "label": "Check-ins", "value": "Sundays, in chat", "icon": "message-circle" }
                 ],
                 "reassurance": "You can pause transfers, change the mix, or withdraw anytime. Nothing is locked.",
-                "trustNote": "Reflects the plan above — €100/week, 50/50 savings and index funds over 36 months.",
+                "trustNote": "Reflects the plan above — €433/month, 50/50 savings and index funds over 36 months.",
                 "noraNote": "Ready when you are."
               }
             }
@@ -343,7 +343,7 @@
           "cards": [],
           "invokedAgents": [],
           "suggestedReplies": [],
-          "memoryUpdates": ["Aleksi confirmed the apartment savings plan. €100/week, 50/50 split, starts Monday."]
+          "memoryUpdates": ["Aleksi confirmed the apartment savings plan. €433/month, 50/50 split, starts Monday."]
         }
       ]
     }

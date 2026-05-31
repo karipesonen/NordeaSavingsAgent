@@ -621,3 +621,4 @@ txn_690,acc_001,FI2112345600078573,Lisa,-10.00,EUR,payment,other,,,false,"Coffe,
 txn_691,acc_001,FI2100112233445522,Mom,-4.99,EUR,payment,other,,,false,,completed,2026-05-24T19:00:53Z
 txn_692,acc_001,FI2100112233445522,Mom,-20.00,EUR,payment,other,,,false,,completed,2026-05-30T17:25:01Z
 txn_693,acc_001,FI2100112233445522,Mom,-10.00,EUR,payment,other,,,false,,completed,2026-05-30T19:43:14Z
+txn_694,acc_001,FI2100112233445522,Mom,-10.00,EUR,payment,other,,,false,,completed,2026-05-31T11:17:39Z

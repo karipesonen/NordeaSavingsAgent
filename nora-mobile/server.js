@@ -23,6 +23,8 @@ const client = new OpenAI({
 
 const MODEL = process.env.AALTO_MODEL || 'RedHatAI/gemma-4-31B-it-FP8-Dynamic';
 const SCRIPTED_PROFILE_ID = 'scripted_emma';
+const SOFIA_PROFILE_ID = 'U005';
+const LUCA_SPENDING_ACCOUNT_ID = 'acc_001';
 const TEST_DATA_PATH = join(__dirname, '..', 'synthetic_data', 'generated', 'nordea_5users_2025.json');
 const WEEKS_PER_MONTH = 4.33;
 const LUCA_URL = process.env.LUCA_URL || 'http://localhost:8001';       // server.py — web research
@@ -56,8 +58,55 @@ function weeklyToMonthlyDisplay(value) {
   return Math.round(Number(value || 0) * WEEKS_PER_MONTH);
 }
 
+function monthlyToWeeklyDisplay(value) {
+  return Math.round(Number(value || 0) / WEEKS_PER_MONTH);
+}
+
 function roundToNearest(value, step = 10) {
   return Math.max(0, Math.round(Number(value || 0) / step) * step);
+}
+
+function monthlyFromPlanValue(monthlyValue, weeklyValue) {
+  const monthly = Number(monthlyValue);
+  if (Number.isFinite(monthly) && monthly > 0) return Math.round(monthly);
+  const weekly = Number(weeklyValue);
+  if (Number.isFinite(weekly) && weekly > 0) return weeklyToMonthlyDisplay(weekly);
+  return 0;
+}
+
+function enrichGoalPlanData(data = {}) {
+  const monthlyTransfer = monthlyFromPlanValue(data.monthlyTransfer, data.weeklyTransfer);
+  const altOption = data.altOption ? {
+    ...data.altOption,
+    monthlyTransfer: monthlyFromPlanValue(data.altOption.monthlyTransfer, data.altOption.weeklyTransfer),
+  } : data.altOption;
+
+  return {
+    ...data,
+    monthlyTransfer,
+    altOption,
+  };
+}
+
+function normalizeMonthlyActionText(value = '') {
+  return String(value)
+    .replace(/€\s?(\d+(?:\.\d+)?)\s*(?:\/\s*week|per week|every Monday|weekly)/gi, (_match, amount) => {
+      const monthly = weeklyToMonthlyDisplay(Number(amount));
+      return `€${monthly} / month`;
+    });
+}
+
+function enrichActionApprovalData(data = {}) {
+  return {
+    ...data,
+    actions: Array.isArray(data.actions)
+      ? data.actions.map(action => ({
+          ...action,
+          value: normalizeMonthlyActionText(action.value),
+        }))
+      : [],
+    trustNote: normalizeMonthlyActionText(data.trustNote || ''),
+  };
 }
 
 function textFromMessages(messages = []) {
@@ -175,6 +224,176 @@ function addInvestmentBridgeMention(message = '', cards = []) {
 
   const line = `One possible path: EUR ${bridge.savingsAmount} toward the goal, EUR ${bridge.futureFundsAmount} as a future fund habit once short-term money is protected.`;
   return `${message || ''}\n\n${line}`.trim();
+}
+
+function latestUserText(messages = []) {
+  for (let i = messages.length - 1; i >= 0; i -= 1) {
+    if (messages[i]?.role === 'user') return String(messages[i].content || '');
+  }
+  return '';
+}
+
+function isStarterPlanRequest(messages = []) {
+  const text = latestUserText(messages).trim();
+  if (!text) return false;
+  if (/\bplan\s+(?:for|towards?|to)\s+(?!that\b|this\b|it\b)[a-z0-9]/i.test(text)) {
+    return false;
+  }
+  return /\bbuild me a plan\b/i.test(text)
+    || /\b(?:build|make|create|draft|set up)\b[\s\S]{0,40}\b(?:starter\s+)?plan\b/i.test(text)
+    || /\b(?:use|turn)\s+(?:that|this|it)\s+(?:into\s+)?(?:a\s+)?plan\b/i.test(text)
+    || /\bthat split\b/i.test(text);
+}
+
+function monthYearAfter(monthsToAdd) {
+  const date = new Date();
+  date.setMonth(date.getMonth() + Math.max(1, Number(monthsToAdd || 1)));
+  return new Intl.DateTimeFormat('en-US', { month: 'short', year: 'numeric' }).format(date);
+}
+
+function pct(part, total) {
+  if (!Number.isFinite(part) || !Number.isFinite(total) || total <= 0) return 0;
+  return Math.round((part / total) * 100);
+}
+
+function buildStarterPlanFromExpenseReview(sessionState = {}) {
+  const review = sessionState.lastExpenseReview || {};
+  const monthlyRoom = Math.round(Number(review.monthlyRoom || review.investmentBridge?.monthlyRoom || 0));
+  if (!Number.isFinite(monthlyRoom) || monthlyRoom <= 0) return null;
+
+  const bridge = review.investmentBridge || {};
+  const futureFundsAmount = Math.max(0, Math.round(Number(bridge.futureFundsAmount || 0)));
+  const savingsAmount = Math.max(0, Math.round(Number(bridge.savingsAmount || (monthlyRoom - futureFundsAmount))));
+  const targetAmount = monthlyRoom >= 80 ? 3000 : Math.max(600, monthlyRoom * 12);
+  const monthsToGo = Math.max(6, Math.ceil(targetAmount / Math.max(monthlyRoom, 1)));
+  const deadline = monthYearAfter(monthsToGo);
+  const savingsPct = futureFundsAmount > 0 ? pct(savingsAmount, monthlyRoom) : 100;
+  const fundsPct = futureFundsAmount > 0 ? Math.max(0, 100 - savingsPct) : 0;
+
+  return enrichGoalPlanData({
+    label: futureFundsAmount > 0 ? 'Starter Savings & Funds' : 'Starter Savings Habit',
+    icon: futureFundsAmount > 0 ? 'piggy-bank' : 'shield',
+    targetAmount,
+    deadline,
+    monthsToGo,
+    monthlyTransfer: monthlyRoom,
+    feasibility: monthlyRoom >= 80 ? 'workable' : 'tight',
+    feasibilityNote: `Uses the EUR ${monthlyRoom}/month room from the spending review.`,
+    adjustmentSuggestion: monthlyRoom >= 80 ? null : 'Keep this as a small starter habit until more room appears.',
+    mix: futureFundsAmount > 0
+      ? `${savingsPct}% savings · ${fundsPct}% future funds`
+      : '100% savings deposit',
+    horizon: monthsToGo <= 18 ? 'short' : monthsToGo <= 48 ? 'medium' : 'long',
+    investmentBridge: futureFundsAmount > 0
+      ? {
+          monthlyRoom,
+          savingsAmount,
+          futureFundsAmount,
+          mode: bridge.mode || 'savings_first_with_funds_next',
+        }
+      : null,
+    trustNote: `Based on the EUR ${monthlyRoom}/month room identified in the spending review.`,
+    noraNote: 'Uses the room we just found instead of asking you to pick a separate profile goal.',
+  });
+}
+
+function isSofiaDetailedProfile(profile, demoMode = 'scripted_emma', profileId = '') {
+  return demoMode === 'test_profile'
+    && (profileId === SOFIA_PROFILE_ID || profile?.userId === SOFIA_PROFILE_ID || profile?.firstName === 'Sofia');
+}
+
+function formatList(items = [], max = 5) {
+  return items.filter(Boolean).slice(0, max).join(', ');
+}
+
+function buildLucaSpendingContextBlock(summary) {
+  if (!summary?.categories?.length) return '';
+  const lines = [
+    '<luca_spending_context>',
+    'Detailed Sofia bank-data mode is active. These are deterministic facts from Luca CSV data, not guesses.',
+    `Period: ${summary.period?.label || 'latest complete month'} (${summary.period?.selection_rule || 'latest complete banking month'}).`,
+    `Monthly income: ${eur(summary.totals?.monthly_income)}. Monthly expenses: ${eur(summary.totals?.monthly_expenses)}.`,
+    `Loan repayments: ${eur(summary.totals?.loan_repayments)} per month. Goal contributions: ${eur(summary.totals?.goal_contributions)} per month.`,
+    `Reviewable spending: ${eur(summary.totals?.reviewable_spending)} per month across flexible categories.`,
+  ];
+
+  const topCategories = summary.categories
+    .filter(c => c.reviewable || ['loan_repayment', 'savings_goals', 'rent'].includes(c.key))
+    .slice(0, 7);
+  for (const c of topCategories) {
+    const merchantText = c.top_merchants?.length ? ` Top merchants: ${formatList(c.top_merchants)}.` : '';
+    const recurringText = c.recurring_count ? ` ${c.recurring_count} recurring.` : '';
+    const redirectText = c.suggested_redirect_monthly
+      ? ` Possible redirect: ${eur(c.suggested_redirect_monthly)}/month.`
+      : ' Treat as commitment/context, not an easy cut.';
+    lines.push(`${c.label}: ${eur(c.monthly_amount)}/month, ${c.transaction_count} transactions.${recurringText}${merchantText}${redirectText}`);
+  }
+
+  if (summary.largest_flexible_transactions?.length) {
+    const examples = summary.largest_flexible_transactions
+      .slice(0, 4)
+      .map(t => `${t.merchant} ${eur(t.amount)}`)
+      .join('; ');
+    lines.push(`Largest flexible examples: ${examples}.`);
+  }
+
+  lines.push('Use these exact merchant names and amounts when discussing Sofia spending. Do not invent transactions.');
+  lines.push('</luca_spending_context>');
+  return lines.join('\n');
+}
+
+function buildLucaExpenseReviewData(summary, { messages = [] } = {}) {
+  const reviewable = (summary?.categories || [])
+    .filter(c => c.reviewable && c.suggested_redirect_monthly > 0)
+    .sort((a, b) => {
+      if (a.key === 'subscriptions') return -1;
+      if (b.key === 'subscriptions') return 1;
+      return b.suggested_redirect_monthly - a.suggested_redirect_monthly;
+    })
+    .slice(0, 5);
+
+  const monthlyRoom = reviewable.reduce((sum, c) => sum + Number(c.suggested_redirect_monthly || 0), 0);
+  const subscriptions = reviewable.find(c => c.key === 'subscriptions');
+  const first = subscriptions || reviewable[0];
+  const firstMerchants = first?.top_merchants?.length ? formatList(first.top_merchants) : first?.label;
+
+  const data = {
+    source: 'luca_csv',
+    period: summary.period,
+    weeklyRoom: monthlyToWeeklyDisplay(monthlyRoom),
+    monthlyRoom,
+    noraNote: first
+      ? `The cleanest review area is ${first.label.toLowerCase()}: ${firstMerchants}.`
+      : 'I found the main monthly commitments, but no obvious flexible cut area.',
+    reviewHabit: first ? {
+      category: first.label,
+      action: `Check ${first.label.toLowerCase()} once a month and keep only what still earns its place.`,
+      icon: 'calendar-check',
+    } : null,
+    trustNote: `Built from your ${summary.period?.label || 'latest complete month'} spending picture: monthly categories, merchants, recurring payments, loan commitments, and goal contributions.`,
+    items: reviewable.map(c => ({
+      name: c.label,
+      sub: c.top_merchants?.length ? formatList(c.top_merchants) : `${c.transaction_count} transactions`,
+      detail: c.recurring_count
+        ? `${c.recurring_count} recurring payment${c.recurring_count === 1 ? '' : 's'}`
+        : `${c.transaction_count} transaction${c.transaction_count === 1 ? '' : 's'}`,
+      weeklyAmount: monthlyToWeeklyDisplay(c.monthly_amount),
+      monthlyAmount: c.monthly_amount,
+      redirectMonthly: c.suggested_redirect_monthly,
+      icon: c.icon || iconForCategory(c.label),
+    })),
+    commitments: (summary.categories || [])
+      .filter(c => ['rent', 'loan_repayment', 'savings_goals'].includes(c.key))
+      .map(c => ({
+        name: c.label,
+        monthlyAmount: c.monthly_amount,
+        icon: c.icon || iconForCategory(c.label),
+      })),
+    largestFlexibleTransactions: summary.largest_flexible_transactions || [],
+    recentExamples: summary.recent_examples || [],
+  };
+
+  return enrichExpenseReviewData(data, { messages });
 }
 
 function iconForCategory(category = '') {
@@ -432,7 +651,7 @@ function synthesizeActiveContext(messages, memory, profile) {
   return '\n\n' + lines.join('\n');
 }
 
-function buildCustomerContext(profile, demoMode = 'scripted_emma') {
+function buildCustomerContext(profile, demoMode = 'scripted_emma', spendingContext = null) {
   const today = new Date().toISOString().slice(0, 10);
   const lines = [
     '<customer_context>',
@@ -448,13 +667,19 @@ function buildCustomerContext(profile, demoMode = 'scripted_emma') {
     'Age and basic profile facts are bank-known. Do not ask for them unless missing.',
   ].filter(Boolean);
 
+  if (spendingContext?.source === 'luca_csv') {
+    lines.push('Detailed Sofia/Luca spending data is attached below. Prefer it over the synthetic profile summary for expense questions.');
+  } else if (spendingContext?.source === 'synthetic_fallback') {
+    lines.push('Sofia detailed bank-data mode was requested, but Luca spending data was unavailable. Use the fallback profile summary only.');
+  }
+
   if (profile.spending) {
     const s = profile.spending;
     lines.push(`Transactions in demo data: ${s.transactionCount} total, ${s.expenseTransactionCount} expenses, ${s.incomeTransactionCount} income entries across ${s.monthCount} months.`);
     lines.push(`Estimated monthly expenses: ${eur(s.monthlyExpenses)}. Rough monthly surplus: ${eur(s.roughMonthlySurplus)}.`);
     lines.push(`Subscriptions: about ${eur(s.subscriptionsMonthly)} per month.`);
     lines.push(`Top yearly spending categories: ${s.topCategories.map(c => `${c.name} ${eur(c.annual)}/year`).join('; ')}.`);
-    lines.push(`Expense review candidates: ${s.redirectCandidates.map(c => `${c.name} about EUR ${c.weeklyAmount}/week`).join('; ') || 'none obvious'}.`);
+    lines.push(`Expense review candidates: ${s.redirectCandidates.map(c => `${c.name} about EUR ${weeklyToMonthlyDisplay(c.weeklyAmount)}/month`).join('; ') || 'none obvious'}.`);
     if (s.topMerchants && Object.keys(s.topMerchants).length) {
       // Subscriptions first when present (recurring services give the most
       // recognizable merchant names), then the rest in whatever order the
@@ -473,15 +698,21 @@ function buildCustomerContext(profile, demoMode = 'scripted_emma') {
   }
 
   lines.push('</customer_context>');
+  if (spendingContext?.block) {
+    lines.push(spendingContext.block);
+  }
   return lines.join('\n');
 }
 
 function profileLabel(profile) {
+  if (profile.userId === SOFIA_PROFILE_ID) {
+    return `${profile.firstName} - detailed bank data`;
+  }
   return `${profile.firstName} - ${profile.savingsGoal || 'Demo profile'}`;
 }
 
 function hardcodedFirstReply(profile) {
-  return `Hey ${profile.firstName} — I'm Nora, your savings copilot. No forms, no jargon. What's on your mind today, or what are you trying to save toward?`;
+  return `Hey ${profile.firstName} — I'm Nora. I help make saving feel smaller: realistic goals, spending patterns, first investing steps, and the questions that feel too basic to ask. Want to start by setting a goal or finding room in your spending?`;
 }
 
 function defaultSuggestedReplies(profile) {
@@ -689,6 +920,53 @@ async function callLucaApi(path, body = {}, method = 'POST') {
   return res.json();
 }
 
+async function fetchLucaSpendingSummary() {
+  return callLucaApi(
+    `/spending-summary?account_id=${encodeURIComponent(LUCA_SPENDING_ACCOUNT_ID)}&period=latest_complete`,
+    {},
+    'GET'
+  );
+}
+
+async function fetchPortfolioSummary() {
+  return callLucaApi(
+    `/portfolio-summary?account_id=${encodeURIComponent(LUCA_SPENDING_ACCOUNT_ID)}`,
+    {},
+    'GET'
+  );
+}
+
+async function fetchMarketSnapshot(ticker) {
+  return callLucaApi(
+    `/market-snapshot?ticker=${encodeURIComponent(ticker)}&account_id=${encodeURIComponent(LUCA_SPENDING_ACCOUNT_ID)}`,
+    {},
+    'GET'
+  );
+}
+
+async function buildSpendingContext(profile, demoMode, profileId) {
+  if (!isSofiaDetailedProfile(profile, demoMode, profileId)) {
+    return { source: 'synthetic_profile', summary: null, block: '' };
+  }
+
+  try {
+    const summary = await fetchLucaSpendingSummary();
+    return {
+      source: 'luca_csv',
+      summary,
+      block: buildLucaSpendingContextBlock(summary),
+    };
+  } catch (err) {
+    console.warn(`Luca spending summary unavailable, falling back to synthetic profile data: ${err.message}`);
+    return {
+      source: 'synthetic_fallback',
+      summary: null,
+      block: '<luca_spending_context>\nDetailed Sofia bank-data mode was requested, but Luca spending data was unavailable. Use the synthetic profile summary fallback and do not claim exact merchant-level access.\n</luca_spending_context>',
+      error: err.message,
+    };
+  }
+}
+
 async function runBanking(messages, threadId) {
   const lastUser = [...messages].reverse().find(m => m.role === 'user');
   if (!lastUser) return { message: '', cards: [] };
@@ -709,12 +987,57 @@ async function runBanking(messages, threadId) {
 async function runInvestment(messages, threadId) {
   const lastUser = [...messages].reverse().find(m => m.role === 'user');
   if (!lastUser) return { message: '' };
+  const text = lastUser.content || '';
+  const lower = text.toLowerCase();
+
+  try {
+    if (/\b(portfolio|investments?|holdings?)\b/i.test(text) && !/\b(apple|aapl|nvidia|nvda|vwce|bitcoin|btc|price)\b/i.test(text)) {
+      const data = await fetchPortfolioSummary();
+      return {
+        message: data.noraSummary || 'Here is the clean portfolio check-in.',
+        cards: [{ type: 'portfolio_summary', data }],
+      };
+    }
+
+    const tickerMatch = text.match(/\b(AAPL|NVDA|VWCE(?:\.DE)?|BTC|BITCOIN)\b/i)
+      || (lower.includes('apple') ? ['apple', 'AAPL'] : null)
+      || (lower.includes('nvidia') ? ['nvidia', 'NVDA'] : null);
+    if (tickerMatch && /\b(price|stock|performing|trading|worth|bitcoin|btc|apple|nvidia|vwce)\b/i.test(text)) {
+      const data = await fetchMarketSnapshot(tickerMatch[1]);
+      return {
+        message: data.noraSummary || 'Here is the market snapshot.',
+        cards: [{ type: 'market_snapshot', data }],
+      };
+    }
+  } catch (err) {
+    console.warn(`Deterministic investment summary unavailable, falling back to Luca chat: ${err.message}`);
+  }
+
   try {
     const data = await callLucaApi('/chat', { message: lastUser.content, thread_id: threadId });
-    return { message: data.message || '' };
+    return { message: cleanInvestmentFallbackText(data.message || '') };
   } catch (err) {
     return { message: `Investment service unavailable: ${err.message}` };
   }
+}
+
+function cleanInvestmentFallbackText(message = '') {
+  const lines = String(message)
+    .split(/\r?\n/)
+    .map(line => line.trim())
+    .filter(line => {
+      if (!line) return false;
+      if (/^\|/.test(line)) return false;
+      if (/^\|?[-:\s|]+\|?$/.test(line)) return false;
+      return true;
+    })
+    .map(line => line.replace(/\b(goal|inv|loan)_\d+\b/gi, 'the linked goal'));
+
+  return lines
+    .slice(0, 8)
+    .join('\n')
+    .replace(/\bsolid long-term holdings?\b/gi, 'positions to review in context')
+    .trim();
 }
 
 // ── Main chat endpoint ──────────────────────────────────────────────────────
@@ -733,7 +1056,27 @@ app.post('/api/nora/chat', async (req, res) => {
 
   try {
     const profile = getDemoProfile({ demoMode, profileId });
-    const customerContext = buildCustomerContext(profile, demoMode);
+    const spendingContext = await buildSpendingContext(profile, demoMode, profileId);
+    const customerContext = buildCustomerContext(profile, demoMode, spendingContext);
+
+    const starterPlan = isStarterPlanRequest(messages)
+      ? buildStarterPlanFromExpenseReview(sessionState)
+      : null;
+    if (starterPlan) {
+      const monthlyRoom = starterPlan.monthlyTransfer;
+      const hasFundsSplit = starterPlan.investmentBridge?.futureFundsAmount > 0;
+      const message = hasFundsSplit
+        ? `Yes — I’ll use the EUR ${monthlyRoom}/month room we just found and turn it into a starter plan: most toward savings, a smaller future fund habit for later.`
+        : `Yes — I’ll use the EUR ${monthlyRoom}/month room we just found and turn it into a starter savings plan.`;
+      return res.json({
+        message: ensureCardMentions(message, [{ type: 'goal_plan', data: starterPlan }]),
+        cards: [{ type: 'goal_plan', data: starterPlan }],
+        suggestedReplies: ['Looks good, let’s go', 'Make it gentler', 'Why funds later?'],
+        memoryUpdates: [`Customer asked Nora to build a starter plan from the latest spending review room of EUR ${monthlyRoom}/month.`],
+        invokedAgents: ['goal_plan'],
+      });
+    }
+
     const memoryBlock = memory.length
       ? `\n\n<memory>\n${memory.map(m => `- ${m}`).join('\n')}\n</memory>`
       : '\n\n<memory>(none yet)</memory>';
@@ -752,6 +1095,10 @@ app.post('/api/nora/chat', async (req, res) => {
     }
     if (sessionState.lastExpenseReview?.monthlyRoom) {
       stateLines.push(`Last displayed spending review room to redirect: EUR ${sessionState.lastExpenseReview.monthlyRoom}/month. If referencing that amount, use exactly this number.`);
+      const bridge = sessionState.lastExpenseReview.investmentBridge;
+      if (bridge?.savingsAmount || bridge?.futureFundsAmount) {
+        stateLines.push(`Last displayed spending path: EUR ${bridge.savingsAmount || 0}/month toward savings and EUR ${bridge.futureFundsAmount || 0}/month as a future fund habit. If the customer asks to build a plan, use this path instead of asking them to pick a profile goal.`);
+      }
     }
     if (sessionState.educationCount || sessionState.resourceCount) {
       stateLines.push(`Education shown this session: ${Number(sessionState.educationCount || 0)} learning cards and ${Number(sessionState.resourceCount || 0)} resources.`);
@@ -804,10 +1151,23 @@ app.post('/api/nora/chat', async (req, res) => {
           if (name === 'investment') {
             const result = await runInvestment(messages, threadId);
             if (result.message) lucaTextOverride = result.message;
+            if (result.cards?.length) return result.cards[0];
             return null;
+          }
+          if (name === 'expense_review' && spendingContext?.source === 'luca_csv') {
+            return {
+              type: name,
+              data: buildLucaExpenseReviewData(spendingContext.summary, { messages }),
+            };
           }
           const data = await runSubAgent(name, messages, memory, customerContext);
           if (!data) return null;
+          if (name === 'goal_plan') {
+            return { type: name, data: enrichGoalPlanData(data) };
+          }
+          if (name === 'action_approval') {
+            return { type: name, data: enrichActionApprovalData(data) };
+          }
           // The education sub-agent can return EITHER kind="lesson" or kind="resource".
           // Reshape kind="resource" into a distinct card type so the frontend can
           // render a resource preview chip instead of the lesson card.
@@ -854,7 +1214,8 @@ app.post('/api/nora/first-reply', async (req, res) => {
   }
 
   try {
-    const customerContext = buildCustomerContext(profile, demoMode);
+    const spendingContext = await buildSpendingContext(profile, demoMode, profileId);
+    const customerContext = buildCustomerContext(profile, demoMode, spendingContext);
     const data = await llmJson({
       system: `${NORA_ORCHESTRATOR_SYSTEM}
 
@@ -900,10 +1261,19 @@ app.get('/api/resources', (req, res) => {
   res.json({ resources: RESOURCES });
 });
 
+app.get('/api/luca/spending-summary', async (req, res) => {
+  try {
+    const data = await fetchLucaSpendingSummary();
+    res.json(data);
+  } catch (err) {
+    res.status(503).json({ error: err.message });
+  }
+});
+
 // ── Demo profiles ──────────────────────────────────────────────────────────
 app.get('/api/demo-profiles', (req, res) => {
   res.json({
-    defaultProfileId: TEST_PROFILES.find(p => p.firstName === 'Emma')?.userId || TEST_PROFILES[0]?.userId || null,
+    defaultProfileId: TEST_PROFILES.find(p => p.userId === SOFIA_PROFILE_ID)?.userId || TEST_PROFILES[0]?.userId || null,
     profiles: TEST_PROFILES.map(p => ({
       userId: p.userId,
       firstName: p.firstName,
@@ -913,6 +1283,7 @@ app.get('/api/demo-profiles', (req, res) => {
       city: p.city,
       savingsGoal: p.savingsGoal,
       riskProfile: p.riskProfile,
+      detailedBankData: p.userId === SOFIA_PROFILE_ID,
     })),
   });
 });

@@ -30,19 +30,24 @@ Should I cut spending from some habit in particular? What would be the easiest t
 ## Goal Planner and active context:
 Build me a plan.
 
+## Investment Education after a plan:
+Why funds later?
+
+I've also heard a lot about investing into stocks, what do I need to know?
+
 ## Price Research and `/price-research`:
 I want to buy a Toyota Yaris, how much should I budget?
 
 ## Price Research: Product:
 I want to save for a MacBook Air M4.
 
-## Tests: Trip Research and original `/research`:
+## Trip Research and original `/research`:
 I want to go to Lisbon in the summer.
 
-## Tests: Banking Agent, contacts lookup, confirmation card, CSV write:
+## Banking Agent, contacts lookup, confirmation card, CSV write:
 Send EUR 15 to mom.
 
-## Tests: Banking Agent and card controls:
+## Banking Agent and card controls:
 Block my card.
 
 ## Loan Request: Banking Agent, loan confirmation, monthly payment estimation:

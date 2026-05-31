@@ -18,8 +18,8 @@ const DEFAULT_TWEAKS = {
   density: 'compact',
   showDailyBrief: false,
   started: false,
-  demoMode: 'scripted_emma',
-  profileId: 'U001',
+  demoMode: 'test_profile',
+  profileId: 'U005',
   firstReplyMode: 'hardcoded',
 };
 
@@ -182,7 +182,7 @@ function NoraTweaks({ tweaks, setTweak, profiles, profilesReady, dailyBriefStatu
           onChange={setDemoMode}
           options={[
             { value: 'scripted_emma', label: 'Scripted Emma' },
-            { value: 'test_profile',  label: 'Test profile' },
+            { value: 'test_profile',  label: 'Synthetic profile / Sofia data' },
             { value: 'showcase',      label: 'Showcase' },
           ]}
         />
@@ -197,7 +197,9 @@ function NoraTweaks({ tweaks, setTweak, profiles, profilesReady, dailyBriefStatu
             >
               {!profiles.length && <option value="">No profiles loaded</option>}
               {profiles.map(p => (
-                <option key={p.userId} value={p.userId}>{p.label}</option>
+                <option key={p.userId} value={p.userId}>
+                  {p.detailedBankData ? 'Sofia · detailed bank data' : p.label}
+                </option>
               ))}
             </select>
           </div>

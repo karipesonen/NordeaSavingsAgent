@@ -1,6 +1,6 @@
 # Nora Build Memory
 
-Last updated: 2026-05-28
+Last updated: 2026-05-31
 
 ## Current Product Direction
 
@@ -62,6 +62,7 @@ Current `nora-mobile` connection:
 - `banking` and `investment` proxy the latest user message into Luca `/chat`; banking can return a `banking_confirm` card and is confirmed through `/api/nora/confirm`.
 - `daily-recap` is fetched once on chat mount and shown if Luca API is running.
 - `start-demo.ps1` launches `nora-mobile` on port 3001, Luca web research on 8001, and Luca agent API on 8000. `-Minimal` runs only Nora mobile; `-NoAgent` runs Nora mobile plus web research only.
+- `nora-mobile` now has a deterministic follow-up path for "Build me a plan" after an expense review. If the latest spending card contains monthly room and a save/future-funds bridge, the backend builds a starter goal plan from that visible context instead of asking the user to pick a profile goal.
 
 Recommendation:
 
@@ -124,6 +125,7 @@ Already fixed and should not be treated as open backlog:
 - Mobile demo composer wrapping is implemented with an auto-growing textarea, Shift+Enter newlines, and wrapped multiline chat bubbles.
 - Mobile demo expense review display is monthly-first: the UI converts `weeklyRoom` and `items[].weeklyAmount` to monthly amounts while keeping weekly values as backend/subagent data.
 - Mobile demo expense-review rounding is backend-led: expense cards now include `monthlyRoom` and `items[].monthlyAmount`, and Nora's visible message normalizes near-miss euro amounts to the card's monthly source of truth.
+- Mobile demo follow-up planning is now context-bound: after an expense review with a save/future-funds bridge, a manual reply like "Build me a plan" creates a starter goal plan from the displayed monthly room instead of falling back to Sofia's profile goals.
 - Mobile demo Tweaks panel now has its own visible bottom-right `Tweaks` button; it no longer relies only on the hidden host/edit-mode protocol trigger.
 
 Current demo-first priorities:
@@ -149,12 +151,39 @@ Current demo-first priorities:
 - Keep refining Nora's language before the final demo. Current target voice is Cheerful Money Friend with receipts: friendly, lightly witty, useful, bank-safe, and not repetitive. Exclamation points are allowed sparingly on momentum lines such as "Hi, I'm Nora!", "Let's put numbers on it!", "Good call!", "Gentle it is!", and "Marked!", while empathy and risk lines stay calmer.
 - Open tone question: the team is not fully sure the cheerful personality fits the mobile demo. Consider reverting toward a simpler savings-copilot voice like: "Hey Emma — I'm Nora, your savings copilot. No forms, no jargon. What's on your mind today, or what are you trying to save toward?" This may fit better than extra cheer if the demo should feel more polished and bank-native.
 - Nora's introduction no longer literally calls herself "your cheerful money friend." Keep the underlying vibe, but describe herself in natural user-facing language: "I help make money decisions smaller and clearer: saving goals, spending patterns, first investing steps, and all the questions that feel too basic to ask. You can ask me anything anytime."
+- Current mobile hardcoded opener: "Hey [Name] — I'm Nora. I help make saving feel smaller: realistic goals, spending patterns, first investing steps, and the questions that feel too basic to ask. Want to start by setting a goal or finding room in your spending?" This replaced the older "savings copilot / no forms, no jargon" line and nudges the demo toward the goal/spending path.
 - Important voice consistency note: the first language revamp updated Nora's main prompt and offline wrapper copy, but several tool-generated text surfaces still have older/decided personas. Next copy pass should align learning cards, progress summaries, snapshots, and tool summaries with the Cheerful Money Friend voice.
 - Review goal realism. Nora should avoid plans that are technically feasible but emotionally unrealistic, such as saving EUR 30/month for a laptop over several years. It should suggest goals and timelines users are likely to keep up with, and ask whether the user is actually willing to stay patient for a slow plan.
 - Resource suggestions are now backed by `agent/resources/education_resources.json` and the deterministic `education_resource_suggestion` tool. Nora suggests one relevant resource after education progress, not during onboarding or every turn.
 - Future perspective is implemented as a demo moment, not a full subsystem: trigger when the user faces a tradeoff, approves a habit, or asks what the choice changes over time. Use it sparingly and keep it as a decision lens.
 
 ## Latest Implementation Notes
+
+2026-05-31 Sofia/Luca expense intelligence pass:
+
+- Added a deterministic Luca spending summary path for the mobile demo. `luca/api.py` now exposes read-only `GET /spending-summary`, backed by `luca/spending_summary.py`.
+- The summary uses Sofia/`acc_001` CSV data and intentionally selects the latest complete banking month with salary and recurring activity. This prevents sparse 2026 demo-write transfers from replacing the richer May 2025 expense month.
+- `nora-mobile/server.js` now uses Luca detailed spending data only when the selected mobile profile is Sofia/`U005`; other synthetic personas keep the existing JSON summary path, and Sofia falls back to synthetic data if Luca is unavailable.
+- Sofia expense review cards are now built deterministically from Luca data instead of asking the expense-review LLM to invent the first card. Cards include monthly category amounts, merchant names, recurring counts, commitments, and safe redirect amounts.
+- The Spending tab now displays optional row detail such as `5 recurring payments`, making expense review feel more bank-data-aware.
+- The interactive demo now defaults to test-profile mode with Sofia selected, and Tweaks labels Sofia as detailed bank data.
+
+2026-05-31 investment reply polish pass:
+
+- Added deterministic Luca investment summary support for the mobile demo. `luca/api.py` now exposes read-only `GET /portfolio-summary` and `GET /market-snapshot`, backed by `luca/investment_summary.py`.
+- Common investment demo prompts now bypass raw Luca investment-agent prose: portfolio checks return a `portfolio_summary` card, and direct asset price checks return a `market_snapshot` card when the ticker/asset is recognized.
+- `nora-mobile/server.js` now intercepts common portfolio/price intents before falling back to Luca `/chat`, and it cleans fallback investment prose to strip markdown tables and internal IDs.
+- `nora-mobile` now renders `PortfolioSummaryCard` and `MarketSnapshotCard` in chat, so investment replies no longer appear as broken markdown tables in a plain bubble.
+- Luca investment fallback prompt was tightened: no markdown tables, no internal IDs, and no overconfident buy/hold language.
+- Snapshot/Insights was intentionally not integrated for this pass; the fix is structured investment data + UI cards first, synthesis later if needed.
+
+2026-05-31 mobile action/expense polish pass:
+
+- Changed the detailed Sofia expense review trust note from implementation wording (`Luca CSV spending data`) to customer-facing wording: "Built from your May 2025 spending picture..."
+- Fixed the older `action_approval` confirmation button so it no longer sends `Confirm — start saving.` as a new chat message. The button now only updates the local confirmation card state, preventing the router from misreading the button text as a fresh banking/savings-goal request.
+- Added a defensive mobile confirmation guard: if confirmation-like text such as `Confirm`, `Approve`, or `Confirm — start saving` is triggered while a confirmation card is pending, the UI consumes it through the pending card instead of routing it to Nora as a new request. Confirmation-looking suggested chips are also filtered out when confirmation cards are rendered.
+- Fixed showcase autoplay pause behavior so the scripted conversation freezes whenever the user leaves the chat surface, opens the drawer, or scrolls up in chat. This prevents the demo conversation from continuing while the presenter/audience is reading an opened Spending/Learn/Goals card.
+- Converted mobile savings-plan displays to monthly-first. Goal cards now show `Monthly habit` instead of `Auto-transfer €/week`, optional round-ups no longer add a hardcoded weekly amount, alternative pace uses monthly amounts, and action confirmation text is normalized from weekly to monthly when needed. New mobile goal/expense prompts ask for monthly amounts while keeping old weekly fields as fallback compatibility.
 
 2026-05-30 demo failure fixes:
 

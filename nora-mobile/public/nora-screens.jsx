@@ -65,7 +65,7 @@ async function callFirstReply({ demoMode, profileId, firstReplyMode }) {
 
 function hardcodedFirstReply(profile) {
   const firstName = profile?.firstName || 'Emma';
-  return `Hey ${firstName} — I'm Nora, your savings copilot. No forms, no jargon. What's on your mind today, or what are you trying to save toward?`;
+  return `Hey ${firstName} — I'm Nora. I help make saving feel smaller: realistic goals, spending patterns, first investing steps, and the questions that feel too basic to ask. Want to start by setting a goal or finding room in your spending?`;
 }
 
 function monthlyRoomFromExpenseReview(review) {
@@ -74,9 +74,53 @@ function monthlyRoomFromExpenseReview(review) {
   return Math.round(Number(data.weeklyRoom || 0) * 4.33);
 }
 
+function summarizeExpenseReviewForSession(review) {
+  const data = review?.data || {};
+  if (!data) return null;
+  return {
+    monthlyRoom: monthlyRoomFromExpenseReview(review),
+    investmentBridge: data.investmentBridge || null,
+  };
+}
+
+function monthlyFromGoalPlan(data = {}) {
+  if (Number.isFinite(Number(data.monthlyTransfer))) return Math.round(Number(data.monthlyTransfer));
+  return Math.round(Number(data.weeklyTransfer || 0) * 4.33);
+}
+
 function bankingConfirmKey(data) {
   if (data?.confirmId) return data.confirmId;
   return `${data?.threadId || 'default'}::${data?.message || ''}`;
+}
+
+function isConfirmOnlyText(text = '') {
+  return /^(confirm|approve|start saving|confirm\s*(?:—|-|and)\s*start saving)\.?$/i.test(String(text).trim());
+}
+
+function sanitizeSuggestedReplies(replies = [], cards = []) {
+  const hasCardConfirmation = cards.some(card => card.type === 'action_approval' || card.type === 'banking_confirm');
+  if (!hasCardConfirmation) return replies;
+  return replies.filter(reply => !isConfirmOnlyText(reply));
+}
+
+function latestPendingActionApproval(messages = [], confirmed) {
+  for (let i = messages.length - 1; i >= 0; i -= 1) {
+    const card = (messages[i].cards || []).find(c => c.type === 'action_approval');
+    if (!card) continue;
+    if (confirmed && confirmed.targetSummary === card.data?.targetSummary) return null;
+    return card.data;
+  }
+  return null;
+}
+
+function latestPendingBankingConfirm(messages = [], statusByKey = {}) {
+  for (let i = messages.length - 1; i >= 0; i -= 1) {
+    const card = (messages[i].cards || []).find(c => c.type === 'banking_confirm');
+    if (!card) continue;
+    if (statusByKey[bankingConfirmKey(card.data)]) return null;
+    return card.data;
+  }
+  return null;
 }
 
 function startingChips(profile, demoMode) {
@@ -234,6 +278,25 @@ function ScreenChat({ prev, tweaks, profile, dailyBrief, setDailyBrief }) {
     // userText may be: a string (chip click), an event (button click), or undefined (Enter)
     const text = (typeof userText === 'string' ? userText : input).trim();
     if (!text || typing) return;
+
+    if (isConfirmOnlyText(text)) {
+      const actionCard = latestPendingActionApproval(messages, confirmed);
+      if (actionCard) {
+        setInput('');
+        setSuggestedReplies([]);
+        setConfirmed(actionCard);
+        return;
+      }
+
+      const bankingCard = latestPendingBankingConfirm(messages, bankingConfirmStatusRef.current);
+      if (bankingCard) {
+        setInput('');
+        setSuggestedReplies([]);
+        onBankingAnswer('yes', bankingCard);
+        return;
+      }
+    }
+
     setInput('');
     setSuggestedReplies([]);
 
@@ -259,7 +322,7 @@ function ScreenChat({ prev, tweaks, profile, dailyBrief, setDailyBrief }) {
         educationCount: lessons.length,
         resourceCount: suggestedResourceIds.length + generatedResources.length,
         lastExpenseReview: expenseReviews.length
-          ? { monthlyRoom: monthlyRoomFromExpenseReview(expenseReviews.at(-1)) }
+          ? summarizeExpenseReviewForSession(expenseReviews.at(-1))
           : null,
       };
 
@@ -291,7 +354,7 @@ function ScreenChat({ prev, tweaks, profile, dailyBrief, setDailyBrief }) {
         cards: stampedCards,
         invokedAgents: tweaks.showAgentTags ? (result.invokedAgents || []) : [],
       }]);
-      setSuggestedReplies(result.suggestedReplies || []);
+      setSuggestedReplies(sanitizeSuggestedReplies(result.suggestedReplies || [], stampedCards));
       if (result.memoryUpdates?.length) {
         setMemory(prev => [...prev, ...result.memoryUpdates].slice(-12));
       }
@@ -334,7 +397,6 @@ function ScreenChat({ prev, tweaks, profile, dailyBrief, setDailyBrief }) {
 
   const onConfirmAction = (cardData) => {
     setConfirmed(cardData);
-    send('Confirm — start saving.');
   };
 
   const setBankingStatus = (key, status) => {
@@ -634,6 +696,14 @@ function Card({ card, vibe, onConfirmAction, confirmed, onOpenTab, onOpenResourc
       return <TripResearchCard data={card.data} vibe={vibe} />;
     case 'price_research':
       return <PriceResearchCard data={card.data} vibe={vibe} />;
+    case 'portfolio_summary': {
+      const Card = w('PortfolioSummaryCard');
+      return <Card data={card.data} />;
+    }
+    case 'market_snapshot': {
+      const Card = w('MarketSnapshotCard');
+      return <Card data={card.data} />;
+    }
     case 'action_approval':
       return <ActionApprovalCard data={card.data} vibe={vibe}
                                  onConfirm={onConfirmAction} confirmed={confirmed} />;
@@ -692,7 +762,12 @@ function FeasibilityBadge({ feasibility, note, suggestion }) {
 function GoalPlanCard({ data, vibe }) {
   const target  = data.targetAmount || 0;
   const months  = data.monthsToGo || 0;
-  const weekly  = data.weeklyTransfer || 0;
+  const monthly = monthlyFromGoalPlan(data);
+  const altMonthly = data.altOption
+    ? (Number.isFinite(Number(data.altOption.monthlyTransfer))
+        ? Math.round(Number(data.altOption.monthlyTransfer))
+        : Math.round(Number(data.altOption.weeklyTransfer || 0) * 4.33))
+    : 0;
   return (
     <InChatCard eyebrow={`Goal · ${data.label || 'Your goal'}`} vibe={vibe}>
       <div style={{ background: `linear-gradient(135deg, #00007a 0%, ${NORA_BLUE} 100%)`, color: '#fff', padding: '20px 20px 22px' }}>
@@ -719,8 +794,8 @@ function GoalPlanCard({ data, vibe }) {
       <FeasibilityBadge feasibility={data.feasibility} note={data.feasibilityNote} suggestion={data.adjustmentSuggestion} />
       <div style={{ padding: '16px 20px' }}>
         {[
-          { label: 'Auto-transfer',  value: `€${weekly} / week`,       sub: 'every Monday',          icon: 'repeat' },
-          { label: 'Plus round-ups', value: '~€15 / week',             sub: 'spare change to this goal', icon: 'sparkles' },
+          { label: 'Monthly habit',  value: `€${monthly} / month`,     sub: 'automatic transfer',    icon: 'repeat' },
+          { label: 'Optional round-ups', value: 'On when available',   sub: 'small extras, not counted in the plan', icon: 'sparkles' },
           { label: 'Where it lives', value: data.mix || '—',           sub: 'low-volatility mix',    icon: 'layers' },
         ].map((row, i) => (
           <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '12px 0', borderBottom: i < 2 ? '1px solid var(--border-1)' : 'none' }}>
@@ -741,7 +816,7 @@ function GoalPlanCard({ data, vibe }) {
             Alternative · {data.altOption.label || 'Other pace'}
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 4 }}>
-            <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--fg-1)' }}>€{data.altOption.weeklyTransfer} / week</span>
+            <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--fg-1)' }}>€{altMonthly} / month</span>
             <span style={{ fontSize: 12, color: 'var(--fg-3)' }}>by {data.altOption.deadline}</span>
           </div>
           {data.altOption.tradeoff && (

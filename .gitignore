@@ -2,3 +2,8 @@ node_modules/
 .env
 *.log
 agent_state/
+
+# Python cache/build artifacts
+__pycache__/
+*.py[cod]
+*$py.class

@@ -66,9 +66,12 @@ Current `nora-mobile` connection:
 
 Recommendation:
 
+- Demo stability learning from 2026-05-31: switching nora-mobile from the Aalto OpenAI-compatible model path to direct Claude/Haiku made parts of the live demo behave unreliably in an unknown way, including lookup-cost/trip research routing failures. Reverting to the Aalto model path made the same flow work again. Keep Aalto as the stable demo default unless a provider switch is tested end to end across chat routing, confirmation flows, Luca research, and card rendering.
 - Do not present Luca as fully merged/canonical until the team validates the flows end to end.
 - Before committing, clean or ignore `__pycache__` files and confirm whether the generated CSV state should be committed.
 - For the final demo, decide whether Luca-powered real price lookup / investment lookup / banking confirmation are part of the main story or optional side demos.
+
+- 2026-06-01 mobile demo polish: added a lightweight applied-learning recognition moment. When a user turns a save/future-funds idea into a concrete goal plan after education or investing interest, Nora appends one short text line recognizing that the user applied the savings-first concept in a real plan. This is text-only, deterministic, and once per session per concept; no new card or full learning-progress engine was added.
 
 ## Memory Architecture Decision
 
@@ -378,3 +381,5 @@ All five synthetic personas passed:
 - For agent creation/design work, use `C:\Users\karip\agent-lab\agents\architect\system_prompt.md` by default.
 - Project-specific decisions belong here under `notes/`, not in `agent-lab`.
 - Runtime demo memory belongs under `agent_state/` and should be resettable between test runs.
+
+

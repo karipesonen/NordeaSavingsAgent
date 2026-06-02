@@ -261,6 +261,30 @@ function addInvestmentBridgeMention(message = '', cards = []) {
   return `${message || ''}\n\n${line}`.trim();
 }
 
+function buildAppliedLearningNotice(sessionState = {}, cards = [], messages = []) {
+  const alreadyShown = new Set(sessionState.appliedLearningShown || []);
+  if (alreadyShown.has('savings_first_funds')) return null;
+
+  const goalPlan = cards.find(card =>
+    card.type === 'goal_plan'
+    && Number(card.data?.investmentBridge?.futureFundsAmount || 0) > 0
+  );
+  if (!goalPlan) return null;
+
+  const recentText = textFromMessages(messages);
+  const hasEducationSignal =
+    Number(sessionState.educationCount || 0) > 0
+    || Number(sessionState.resourceCount || 0) > 0
+    || /\b(invest|investing|fund|funds|stock|stocks|risk|why funds|why not stocks)\b/i.test(recentText);
+  if (!hasEducationSignal) return null;
+
+  return {
+    concept: 'savings_first_funds',
+    line: 'Progress note: you used the savings-first idea in a real plan. Short-term money stays protected, and investing stays as the next habit.',
+    memoryUpdate: 'Customer applied savings-first logic by keeping goal money protected and treating funds as a future habit.',
+  };
+}
+
 function latestUserText(messages = []) {
   for (let i = messages.length - 1; i >= 0; i -= 1) {
     if (messages[i]?.role === 'user') return String(messages[i].content || '');
@@ -279,6 +303,46 @@ function previousUserText(messages = []) {
     return String(messages[i].content || '');
   }
   return '';
+}
+
+function previousAssistantText(messages = []) {
+  for (let i = messages.length - 1; i >= 0; i -= 1) {
+    if (messages[i]?.role === 'assistant') return String(messages[i].content || '');
+  }
+  return '';
+}
+
+function deterministicDeferralFollowup(messages = []) {
+  const latest = latestUserText(messages).trim();
+  if (!/^(not yet|not now|maybe later|later|no thanks|no thank you|no)$/i.test(latest)) {
+    return null;
+  }
+
+  const previousAssistant = previousAssistantText(messages).toLowerCase();
+  const deferredResearch = /\b(research|look up|lookup|prices?|costs?|flights?|hotels?|daily budget)\b/i.test(previousAssistant);
+  if (!deferredResearch) return null;
+
+  return {
+    message: 'No problem — I’ll leave the price lookup parked. If you want to keep moving, we can either make a rough savings plan later or look for room in your spending first.',
+    suggestedReplies: ['Show my spending', 'Use a rough budget later', "I'm curious about investing"],
+    memoryUpdates: ['Customer deferred live price research for now.'],
+  };
+}
+
+function deterministicCapabilitiesReply(messages = []) {
+  const latest = latestUserText(messages).trim().toLowerCase();
+  if (!/\b(what else can you do|what can you do|what do you do|help me with|capabilities|features)\b/i.test(latest)) {
+    return null;
+  }
+
+  return {
+    message: [
+      'I can help with six useful things: review spending, build realistic savings goals, explain investing basics, look up real prices, check market or portfolio questions, and set up actions for you to confirm.',
+      'The easiest place to start is one real thing: saving more, planning a purchase or trip, or understanding investing without the jargon.',
+    ].join('\n\n'),
+    suggestedReplies: ['Review my spending', "I'm curious about investing", "I'm planning something"],
+    memoryUpdates: [],
+  };
 }
 
 function deterministicPlanningFollowup(messages = []) {
@@ -393,6 +457,7 @@ function buildLucaSpendingContextBlock(summary) {
     '<luca_spending_context>',
     'Detailed Sofia bank-data mode is active. These are deterministic facts from Luca CSV data, not guesses.',
     `Period: ${periodLabel} (${summary.period?.selection_rule || 'latest complete banking month'}).`,
+    `Current account balance: ${eur(summary.totals?.current_balance)}.`,
     `Monthly income: ${eur(summary.totals?.monthly_income)}. Monthly expenses: ${eur(summary.totals?.monthly_expenses)}.`,
     `Loan repayments: ${eur(summary.totals?.loan_repayments)} per month. Goal contributions: ${eur(summary.totals?.goal_contributions)} per month.`,
     `Reviewable spending: ${eur(summary.totals?.reviewable_spending)} per month across flexible categories.`,
@@ -721,7 +786,7 @@ function synthesizeActiveContext(messages, memory, profile) {
     .filter(m => m.role === 'user')
     .slice(-8)
     .map(m => m.content.toLowerCase());
-  if (recentUserLower.some(m => m.includes('maybe later') || m.includes('not now') || m.includes('later'))) {
+  if (recentUserLower.some(m => m.includes('maybe later') || m.includes('not now') || m.includes('not yet') || m.includes('later'))) {
     lines.push(`The user deferred something earlier this session. Do not re-offer deferred actions unprompted.`);
   }
 
@@ -1211,6 +1276,28 @@ app.post('/api/nora/chat', async (req, res) => {
     const spendingContext = await buildSpendingContext(profile, demoMode, profileId);
     const customerContext = buildCustomerContext(profile, demoMode, spendingContext);
 
+    const capabilitiesReply = deterministicCapabilitiesReply(messages);
+    if (capabilitiesReply) {
+      return res.json({
+        message: capabilitiesReply.message,
+        cards: [],
+        suggestedReplies: capabilitiesReply.suggestedReplies,
+        memoryUpdates: capabilitiesReply.memoryUpdates,
+        invokedAgents: [],
+      });
+    }
+
+    const deferralFollowup = deterministicDeferralFollowup(messages);
+    if (deferralFollowup) {
+      return res.json({
+        message: deferralFollowup.message,
+        cards: [],
+        suggestedReplies: deferralFollowup.suggestedReplies,
+        memoryUpdates: deferralFollowup.memoryUpdates,
+        invokedAgents: [],
+      });
+    }
+
     const planningFollowup = deterministicPlanningFollowup(messages);
     if (planningFollowup) {
       return res.json({
@@ -1231,11 +1318,21 @@ app.post('/api/nora/chat', async (req, res) => {
       const message = hasFundsSplit
         ? `Yes — I’ll use the EUR ${monthlyRoom}/month room we just found and turn it into a starter plan: most toward savings, a smaller future fund habit for later.`
         : `Yes — I’ll use the EUR ${monthlyRoom}/month room we just found and turn it into a starter savings plan.`;
+      const cards = [{ type: 'goal_plan', data: starterPlan }];
+      const appliedLearning = buildAppliedLearningNotice(sessionState, cards, messages);
+      const finalMessage = appliedLearning
+        ? `${message}\n\n${appliedLearning.line}`
+        : message;
+      const memoryUpdates = [
+        `Customer asked Nora to build a starter plan from the latest spending review room of EUR ${monthlyRoom}/month.`,
+        ...(appliedLearning ? [appliedLearning.memoryUpdate] : []),
+      ];
       return res.json({
-        message: ensureCardMentions(message, [{ type: 'goal_plan', data: starterPlan }]),
-        cards: [{ type: 'goal_plan', data: starterPlan }],
+        message: ensureCardMentions(finalMessage, cards),
+        cards,
         suggestedReplies: ['Looks good, let’s go', 'Make it gentler', 'Why funds later?'],
-        memoryUpdates: [`Customer asked Nora to build a starter plan from the latest spending review room of EUR ${monthlyRoom}/month.`],
+        memoryUpdates,
+        appliedLearning: appliedLearning ? { concept: appliedLearning.concept } : null,
         invokedAgents: ['goal_plan'],
       });
     }
@@ -1349,13 +1446,22 @@ app.post('/api/nora/chat', async (req, res) => {
     // Banking/investment return their own text; use it if the orchestrator only wrote a generic intro
     const rawMessage = lucaTextOverride || orchestration.message || '';
     const mentionedMessage = addInvestmentBridgeMention(ensureCardMentions(rawMessage, cards), cards);
-    const normalizedMessage = normalizeExpenseAmountMentions(mentionedMessage, cards, sessionState);
+    const appliedLearning = buildAppliedLearningNotice(sessionState, cards, messages);
+    const learningMessage = appliedLearning
+      ? `${mentionedMessage}\n\n${appliedLearning.line}`
+      : mentionedMessage;
+    const normalizedMessage = normalizeExpenseAmountMentions(learningMessage, cards, sessionState);
+    const memoryUpdates = [
+      ...(orchestration.memory_updates || []),
+      ...(appliedLearning ? [appliedLearning.memoryUpdate] : []),
+    ];
 
     res.json({
       message: formatNoraParagraphs(normalizedMessage, cards),
       cards,
       suggestedReplies: orchestration.suggested_replies || [],
-      memoryUpdates: orchestration.memory_updates || [],
+      memoryUpdates,
+      appliedLearning: appliedLearning ? { concept: appliedLearning.concept } : null,
       invokedAgents: invoke,
     });
   } catch (err) {

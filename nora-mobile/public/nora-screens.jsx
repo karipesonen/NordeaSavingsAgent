@@ -222,6 +222,7 @@ function ScreenChat({ prev, tweaks, profile, dailyBrief, setDailyBrief }) {
   const [bankingConfirmStatus, setBankingConfirmStatus] = React.useState({});
   const bankingConfirmStatusRef = React.useRef({});
   const [invokedHistory, setInvokedHistory] = React.useState([]);
+  const [appliedLearningShown, setAppliedLearningShown] = React.useState([]);
 
   // Tab / drawer state
   const [drawerOpen, setDrawerOpen] = React.useState(false);
@@ -320,6 +321,7 @@ function ScreenChat({ prev, tweaks, profile, dailyBrief, setDailyBrief }) {
         invokedSoFar: Array.from(new Set(invokedHistory.flatMap(h => h.agents))),
         educationCount: lessons.length,
         resourceCount: suggestedResourceIds.length + generatedResources.length,
+        appliedLearningShown,
         lastExpenseReview: expenseReviews.length
           ? summarizeExpenseReviewForSession(expenseReviews.at(-1))
           : null,
@@ -359,6 +361,13 @@ function ScreenChat({ prev, tweaks, profile, dailyBrief, setDailyBrief }) {
       }
       if (result.invokedAgents?.length) {
         setInvokedHistory(h => [...h, { turn: h.length, agents: result.invokedAgents }]);
+      }
+      if (result.appliedLearning?.concept) {
+        setAppliedLearningShown(prev =>
+          prev.includes(result.appliedLearning.concept)
+            ? prev
+            : [...prev, result.appliedLearning.concept]
+        );
       }
 
       // Append cards to their tab collections

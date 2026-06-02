@@ -227,6 +227,7 @@ def build_spending_summary(account_id: str = "acc_001", period: str = "latest_co
             "selection_rule": selection_rule,
         },
         "totals": {
+            "current_balance": _money(float(profile.get("balance", 0) or 0)),
             "monthly_income": _money(monthly_income),
             "monthly_expenses": _money(monthly_expenses),
             "loan_repayments": _money(loan_repayments),

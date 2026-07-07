@@ -1,0 +1,1 @@
+Run a test simulation with the data for all 5 users separately (user data, expenses) for 10 replies each using the nora simulation agent in the karip/projects/nordea-savings-hackathon folder
